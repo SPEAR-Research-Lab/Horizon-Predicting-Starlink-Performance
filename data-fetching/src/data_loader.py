@@ -16,7 +16,7 @@ from .sql.bigquery_queries import (
     get_ndt_best_servers_query,
     get_ndt_formatted_query,
 )
-from .sql.select_queries import processed_date_select_query,
+from .sql.select_queries import processed_date_select_query
 from .table_data import table_data
 from .utils import save_dataframe_to_csv
 
@@ -27,9 +27,7 @@ class DataLoader:
         self._client = bigquery.Client(project="measurement-lab")
 
     @LogUtils.log_function
-    def load_data(
-        self, date: date, skip_inserted_dates: bool = False
-    ) -> ExecutionDecision:
+    def load_data(self, date: date, skip_inserted_dates: bool = False) -> ExecutionDecision:
         with self._conn.cursor() as cur:
             if (
                 result := self._check_date(cur, date, skip_inserted_dates=skip_inserted_dates)
@@ -64,9 +62,7 @@ class DataLoader:
             )
             save_dataframe_to_csv(ndt_starlink_df, CsvFiles.NDT_BEST_STARLINK_SERVERS.value, append=True)
 
-            cf_starlink_query = get_cf_best_servers_query(
-                date_from.strftime("%Y-%m-%d"), date_to.strftime("%Y-%m-%d")
-            )
+            cf_starlink_query = get_cf_best_servers_query(date_from.strftime("%Y-%m-%d"), date_to.strftime("%Y-%m-%d"))
             cf_starlink_df = self._download_data(
                 cur,
                 cf_starlink_query,
