@@ -91,23 +91,9 @@ airport_insert_query = sql.SQL(
 """
 )
 
-ndt_best_terrestrial_servers_insert_query = sql.SQL(
-    """
-    INSERT INTO ndt7_terrestrial_servers (client_city, client_country_code, server_city, server_country_code, month, year)
-    VALUES %s
-"""
-)
-
 ndt_best_starlink_servers_insert_query = sql.SQL(
     """
     INSERT INTO ndt7_starlink_servers (client_city, client_country_code, server_city, server_country_code, month, year)
-    VALUES %s
-"""
-)
-
-cf_best_terrestrial_servers_insert_query = sql.SQL(
-    """
-    INSERT INTO cf_terrestrial_servers (client_city, client_country_code, server_airport_code, month, year)
     VALUES %s
 """
 )
@@ -116,18 +102,6 @@ cf_best_starlink_servers_insert_query = sql.SQL(
     """
     INSERT INTO cf_starlink_servers (client_city, client_country_code, server_airport_code, month, year)
     VALUES %s
-"""
-)
-
-caida_asn_insert_query = sql.SQL(
-    """
-    INSERT INTO as_statistics (asn, asn_name, rank, country_code, country_name) VALUES %s
-"""
-)
-
-countries_with_starlink_measurements_insert_query = sql.SQL(
-    """
-    INSERT INTO countries_with_starlink_measurements (country_code) VALUES %s
 """
 )
 

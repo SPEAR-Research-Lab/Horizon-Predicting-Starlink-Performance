@@ -292,7 +292,7 @@ def plot_filtering_percentage(
     color_scale='turbo'
 ) -> go.Figure:
     """
-    Plot the percentage of records removed by filtering for each country, split by terrestrial and Starlink.
+    Plot the percentage of records removed by filtering for each country.
     """
     def calculate_percentages(df_all_split: pd.DataFrame, df_filtered_split: pd.DataFrame) -> pd.DataFrame:
         if df_all_split is None or df_all_split.empty:

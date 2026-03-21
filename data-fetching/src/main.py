@@ -34,17 +34,10 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-ucws",
-        "--update-countries-with-starlink",
-        type=str,
-        help="Update countries with Starlink for a specific date range. Use format yyyy-mm-dd or yyyy-mm-dd:yyyy-mm-dd, where the first date is the start (left of :) and the second date is the end (right of :). The end date is optional.",
-    )
-
-    parser.add_argument(
         "-u",
         "--update",
         type=str,
-        help=f"Choices: {[update_choice.value for update_choice in UpdateChoices]}. Choose the update(s) to perform. Use 'asn' for updating ASNs, 'airport' for updating airport codes, and 'cities' for updating city names. You can specify multiple updates by separating them with commas (e.g., 'asn,airport').",
+        help=f"Choices: {[update_choice.value for update_choice in UpdateChoices]}. Choose the update(s) to perform. Use 'airport' for updating airport codes, and 'cities' for updating city names. You can specify multiple updates by separating them with commas (e.g., 'asn,airport').",
     )
 
     parser.add_argument(
@@ -59,13 +52,6 @@ def parse_args() -> argparse.Namespace:
         "--date-range",
         type=str,
         help="Collect network measurements for a specific date range (format: yyyy-mm-dd:yyyy-mm-dd). The first date is the start (left of :) and the second date is the end (right of :). The end date is required.",
-    )
-
-    parser.add_argument(
-        "-so",
-        "--starlink-only",
-        action="store_true",
-        help="When collecting network measurements, only include measurements from Starlink (i.e., for date and date-range commands).",
     )
 
     return parser.parse_args()
@@ -86,21 +72,18 @@ def main() -> None:
         ) as conn:
             logger.info("Connected to the database successfully.")
             handler = Handler(Factory(conn))
-            starlink_only: bool = args.starlink_only
             if args.drop:
                 handler.drop()
             if args.init:
                 handler.init()
             if args.update_best_servers:
                 handler.update_best_servers(args.update_best_servers)
-            if args.update_countries_with_starlink:
-                handler.update_countries_with_starlink(args.update_countries_with_starlink)
             if args.update:
                 handler.update(args.update)
             if args.date:
-                handler.date(args.date, starlink_only=starlink_only)
+                handler.date(args.date)
             if args.date_range:
-                handler.date_range(args.date_range, starlink_only=starlink_only)
+                handler.date_range(args.date_range)
     except psycopg2.OperationalError as e:
         logger.error(f"OperationalError: Failed to connect to the database - {e}")
     except psycopg2.InterfaceError as e:
