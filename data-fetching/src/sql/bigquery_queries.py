@@ -1,4 +1,4 @@
-def get_cf_formatted_query(date: str, top_asns: str) -> str:
+def get_cf_formatted_query(date: str) -> str:
     return f"""
     SELECT
         measurementUUID AS uuid,
@@ -25,10 +25,10 @@ def get_cf_formatted_query(date: str, top_asns: str) -> str:
         AND (upload.bps IS NOT NULL AND ARRAY_LENGTH(upload.bps) > 0)
         AND (loadedLatencyMs.download IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.download) AS ltc LIMIT 1) > 0)
         AND (loadedLatencyMs.upload IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.upload) AS ltc LIMIT 1) > 0)
-        AND clientASN IN ({top_asns});"""
+        AND clientASN = 14593;"""
 
 
-def get_ndt_formatted_query(date: str, top_asns: str) -> str:
+def get_ndt_formatted_query(date: str) -> str:
     return f"""
     SELECT
       a.UUID as uuid,
@@ -66,10 +66,10 @@ def get_ndt_formatted_query(date: str, top_asns: str) -> str:
         raw.Upload.ServerMeasurements[SAFE_OFFSET(ARRAY_LENGTH(raw.Upload.ServerMeasurements) - 1)].TCPInfo.RTT IS NOT NULL
         AND raw.Upload.ServerMeasurements[SAFE_OFFSET(ARRAY_LENGTH(raw.Upload.ServerMeasurements) - 1)].TCPInfo.RTT > 0
       )
-      AND client.Network.ASNumber IN ({top_asns});"""
+      AND client.Network.ASNumber = 14593;"""
 
 
-def get_cf_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
+def get_cf_best_servers_query(date_from: str, date_to: str) -> str:
     month = date_from.split('-')[1]
     year = date_from.split('-')[0]
 
@@ -91,7 +91,7 @@ def get_cf_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
         AND clientCountry <> ''
         AND serverPoP IS NOT NULL
         AND serverPoP <> ''
-        AND clientASN IN  ({asns})
+        AND clientASN = 14593
     ),
 
     city_percentiles AS (
@@ -123,7 +123,7 @@ def get_cf_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
     """
 
 
-def get_ndt_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
+def get_ndt_best_servers_query(date_from: str, date_to: str) -> str:
     month = date_from.split('-')[1]
     year = date_from.split('-')[0]
 
@@ -144,7 +144,7 @@ def get_ndt_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
         AND client.Geo.City IS NOT NULL
         AND client.Geo.City <> ''
         AND a.MeanThroughputMbps <> 0.0
-        AND client.Network.ASNumber IN ({asns})
+        AND client.Network.ASNumber = 14593
     ),
 
     latency_thresholds AS (
@@ -171,22 +171,4 @@ def get_ndt_best_servers_query(date_from: str, date_to: str, asns: str) -> str:
       (s.download_latency_ms IS NOT NULL AND s.download_latency_ms > 0 AND s.download_latency_ms <= lt.download_latency_threshold_ms)
       OR
       (s.upload_latency_ms IS NOT NULL AND s.upload_latency_ms > 0 AND s.upload_latency_ms <= lt.upload_latency_threshold_ms)
-    """
-
-
-def get_countries_with_starlink_query(date_from: str, date_to: str) -> str:
-    return f"""
-    (SELECT client.Geo.CountryCode AS country_code
-    FROM `measurement-lab.ndt.ndt7`
-    WHERE
-      date >= '{date_from}'
-      AND date <= '{date_to}'
-      AND client.Network.ASNumber = 14593)
-    UNION DISTINCT
-    (SELECT clientCountry AS country_code
-    FROM `cloudflare.speedtest_speed1`
-    WHERE
-      measurementTime >= '{date_from}'
-      AND measurementTime <= '{date_to}'
-      AND clientASN = 14593)
     """

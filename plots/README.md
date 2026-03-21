@@ -1,6 +1,6 @@
 # Starlink Network Performance Analysis & Visualization
 
-A comprehensive research project for analyzing and visualizing network performance metrics from Starlink and terrestrial ISPs. This project processes data from multiple measurement platforms (Cloudflare AIM, M-Lab NDT7) and generates interactive visualizations to compare network performance across countries and identify the impact of data quality filtering techniques.
+A comprehensive research project for analyzing and visualizing network performance metrics from Starlink. This project processes data from multiple measurement platforms (Cloudflare AIM, M-Lab NDT7) and generates interactive visualizations to compare network performance across countries and identify the impact of data quality filtering techniques.
 
 > **Note:** The notebooks contain interactive Plotly visualizations that don't render on GitHub. Clone the repository and run the notebooks locally with Jupyter to view all interactive plots.
 

@@ -7,7 +7,6 @@ from psycopg2 import sql
 from psycopg2.extensions import connection, cursor
 from psycopg2.extras import execute_values
 
-from .caida_api_queries import fetch_asn_data
 from .config import data_dir, logger
 from .enums import CsvFiles, ExecutionDecision, Tables
 from .logger import LogUtils
@@ -45,12 +44,6 @@ class TableInitializer:
         cur.execute(get_check_table_exists_query(table_name.value))
         result = cur.fetchone()
         return result is not None and result[0] is not None and bool(result[0])
-
-    @LogUtils.log_function
-    def update_asns(self) -> None:
-        fetch_asn_data(CsvFiles.ASNS.value)
-        with self._conn.cursor() as cur:
-            self._clean_and_insert_data(cur, Tables.AS_STATISTICS)
 
     @LogUtils.log_function
     def update_airport_codes(self) -> None:

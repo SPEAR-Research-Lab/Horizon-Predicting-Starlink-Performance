@@ -13,32 +13,6 @@ processed_dates_create_query = sql.SQL(
 )
 
 
-caida_asn_create_table_query = sql.SQL(
-    """
-    CREATE TABLE IF NOT EXISTS public.as_statistics
-    (
-        asn bigint NOT NULL,
-        asn_name character varying(512) COLLATE pg_catalog."default",
-        rank bigint,
-        country_code character varying(512) COLLATE pg_catalog."default",
-        country_name character varying(512) COLLATE pg_catalog."default",
-        CONSTRAINT as_statistics_pkey PRIMARY KEY (asn)
-    );
-"""
-)
-
-
-countries_with_starlink_measurements_create_query = sql.SQL(
-    """
-    CREATE TABLE IF NOT EXISTS public.countries_with_starlink_measurements
-    (
-        country_code CHAR(2) COLLATE pg_catalog."default" NOT NULL,
-        CONSTRAINT countries_with_starlink_measurements_pkey PRIMARY KEY (country_code)
-    )
-"""
-)
-
-
 cities_create_query = sql.SQL(
     """
     CREATE TABLE IF NOT EXISTS public.cities
@@ -67,20 +41,6 @@ airports_create_query = sql.SQL(
 """
 )
 
-ndt_best_terrestrial_servers_create_query = sql.SQL(
-    """
-    CREATE TABLE IF NOT EXISTS ndt7_terrestrial_servers (
-        client_city VARCHAR(255) NOT NULL,
-        client_country_code CHAR(2) NOT NULL,
-        server_city VARCHAR(255) NOT NULL,
-        server_country_code CHAR(2) NOT NULL,
-        month INTEGER NOT NULL,
-        year INTEGER NOT NULL,
-        CONSTRAINT ndt7_terrestrial_servers_pkey PRIMARY KEY (client_city, client_country_code, server_city, server_country_code, month, year)
-    );
-"""
-)
-
 ndt_best_starlink_servers_create_query = sql.SQL(
     """
     CREATE TABLE IF NOT EXISTS ndt7_starlink_servers (
@@ -91,19 +51,6 @@ ndt_best_starlink_servers_create_query = sql.SQL(
         month INTEGER NOT NULL,
         year INTEGER NOT NULL,
         CONSTRAINT ndt7_starlink_servers_pkey PRIMARY KEY (client_city, client_country_code, server_city, server_country_code, month, year)
-    );
-"""
-)
-
-cf_best_terrestrial_servers_create_query = sql.SQL(
-    """
-    CREATE TABLE IF NOT EXISTS cf_terrestrial_servers (
-        client_city VARCHAR(255) NOT NULL,
-        client_country_code CHAR(2) NOT NULL,
-        server_airport_code CHAR(3) NOT NULL,
-        month INTEGER NOT NULL,
-        year INTEGER NOT NULL,
-        CONSTRAINT cf_terrestrial_servers_pkey PRIMARY KEY (client_city, client_country_code, server_airport_code, month, year)
     );
 """
 )

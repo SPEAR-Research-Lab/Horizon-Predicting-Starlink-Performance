@@ -26,13 +26,6 @@ class DataProcesser:
     @LogUtils.log_function
     def process_data(self) -> None:
         with self._conn.cursor() as cur:
-
-            ndt7_invalid_terrestrial_servers_query = get_ndt7_temp_delete_invalid_servers_query(
-                Tables.NDT_BEST_TERRESTRIAL_SERVERS.value
-            )
-            cur.execute(ndt7_invalid_terrestrial_servers_query)
-            logger.info(f"Deleted {cur.rowcount} invalid NDT7 terrestrial servers.")
-
             ndt7_invalid_starlink_servers_query = get_ndt7_temp_delete_invalid_servers_query(
                 Tables.NDT_BEST_STARLINK_SERVERS.value
             )
@@ -50,12 +43,6 @@ class DataProcesser:
             ndt7_delete_query = delete_all_from_table_query(Tables.NDT7_TEMP.value)
             cur.execute(ndt7_delete_query)
             logger.info(f"Deleted {cur.rowcount} NDT7 temporary records after processing.")
-
-            cf_invalid_terrestrial_servers_query = get_cf_temp_delete_invalid_servers_query(
-                Tables.CF_BEST_TERRESTRIAL_SERVERS.value
-            )
-            cur.execute(cf_invalid_terrestrial_servers_query)
-            logger.info(f"Deleted {cur.rowcount} invalid Cloudflare terrestrial servers.")
 
             cf_invalid_starlink_servers_query = get_cf_temp_delete_invalid_servers_query(
                 Tables.CF_BEST_STARLINK_SERVERS.value
