@@ -46,10 +46,7 @@ class Handler:
         date = parse_date(date_str)
         logger.info(f"Running with specified date: {date}")
         data_loader = self._factory.get_data_loader()
-        if (
-            data_loader.load_data(date, skip_inserted_dates=skip_inserted_dates)
-            == ExecutionDecision.OK
-        ):
+        if data_loader.load_data(date, skip_inserted_dates=skip_inserted_dates) == ExecutionDecision.OK:
             data_processer = self._factory.get_data_processer()
             data_processer.process_data()
 
@@ -59,10 +56,7 @@ class Handler:
         date = end_date
         while date >= start_date:
             data_loader = self._factory.get_data_loader()
-            if (
-                data_loader.load_data(date, skip_inserted_dates=True)
-                == ExecutionDecision.OK
-            ):
+            if data_loader.load_data(date, skip_inserted_dates=True) == ExecutionDecision.OK:
                 data_processer = self._factory.get_data_processer()
                 data_processer.process_data()
             date -= timedelta(days=1)

@@ -1,6 +1,5 @@
 from psycopg2 import sql
 
-
 processed_date_select_query = sql.SQL(
     """
     SELECT processed_date
