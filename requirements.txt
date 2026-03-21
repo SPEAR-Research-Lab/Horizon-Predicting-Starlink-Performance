@@ -1,3 +1,16 @@
+python-dotenv
+psycopg2
+black
+isort
+flake8
+mypy
+google-cloud-bigquery-storage
+google-cloud-bigquery
+db-dtypes
+types-requests
+graphqlclient
+pytest
+freezegun
 pandas~=2.2.3
 matplotlib~=3.9.2
 numpy~=1.26.4

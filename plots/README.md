@@ -18,28 +18,10 @@ This repository contains three main analysis modules:
 
 - Python 3.11+
 - Jupyter Notebook or JupyterLab
-- Virtual environment (recommended)
 
 ### Installation
 
-1. **Clone the repository:**
-   ```powershell
-   git clone https://github.com/TUD-BScResearchProject-6079/plots-generation.git
-   cd plots-generation
-   ```
-
-2. **Create and activate a virtual environment:**
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
-
-3. **Install dependencies:**
-   ```powershell
-   pip install -r requirements.txt
-   ```
-
-4. **Set up data files:**
+**Set up data files:**
    
    The data files used in this project are too large to commit to the repository. You will need to prepare and place your own CSV data files in the appropriate directories:
    
