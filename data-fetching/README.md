@@ -16,31 +16,10 @@ This project implements a comprehensive data processing system that merges NDT7 
 - **Database:** PostgreSQL (You must have your own PostgreSQL database instance to connect to)
 - **PostgreSQL Driver:** For installing the `psycopg2` library.
 - **Google Cloud:** BigQuery access for M-Lab datasets
-- Recommended: Use a virtual environment (e.g., `venv` or `virtualenv`)
 
 ## Setup
 
-1. **Clone the repository:**
-   ```sh
-   git clone <repo-url>
-   cd global-telemetry-data-processing
-   ```
-
-2. **Create and activate a virtual environment:**
-   ```sh
-   python3.13 -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On Unix/macOS:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-4. **Configure environment variables:**
+1. **Configure environment variables:**
 
    Create a `.env` file in the root directory with the following content:
    ```env
@@ -53,7 +32,7 @@ This project implements a comprehensive data processing system that merges NDT7 
 
 **Note:** The PostgreSQL database specified in the environment variables must already exist before running the application.
 
-5. **Set up Google Cloud credentials** for BigQuery access (follow Google Cloud documentation)
+2. **Set up Google Cloud credentials** for BigQuery access (follow Google Cloud documentation)
 
 ## Usage
 
