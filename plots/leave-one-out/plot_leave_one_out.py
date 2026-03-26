@@ -1,9 +1,3 @@
-"""Leave-one-out evaluation plots.
-Reads pre-saved hourly CSVs from data/ directory.
-Separate latency and throughput figures per city.
-Legend only on throughput. Vertical black lines at 00:00 UTC,
-transparent gray lines at 08:00/16:00, ticks every 8h.
-"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +9,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 
-# Load CMU Sans Serif fonts
 FONT_DIR = ROOT.parent / "cmu-sans-serif" / "Sans"
 for font_file in FONT_DIR.glob("*.ttf"):
     fm.fontManager.addfont(str(font_file))
@@ -57,7 +50,6 @@ def midnight_positions():
 
 
 def eight_hour_positions():
-    """Tick positions at 0, 8, 16 each day + final 0."""
     midnights = set(midnight_positions())
     all_pos, non_midnight = [], []
     for day in range(7):
@@ -66,36 +58,32 @@ def eight_hour_positions():
             all_pos.append(pos)
             if pos not in midnights:
                 non_midnight.append(pos)
-    all_pos.append(7 * 24)  # final midnight
+    all_pos.append(7 * 24)
     return all_pos, non_midnight
 
 
 def setup_xticks(ax):
     all_8h, non_midnight = eight_hour_positions()
 
-    # Hour labels: single digit (0, 8, 16)
     hour_labels = []
     for day in range(7):
         for h in (0, 8, 16):
             hour_labels.append(str(h))
-    hour_labels.append('0')  # final midnight
+    hour_labels.append('0')
 
     ax.set_xticks(all_8h)
     ax.set_xticklabels(hour_labels, fontsize=18)
     ax.tick_params(axis='x', which='major', length=4, width=0.8)
 
-    # Day names above the plot, centered at midday of each day
     for day_offset in range(7):
         ts = pd.Timestamp(EVAL_START, tz='UTC') + pd.Timedelta(days=day_offset)
         mid_x = day_offset * 24 + 12
         ax.text(mid_x, 1.02, ts.strftime('%a'), transform=ax.get_xaxis_transform(),
                 ha='center', va='bottom', fontsize=20)
 
-    # Transparent gray lines at 08:00, 16:00
     for p in non_midnight:
         ax.axvline(x=p, color='gray', linewidth=0.5, linestyle='-', alpha=0.15)
 
-    # Black lines at 00:00 UTC
     for mp in midnight_positions():
         ax.axvline(x=mp, color='black', linewidth=0.8, linestyle='-', alpha=0.5)
 
@@ -130,7 +118,6 @@ for city in CITIES:
         print(f"  SKIP {label}: {e}")
         continue
 
-    # --- Latency (separate figure) ---
     fig, ax = plt.subplots(figsize=(10, 5))
     x = np.arange(len(df_lat))
     y_gt = df_lat['gt'].interpolate().rolling(window=window_size, center=True, min_periods=1).mean()
@@ -152,7 +139,6 @@ for city in CITIES:
     plt.close()
     print(f"  Saved: {out_lat}.png/pdf")
 
-    # --- Throughput (separate figure) ---
     fig, ax = plt.subplots(figsize=(10, 5))
     x2 = np.arange(len(df_tput))
     y_gt2 = df_tput['gt'].interpolate().rolling(window=window_size, center=True, min_periods=1).mean()
