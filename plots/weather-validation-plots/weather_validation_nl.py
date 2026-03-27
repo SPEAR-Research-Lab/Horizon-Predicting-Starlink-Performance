@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import Optional
-from constants import data_dir, output_dir, feature_to_units
+from constants import data_dir, output_dir, feature_to_y_label
 from weather_utils import mae, rmse, get_and_maybe_fetch_openmeteo_data
 
 
@@ -31,7 +31,7 @@ def cross_validate_location(lat: float, lon: float, loc_df: pd.DataFrame, start_
         return None
 
     metrics = {}
-    for feat in feature_to_units.keys():
+    for feat in feature_to_y_label.keys():
         knmi_col = next((k for k, v in knmi_to_open_meteo_names.items() if v == feat), None)
         if knmi_col is None:
             continue
