@@ -13,9 +13,9 @@ output_dir.mkdir(exist_ok=True)
 BANEASA_RO = (44.51040354106759, 26.078179433868698)  # Bucharest - Baneasa metheorological station, Romania
 PITESTI_RO = (44.848914440484144, 24.865873475672295)  # Pitesti - metheorological station, Romania
 
-feature_to_units = {
-    "temperature_2m": "°C",
-    "precipitation": "mm",
-    "wind_speed_10m": "m/s",
-    "cloud_cover": "\\%"
+feature_to_y_label = {
+    "temperature_2m": "Temperature (°C)",
+    "precipitation": "Precipitation (mm)",
+    "wind_speed_10m": "Wind Speed (m/s)",
+    "cloud_cover": "Cloud Cover (\\%)"
 }

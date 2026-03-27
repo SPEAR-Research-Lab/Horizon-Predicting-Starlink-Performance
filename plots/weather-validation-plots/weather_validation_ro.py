@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import pytz
-from constants import feature_to_units, output_dir, PITESTI_RO, BANEASA_RO, data_dir
+from constants import feature_to_y_label, output_dir, PITESTI_RO, BANEASA_RO, data_dir
 from weather_utils import mae, rmse, get_and_maybe_fetch_openmeteo_data
 
 
@@ -101,7 +101,7 @@ def cross_validate_station(station_name, lat, lon, excel_path) -> Optional[dict]
     
     # Calculate metrics
     metrics = {}
-    for feat in feature_to_units.keys():
+    for feat in feature_to_y_label.keys():
         station_col = f"{feat}_station"
         om_col = f"{feat}_openmeteo"
         
