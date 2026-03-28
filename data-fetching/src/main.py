@@ -54,6 +54,20 @@ def parse_args() -> argparse.Namespace:
         help="Collect network measurements for a specific date range (format: yyyy-mm-dd:yyyy-mm-dd). The first date is the start (left of :) and the second date is the end (right of :). The end date is required.",
     )
 
+    parser.add_argument(
+        "-er",
+        "--export-raw",
+        type=str,
+        help="Export unfiltered raw data to CSV when used with --date or --date-range. Provide CSV name as an argument (including the .csv extension). Data is exported before client-server filtering is applied.",
+    )
+
+    parser.add_argument(
+        "-em",
+        "--export-monthly",
+        type=str,
+        help="Export filtered data to CSV by month. Provide comma-separated months (format: yyyy-mm, e.g., '2024-01,2024-02'). Creates one CSV file per month.",
+    )
+
     return parser.parse_args()
 
 
@@ -81,9 +95,11 @@ def main() -> None:
             if args.update:
                 handler.update(args.update)
             if args.date:
-                handler.date(args.date)
+                handler.date(args.date, args.export_raw is not None, export_raw_csv_name=args.export_raw)
             if args.date_range:
-                handler.date_range(args.date_range)
+                handler.date_range(args.date_range, args.export_raw is not None, export_raw_csv_name=args.export_raw)
+            if args.export_monthly:
+                handler.export_monthly(args.export_monthly)
     except psycopg2.OperationalError as e:
         logger.error(f"OperationalError: Failed to connect to the database - {e}")
     except psycopg2.InterfaceError as e:

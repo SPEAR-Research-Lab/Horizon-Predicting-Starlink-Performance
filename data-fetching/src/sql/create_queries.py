@@ -1,7 +1,6 @@
 from psycopg2 import sql
 
-processed_dates_create_query = sql.SQL(
-    """
+processed_dates_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS processed_dates (
         processed_date DATE NOT NULL,
         CONSTRAINT processed_dates_pkey PRIMARY KEY (processed_date)
@@ -9,12 +8,10 @@ processed_dates_create_query = sql.SQL(
 
     CREATE INDEX IF NOT EXISTS processed_date_hash_idx
         ON processed_dates USING HASH (processed_date);
-"""
-)
+""")
 
 
-cities_create_query = sql.SQL(
-    """
+cities_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.cities
     (
         name character varying(200) COLLATE pg_catalog."default" NOT NULL,
@@ -26,23 +23,19 @@ cities_create_query = sql.SQL(
         region character varying(200) COLLATE pg_catalog."default",
         country_code character(2) COLLATE pg_catalog."default" NOT NULL
     )
-"""
-)
+""")
 
 
-airports_create_query = sql.SQL(
-    """
+airports_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS airport_country (
         airport_code CHAR(3) NOT NULL,
         country_code CHAR(2) NOT NULL,
         airport_city VARCHAR(255),
         CONSTRAINT airport_country_pkey PRIMARY KEY (airport_code)
     );
-"""
-)
+""")
 
-ndt_best_starlink_servers_create_query = sql.SQL(
-    """
+ndt_best_starlink_servers_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS ndt7_starlink_servers (
         client_city VARCHAR(255) NOT NULL,
         client_country_code CHAR(2) NOT NULL,
@@ -52,11 +45,9 @@ ndt_best_starlink_servers_create_query = sql.SQL(
         year INTEGER NOT NULL,
         CONSTRAINT ndt7_starlink_servers_pkey PRIMARY KEY (client_city, client_country_code, server_city, server_country_code, month, year)
     );
-"""
-)
+""")
 
-cf_best_starlink_servers_create_query = sql.SQL(
-    """
+cf_best_starlink_servers_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS cf_starlink_servers (
         client_city VARCHAR(255) NOT NULL,
         client_country_code CHAR(2) NOT NULL,
@@ -65,11 +56,9 @@ cf_best_starlink_servers_create_query = sql.SQL(
         year INTEGER NOT NULL,
         CONSTRAINT cf_starlink_servers_pkey PRIMARY KEY (client_city, client_country_code, server_airport_code, month, year)
     );
-"""
-)
+""")
 
-cf_temp_create_query = sql.SQL(
-    """
+cf_temp_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.cf_temp (
         uuid VARCHAR(255) COLLATE pg_catalog."default" NOT NULL,
         test_time TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -115,11 +104,9 @@ cf_temp_create_query = sql.SQL(
         ON public.cf_temp USING hash
         (client_country_code COLLATE pg_catalog."default")
         TABLESPACE pg_default;
-"""
-)
+""")
 
-ndt_temp_create_query = sql.SQL(
-    """
+ndt_temp_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.ndt7_temp
     (
         uuid character varying(255) COLLATE pg_catalog."default" NOT NULL,
@@ -167,12 +154,10 @@ ndt_temp_create_query = sql.SQL(
         ON public.ndt7_temp USING hash
         (client_country_code COLLATE pg_catalog."default")
         TABLESPACE pg_default;
-"""
-)
+""")
 
 
-unified_telemetry_create_query = sql.SQL(
-    """
+unified_telemetry_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.unified_telemetry
     (
         uuid character varying(255) COLLATE pg_catalog."default" NOT NULL,
@@ -221,5 +206,4 @@ unified_telemetry_create_query = sql.SQL(
         ON public.unified_telemetry USING hash
         (client_country_code COLLATE pg_catalog."default")
         TABLESPACE pg_default;
-"""
-)
+""")

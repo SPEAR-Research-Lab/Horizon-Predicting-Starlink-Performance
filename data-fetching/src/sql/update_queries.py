@@ -1,7 +1,6 @@
 from psycopg2 import sql
 
-ndt_temp_standardize_client_cities_query = sql.SQL(
-    """
+ndt_temp_standardize_client_cities_query = sql.SQL("""
     WITH matched_cities AS (
         SELECT DISTINCT ON (n.uuid)
             n.uuid,
@@ -18,11 +17,9 @@ ndt_temp_standardize_client_cities_query = sql.SQL(
         client_region = m.region
     FROM matched_cities m
     WHERE n.uuid = m.uuid;
-"""
-)
+""")
 
-ndt_temp_standardize_server_cities_query = sql.SQL(
-    """
+ndt_temp_standardize_server_cities_query = sql.SQL("""
     WITH matched_cities AS (
         SELECT DISTINCT ON (n.uuid)
             n.uuid,
@@ -36,11 +33,9 @@ ndt_temp_standardize_server_cities_query = sql.SQL(
     SET server_city = m.asciiname
     FROM matched_cities m
     WHERE n.uuid = m.uuid;
-"""
-)
+""")
 
-cf_temp_standardize_cities_query = sql.SQL(
-    """
+cf_temp_standardize_cities_query = sql.SQL("""
     UPDATE cf_temp cf
     SET
         client_city = c.asciiname,
@@ -51,5 +46,4 @@ cf_temp_standardize_cities_query = sql.SQL(
         AND cf.client_city <> ''
         AND cf.client_city IN (c.name, c.asciiname, c.name1, c.name2, c.name3, c.name4)
         AND cf.client_country_code = c.country_code;
-"""
-)
+""")

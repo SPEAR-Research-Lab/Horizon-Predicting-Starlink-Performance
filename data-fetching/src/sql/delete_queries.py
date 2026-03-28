@@ -119,8 +119,7 @@ def delete_all_from_table_query(table_name: str) -> sql.SQL:
     return sql.SQL(query)
 
 
-airport_codes_standardize_cities_query = sql.SQL(
-    """
+airport_codes_standardize_cities_query = sql.SQL("""
     UPDATE airport_country ac
     SET
         airport_city = c.asciiname
@@ -130,5 +129,4 @@ airport_codes_standardize_cities_query = sql.SQL(
         AND ac.airport_city <> ''
         AND ac.airport_city IN (c.name, c.asciiname, c.name1, c.name2, c.name3, c.name4)
         AND ac.country_code = c.country_code;
-"""
-)
+""")

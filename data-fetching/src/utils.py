@@ -1,8 +1,11 @@
 from datetime import date, datetime, timedelta, timezone
 import io
+from pathlib import Path
 import zipfile
 
 import pandas as pd
+from psycopg2 import sql
+from psycopg2.extensions import cursor
 import requests
 
 from .config import data_dir, logger
@@ -30,8 +33,8 @@ def download_file(url: str, file_name: str, unzip: bool = False) -> None:
         logger.info(f"File saved to: {file_path}")
 
 
-def save_dataframe_to_csv(df: pd.DataFrame, file_name: str, append: bool = False) -> None:
-    file_path = data_dir / file_name
+def save_dataframe_to_csv(df: pd.DataFrame, file_name: str, append: bool = False, output_dir: Path = data_dir) -> None:
+    file_path = output_dir / file_name
     if append and file_path.exists():
         df.to_csv(file_path, mode='a', header=False, index=False)
         logger.info(f"DataFrame appended to: {file_path}")
@@ -214,3 +217,14 @@ def clean_cf_servers(df: pd.DataFrame) -> None:
     )
     mask = df["client_country"].str.len().ne(2) | df["server_airport_code"].str.len().ne(3)
     df.drop(index=df[mask].index, inplace=True)
+
+
+def export_data(cur: cursor, query: str | sql.SQL, output_dir: Path, file_name: str) -> None:
+    cur.execute(query)
+    rows = cur.fetchall()
+    if rows is None or cur.description is None:
+        logger.warning("No data found. Skipping CSV export.")
+        return
+    columns = [desc[0] for desc in cur.description]
+    df = pd.DataFrame(rows, columns=columns)
+    save_dataframe_to_csv(df, file_name, output_dir=output_dir)

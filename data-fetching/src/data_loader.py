@@ -6,7 +6,7 @@ from psycopg2 import sql
 from psycopg2.extensions import connection, cursor
 from psycopg2.extras import execute_values
 
-from .config import logger
+from .config import logger, output_dir
 from .custom_exceptions import InvalidDateError
 from .enums import CsvFiles, ExecutionDecision, Tables
 from .logger import LogUtils
@@ -16,9 +16,9 @@ from .sql.bigquery_queries import (
     get_ndt_best_servers_query,
     get_ndt_formatted_query,
 )
-from .sql.select_queries import processed_date_select_query
+from .sql.select_queries import get_select_monthly_data_query, processed_date_select_query
 from .table_data import table_data
-from .utils import save_dataframe_to_csv
+from .utils import export_data, save_dataframe_to_csv
 
 
 class DataLoader:
@@ -27,7 +27,7 @@ class DataLoader:
         self._client = bigquery.Client(project="measurement-lab")
 
     @LogUtils.log_function
-    def load_data(self, date: date, skip_inserted_dates: bool = False) -> ExecutionDecision:
+    def load_data(self, date: date, skip_inserted_dates: bool = True) -> ExecutionDecision:
         with self._conn.cursor() as cur:
             if (
                 result := self._check_date(cur, date, skip_inserted_dates=skip_inserted_dates)
@@ -73,7 +73,14 @@ class DataLoader:
 
             self._conn.commit()
 
-    def _check_date(self, cur: cursor, date_to_process: date, skip_inserted_dates: bool = False) -> ExecutionDecision:
+    @LogUtils.log_function
+    def export_monthly(self, month: int, year: int) -> None:
+        with self._conn.cursor() as cur:
+            query = get_select_monthly_data_query(month, year)
+            file_name = f"download_{year}_{month}.csv"
+            export_data(cur, query, output_dir, file_name)
+
+    def _check_date(self, cur: cursor, date_to_process: date, skip_inserted_dates: bool) -> ExecutionDecision:
         cur.execute(processed_date_select_query, (date_to_process.strftime("%Y-%m-%d"),))
         if cur.fetchone():
             if not skip_inserted_dates:

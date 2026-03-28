@@ -66,6 +66,18 @@ Updates best server mappings for the specified month range (YYYY-MM:YYYY-MM form
 
 Best servers are determined per month based on median latency for each client location. Results are stored in separate tables and exported to CSV files. End date is optional - if not provided, defaults to the start date (single month).
 
+### Export Raw Data
+```sh
+python -m src.main --date 2024-01-15 --export-raw unfiltered_data.csv
+```
+Exports unfiltered raw data to CSV before client-server filtering is applied. Works with both `--date` and `--date-range`. Data includes measurements from both NDT7 and Cloudflare with standardized city names.
+
+### Export Monthly Data
+```sh
+python -m src.main --export-monthly 2024-01,2024-02,2024-03
+```
+Exports filtered data to CSV by month. Provide comma-separated months (format: YYYY-MM). Creates one CSV file per month from the database.
+
 ### Update Reference Data
 ```sh
 python -m src.main --update airport,cities
@@ -84,7 +96,10 @@ python -m src.main --drop
 | `--init` | Initialize database tables and populate with reference data |
 | `--date YYYY-MM-DD` | Process telemetry data for specific date |
 | `--date-range YYYY-MM-DD:YYYY-MM-DD` | Process telemetry data for date range |
+| `--export-raw FILENAME.csv` | Export unfiltered raw data to CSV before filtering (use with `--date` or `--date-range`) |
+| `--export-monthly YYYY-MM[,...]` | Export filtered data to CSV by month (comma-separated months) |
 | `--update-best-servers YYYY-MM:YYYY-MM` | Update best server mappings per month for Starlink (end date optional) |
+| `--update airport,cities` | Update reference data (airport codes and/or city information) |
 | `--drop` | Drop all database tables |
 
 ## Data Sources

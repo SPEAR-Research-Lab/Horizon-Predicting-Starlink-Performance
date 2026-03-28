@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Optional
 
 from .config import logger
 from .enums import ExecutionDecision, UpdateChoices
@@ -42,21 +43,29 @@ class Handler:
             elif choice == UpdateChoices.CITIES:
                 table_initializer.update_cities()
 
-    def date(self, date_str: str, skip_inserted_dates: bool = False) -> None:
+    def date(self, date_str: str, export_raw: bool, export_raw_csv_name: Optional[str] = None) -> None:
         date = parse_date(date_str)
         logger.info(f"Running with specified date: {date}")
         data_loader = self._factory.get_data_loader()
-        if data_loader.load_data(date, skip_inserted_dates=skip_inserted_dates) == ExecutionDecision.OK:
+        if data_loader.load_data(date) == ExecutionDecision.OK:
             data_processer = self._factory.get_data_processer()
-            data_processer.process_data()
+            data_processer.process_data(export_raw, export_raw_csv_name=export_raw_csv_name)
 
-    def date_range(self, date_range_str: str) -> None:
+    def date_range(self, date_range_str: str, export_raw: bool, export_raw_csv_name: Optional[str]) -> None:
         start_date, end_date = parse_date_range(date_range_str)
         logger.info(f"Running with specified date range: {start_date} to {end_date}")
         date = end_date
         while date >= start_date:
             data_loader = self._factory.get_data_loader()
-            if data_loader.load_data(date, skip_inserted_dates=True) == ExecutionDecision.OK:
+            if data_loader.load_data(date) == ExecutionDecision.OK:
                 data_processer = self._factory.get_data_processer()
-                data_processer.process_data()
+                data_processer.process_data(export_raw, export_raw_csv_name=export_raw_csv_name)
             date -= timedelta(days=1)
+
+    def export_monthly(self, months_str: str) -> None:
+        months = [
+            (int(month.strip().split('-')[1]), int(month.strip().split('-')[0])) for month in months_str.split(',')
+        ]
+        data_loader = self._factory.get_data_loader()
+        for month, year in months:
+            data_loader.export_monthly(month, year)
