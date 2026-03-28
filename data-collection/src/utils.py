@@ -36,7 +36,7 @@ def download_file(url: str, file_name: str, unzip: bool = False) -> None:
 def save_dataframe_to_csv(df: pd.DataFrame, file_name: str, append: bool = False, output_dir: Path = data_dir) -> None:
     file_path = output_dir / file_name
     if append and file_path.exists():
-        df.to_csv(file_path, mode='a', header=False, index=False)
+        df.to_csv(file_path, mode="a", header=False, index=False)
         logger.info(f"DataFrame appended to: {file_path}")
     else:
         df.to_csv(file_path, index=False)
@@ -172,7 +172,7 @@ def parse_date(date_str: str) -> date:
 
 
 def parse_date_range(date_range: str) -> tuple[date, date]:
-    parts = date_range.split(':', 1)
+    parts = date_range.split(":", 1)
     start_date = parse_date(parts[0])
     end_date = parse_date(parts[1]) if len(parts) > 1 else datetime.now(timezone.utc).date() - timedelta(days=1)
     if start_date > end_date:
@@ -184,7 +184,7 @@ def parse_date_range(date_range: str) -> tuple[date, date]:
 
 
 def parse_date_range_from_months(date_range: str) -> tuple[date, date]:
-    parts = date_range.split(':', 1)
+    parts = date_range.split(":", 1)
     start_date = datetime.strptime(parts[0], "%Y-%m").date().replace(day=1)
     end_date = datetime.strptime(parts[1], "%Y-%m").date().replace(day=1) if len(parts) > 1 else start_date
     if start_date > end_date:
@@ -201,7 +201,11 @@ def clean_airport_codes(df: pd.DataFrame) -> None:
         if col not in ["iso_country", "municipality", "iata_code"]:
             df.drop(columns=col, inplace=True)
     df.rename(
-        columns={"iso_country": "country_code", "municipality": "airport_city", "iata_code": "airport_code"},
+        columns={
+            "iso_country": "country_code",
+            "municipality": "airport_city",
+            "iata_code": "airport_code",
+        },
         inplace=True,
     )
 

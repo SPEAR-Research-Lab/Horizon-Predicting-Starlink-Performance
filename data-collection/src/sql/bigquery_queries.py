@@ -70,8 +70,8 @@ def get_ndt_formatted_query(date: str) -> str:
 
 
 def get_cf_best_servers_query(date_from: str, date_to: str) -> str:
-    month = date_from.split('-')[1]
-    year = date_from.split('-')[0]
+    month = date_from.split("-")[1]
+    year = date_from.split("-")[0]
 
     return f"""
     WITH city_servers AS (
@@ -124,8 +124,8 @@ def get_cf_best_servers_query(date_from: str, date_to: str) -> str:
 
 
 def get_ndt_best_servers_query(date_from: str, date_to: str) -> str:
-    month = date_from.split('-')[1]
-    year = date_from.split('-')[0]
+    month = date_from.split("-")[1]
+    year = date_from.split("-")[0]
 
     return f"""
     WITH server_for_client AS (

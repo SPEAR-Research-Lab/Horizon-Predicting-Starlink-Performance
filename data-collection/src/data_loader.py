@@ -16,7 +16,10 @@ from .sql.bigquery_queries import (
     get_ndt_best_servers_query,
     get_ndt_formatted_query,
 )
-from .sql.select_queries import get_select_monthly_data_query, processed_date_select_query
+from .sql.select_queries import (
+    get_select_monthly_data_query,
+    processed_date_select_query,
+)
 from .table_data import table_data
 from .utils import export_data, save_dataframe_to_csv
 
@@ -36,8 +39,8 @@ class DataLoader:
                 return result
             ndt7_query = get_ndt_formatted_query(date.strftime("%Y-%m-%d"))
             cf_query = get_cf_formatted_query(date.strftime("%Y-%m-%d"))
-            self._download_data(cur, ndt7_query, table_data[Tables.NDT7_TEMP]["insert_query"], 'NDT7')
-            self._download_data(cur, cf_query, table_data[Tables.CF_TEMP]["insert_query"], 'Cloudflare')
+            self._download_data(cur, ndt7_query, table_data[Tables.NDT7_TEMP]["insert_query"], "NDT7")
+            self._download_data(cur, cf_query, table_data[Tables.CF_TEMP]["insert_query"], "Cloudflare")
             self._insert_processed_date(cur, date)
             self._conn.commit()
         return ExecutionDecision.OK
@@ -58,7 +61,7 @@ class DataLoader:
                 cur,
                 ndt_starlink_query,
                 table_data[Tables.NDT_BEST_STARLINK_SERVERS]["insert_query"],
-                'NDT7 Best Starlink Servers',
+                "NDT7 Best Starlink Servers",
             )
             save_dataframe_to_csv(ndt_starlink_df, CsvFiles.NDT_BEST_STARLINK_SERVERS.value, append=True)
 
@@ -67,7 +70,7 @@ class DataLoader:
                 cur,
                 cf_starlink_query,
                 table_data[Tables.CF_BEST_STARLINK_SERVERS]["insert_query"],
-                'Cloudflare Best Starlink Servers',
+                "Cloudflare Best Starlink Servers",
             )
             save_dataframe_to_csv(cf_starlink_df, CsvFiles.CF_BEST_STARLINK_SERVERS.value, append=True)
 
@@ -106,7 +109,7 @@ class DataLoader:
     ) -> DataFrame:
         df: DataFrame = self._client.query(download_query).to_dataframe()
         logger.info(f"Downloaded {len(df)} rows from BigQuery from {dataset_name}.")
-        df.replace('', None, inplace=True)
+        df.replace("", None, inplace=True)
         df = df.astype(object).where(df.notnull(), None)
         data_tuples = [tuple(x) for x in df.to_records(index=False)]
         execute_values(cur, insert_query, data_tuples)

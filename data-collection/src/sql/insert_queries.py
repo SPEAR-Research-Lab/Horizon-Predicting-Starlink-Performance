@@ -32,8 +32,10 @@ ndt_temp_insert_query = sql.SQL("""
             ) VALUES %s ON CONFLICT DO NOTHING;
         """)
 
-cf_temp_insert_query = sql.SQL("""
-    INSERT INTO cf_temp (
+
+def get_cf_insert_query(table_name: str) -> sql.SQL:
+    return sql.SQL(f"""
+    INSERT INTO {table_name} (
         uuid,
         test_time,
         client_city,
@@ -51,6 +53,7 @@ cf_temp_insert_query = sql.SQL("""
     ) VALUES %s
     ON CONFLICT DO NOTHING;
 """)
+
 
 unified_telemetry_insert_query = sql.SQL("""
     INSERT INTO unified_telemetry (

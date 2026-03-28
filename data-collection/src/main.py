@@ -95,9 +95,17 @@ def main() -> None:
             if args.update:
                 handler.update(args.update)
             if args.date:
-                handler.date(args.date, args.export_raw is not None, export_raw_csv_name=args.export_raw)
+                handler.date(
+                    args.date,
+                    args.export_raw is not None,
+                    export_raw_csv_name=args.export_raw,
+                )
             if args.date_range:
-                handler.date_range(args.date_range, args.export_raw is not None, export_raw_csv_name=args.export_raw)
+                handler.date_range(
+                    args.date_range,
+                    args.export_raw is not None,
+                    export_raw_csv_name=args.export_raw,
+                )
             if args.export_monthly:
                 handler.export_monthly(args.export_monthly)
     except psycopg2.OperationalError as e:

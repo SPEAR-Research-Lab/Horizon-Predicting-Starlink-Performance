@@ -58,8 +58,10 @@ cf_best_starlink_servers_create_query = sql.SQL("""
     );
 """)
 
-cf_temp_create_query = sql.SQL("""
-    CREATE TABLE IF NOT EXISTS public.cf_temp (
+
+def get_cf_create_query(table_name: str) -> sql.SQL:
+    return sql.SQL(f"""
+    CREATE TABLE IF NOT EXISTS public.{table_name} (
         uuid VARCHAR(255) COLLATE pg_catalog."default" NOT NULL,
         test_time TIMESTAMP WITH TIME ZONE NOT NULL,
         client_city VARCHAR(255) COLLATE pg_catalog."default",
@@ -74,37 +76,38 @@ cf_temp_create_query = sql.SQL("""
         upload_throughput_mbps NUMERIC(10, 5),
         upload_latency_ms INTEGER,
         upload_jitter_ms NUMERIC(10, 5),
-        CONSTRAINT cf_temp_pkey PRIMARY KEY (uuid)
+        CONSTRAINT {table_name}_pkey PRIMARY KEY (uuid)
     );
 
-    CREATE UNIQUE INDEX IF NOT EXISTS pk_cf_temp
-        ON public.cf_temp USING btree
+    CREATE UNIQUE INDEX IF NOT EXISTS pk_{table_name}
+        ON public.{table_name} USING btree
         (uuid ASC NULLS LAST)
         TABLESPACE pg_default;
 
-    CREATE INDEX IF NOT EXISTS time_btree_cf_temp
-        ON public.cf_temp USING btree
+    CREATE INDEX IF NOT EXISTS time_btree_{table_name}
+        ON public.{table_name} USING btree
         (test_time ASC NULLS LAST)
         TABLESPACE pg_default;
 
-    ALTER TABLE IF EXISTS public_cf_temp
-        CLUSTER ON time_btree_cf_temp;
+    ALTER TABLE IF EXISTS public_{table_name}
+        CLUSTER ON time_btree_{table_name};
 
-    CREATE INDEX IF NOT EXISTS asn_btree_cf_temp
-        ON public.cf_temp USING btree
+    CREATE INDEX IF NOT EXISTS asn_btree_{table_name}
+        ON public.{table_name} USING btree
         (asn ASC NULLS LAST)
         TABLESPACE pg_default;
 
-    CREATE INDEX IF NOT EXISTS city_hash_cf_temp
-        ON public.cf_temp USING hash
+    CREATE INDEX IF NOT EXISTS city_hash_{table_name}
+        ON public.{table_name} USING hash
         (client_city COLLATE pg_catalog."default")
         TABLESPACE pg_default;
 
-    CREATE INDEX IF NOT EXISTS country_hash_cf_temp
-        ON public.cf_temp USING hash
+    CREATE INDEX IF NOT EXISTS country_hash_{table_name}
+        ON public.{table_name} USING hash
         (client_country_code COLLATE pg_catalog."default")
         TABLESPACE pg_default;
 """)
+
 
 ndt_temp_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.ndt7_temp

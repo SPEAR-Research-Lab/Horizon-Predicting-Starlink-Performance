@@ -28,15 +28,15 @@ class TableInitializer:
                 if self._table_exists(cur, table):
                     logger.info(f"Table {table.value} already exists. Skipping creation.")
                     continue
-                cur.execute(data['create_query'])
+                cur.execute(data["create_query"])
                 logger.info(f"Created table {table.value}.")
-                if csv_name := data['csv_name']:
+                if csv_name := data["csv_name"]:
                     self._process_and_insert_data(
                         cur,
-                        data['insert_query'],
-                        data['post_insert_query'],
+                        data["insert_query"],
+                        data["post_insert_query"],
                         csv_name,
-                        data['cleaning_fn'],
+                        data["cleaning_fn"],
                     )
             self._conn.commit()
 
@@ -47,16 +47,26 @@ class TableInitializer:
 
     @LogUtils.log_function
     def update_airport_codes(self) -> None:
-        download_file('https://datahub.io/core/airport-codes/_r/-/data/airport-codes.csv', CsvFiles.AIRPORT_CODES.value)
+        download_file(
+            "https://datahub.io/core/airport-codes/_r/-/data/airport-codes.csv",
+            CsvFiles.AIRPORT_CODES.value,
+        )
         with self._conn.cursor() as cur:
             self._clean_and_insert_data(cur, Tables.AIRPORT_CODES)
 
     @LogUtils.log_function
     def update_cities(self) -> None:
-        download_file('https://download.geonames.org/export/dump/cities15000.zip', 'cities.txt', unzip=True)
-        download_file('https://download.geonames.org/export/dump/admin1CodesASCII.txt', 'regions.txt')
-        generate_cities_csv('cities.txt', 'regions.txt', CsvFiles.CITIES.value)
-        delete_files(['cities.txt', 'regions.txt'])
+        download_file(
+            "https://download.geonames.org/export/dump/cities15000.zip",
+            "cities.txt",
+            unzip=True,
+        )
+        download_file(
+            "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
+            "regions.txt",
+        )
+        generate_cities_csv("cities.txt", "regions.txt", CsvFiles.CITIES.value)
+        delete_files(["cities.txt", "regions.txt"])
         with self._conn.cursor() as cur:
             self._clean_and_insert_data(cur, Tables.CITIES)
 

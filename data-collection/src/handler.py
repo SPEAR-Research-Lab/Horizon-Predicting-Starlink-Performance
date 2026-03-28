@@ -13,7 +13,7 @@ class Handler:
 
     def drop(self) -> None:
         confirm = input("Are you sure you want to drop all tables? (y/n): ").strip().lower()
-        if confirm == 'y':
+        if confirm == "y":
             logger.info("Drop flag confirmed. Dropping all tables...")
             table_initializer = self._factory.get_table_initializer()
             table_initializer.drop_tables()
@@ -34,7 +34,7 @@ class Handler:
             start_date = (start_date + timedelta(days=32)).replace(day=1)
 
     def update(self, choices_str: str) -> None:
-        choices = [UpdateChoices(choice_str) for choice_str in set(choices_str.split(','))]
+        choices = [UpdateChoices(choice_str) for choice_str in set(choices_str.split(","))]
         logger.info(f"Update choices detected: {choices}")
         table_initializer = self._factory.get_table_initializer()
         for choice in choices:
@@ -64,7 +64,7 @@ class Handler:
 
     def export_monthly(self, months_str: str) -> None:
         months = [
-            (int(month.strip().split('-')[1]), int(month.strip().split('-')[0])) for month in months_str.split(',')
+            (int(month.strip().split("-")[1]), int(month.strip().split("-")[0])) for month in months_str.split(",")
         ]
         data_loader = self._factory.get_data_loader()
         for month, year in months:
