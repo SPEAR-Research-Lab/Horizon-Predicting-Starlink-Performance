@@ -35,8 +35,10 @@ ndt_temp_standardize_server_cities_query = sql.SQL("""
     WHERE n.uuid = m.uuid;
 """)
 
-cf_temp_standardize_cities_query = sql.SQL("""
-    UPDATE cf_temp cf
+
+def get_cf_standardize_cities_query(table_name: str) -> sql.SQL:
+    return sql.SQL(f"""
+    UPDATE {table_name} cf
     SET
         client_city = c.asciiname,
         client_region = c.region

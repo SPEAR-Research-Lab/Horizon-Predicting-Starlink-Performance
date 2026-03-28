@@ -7,6 +7,7 @@ This project implements a comprehensive data processing system that merges NDT7 
 - **Data Loading**: Downloads and processes telemetry data from BigQuery (NDT7 and Cloudflare datasets)
 - **Data Processing**: Standardizes city names, validates servers, and merges datasets
 - **Best Server Analysis**: Identifies optimal servers for each client location based on median latency on a per-month basis
+- **CF Aggregation Method Experiments Export**: Generates Cloudflare mean and 90th percentile data by city for JSD (Jensen-Shannon Divergence) experiments
 - **Automated Updates**: Updates airport codes, and city information
 - **Comprehensive Logging**: Detailed logging with UTC timestamps
 
@@ -78,6 +79,12 @@ python -m src.main --export-monthly 2024-01,2024-02,2024-03
 ```
 Exports filtered data to CSV by month. Provide comma-separated months (format: YYYY-MM). Creates one CSV file per month from the database.
 
+### Export CF Aggregation Method Data for Experiments
+```sh
+python -m src.main --process-cloudflare-mean-and-p90-for-experiment 2024-01,2024-02,2024-03
+```
+Calculates and exports Cloudflare mean and 90th percentile statistics by city for specified months. Used for generating data needed in JSD (Jensen-Shannon Divergence) experiments. Use format `yyyy-mm` or `yyyy-mm:yyyy-mm`, where the first date is the start and the second date is the end (optional). Automatically exports the processed data to CSV.
+
 ### Update Reference Data
 ```sh
 python -m src.main --update airport,cities
@@ -98,6 +105,7 @@ python -m src.main --drop
 | `--date-range YYYY-MM-DD:YYYY-MM-DD` | Process telemetry data for date range |
 | `--export-raw FILENAME.csv` | Export unfiltered raw data to CSV before filtering (use with `--date` or `--date-range`) |
 | `--export-monthly YYYY-MM[,...]` | Export filtered data to CSV by month (comma-separated months) |
+| `--process-cloudflare-mean-and-p90-for-experiment YYYY-MM[:YYYY-MM]` | Calculate and export Cloudflare mean and 90th percentile statistics by city (used for JSD experiments) |
 | `--update-best-servers YYYY-MM:YYYY-MM` | Update best server mappings per month for Starlink (end date optional) |
 | `--update airport,cities` | Update reference data (airport codes and/or city information) |
 | `--drop` | Drop all database tables |

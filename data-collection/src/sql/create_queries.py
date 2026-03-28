@@ -1,16 +1,5 @@
 from psycopg2 import sql
 
-processed_dates_create_query = sql.SQL("""
-    CREATE TABLE IF NOT EXISTS processed_dates (
-        processed_date DATE NOT NULL,
-        CONSTRAINT processed_dates_pkey PRIMARY KEY (processed_date)
-    );
-
-    CREATE INDEX IF NOT EXISTS processed_date_hash_idx
-        ON processed_dates USING HASH (processed_date);
-""")
-
-
 cities_create_query = sql.SQL("""
     CREATE TABLE IF NOT EXISTS public.cities
     (

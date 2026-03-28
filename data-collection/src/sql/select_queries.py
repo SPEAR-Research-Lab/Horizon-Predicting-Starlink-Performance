@@ -2,12 +2,6 @@ from psycopg2 import sql
 
 from ..enums import DataSource
 
-processed_date_select_query = sql.SQL("""
-    SELECT processed_date
-    FROM processed_dates
-    WHERE processed_date = %s
-""")
-
 
 def get_check_table_exists_query(table_name: str) -> str:
     return f"""
@@ -75,3 +69,19 @@ select_unfiltered_data_query = sql.SQL(f"""
         download_jitter_ms
     FROM ndt7_temp)
 """)
+
+def get_select_cf_data_query(experiment_table: str) -> sql.SQL:
+    return sql.SQL(f"""
+    (SELECT
+        uuid,
+        TO_CHAR(test_time AT TIME ZONE 'UTC', 'YYYY-MM-DD HH24:MI:SS.USOF') AS test_time,
+        '{DataSource.CF.value}' AS data_source,
+        client_city,
+        client_country_code,
+        ac.airport_city AS server_city,
+        ac.country_code AS server_country_code,
+        packet_loss_rate,
+        download_throughput_mbps,
+        download_latency_ms,
+        download_jitter_ms
+    FROM {experiment_table} JOIN airport_country ac ON {experiment_table}.server_airport_code = ac.airport_code)""")

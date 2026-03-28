@@ -14,9 +14,9 @@ from .sql.insert_queries import (
     global_telemetry_from_cf_insert_query,
     global_telemetry_from_ndt_insert_query,
 )
-from .sql.select_queries import select_unfiltered_data_query
+from .sql.select_queries import get_select_cf_data_query, select_unfiltered_data_query
 from .sql.update_queries import (
-    cf_temp_standardize_cities_query,
+    get_cf_standardize_cities_query,
     ndt_temp_standardize_client_cities_query,
     ndt_temp_standardize_server_cities_query,
 )
@@ -38,7 +38,7 @@ class DataProcesser:
         cur.execute(ndt_temp_standardize_server_cities_query)
         logger.info(f"Standardized {cur.rowcount} NDT7 server cities.")
 
-        cur.execute(cf_temp_standardize_cities_query)
+        cur.execute(get_cf_standardize_cities_query(Tables.CF_TEMP.value))
         logger.info(f"Standardized {cur.rowcount} Cloudflare client cities.")
 
     def _client_server_filtering(self, cur: cursor) -> None:
@@ -49,7 +49,7 @@ class DataProcesser:
         logger.info(f"Deleted {cur.rowcount} invalid NDT7 starlink servers.")
 
         cf_invalid_starlink_servers_query = get_cf_temp_delete_invalid_servers_query(
-            Tables.CF_BEST_STARLINK_SERVERS.value
+            Tables.CF_TEMP.value, Tables.CF_BEST_STARLINK_SERVERS.value
         )
         cur.execute(cf_invalid_starlink_servers_query)
         logger.info(f"Deleted {cur.rowcount} invalid Cloudflare starlink servers.")
@@ -87,3 +87,27 @@ class DataProcesser:
 
             self._conn.commit()
             logger.info("Data processing completed successfully.")
+
+    @LogUtils.log_function
+    def process_cloudflare_mean_and_p90_for_experiment(self) -> None:
+        with self._conn.cursor() as cur:
+            for cf_table in [Tables.CF_MEAN.value, Tables.CF_90TH_PERCENTILE.value]:
+                logger.info(f"Processing Cloudflare data for table {cf_table}...")
+
+                cur.execute(get_cf_standardize_cities_query(cf_table))
+                logger.info(f"Standardized {cur.rowcount} client cities.")
+
+                cf_invalid_starlink_servers_query = get_cf_temp_delete_invalid_servers_query(
+                    cf_table, Tables.CF_BEST_STARLINK_SERVERS.value
+                )
+                cur.execute(cf_invalid_starlink_servers_query)
+                logger.info(f"Deleted {cur.rowcount} invalid Cloudflare starlink servers.")
+
+                export_data(cur, get_select_cf_data_query(cf_table), output_dir, f"{cf_table}.csv")
+                logger.info("Exported data to CSV.")
+
+                cf_delete_query = delete_all_from_table_query(cf_table)
+                cur.execute(cf_delete_query)
+                logger.info(f"Deleted {cur.rowcount} Cloudflare temporary records after processing.")
+
+                logger.info(f"Finished processing Cloudflare data for table {cf_table}.")

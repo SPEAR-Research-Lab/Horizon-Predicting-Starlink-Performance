@@ -1,4 +1,4 @@
-def get_cf_formatted_query(date: str) -> str:
+def get_cf_formatted_query(start_date: str, end_date: str) -> str:
     return f"""
     SELECT
         measurementUUID AS uuid,
@@ -19,7 +19,7 @@ def get_cf_formatted_query(date: str) -> str:
         ROUND(loadedJitterMs.upload, 5) AS upload_jitter_ms
     FROM `measurement-lab.cloudflare.speedtest_speed1`
     WHERE
-        date = '{date}'
+        date >= '{start_date}' AND date <= '{end_date}'
         AND clientCountry IS NOT NULL AND clientCountry <> ''
         AND (download.bps IS NOT NULL AND ARRAY_LENGTH(download.bps) > 0)
         AND (upload.bps IS NOT NULL AND ARRAY_LENGTH(upload.bps) > 0)
@@ -28,7 +28,71 @@ def get_cf_formatted_query(date: str) -> str:
         AND clientASN = 14593;"""
 
 
-def get_ndt_formatted_query(date: str) -> str:
+def get_cf_mean_formatted_query(start_date: str, end_date: str) -> str:
+    return f"""
+    SELECT
+    measurementUUID AS uuid,
+    DATETIME(TIMESTAMP(measurementTime), "UTC") AS test_time,
+    clientCity AS client_city,
+    clientRegion AS client_region,
+    clientCountry AS client_country_code,
+    serverPoP AS server_airport_code,
+    clientASN AS asn,
+    ROUND(packetLoss.lossRatio, 5) AS packet_loss_rate,
+
+    ROUND((SELECT SUM(bps * bytes) / SUM(bytes) / 1000000 FROM UNNEST(upload.bps) bps WITH OFFSET AS i JOIN UNNEST(download.bytes) bytes WITH OFFSET AS j ON i = j), 5) AS download_throughput_mbps,
+    CAST(ROUND((SELECT AVG(lat) FROM UNNEST(loadedLatencyMs.download) lat), 0) AS INT) AS download_latency_ms,
+    ROUND(loadedJitterMs.download, 5) AS download_jitter_ms,
+
+    ROUND((SELECT SUM(bps * bytes) / SUM(bytes) / 1000000 FROM UNNEST(upload.bps) bps WITH OFFSET AS i JOIN UNNEST(upload.bytes) bytes WITH OFFSET AS j ON i = j), 5) AS upload_throughput_mbps,
+    CAST(ROUND((SELECT AVG(lat) FROM UNNEST(loadedLatencyMs.upload) lat), 0) AS INT) AS upload_latency_ms,
+    ROUND(loadedJitterMs.upload, 5) AS upload_jitter_ms
+  FROM `measurement-lab.cloudflare.speedtest_speed1`
+  WHERE
+      date >= '{start_date}' AND date <= '{end_date}'
+      AND clientCountry IS NOT NULL AND clientCountry <> ''
+      AND (download.bps IS NOT NULL AND ARRAY_LENGTH(download.bps) > 0)
+      AND (upload.bps IS NOT NULL AND ARRAY_LENGTH(upload.bps) > 0)
+      AND (download.bytes IS NOT NULL AND ARRAY_LENGTH(download.bytes) > 0 AND (SELECT SUM(x) FROM UNNEST(download.bytes) x) > 0)
+      AND (upload.bytes IS NOT NULL AND ARRAY_LENGTH(upload.bytes) > 0 AND (SELECT SUM(x) FROM UNNEST(upload.bytes) x) > 0)
+      AND (loadedLatencyMs.download IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.download) AS ltc LIMIT 1) > 0)
+      AND (loadedLatencyMs.upload IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.upload) AS ltc LIMIT 1) > 0)
+      AND clientASN = 14593;"""
+
+
+def get_cf_90th_percentile_formatted_query(start_date: str, end_date: str) -> str:
+    return f"""
+    SELECT
+      measurementUUID AS uuid,
+      DATETIME(TIMESTAMP(measurementTime), "UTC") AS test_time,
+      clientCity AS client_city,
+      clientRegion AS client_region,
+      clientCountry AS client_country_code,
+      serverPoP AS server_airport_code,
+      clientASN AS asn,
+      ROUND(packetLoss.lossRatio, 5) AS packet_loss_rate,
+
+      ROUND((SELECT PERCENTILE_DISC(bps, 0.9) OVER () FROM UNNEST(download.bps) AS bps LIMIT 1) / 1000000, 5) AS download_throughput_mbps,
+      CAST(ROUND((SELECT PERCENTILE_DISC(ltc, 0.9) OVER () FROM UNNEST(loadedLatencyMs.download) AS ltc LIMIT 1), 0) AS INT) AS download_latency_ms,
+      ROUND(loadedJitterMs.download, 5) AS download_jitter_ms,
+
+      ROUND((SELECT PERCENTILE_DISC(bps, 0.9) OVER () FROM UNNEST(upload.bps) AS bps LIMIT 1) / 1000000, 5) AS upload_throughput_mbps,
+      CAST(ROUND((SELECT PERCENTILE_DISC(ltc, 0.9) OVER () FROM UNNEST(loadedLatencyMs.upload) AS ltc LIMIT 1), 0) AS INT) AS upload_latency_ms,
+      ROUND(loadedJitterMs.upload, 5) AS upload_jitter_ms
+    FROM `measurement-lab.cloudflare.speedtest_speed1`
+    WHERE
+      date >= '{start_date}' AND date <= '{end_date}'
+      AND clientCountry IS NOT NULL AND clientCountry <> ''
+      AND (download.bps IS NOT NULL AND ARRAY_LENGTH(download.bps) > 0)
+      AND (upload.bps IS NOT NULL AND ARRAY_LENGTH(upload.bps) > 0)
+      AND (download.bytes IS NOT NULL AND ARRAY_LENGTH(download.bytes) > 0 AND (SELECT SUM(x) FROM UNNEST(download.bytes) x) > 0)
+      AND (upload.bytes IS NOT NULL AND ARRAY_LENGTH(upload.bytes) > 0 AND (SELECT SUM(x) FROM UNNEST(upload.bytes) x) > 0)
+      AND (loadedLatencyMs.download IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.download) AS ltc LIMIT 1) > 0)
+      AND (loadedLatencyMs.upload IS NOT NULL AND (SELECT PERCENTILE_DISC(ltc, 0.5) OVER () FROM UNNEST(loadedLatencyMs.upload) AS ltc LIMIT 1) > 0)
+      AND clientASN = 14593;"""
+
+
+def get_ndt_formatted_query(start_date: str, end_date: str) -> str:
     return f"""
     SELECT
       a.UUID as uuid,
@@ -56,7 +120,7 @@ def get_ndt_formatted_query(date: str) -> str:
       ROUND(raw.Upload.ServerMeasurements[SAFE_OFFSET(ARRAY_LENGTH(raw.Upload.ServerMeasurements) - 1)].TCPInfo.RTTVar / 1000, 5) AS upload_jitter_ms
     FROM `measurement-lab.ndt.ndt7`
     WHERE
-      date = '{date}'
+      date >= '{start_date}' AND date <= '{end_date}'
       AND client.Geo.CountryCode IS NOT NULL AND client.Geo.CountryCode <> ''
       AND a.MeanThroughputMbps IS NOT NULL AND a.MeanThroughputMbps <> 0.0
       AND (

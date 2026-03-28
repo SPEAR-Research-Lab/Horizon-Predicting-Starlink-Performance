@@ -9,7 +9,6 @@ class CsvFiles(Enum):
 
 
 class Tables(Enum):
-    PROCESSED_DATES = "processed_dates"
     CITIES = "cities"
     AIRPORT_CODES = "airport_country"
     NDT_BEST_STARLINK_SERVERS = "ndt7_starlink_servers"

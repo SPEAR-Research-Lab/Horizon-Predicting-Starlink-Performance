@@ -186,7 +186,11 @@ def parse_date_range(date_range: str) -> tuple[date, date]:
 def parse_date_range_from_months(date_range: str) -> tuple[date, date]:
     parts = date_range.split(":", 1)
     start_date = datetime.strptime(parts[0], "%Y-%m").date().replace(day=1)
-    end_date = datetime.strptime(parts[1], "%Y-%m").date().replace(day=1) if len(parts) > 1 else start_date
+    end_date = (
+        datetime.strptime(parts[1], "%Y-%m").date().replace(day=1)
+        if len(parts) > 1
+        else (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+    )
     if start_date > end_date:
         logger.error(
             f"Invalid date range: {start_date.strftime('%Y-%m')} to {end_date.strftime('%Y-%m')}. Start date cannot be after end date."

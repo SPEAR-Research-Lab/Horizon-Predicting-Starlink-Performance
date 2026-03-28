@@ -11,7 +11,6 @@ from .sql.create_queries import (
     get_cf_create_query,
     ndt_best_starlink_servers_create_query,
     ndt_temp_create_query,
-    processed_dates_create_query,
     unified_telemetry_create_query,
 )
 from .sql.delete_queries import airport_codes_standardize_cities_query
@@ -22,7 +21,6 @@ from .sql.insert_queries import (
     get_cf_insert_query,
     ndt_best_starlink_servers_insert_query,
     ndt_temp_insert_query,
-    processed_dates_insert_query,
     unified_telemetry_insert_query,
 )
 from .utils import clean_airport_codes, clean_cf_servers
@@ -39,13 +37,6 @@ class TableInfo(TypedDict):
 
 
 table_data: Dict[Tables, TableInfo] = {
-    Tables.PROCESSED_DATES: {
-        "create_query": processed_dates_create_query,
-        "insert_query": processed_dates_insert_query,
-        "post_insert_query": None,
-        "csv_name": None,
-        "cleaning_fn": None,
-    },
     Tables.CITIES: {
         "create_query": cities_create_query,
         "insert_query": cities_insert_query,
