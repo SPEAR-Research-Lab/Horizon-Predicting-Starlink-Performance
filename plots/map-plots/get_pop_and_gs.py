@@ -1,11 +1,14 @@
 import csv
 from pathlib import Path
-from pykml import parser
+
 import requests
+from pykml import parser
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
 GS_URL = "https://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1805q6rlePY4WZd8QMOaNe2BqAgFkYBY"
-POP_URL = "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/master/map/pop.json"
+POP_URL = (
+    "https://raw.githubusercontent.com/clarkzjw/starlink-geoip-data/master/map/pop.json"
+)
 REQUEST_TIMEOUT = 10
 CSV_COLS = ("name", "lat", "lon")
 
@@ -13,30 +16,33 @@ CSV_COLS = ("name", "lat", "lon")
 def query_ground_stations():
     response = requests.get(GS_URL)
     root = parser.fromstring(response.content)
-    
+
     stations = []
     ns = {"kml": "http://www.opengis.net/kml/2.2"}
     placemarks = root.xpath(".//kml:Placemark", namespaces=ns)
-    
+
     for pm in placemarks:
         try:
-            parent_name = pm.getparent().name.text if hasattr(pm.getparent(), 'name') else ""
+            parent_name = (
+                pm.getparent().name.text if hasattr(pm.getparent(), "name") else ""
+            )
             if parent_name == "PoPs & Backbone":
                 continue
 
-            status_element = pm.xpath('.//kml:Data[@name="Status"]/kml:value', namespaces=ns)
+            status_element = pm.xpath(
+                './/kml:Data[@name="Status"]/kml:value', namespaces=ns
+            )
             status = str(status_element[0].text).lower() if status_element else ""
 
             if "live" in status:
                 coords_text = str(pm.Point.coordinates).strip()
-                lon, lat, *_ = map(float, coords_text.split(','))
+                lon, lat, *_ = map(float, coords_text.split(","))
                 stations.append((str(pm.name), lat, lon))
-                
+
         except Exception as e:
             continue
 
     return stations
-
 
 
 def download_pop_data(url: str) -> list[dict]:
