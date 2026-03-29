@@ -7,6 +7,7 @@ This project implements a comprehensive data processing system that merges NDT7 
 - **Data Loading**: Downloads and processes telemetry data from BigQuery (NDT7 and Cloudflare datasets)
 - **Data Processing**: Standardizes city names, validates servers, and merges datasets
 - **Best Server Analysis**: Identifies optimal servers for each client location based on median latency on a per-month basis
+- **CF Aggregation Method Experiments Export**: Generates Cloudflare mean and 90th percentile data by city for JSD (Jensen-Shannon Divergence) experiments
 - **Automated Updates**: Updates airport codes, and city information
 - **Comprehensive Logging**: Detailed logging with UTC timestamps
 
@@ -66,6 +67,24 @@ Updates best server mappings for the specified month range (YYYY-MM:YYYY-MM form
 
 Best servers are determined per month based on median latency for each client location. Results are stored in separate tables and exported to CSV files. End date is optional - if not provided, defaults to the start date (single month).
 
+### Export Raw Data
+```sh
+python -m src.main --date 2024-01-15 --export-raw unfiltered_data.csv
+```
+Exports unfiltered raw data to CSV before client-server filtering is applied. Works with both `--date` and `--date-range`. Data includes measurements from both NDT7 and Cloudflare with standardized city names.
+
+### Export Monthly Data
+```sh
+python -m src.main --export-monthly 2024-01,2024-02,2024-03
+```
+Exports filtered data to CSV by month. Provide comma-separated months (format: YYYY-MM). Creates one CSV file per month from the database.
+
+### Export CF Aggregation Method Data for Experiments
+```sh
+python -m src.main --process-cloudflare-mean-and-p90-for-experiment 2024-01,2024-02,2024-03
+```
+Calculates and exports Cloudflare mean and 90th percentile statistics by city for specified months. Used for generating data needed in JSD (Jensen-Shannon Divergence) experiments. Use format `yyyy-mm` or `yyyy-mm:yyyy-mm`, where the first date is the start and the second date is the end (optional). Automatically exports the processed data to CSV.
+
 ### Update Reference Data
 ```sh
 python -m src.main --update airport,cities
@@ -84,7 +103,11 @@ python -m src.main --drop
 | `--init` | Initialize database tables and populate with reference data |
 | `--date YYYY-MM-DD` | Process telemetry data for specific date |
 | `--date-range YYYY-MM-DD:YYYY-MM-DD` | Process telemetry data for date range |
+| `--export-raw FILENAME.csv` | Export unfiltered raw data to CSV before filtering (use with `--date` or `--date-range`) |
+| `--export-monthly YYYY-MM[,...]` | Export filtered data to CSV by month (comma-separated months) |
+| `--process-cloudflare-mean-and-p90-for-experiment YYYY-MM[:YYYY-MM]` | Calculate and export Cloudflare mean and 90th percentile statistics by city (used for JSD experiments) |
 | `--update-best-servers YYYY-MM:YYYY-MM` | Update best server mappings per month for Starlink (end date optional) |
+| `--update airport,cities` | Update reference data (airport codes and/or city information) |
 | `--drop` | Drop all database tables |
 
 ## Data Sources
@@ -127,7 +150,35 @@ global-telemetry-data-processing/
 ├── setup.cfg                      # Tool configurations
 ├── pyproject.toml                 # Project configuration
 ├── build.sh                       # Build/lint script
+├── scripts/
+│   ├── collect_data.py            # Produces the full dataset used in the paper (Jan 1 - Nov 30, 2025)
+│   └── data_for_plots.py          # Generates processed data files for the plots project
 └── README.md
+```
+
+## Scripts
+
+### collect_data.py
+Produces the complete dataset used in the paper "Horizon: Understanding and Predicting Global Starlink Performance". This script runs the following operations:
+- Initializes the database
+- Updates best server mappings for all months in 2025 (January to November)
+- Collects and processes network measurements for the entire date range (2025-01-01 to 2025-11-30)
+- Exports monthly filtered data to CSV files
+- Exports unfiltered raw data for analysis
+
+Run with:
+```bash
+python scripts/collect_data.py
+```
+
+### data_for_plots.py
+Generates processed data files needed for the plots project to reproduce the paper's visualizations and statistical analyses. This script exports curated datasets used for:
+- Statistical analysis plots
+- Map visualizations
+
+Run with:
+```bash
+python scripts/data_for_plots.py
 ```
 
 ## Logging
