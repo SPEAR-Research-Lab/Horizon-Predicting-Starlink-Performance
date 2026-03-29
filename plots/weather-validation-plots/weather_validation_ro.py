@@ -4,6 +4,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 import pytz
+
 from constants import BANEASA_RO, PITESTI_RO, data_dir, feature_to_units, output_dir
 from weather_utils import get_and_maybe_fetch_openmeteo_data, mae, rmse
 
@@ -100,7 +101,7 @@ def cross_validate_station(station_name, lat, lon, excel_path) -> Optional[dict]
 
     # Calculate metrics
     metrics = {}
-    for feat in feature_to_units.keys():
+    for feat in feature_to_y_label.keys():
         station_col = f"{feat}_station"
         om_col = f"{feat}_openmeteo"
 

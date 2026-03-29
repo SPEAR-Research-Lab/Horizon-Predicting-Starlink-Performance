@@ -33,6 +33,7 @@ def cross_validate_location(
         return None
 
     metrics = {}
+
     for feat in feature_to_units.keys():
         knmi_col = next(
             (k for k, v in knmi_to_open_meteo_names.items() if v == feat), None
