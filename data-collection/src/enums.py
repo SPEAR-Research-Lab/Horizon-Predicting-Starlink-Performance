@@ -9,14 +9,15 @@ class CsvFiles(Enum):
 
 
 class Tables(Enum):
-    PROCESSED_DATES = 'processed_dates'
-    CITIES = 'cities'
-    AIRPORT_CODES = 'airport_country'
-    NDT_BEST_STARLINK_SERVERS = 'ndt7_starlink_servers'
-    CF_BEST_STARLINK_SERVERS = 'cf_starlink_servers'
-    NDT7_TEMP = 'ndt7_temp'
-    CF_TEMP = 'cf_temp'
-    UNIFIED_TELEMETRY = 'unified_telemetry'
+    CITIES = "cities"
+    AIRPORT_CODES = "airport_country"
+    NDT_BEST_STARLINK_SERVERS = "ndt7_starlink_servers"
+    CF_BEST_STARLINK_SERVERS = "cf_starlink_servers"
+    NDT7_TEMP = "ndt7_temp"
+    CF_TEMP = "cf_temp"
+    CF_MEAN = "cf_mean"
+    CF_90TH_PERCENTILE = "cf_90th_percentile"
+    UNIFIED_TELEMETRY = "unified_telemetry"
 
 
 class UpdateChoices(Enum):
