@@ -10,17 +10,17 @@ from typing import Any, Callable, Optional
 
 class LogUtils:
     _logger: Optional[Logger] = None
-    _parent_dir: Path = (Path(__file__).parent / '..').resolve()
+    _parent_dir: Path = (Path(__file__).parent / "..").resolve()
 
     @staticmethod
-    def init_logger(log_dir: str = 'logs') -> Logger:
+    def init_logger(log_dir: str = "logs") -> Logger:
         if LogUtils._logger:
             return LogUtils._logger
 
         logs_dir_path = LogUtils._parent_dir / log_dir
         os.makedirs(logs_dir_path, exist_ok=True)
-        utc_now = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H-%M-%SZ')
-        log_path = logs_dir_path / f'{utc_now}.log'
+        utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
+        log_path = logs_dir_path / f"{utc_now}.log"
 
         logging.Formatter.converter = time.gmtime
 
@@ -28,7 +28,7 @@ class LogUtils:
         LogUtils._logger.setLevel(logging.INFO)
 
         handler = logging.FileHandler(log_path)
-        formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+        formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
         handler.setFormatter(formatter)
 
         LogUtils._logger.addHandler(handler)
@@ -42,15 +42,15 @@ class LogUtils:
 
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            logger.info(f'Starting: {func.__name__}')
+            logger.info(f"Starting: {func.__name__}")
             start_time = time.time()
             try:
                 result = func(*args, **kwargs)
                 duration = time.time() - start_time
-                logger.info(f'Finished: {func.__name__} (Duration: {duration:.2f}s)')
+                logger.info(f"Finished: {func.__name__} (Duration: {duration:.2f}s)")
                 return result
             except Exception as e:
-                logger.error(f'Exception in {func.__name__}: {e.__class__.__name__} - {e}')
+                logger.error(f"Exception in {func.__name__}: {e.__class__.__name__} - {e}")
                 raise e
 
         return wrapper

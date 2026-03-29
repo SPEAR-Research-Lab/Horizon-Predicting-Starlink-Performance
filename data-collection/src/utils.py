@@ -1,8 +1,11 @@
 from datetime import date, datetime, timedelta, timezone
 import io
+from pathlib import Path
 import zipfile
 
 import pandas as pd
+from psycopg2 import sql
+from psycopg2.extensions import cursor
 import requests
 
 from .config import data_dir, logger
@@ -30,10 +33,10 @@ def download_file(url: str, file_name: str, unzip: bool = False) -> None:
         logger.info(f"File saved to: {file_path}")
 
 
-def save_dataframe_to_csv(df: pd.DataFrame, file_name: str, append: bool = False) -> None:
-    file_path = data_dir / file_name
+def save_dataframe_to_csv(df: pd.DataFrame, file_name: str, append: bool = False, output_dir: Path = data_dir) -> None:
+    file_path = output_dir / file_name
     if append and file_path.exists():
-        df.to_csv(file_path, mode='a', header=False, index=False)
+        df.to_csv(file_path, mode="a", header=False, index=False)
         logger.info(f"DataFrame appended to: {file_path}")
     else:
         df.to_csv(file_path, index=False)
@@ -169,7 +172,7 @@ def parse_date(date_str: str) -> date:
 
 
 def parse_date_range(date_range: str) -> tuple[date, date]:
-    parts = date_range.split(':', 1)
+    parts = date_range.split(":", 1)
     start_date = parse_date(parts[0])
     end_date = parse_date(parts[1]) if len(parts) > 1 else datetime.now(timezone.utc).date() - timedelta(days=1)
     if start_date > end_date:
@@ -181,9 +184,13 @@ def parse_date_range(date_range: str) -> tuple[date, date]:
 
 
 def parse_date_range_from_months(date_range: str) -> tuple[date, date]:
-    parts = date_range.split(':', 1)
+    parts = date_range.split(":", 1)
     start_date = datetime.strptime(parts[0], "%Y-%m").date().replace(day=1)
-    end_date = datetime.strptime(parts[1], "%Y-%m").date().replace(day=1) if len(parts) > 1 else start_date
+    end_date = (
+        datetime.strptime(parts[1], "%Y-%m").date().replace(day=1)
+        if len(parts) > 1
+        else (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+    )
     if start_date > end_date:
         logger.error(
             f"Invalid date range: {start_date.strftime('%Y-%m')} to {end_date.strftime('%Y-%m')}. Start date cannot be after end date."
@@ -198,7 +205,11 @@ def clean_airport_codes(df: pd.DataFrame) -> None:
         if col not in ["iso_country", "municipality", "iata_code"]:
             df.drop(columns=col, inplace=True)
     df.rename(
-        columns={"iso_country": "country_code", "municipality": "airport_city", "iata_code": "airport_code"},
+        columns={
+            "iso_country": "country_code",
+            "municipality": "airport_city",
+            "iata_code": "airport_code",
+        },
         inplace=True,
     )
 
@@ -214,3 +225,14 @@ def clean_cf_servers(df: pd.DataFrame) -> None:
     )
     mask = df["client_country"].str.len().ne(2) | df["server_airport_code"].str.len().ne(3)
     df.drop(index=df[mask].index, inplace=True)
+
+
+def export_data(cur: cursor, query: str | sql.SQL, output_dir: Path, file_name: str) -> None:
+    cur.execute(query)
+    rows = cur.fetchall()
+    if rows is None or cur.description is None:
+        logger.warning("No data found. Skipping CSV export.")
+        return
+    columns = [desc[0] for desc in cur.description]
+    df = pd.DataFrame(rows, columns=columns)
+    save_dataframe_to_csv(df, file_name, output_dir=output_dir)
