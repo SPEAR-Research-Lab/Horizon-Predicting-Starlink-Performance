@@ -119,6 +119,10 @@ The data processing system merges NDT7 and Cloudflare AIM datasets from BigQuery
 
 **Database Requirements:** PostgreSQL must exist before running the application.
 
+**Automated Scripts:**
+- `scripts/collect_data.py` - Produces the complete dataset used in the paper (January 1 - November 30, 2025) with all preprocessing and aggregation steps (steps 1 and 2 of the pipeline)
+- `scripts/data_for_plots.py` - Generates processed data files needed for the plots project to reproduce paper visualizations
+
 For detailed instructions, see [data-collection/README.md](data-collection/README.md)
 
 ### Analysis & Visualization (`plots/`)
