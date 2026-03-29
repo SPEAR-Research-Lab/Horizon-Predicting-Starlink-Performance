@@ -18,15 +18,24 @@ This repository contains three main analysis modules:
 
 - Python 3.11+
 - Jupyter Notebook or JupyterLab
+- LaTeX (required for some plots that generate publication-quality figures)
 
 ### Installation
 
 **Set up data files:**
    
-   The data files used in this project are too large to commit to the repository. You will need to prepare and place your own CSV data files in the appropriate directories:
+   The data files used in this project are too large to commit to the repository. You can either generate them using the scripts in the `data-collection` directory or prepare your own CSV data files and place them in the appropriate directories:
    
    - `anomaly-filtration-plots/data/`
    - `map-plots/data/`
-   - `jsd-plots/data/`
+   - `statistical-analysis-plots/data/`
+   - `weather-validation-plots/data/`
 
-   The data required and how to obtain it is described in each individual Jupyter Notebook.
+**To generate data files automatically:**
+   
+   Run the data generation script from the root directory:
+   ```bash
+   python data-collection/scripts/data_for_plots.py
+   ```
+   
+   This will generate some of the data-files required by the Statistical Analysis and Map Plots. The other files are generated after anomaly filtration or training.

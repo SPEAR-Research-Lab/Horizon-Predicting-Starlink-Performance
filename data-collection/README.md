@@ -150,7 +150,35 @@ global-telemetry-data-processing/
 ├── setup.cfg                      # Tool configurations
 ├── pyproject.toml                 # Project configuration
 ├── build.sh                       # Build/lint script
+├── scripts/
+│   ├── collect_data.py            # Produces the full dataset used in the paper (Jan 1 - Nov 30, 2025)
+│   └── data_for_plots.py          # Generates processed data files for the plots project
 └── README.md
+```
+
+## Scripts
+
+### collect_data.py
+Produces the complete dataset used in the paper "Horizon: Understanding and Predicting Global Starlink Performance". This script runs the following operations:
+- Initializes the database
+- Updates best server mappings for all months in 2025 (January to November)
+- Collects and processes network measurements for the entire date range (2025-01-01 to 2025-11-30)
+- Exports monthly filtered data to CSV files
+- Exports unfiltered raw data for analysis
+
+Run with:
+```bash
+python scripts/collect_data.py
+```
+
+### data_for_plots.py
+Generates processed data files needed for the plots project to reproduce the paper's visualizations and statistical analyses. This script exports curated datasets used for:
+- Statistical analysis plots
+- Map visualizations
+
+Run with:
+```bash
+python scripts/data_for_plots.py
 ```
 
 ## Logging
