@@ -70,6 +70,7 @@ select_unfiltered_data_query = sql.SQL(f"""
     FROM ndt7_temp)
 """)
 
+
 def get_select_cf_data_query(experiment_table: str) -> sql.SQL:
     return sql.SQL(f"""
     (SELECT
