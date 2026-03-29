@@ -85,7 +85,7 @@ def setup_xticks(ax):
         ax.axvline(x=p, color='gray', linewidth=0.5, linestyle='-', alpha=0.15)
 
     for mp in midnight_positions():
-        ax.axvline(x=mp, color='black', linewidth=0.8, linestyle='-', alpha=0.5)
+        ax.axvline(x=mp, color='gray', linewidth=0.7, linestyle='-', alpha=0.4)
 
 
 CITIES = [
