@@ -7,22 +7,20 @@ from .enums import CsvFiles, Tables
 from .sql.create_queries import (
     airports_create_query,
     cf_best_starlink_servers_create_query,
-    cf_temp_create_query,
     cities_create_query,
+    get_cf_create_query,
     ndt_best_starlink_servers_create_query,
     ndt_temp_create_query,
-    processed_dates_create_query,
     unified_telemetry_create_query,
 )
 from .sql.delete_queries import airport_codes_standardize_cities_query
 from .sql.insert_queries import (
     airport_insert_query,
     cf_best_starlink_servers_insert_query,
-    cf_temp_insert_query,
     cities_insert_query,
+    get_cf_insert_query,
     ndt_best_starlink_servers_insert_query,
     ndt_temp_insert_query,
-    processed_dates_insert_query,
     unified_telemetry_insert_query,
 )
 from .utils import clean_airport_codes, clean_cf_servers
@@ -39,13 +37,6 @@ class TableInfo(TypedDict):
 
 
 table_data: Dict[Tables, TableInfo] = {
-    Tables.PROCESSED_DATES: {
-        "create_query": processed_dates_create_query,
-        "insert_query": processed_dates_insert_query,
-        "post_insert_query": None,
-        "csv_name": None,
-        "cleaning_fn": None,
-    },
     Tables.CITIES: {
         "create_query": cities_create_query,
         "insert_query": cities_insert_query,
@@ -75,8 +66,22 @@ table_data: Dict[Tables, TableInfo] = {
         "cleaning_fn": clean_cf_servers,
     },
     Tables.CF_TEMP: {
-        "create_query": cf_temp_create_query,
-        "insert_query": cf_temp_insert_query,
+        "create_query": get_cf_create_query(Tables.CF_TEMP.value),
+        "insert_query": get_cf_insert_query(Tables.CF_TEMP.value),
+        "post_insert_query": None,
+        "csv_name": None,
+        "cleaning_fn": None,
+    },
+    Tables.CF_MEAN: {
+        "create_query": get_cf_create_query(Tables.CF_MEAN.value),
+        "insert_query": get_cf_insert_query(Tables.CF_MEAN.value),
+        "post_insert_query": None,
+        "csv_name": None,
+        "cleaning_fn": None,
+    },
+    Tables.CF_90TH_PERCENTILE: {
+        "create_query": get_cf_create_query(Tables.CF_90TH_PERCENTILE.value),
+        "insert_query": get_cf_insert_query(Tables.CF_90TH_PERCENTILE.value),
         "post_insert_query": None,
         "csv_name": None,
         "cleaning_fn": None,

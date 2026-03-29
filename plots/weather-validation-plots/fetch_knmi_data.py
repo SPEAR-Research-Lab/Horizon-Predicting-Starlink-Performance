@@ -1,10 +1,11 @@
-from datetime import date, timedelta
-import requests
-from dotenv import load_dotenv
 import os
+from datetime import date, timedelta
 from pathlib import Path
-import xarray as xr
+
 import pandas as pd
+import requests
+import xarray as xr
+from dotenv import load_dotenv
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY") or ""
@@ -12,6 +13,7 @@ DATASET = "hourly-in-situ-meteorological-observations-validated"
 VERSION = "1.0"
 
 from .constants import data_dir
+
 
 class OpenDataAPI:
     def __init__(self, api_token: str):
@@ -81,7 +83,9 @@ def convert_nc_to_csv(nc_path: Path) -> Path:
     else:
         df = df_data
 
-    columns_keep = [c for c in ["time", "station", "stationname", "lat", "lon"] if c in df.columns]
+    columns_keep = [
+        c for c in ["time", "station", "stationname", "lat", "lon"] if c in df.columns
+    ]
     columns_keep += [vars_of_interest[k] for k in present_vars]
     df = df[[c for c in columns_keep if c in df.columns]]
 
@@ -95,8 +99,16 @@ def convert_nc_to_csv(nc_path: Path) -> Path:
     return csv_path
 
 
-def merge_csvs_and_cleanup(data_folder: Path, merged_name: str = "netherlands.csv") -> Path:
-    csv_files = sorted([p for p in data_folder.iterdir() if p.suffix == ".csv" and p.name != merged_name])
+def merge_csvs_and_cleanup(
+    data_folder: Path, merged_name: str = "netherlands.csv"
+) -> Path:
+    csv_files = sorted(
+        [
+            p
+            for p in data_folder.iterdir()
+            if p.suffix == ".csv" and p.name != merged_name
+        ]
+    )
     nc_files = sorted([p for p in data_folder.iterdir() if p.suffix == ".nc"])
     if not csv_files:
         raise RuntimeError("No CSV files found to merge")

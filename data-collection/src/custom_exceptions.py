@@ -5,7 +5,8 @@ class InvalidDateError(ValueError):
     """Raised when the input value is invalid in a custom way."""
 
     def __init__(
-        self, message: str = "The script can only run on dates that have already completed (past UTC dates)."
+        self,
+        message: str = "The script can only run on dates that have already completed (past UTC dates).",
     ) -> None:
         super().__init__(message)
 

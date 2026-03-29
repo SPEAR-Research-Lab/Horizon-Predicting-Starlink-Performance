@@ -47,12 +47,12 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-### 1. Set up the Data Fetching Module
+### 1. Set up the Data Collection Module
 
-Navigate to the data-fetching directory:
+Navigate to the data-collection directory:
 
 ```bash
-cd data-fetching
+cd data-collection
 ```
 
 Create a `.env` file with your database and Google Cloud credentials:
@@ -107,9 +107,9 @@ Available analysis notebooks:
 
 ## Project Components
 
-### Data Fetching (`data-fetching/`)
+### Data Collection (`data-collection/`)
 
-The data processing system merges NDT7 and Cloudflare AIM datasets from BigQuery, standardizes city names, validates servers, and stores results in PostgreSQL.
+The data processing system merges NDT7 and Cloudflare AIM datasets from BigQuery, standardizes city names, validates servers, and stores results in PostgreSQL. It implements steps 1 and 2 of our Pipeline.
 
 **Key Features:**
 - Downloads telemetry data from BigQuery
@@ -119,7 +119,7 @@ The data processing system merges NDT7 and Cloudflare AIM datasets from BigQuery
 
 **Database Requirements:** PostgreSQL must exist before running the application.
 
-For detailed instructions, see [data-fetching/README.md](data-fetching/README.md)
+For detailed instructions, see [data-collection/README.md](data-collection/README.md)
 
 ### Analysis & Visualization (`plots/`)
 
@@ -136,3 +136,17 @@ For detailed instructions, see [plots/README.md](plots/README.md)
 ## License
 
 See [LICENSE](LICENSE) for details.
+
+## Citation
+
+If you use this project, please cite the paper, dataset, and source code:
+
+**Paper:**  
+Cristian Benghe, Vlad Graure, Tanya Shreedhar, and Nitinder Mohan. 2026. *Horizon: Understanding and Predicting Global Starlink Performance*. Proc. ACM Meas. Anal. Comput. Syst. 10, 2, Article 41 (June 2026). [DOI link](https://doi.org/10.1145/xxxxxxx)
+
+**Dataset:**  
+Cristian Benghe, Vlad Graure, Tanya Shreedhar, and Nitinder Mohan. 2026. *Horizon: Understanding and Predicting Global Starlink Performance – Dataset*. [https://doi.org/10.4121/0bf59468-e5cb-433f-aeb2-e04cf694b65c](https://doi.org/10.4121/0bf59468-e5cb-433f-aeb2-e04cf694b65c)
+
+**Source Code:**  
+Cristian Benghe, Vlad Graure, Tanya Shreedhar, and Nitinder Mohan. 2026. *Horizon: Understanding and Predicting Global Starlink Performance – Source Code*. [https://github.com/spear-lab/Horizon-Predicting-Starlink-Performance](https://github.com/spear-lab/Horizon-Predicting-Starlink-Performance)
+
