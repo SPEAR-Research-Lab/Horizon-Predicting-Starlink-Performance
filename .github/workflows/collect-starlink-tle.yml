@@ -21,7 +21,7 @@ jobs:
           python-version: '3.13'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r satellite-data/requirements.txt
 
       - name: Collect Starlink TLE data
         run: python satellite-data/celestrak-collection.py
