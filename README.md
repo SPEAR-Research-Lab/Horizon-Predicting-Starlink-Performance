@@ -50,6 +50,7 @@ pip install -r requirements.txt
 - **data-collection/** — Main module for fetching performance data from Cloudflare AIM and M-Lab NDT7, processing, and database storage
 - **plots/** — Analysis and visualization notebooks for performance trends and predictions
 - **satellite-data/** — Supporting module for archiving Starlink TLE data
+- **scripts/** — Automated scripts for complete dataset collection and plot data generation
 
 ## Quick Start
 
