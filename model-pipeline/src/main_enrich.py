@@ -4,14 +4,12 @@ from inter_city_distance_calculator import DistanceCalculator
 from meteo_data_handler import WeatherDataHandler
 from open_meteo_fetcher import OpenMeteoFetcher
 from satellite_enricher import enrich_with_sat_density
-from constants import df_common_features, logger, dtype_spec, df_final_columns
+from constants import df_common_features, logger, dtype_spec, df_final_columns, client_cities_file
 import os
 
 distance_calculator = DistanceCalculator()
 weather_data_handler = WeatherDataHandler()
 open_meteo_fetcher = OpenMeteoFetcher()
-
-CLIENT_CITIES_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "client_cities.csv")
 all_client_cities: set[tuple[str, str]] = set()
 
 
@@ -198,8 +196,8 @@ def enrich_data_file_with_sat_density(src_file_path: str, dst_file_path: str, co
 
 
 def enrich_data_directory(src_dir: str, dst_dir: str) -> None:
-    if os.path.exists(CLIENT_CITIES_FILE):
-        existing_cities_df = pd.read_csv(CLIENT_CITIES_FILE)
+    if os.path.exists(client_cities_file):
+        existing_cities_df = pd.read_csv(client_cities_file)
         for _, row in existing_cities_df.iterrows():
             all_client_cities.add((str(row['city']), str(row['country'])))
         logger.info(f"Loaded {len(all_client_cities)} existing client cities")
@@ -210,8 +208,8 @@ def enrich_data_directory(src_dir: str, dst_dir: str) -> None:
             base_name = file.split(".")[0]
             enrich_data_file(os.path.join(src_dir, file), os.path.join(dst_dir, base_name + "_enriched.csv"))
     cities_df = pd.DataFrame(sorted(all_client_cities), columns=['city', 'country'])
-    cities_df.to_csv(CLIENT_CITIES_FILE, index=False)
-    logger.info(f"Saved {len(all_client_cities)} unique client cities to {CLIENT_CITIES_FILE}")
+    cities_df.to_csv(client_cities_file, index=False)
+    logger.info(f"Saved {len(all_client_cities)} unique client cities to {client_cities_file}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

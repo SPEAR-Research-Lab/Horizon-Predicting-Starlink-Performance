@@ -3,7 +3,6 @@ from typing import Any
 import pandas as pd
 import numpy as np
 from constants import dtype_spec
-from custom_types import FeatureGroup, FiltrationDict
 from enum import Enum
 from sklearn.ensemble import IsolationForest
 
@@ -209,34 +208,3 @@ def filter_outliers_percentile(df: pd.DataFrame, keep_frac: float, target_featur
     keep_mask = (flagged_count < voting_threshold * window_count) | (window_count == 0)
 
     return df[keep_mask].reset_index(drop=True)
-
-
-default_filtrations: FiltrationDict = {
-    filter_outliers_percentile: {
-        'args': [0.7, 0.75, 0.8],
-        'name': 'percentile',
-    },
-    filter_outliers_directional_mad: {
-        'args': [2, 2.5, 3],
-        'name': 'directional_mad',
-    },
-    filter_outliers_isolation_forest: {
-        'args': [0.7, 0.75, 0.8],
-        'name': 'isolation_forest',
-    },
-}
-
-filtration_for_target_group: dict[FeatureGroup, FiltrationDict] = {
-    ("download_latency_ms",): {
-        filter_outliers_percentile: {
-            'args': [0.75],
-            'name': 'percentile',
-        },
-    },
-    ("download_throughput_mbps",): {
-        filter_outliers_isolation_forest: {
-            'args': [0.75],
-            'name': 'isolation_forest',
-        },
-    },
-}

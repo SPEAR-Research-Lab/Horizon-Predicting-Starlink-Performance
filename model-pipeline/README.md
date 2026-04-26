@@ -75,7 +75,6 @@ model-pipeline/
 │   └── processed/                  # Training-ready data
 ├── models/                         # Trained model artifacts
 ├── tests/                          # Unit tests
-├── requirements.txt                # Python dependencies
 └── README.md                       # This file
 ```
 
@@ -89,7 +88,7 @@ model-pipeline/
 - joblib (model persistence)
 - pytest (testing)
 
-Install: `pip install -r requirements.txt`
+Install: `pip install -r requirements.txt` (from the repository root)
 
 ## Pipeline Architecture
 
