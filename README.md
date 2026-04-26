@@ -137,6 +137,24 @@ Comprehensive Jupyter notebook-based analysis covering:
 
 For detailed instructions, see [plots/README.md](plots/README.md)
 
+### Model Pipeline (`model-pipeline/`)
+
+End-to-end data enrichment and model training for predicting Starlink performance. Implements pipeline stages 3-5:
+
+- **Feature Enrichment:** Weather index (PLS-derived), satellite density, geographic and temporal features
+- **Anomaly Detection:** Percentile, directional MAD, and isolation forest strategies
+- **Model Training:** Ensemble of Random Forest + Gradient Boosting with weight optimization
+
+```bash
+# Enrich data
+python model-pipeline/src/main_enrich.py --src data/raw --dst data/enriched
+
+# Train models
+python model-pipeline/src/train_model.py
+```
+
+For detailed instructions, see [model-pipeline/README.md](model-pipeline/README.md)
+
 ## License
 
 See [LICENSE](LICENSE) for details.

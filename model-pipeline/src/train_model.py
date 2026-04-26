@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from joblib import dump
 from constants import models_dir, filtration_dir_base, root_dir, df_features_download, df_features_upload
-from utils import get_file_matchers, ModelType
+from utils import get_file_matchers, ModelType, add_weather_index
 from explain_model_feature_imp import plot_feature_importances_and_save
 from pathlib import Path
 from typing import Optional
@@ -27,38 +27,6 @@ features = [
     'cloud_cover',
     'wind_speed_10m',
 ]
-
-def add_weather_index(df: pd.DataFrame, target: str) -> pd.DataFrame:
-    df['cloud_cover'] = (df['cloud_cover'] - df['cloud_cover'].mean()) / df['cloud_cover'].std()
-    df['precipitation'] = (df['precipitation'] - df['precipitation'].mean()) / (df['precipitation'].std() if df['precipitation'].std() != 0 else 1)
-    df['wind_speed_10m'] = (df['wind_speed_10m'] - df['wind_speed_10m'].mean()) / df['wind_speed_10m'].std()
-    df['temperature_2m'] = (df['temperature_2m'] - df['temperature_2m'].mean()) / df['temperature_2m'].std()
-    if 'latency' in target:
-        df['weather_index'] = (
-                0.462 * df['cloud_cover'] +
-                0.232 * df['precipitation'] +
-                0.229 * df['wind_speed_10m'] +
-                0.077 * df['temperature_2m']
-        )
-    elif 'throughput' in target:
-        df['weather_index'] = (
-                0.619 * df['cloud_cover'] +
-                0.289 * df['precipitation'] +
-                0.087 * df['wind_speed_10m'] +
-                0.005 * df['temperature_2m']
-        )
-    else:
-        raise ValueError(f"Unknown target for weather index calculation: {target}")
-
-    df = df.drop(columns=['cloud_cover', 'precipitation', 'wind_speed_10m', 'temperature_2m'])
-    features.append('weather_index')
-    if 'cloud_cover' in features:
-        features.remove('cloud_cover')
-        features.remove('precipitation')
-        features.remove('wind_speed_10m')
-        features.remove('temperature_2m')
-    return df
-
 
 def prepare_data_for_target(path_to_training_data: Path, target: str, model_type: ModelType, file_matchers: list[str],
                             useWeatherIndex: bool) -> pd.DataFrame:
@@ -108,6 +76,11 @@ def prepare_data_for_target(path_to_training_data: Path, target: str, model_type
 
     if useWeatherIndex:
         concatenated_df = add_weather_index(concatenated_df, target)
+        if 'weather_index' not in features:
+            features.append('weather_index')
+            for col in ['cloud_cover', 'precipitation', 'wind_speed_10m', 'temperature_2m']:
+                if col in features:
+                    features.remove(col)
 
     return concatenated_df
 

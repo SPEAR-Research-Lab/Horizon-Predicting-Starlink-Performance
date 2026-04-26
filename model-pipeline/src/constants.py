@@ -74,4 +74,6 @@ dtype_spec = defaultdict(lambda: 'string', {
     'wind_speed_10m': 'float32',
 })
 
+client_cities_file = model_pipeline_dir / 'data' / 'client_cities.csv'
+
 logger = LogUtils.init_logger()
