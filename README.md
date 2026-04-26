@@ -155,6 +155,24 @@ python model-pipeline/src/train_model.py
 
 For detailed instructions, see [model-pipeline/README.md](model-pipeline/README.md)
 
+### LEO Viewer (`leo-viewer/`)
+
+Interactive web-based viewer for predicted Starlink network performance. Displays latency and throughput predictions on a map using zoom-adaptive H3 hexagonal grids (resolutions 2-4).
+
+- **Frontend:** Vue 3 + MapLibre GL with zoom-adaptive hexagon rendering
+- **Backend:** FastAPI serving predictions, with a daily pipeline for weather/satellite enrichment and model inference
+- **Models:** Ensemble (Random Forest + Gradient Boosting) trained in the model pipeline
+
+```bash
+# Backend
+cd leo-viewer/backend && uvicorn src.main:app --reload
+
+# Frontend
+cd leo-viewer/frontend && npm run dev
+```
+
+For detailed instructions, see [leo-viewer/README.md](leo-viewer/README.md)
+
 ## License
 
 See [LICENSE](LICENSE) for details.
