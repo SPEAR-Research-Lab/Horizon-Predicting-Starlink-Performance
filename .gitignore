@@ -3,3 +3,10 @@ __pycache__/
 .venv/
 .idea/
 .DS_Store
+
+# leo-viewer
+leo-viewer/backend/models/*.joblib
+leo-viewer/backend/logs/
+leo-viewer/backend/.env
+leo-viewer/frontend/node_modules/
+leo-viewer/frontend/dist/

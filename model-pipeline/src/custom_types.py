@@ -1,8 +1,4 @@
-from typing import Optional, TypedDict, List, Tuple, Callable, Literal
-try:
-    from typing import TypeAlias
-except ImportError:
-    from typing_extensions import TypeAlias
+from typing import Optional, TypedDict, List, Tuple, Callable, Literal, TypeAlias
 import pandas as pd
 
 

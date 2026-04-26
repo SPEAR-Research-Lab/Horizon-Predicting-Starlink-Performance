@@ -8,8 +8,9 @@ project_root = script_dir.parent.parent
 
 root_dir = project_root
 data_dir = project_root / 'data'
+client_cities_file = data_dir / 'client_cities.csv'
 model_pipeline_dir = project_root / 'model-pipeline'
-data_training_dir = model_pipeline_dir / 'data' / 'processed'
+data_training_dir = data_dir / 'processed'
 models_dir = model_pipeline_dir / 'models'
 os.makedirs(models_dir, exist_ok=True)
 
@@ -73,7 +74,5 @@ dtype_spec = defaultdict(lambda: 'string', {
     'cloud_cover': 'float32',
     'wind_speed_10m': 'float32',
 })
-
-client_cities_file = model_pipeline_dir / 'data' / 'client_cities.csv'
 
 logger = LogUtils.init_logger()
