@@ -14,7 +14,7 @@ from .sql.insert_queries import (
     global_telemetry_from_cf_insert_query,
     global_telemetry_from_ndt_insert_query,
 )
-from .sql.select_queries import get_select_cf_data_query, select_unfiltered_data_query
+from .sql.select_queries import get_select_cf_data_query, get_select_unfiltered_data_query
 from .sql.update_queries import (
     get_cf_standardize_cities_query,
     ndt_temp_standardize_client_cities_query,
@@ -27,10 +27,15 @@ class DataProcesser:
     def __init__(self, conn: connection) -> None:
         self._conn = conn
 
-    def _export_raw(self, cur: cursor, csv_name: Optional[str]) -> None:
+    def _export_raw(self, cur: cursor, csv_name: Optional[str], process_data_for_jsd_experiment: bool) -> None:
         output_file = csv_name or "unfiltered_data.csv"
-        export_data(cur, select_unfiltered_data_query, output_dir, output_file)
+        export_data(cur, get_select_unfiltered_data_query(only_download=True), output_dir, output_file)
         logger.info("Exported unfiltered data before client-server filtering.")
+
+        if process_data_for_jsd_experiment:
+            export_data(
+                cur, get_select_unfiltered_data_query(only_download=False), output_dir, "jsd_experiment_data.csv"
+            )
 
     def _standardize_cities(self, cur: cursor) -> None:
         cur.execute(ndt_temp_standardize_client_cities_query)
@@ -71,15 +76,18 @@ class DataProcesser:
         logger.info(f"Deleted {cur.rowcount} Cloudflare temporary records after processing.")
 
     @LogUtils.log_function
-    def process_data(self, export_raw: bool, export_raw_csv_name: Optional[str] = None) -> None:
+    def process_data(
+        self, export_raw: bool, export_raw_csv_name: Optional[str], process_data_for_jsd_experiment: bool
+    ) -> None:
+        should_export = export_raw or process_data_for_jsd_experiment
         with self._conn.cursor() as cur:
-            if export_raw:
+            if should_export:
                 self._standardize_cities(cur)
-                self._export_raw(cur, export_raw_csv_name)
+                self._export_raw(cur, export_raw_csv_name, process_data_for_jsd_experiment)
 
             self._client_server_filtering(cur)
 
-            if not export_raw:
+            if not should_export:
                 self._standardize_cities(cur)
 
             self._insert(cur)
@@ -89,21 +97,15 @@ class DataProcesser:
             logger.info("Data processing completed successfully.")
 
     @LogUtils.log_function
-    def process_cloudflare_mean_and_p90_for_experiment(self) -> None:
+    def process_data_for_jsd_experiment(self) -> None:
         with self._conn.cursor() as cur:
-            for cf_table in [Tables.CF_MEAN.value, Tables.CF_90TH_PERCENTILE.value]:
+            for cf_table in [Tables.CF_TEMP.value, Tables.CF_MEAN.value, Tables.CF_90TH_PERCENTILE.value]:
                 logger.info(f"Processing Cloudflare data for table {cf_table}...")
 
                 cur.execute(get_cf_standardize_cities_query(cf_table))
                 logger.info(f"Standardized {cur.rowcount} client cities.")
 
-                cf_invalid_starlink_servers_query = get_cf_temp_delete_invalid_servers_query(
-                    cf_table, Tables.CF_BEST_STARLINK_SERVERS.value
-                )
-                cur.execute(cf_invalid_starlink_servers_query)
-                logger.info(f"Deleted {cur.rowcount} invalid Cloudflare starlink servers.")
-
-                export_data(cur, get_select_cf_data_query(cf_table), output_dir, f"{cf_table}.csv")
+                export_data(cur, get_select_cf_data_query(cf_table, only_download=False), output_dir, f"{cf_table}.csv")
                 logger.info("Exported data to CSV.")
 
                 cf_delete_query = delete_all_from_table_query(cf_table)
