@@ -4,7 +4,7 @@ from enum import Enum
 import pandas as pd
 
 from big_query_data_manager import BigQueryDataManager
-from config import columns, data_dir, logger
+from config import columns, data_dir, logger, measurements_dir
 from data_processer import DataProcesser
 from data_updater import DataUpdater
 from enums import CsvFiles
@@ -27,18 +27,23 @@ def _get_process_date_range(period_days: int) -> tuple[date, date]:
 def _prepare_cf_with_airport_data(cf_df: pd.DataFrame) -> pd.DataFrame:
     airport_codes_df = pd.read_csv(data_dir / CsvFiles.AIRPORT_CODES.value)
 
-    cf_merged = cf_df.merge(airport_codes_df, left_on='server_airport_code', right_on='iata_code', how='left')
+    cf_merged = cf_df.merge(
+        airport_codes_df,
+        left_on="server_airport_code",
+        right_on="iata_code",
+        how="left",
+    )
 
-    cf_merged['server_city'] = cf_merged['municipality']
-    cf_merged['server_country_code'] = cf_merged['iso_country']
-    cf_merged = cf_merged.drop(columns=['iso_country', 'municipality', 'iata_code'], errors='ignore')
+    cf_merged["server_city"] = cf_merged["municipality"]
+    cf_merged["server_country_code"] = cf_merged["iso_country"]
+    cf_merged = cf_merged.drop(columns=["iso_country", "municipality", "iata_code"], errors="ignore")
 
     return cf_merged
 
 
 def _merge_measurements(ndt_df: pd.DataFrame, cf_df: pd.DataFrame) -> pd.DataFrame:
-    ndt_df['data_source'] = DataSource.NDT7.value
-    cf_df['data_source'] = DataSource.CF.value
+    ndt_df["data_source"] = DataSource.NDT7.value
+    cf_df["data_source"] = DataSource.CF.value
 
     assert set(columns).issubset(set(ndt_df.columns)), "NDT DataFrame is missing required columns"
     assert set(columns).issubset(set(cf_df.columns)), "CF DataFrame is missing required columns"
@@ -63,13 +68,18 @@ def main() -> None:
         merged_df = _merge_measurements(ndt_df, cf_df)
 
         merged_file_name = f"measurements_{start_date.strftime('%Y-%m-%d')}_{end_date.strftime('%Y-%m-%d')}.csv"
-        save_dataframe_to_csv(merged_df, merged_file_name)
+        save_dataframe_to_csv(merged_df, merged_file_name, measurements_dir)
         logger.info(f"Saved merged measurements to {merged_file_name}")
 
-        delete_files([CsvFiles.NDT_BEST_STARLINK_SERVERS.value, CsvFiles.CF_BEST_STARLINK_SERVERS.value])
+        delete_files(
+            [
+                CsvFiles.NDT_BEST_STARLINK_SERVERS.value,
+                CsvFiles.CF_BEST_STARLINK_SERVERS.value,
+            ]
+        )
     except Exception as e:
         logger.error(f"Application failed: {e}")
-        return
+        exit(1)
 
     logger.info("Application exited successfully.")
 
