@@ -1,10 +1,14 @@
+import os
 from pathlib import Path
 
 from logger import LogUtils
 
 logger = LogUtils.init_logger()
 data_dir = (Path(__file__).parent / ".." / "data").resolve()
-measurements_dir = data_dir / "measurements"
+measurements_dir = (Path(__file__).parent / ".." / "measurements").resolve()
+
+os.makedirs(data_dir, exist_ok=True)
+os.makedirs(measurements_dir, exist_ok=True)
 
 columns = [
     "uuid",
