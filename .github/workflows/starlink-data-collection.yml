@@ -24,7 +24,7 @@ jobs:
         run: pip install -r weekly-measurements-collection/requirements.txt
 
       - name: Collect Starlink Measurements
-        run: python weekly-measurements-collection/main.py
+        run: python weekly-measurements-collection/src/main.py
 
       - name: Commit and push changes
         run: |
