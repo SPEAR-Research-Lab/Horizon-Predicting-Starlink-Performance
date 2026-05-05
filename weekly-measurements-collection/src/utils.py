@@ -1,6 +1,7 @@
 import io
 from pathlib import Path
 import zipfile
+from datetime import date
 
 import pandas as pd
 import requests
@@ -173,3 +174,12 @@ def clean_cf_servers(df: pd.DataFrame) -> None:
     )
     mask = df["client_country"].str.len().ne(2) | df["server_airport_code"].str.len().ne(3)
     df.drop(index=df[mask].index, inplace=True)
+
+
+def get_tle_file_names(start_date: date, end_date: date) -> list[str]:
+    cur = start_date
+    result = []
+    while cur <= end_date:
+        result.append(f"{cur.strftime('%Y-%m-%d')}.tle")
+        cur += pd.Timedelta(days=1)
+    return result
