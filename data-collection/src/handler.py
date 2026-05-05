@@ -76,21 +76,29 @@ class Handler:
             elif choice == UpdateChoices.CITIES:
                 table_initializer.update_cities()
 
-    def date(self, date_str: str, export_raw: bool, export_raw_csv_name: Optional[str] = None) -> None:
+    def date(
+        self, date_str: str, export_raw: bool, export_raw_csv_name: Optional[str], process_data_for_jsd_experiment: bool
+    ) -> None:
         date = parse_date(date_str)
         logger.info(f"Running with specified date: {date}")
         data_loader = self._factory.get_data_loader()
         data_loader.load_data(date, date, standard_data_loader_config)
         data_processer = self._factory.get_data_processer()
-        data_processer.process_data(export_raw, export_raw_csv_name=export_raw_csv_name)
+        data_processer.process_data(export_raw, export_raw_csv_name, process_data_for_jsd_experiment)
 
-    def date_range(self, date_range_str: str, export_raw: bool, export_raw_csv_name: Optional[str]) -> None:
+    def date_range(
+        self,
+        date_range_str: str,
+        export_raw: bool,
+        export_raw_csv_name: Optional[str],
+        process_data_for_jsd_experiment: bool,
+    ) -> None:
         start_date, end_date = parse_date_range(date_range_str)
         logger.info(f"Running with specified date range: {start_date} to {end_date}")
         data_loader = self._factory.get_data_loader()
         data_loader.load_data(start_date, end_date, standard_data_loader_config)
         data_processer = self._factory.get_data_processer()
-        data_processer.process_data(export_raw, export_raw_csv_name=export_raw_csv_name)
+        data_processer.process_data(export_raw, export_raw_csv_name, process_data_for_jsd_experiment)
 
     def export_monthly(self, months_str: str) -> None:
         months = [
@@ -98,13 +106,13 @@ class Handler:
         ]
         data_loader = self._factory.get_data_loader()
         for month, year in months:
-            data_loader.export_monthly(month, year)
+            data_loader.export_monthly(month, year, only_download=True)
 
-    def process_cloudflare_mean_and_p90_for_experiment(self, date_range_str: str) -> None:
+    def process_data_for_jsd_experiment(self, date_range_str: str) -> None:
         start_date, end_date = parse_date_range_from_months(date_range_str)
         logger.info(f"Running with specified date range: {start_date} to {end_date}")
         data_processer = self._factory.get_data_processer()
         data_loader = self._factory.get_data_loader()
         data_loader.load_data(start_date, end_date, cf_experiment_data_loader_config)
         data_processer = self._factory.get_data_processer()
-        data_processer.process_cloudflare_mean_and_p90_for_experiment()
+        data_processer.process_data_for_jsd_experiment()

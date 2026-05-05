@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List
+from typing import List, Optional
 
 from google.cloud import bigquery
 from pandas import DataFrame
@@ -65,10 +65,10 @@ class DataLoader:
             self._conn.commit()
 
     @LogUtils.log_function
-    def export_monthly(self, month: int, year: int) -> None:
+    def export_monthly(self, month: int, year: int, only_download: bool, file: Optional[str] = None) -> None:
         with self._conn.cursor() as cur:
-            query = get_select_monthly_data_query(month, year)
-            file_name = f"download_{year}_{month}.csv"
+            query = get_select_monthly_data_query(month, year, only_download)
+            file_name = file if file else f"download_{year}_{month}.csv"
             export_data(cur, query, output_dir, file_name)
 
     def _download_data(

@@ -79,11 +79,13 @@ python -m src.main --export-monthly 2024-01,2024-02,2024-03
 ```
 Exports filtered data to CSV by month. Provide comma-separated months (format: YYYY-MM). Creates one CSV file per month from the database.
 
-### Export CF Aggregation Method Data for Experiments
+### Export Data for JSD Analysis
 ```sh
-python -m src.main --process-cloudflare-mean-and-p90-for-experiment 2024-01,2024-02,2024-03
+python -m src.main --process-data-for-jsd-experiment 2024-01,2024-02,2024-03
 ```
 Calculates and exports Cloudflare mean and 90th percentile statistics by city for specified months. Used for generating data needed in JSD (Jensen-Shannon Divergence) experiments. Use format `yyyy-mm` or `yyyy-mm:yyyy-mm`, where the first date is the start and the second date is the end (optional). Automatically exports the processed data to CSV.
+
+Should be run together with `date` or `date-range` for also exporting the NDT7 and Cloudflare median dataframes. These will be exported as `jsd_experiment_data.csv`.
 
 ### Update Reference Data
 ```sh
@@ -105,7 +107,7 @@ python -m src.main --drop
 | `--date-range YYYY-MM-DD:YYYY-MM-DD` | Process telemetry data for date range |
 | `--export-raw FILENAME.csv` | Export unfiltered raw data to CSV before filtering (use with `--date` or `--date-range`) |
 | `--export-monthly YYYY-MM[,...]` | Export filtered data to CSV by month (comma-separated months) |
-| `--process-cloudflare-mean-and-p90-for-experiment YYYY-MM[:YYYY-MM]` | Calculate and export Cloudflare mean and 90th percentile statistics by city (used for JSD experiments) |
+| `--process-data-for-jsd-experiment YYYY-MM[:YYYY-MM]` | Calculate and export Cloudflare mean and 90th percentile statistics by city (used for JSD experiments) |
 | `--update-best-servers YYYY-MM:YYYY-MM` | Update best server mappings per month for Starlink (end date optional) |
 | `--update airport,cities` | Update reference data (airport codes and/or city information) |
 | `--drop` | Drop all database tables |
@@ -120,7 +122,7 @@ python -m src.main --drop
 ## Project Structure
 
 ```
-global-telemetry-data-processing/
+data-collection/
 │
 ├── src/
 │   ├── main.py                    # Main entry point
@@ -149,37 +151,19 @@ global-telemetry-data-processing/
 ├── requirements.txt               # Python dependencies
 ├── setup.cfg                      # Tool configurations
 ├── pyproject.toml                 # Project configuration
-├── build.sh                       # Build/lint script
-├── scripts/
-│   ├── collect_data.py            # Produces the full dataset used in the paper (Jan 1 - Nov 30, 2025)
-│   └── data_for_plots.py          # Generates processed data files for the plots project
 └── README.md
 ```
 
-## Scripts
+**Note:** Automated scripts (collect_data.py, data_for_plots.py) are located in the root `scripts/` directory.
 
-### collect_data.py
-Produces the complete dataset used in the paper "Horizon: Understanding and Predicting Global Starlink Performance". This script runs the following operations:
-- Initializes the database
-- Updates best server mappings for all months in 2025 (January to November)
-- Collects and processes network measurements for the entire date range (2025-01-01 to 2025-11-30)
-- Exports monthly filtered data to CSV files
-- Exports unfiltered raw data for analysis
+## Automated Scripts
 
-Run with:
-```bash
-python scripts/collect_data.py
-```
+Automated scripts for data collection and processing are located in the root `scripts/` directory:
 
-### data_for_plots.py
-Generates processed data files needed for the plots project to reproduce the paper's visualizations and statistical analyses. This script exports curated datasets used for:
-- Statistical analysis plots
-- Map visualizations
+- **collect_data.py** - Produces the complete dataset used in the paper (January 1 - November 30, 2025) with all preprocessing and aggregation steps
+- **data_for_plots.py** - Generates processed data files needed for the plots project to reproduce paper visualizations
 
-Run with:
-```bash
-python scripts/data_for_plots.py
-```
+See the root [README.md](../README.md) for detailed instructions on running these scripts.
 
 ## Logging
 

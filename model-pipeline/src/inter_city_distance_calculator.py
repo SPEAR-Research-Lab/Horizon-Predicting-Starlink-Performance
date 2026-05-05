@@ -9,6 +9,7 @@ from constants import model_pipeline_dir, logger
 data_dir = model_pipeline_dir / 'data'
 
 
+
 class DistanceCalculator:
     _client_server_distance: pd.DataFrame
     _world_cities: Optional[pd.DataFrame]

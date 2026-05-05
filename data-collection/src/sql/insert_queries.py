@@ -4,7 +4,7 @@ from ..enums import DataSource
 
 cities_insert_query = sql.SQL("""
     INSERT INTO cities (name, asciiname, name1, name2, name3, name4, region, country_code)
-    VALUES %s
+    VALUES %s ON CONFLICT DO NOTHING;
 """)
 
 ndt_temp_insert_query = sql.SQL("""
@@ -74,17 +74,17 @@ unified_telemetry_insert_query = sql.SQL("""
 
 airport_insert_query = sql.SQL("""
     INSERT INTO airport_country (country_code, airport_city, airport_code)
-    VALUES %s
+    VALUES %s ON CONFLICT DO NOTHING;
 """)
 
 ndt_best_starlink_servers_insert_query = sql.SQL("""
     INSERT INTO ndt7_starlink_servers (client_city, client_country_code, server_city, server_country_code, month, year)
-    VALUES %s
+    VALUES %s ON CONFLICT DO NOTHING;
 """)
 
 cf_best_starlink_servers_insert_query = sql.SQL("""
     INSERT INTO cf_starlink_servers (client_city, client_country_code, server_airport_code, month, year)
-    VALUES %s
+    VALUES %s ON CONFLICT DO NOTHING;
 """)
 
 global_telemetry_from_cf_insert_query = sql.SQL(f"""
