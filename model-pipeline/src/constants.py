@@ -20,6 +20,7 @@ os.makedirs(starlink_data_dir, exist_ok=True)
 
 filtration_dir_base = {'filtered_percentile', 'filtered_directional_mad', 'filtered_isolation_forest'}
 
+
 df_final_columns = [
     "uuid", "test_time", "data_source", "client_city", "client_country_code",
     "server_city", "server_country_code", "packet_loss_rate",

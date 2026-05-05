@@ -1,7 +1,8 @@
 from pathlib import Path
 
 scripts_dir = Path(__file__).parent
-data_collection_dir = scripts_dir.parent
+root_dir = scripts_dir.parent
+data_collection_dir = root_dir / "data-collection"
 src_output_dir = data_collection_dir / "output"
 
 script_output_dir = scripts_dir / "output"
