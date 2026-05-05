@@ -4,7 +4,9 @@ from geopy.distance import geodesic
 import requests
 import time
 from custom_types import Coordinate
-from constants import data_dir, logger
+from constants import model_pipeline_dir, logger
+
+data_dir = model_pipeline_dir / 'data'
 
 
 class DistanceCalculator:
