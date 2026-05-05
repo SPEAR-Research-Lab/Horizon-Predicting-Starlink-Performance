@@ -68,6 +68,7 @@ INPUT_FILES = [
     "hex_centers_res2.csv",
     "hex_centers_res3.csv",
     "hex_centers_res4.csv",
+    "unique_lat_long_points.csv",
 ]
 
 

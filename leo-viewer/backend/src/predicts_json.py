@@ -73,6 +73,9 @@ RESOLUTION_FILES = {
 }
 
 
+DOT_PREDICTIONS_FILE = "unique_lat_long_points_weather_satellites_predictions.csv"
+
+
 if __name__ == "__main__":
     for res, fname in RESOLUTION_FILES.items():
         csv_path = data_dir / fname
@@ -81,3 +84,10 @@ if __name__ == "__main__":
             export_hex_json(csv_path, json_path)
         else:
             logger.warning(f"Skipping {csv_path} (not found)")
+
+    dot_csv = data_dir / DOT_PREDICTIONS_FILE
+    if dot_csv.exists():
+        dot_json = FRONTEND_PUBLIC / "dot_predictions.json"
+        export_dot_json(dot_csv, dot_json)
+    else:
+        logger.warning(f"Skipping {dot_csv} (not found)")

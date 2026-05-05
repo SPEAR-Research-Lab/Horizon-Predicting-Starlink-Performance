@@ -93,6 +93,7 @@ INPUT_FILES = [
     "hex_centers_res2_weather.csv",
     "hex_centers_res3_weather.csv",
     "hex_centers_res4_weather.csv",
+    "unique_lat_long_points_weather.csv",
 ]
 
 

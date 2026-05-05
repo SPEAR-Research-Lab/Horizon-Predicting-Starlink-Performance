@@ -116,6 +116,10 @@ def load_and_predict(model_path: Path, rf_weight: float, X: np.ndarray) -> np.nd
 
 def predict_file(input_csv: Path, output_csv: Path) -> None:
     df = pd.read_csv(input_csv)
+
+    if "Latitude" in df.columns:
+        df = df.rename(columns={"Latitude": "lat", "Longitude": "lon"})
+
     df = add_time_features(df)
 
     if "client_server_distance_km" not in df.columns:
@@ -141,6 +145,7 @@ INPUT_FILES = [
     "hex_centers_res2_weather_satellites.csv",
     "hex_centers_res3_weather_satellites.csv",
     "hex_centers_res4_weather_satellites.csv",
+    "unique_lat_long_points_weather_satellites.csv",
 ]
 
 
