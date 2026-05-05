@@ -69,9 +69,9 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--process-cloudflare-mean-and-p90-for-experiment",
+        "--process-data-for-jsd-experiment",
         type=str,
-        help="Calculate and export mean and 90th percentile for Cloudflare telemetry data for a specific date range. Use format yyyy-mm or yyyy-mm:yyyy-mm, where the first date is the start (left of :) and the second date is the end (right of :). The end date is optional. Automatically exports the processed data to CSV.",
+        help="Calculate and export telemetry data for JSD analysis experiment for a specific date range. Use format yyyy-mm or yyyy-mm:yyyy-mm, where the first date is the start (left of :) and the second date is the end (right of :). The end date is optional. Automatically exports the processed data to CSV.",
     )
 
     return parser.parse_args()
@@ -104,18 +104,18 @@ def main() -> None:
                 handler.date(
                     args.date,
                     args.export_raw is not None,
-                    export_raw_csv_name=args.export_raw,
+                    args.export_raw,
+                    True if args.process_data_for_jsd_experiment else False,
                 )
             if args.date_range:
                 handler.date_range(
                     args.date_range,
                     args.export_raw is not None,
-                    export_raw_csv_name=args.export_raw,
+                    args.export_raw,
+                    True if args.process_data_for_jsd_experiment else False,
                 )
-            if args.process_cloudflare_mean_and_p90_for_experiment:
-                handler.process_cloudflare_mean_and_p90_for_experiment(
-                    args.process_cloudflare_mean_and_p90_for_experiment
-                )
+            if args.process_data_for_jsd_experiment:
+                handler.process_data_for_jsd_experiment(args.process_data_for_jsd_experiment)
             if args.export_monthly:
                 handler.export_monthly(args.export_monthly)
     except psycopg2.OperationalError as e:
