@@ -4,4 +4,10 @@ __pycache__/
 .idea/
 .DS_Store
 
-output/
+# leo-viewer
+leo-viewer/backend/models/*.joblib
+leo-viewer/backend/logs/
+leo-viewer/backend/.env
+leo-viewer/frontend/node_modules/
+leo-viewer/frontend/dist/
+
