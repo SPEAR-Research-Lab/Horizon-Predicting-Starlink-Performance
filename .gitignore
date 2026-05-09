@@ -10,3 +10,6 @@ leo-viewer/backend/logs/
 leo-viewer/backend/.env
 leo-viewer/frontend/node_modules/
 leo-viewer/frontend/dist/
+
+.cache.sqlite
+.gha-creds*
