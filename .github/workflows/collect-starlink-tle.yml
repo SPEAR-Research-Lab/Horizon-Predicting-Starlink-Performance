@@ -30,8 +30,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
+          git add satellite-data/
           if ! git diff --cached --quiet; then
             git commit -m "Update Starlink TLE data - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
+            git pull
             git push
           fi

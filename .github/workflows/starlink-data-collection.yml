@@ -1,0 +1,40 @@
+name: Collect Starlink Measurements
+
+on:
+  schedule:
+    - cron: '0 14 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+    
+      - name: Install deps
+        run: pip install -r weekly-measurements-collection/requirements.txt
+
+      - name: Collect Starlink Measurements
+        run: python weekly-measurements-collection/src/main.py
+
+      - name: Commit and push changes
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add weekly-measurements-collection/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Starlink Measurements - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
+            git pull
+            git push
+          fi

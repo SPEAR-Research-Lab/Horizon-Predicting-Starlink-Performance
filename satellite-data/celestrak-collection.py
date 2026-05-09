@@ -6,7 +6,7 @@ import requests
 CELESTRAK_STARLINK = (
     "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
 )
-DATA_DIR = Path("./data")
+DATA_DIR = Path(__file__).parent / "data"
 
 
 def fetch_starlink_tle(tle_path: Path) -> None:
