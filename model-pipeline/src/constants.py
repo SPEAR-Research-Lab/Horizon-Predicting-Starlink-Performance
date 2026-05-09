@@ -10,9 +10,16 @@ root_dir = project_root
 data_dir = project_root / 'data'
 client_cities_file = data_dir / 'client_cities.csv'
 model_pipeline_dir = project_root / 'model-pipeline'
-data_training_dir = data_dir / 'processed'
+data_training_dir = model_pipeline_dir / 'data' / 'processed'
+weather_data_dir = model_pipeline_dir / 'weather_data'
+starlink_data_dir = model_pipeline_dir / 'starlink_data'
 models_dir = model_pipeline_dir / 'models'
 os.makedirs(models_dir, exist_ok=True)
+os.makedirs(weather_data_dir, exist_ok=True)
+os.makedirs(starlink_data_dir, exist_ok=True)
+
+filtration_dir_base = {'filtered_percentile', 'filtered_directional_mad', 'filtered_isolation_forest'}
+
 
 df_final_columns = [
     "uuid", "test_time", "data_source", "client_city", "client_country_code",
