@@ -1,7 +1,8 @@
+from datetime import date, datetime, timedelta, timezone
 import io
 from pathlib import Path
+from typing import Tuple
 import zipfile
-from datetime import date
 
 import pandas as pd
 import requests
@@ -183,3 +184,18 @@ def get_tle_file_names(start_date: date, end_date: date) -> list[str]:
         result.append(f"{cur.strftime('%Y-%m-%d')}.tle")
         cur += pd.Timedelta(days=1)
     return result
+
+
+def get_weather_file_name(city: str, country: str, is_historical: bool) -> str:
+    return f"{city}_{country}_{'historical' if is_historical else 'forecast'}.csv"
+
+
+def get_previous_and_next_hours_utc(dt: datetime) -> Tuple[str, str]:
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+
+    previous_hour = dt.replace(minute=0, second=0, microsecond=0)
+    next_hour = previous_hour + timedelta(hours=1)
+    return previous_hour.isoformat().replace("T", " "), next_hour.isoformat().replace("T", " ")

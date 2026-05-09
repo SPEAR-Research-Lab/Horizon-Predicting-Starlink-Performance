@@ -1,10 +1,13 @@
-from typing import Optional, Tuple, Any
-import pandas as pd
-from geopy.distance import geodesic
-import requests
 import time
+from typing import Optional, Tuple
+
+from geopy.distance import geodesic
+import pandas as pd
+import requests
+
+from config import data_dir, logger
 from custom_types import Coordinate
-from constants import data_dir, logger
+from enums import CsvFiles
 
 
 class DistanceCalculator:
@@ -14,31 +17,23 @@ class DistanceCalculator:
     _coordinates_cache_dirty: bool
     _failed_lookups: set[Tuple[str, str]]
 
-
-    def __init__(self):
-        self._client_server_distance = pd.read_csv(data_dir / "client_server_distance.csv")
+    def __init__(self) -> None:
+        self._client_server_distance = pd.read_csv(data_dir / CsvFiles.CLIENT_SERVER_DISTANCE.value)
         self._world_cities = None
         self._distance_cache_dirty = False
         self._failed_lookups = set()
         self._coordinates_cache_dirty = False
 
-
-    def get_distance_between_cities(
-        self,
-        city_from: str,
-        country_from: str,
-        city_to: str,
-        country_to: str
-    ) -> float:
+    def get_distance_between_cities(self, city_from: str, country_from: str, city_to: str, country_to: str) -> float:
         cached_distance = self._client_server_distance[
-            (self._client_server_distance['client_city'] == city_from) &
-            (self._client_server_distance['client_country_code'] == country_from) &
-            (self._client_server_distance['server_city'] == city_to) &
-            (self._client_server_distance['server_country_code'] == country_to)
+            (self._client_server_distance['client_city'] == city_from)
+            & (self._client_server_distance['client_country_code'] == country_from)
+            & (self._client_server_distance['server_city'] == city_to)
+            & (self._client_server_distance['server_country_code'] == country_to)
         ]["distance"]
 
         if cached_distance.notnull().any():
-            return cached_distance.values[0]
+            return float(cached_distance.values[0])
 
         coord_from = self.get_city_coordinates(city_from, country_from)
         coord_to = self.get_city_coordinates(city_to, country_to)
@@ -53,20 +48,19 @@ class DistanceCalculator:
             "client_country_code": country_from,
             "server_city": city_to,
             "server_country_code": country_to,
-            "distance": distance
+            "distance": distance,
         }
-        self._client_server_distance.to_csv(data_dir / "client_server_distance.csv", index=False)
-        return distance
-
+        self._client_server_distance.to_csv(data_dir / CsvFiles.CLIENT_SERVER_DISTANCE.value, index=False)
+        return float(distance)
 
     def get_city_coordinates(self, city: str, country: str) -> Optional[Coordinate]:
         if self._world_cities is None:
-            self._world_cities = pd.read_csv(data_dir / "world_cities_coordinates.csv")
+            self._world_cities = pd.read_csv(data_dir / CsvFiles.WORLD_CITIES_COORDINATES.value)
 
-        coords = self._world_cities[
-            (self._world_cities['city'] == city) &
-            (self._world_cities['country'] == country)
-        ][['lat', 'lng']].values
+        # Try exact match first
+        coords = self._world_cities[(self._world_cities['city'] == city) & (self._world_cities['country'] == country)][
+            ['lat', 'lng']
+        ].values
 
         if len(coords) == 0:
             if (city, country) in self._failed_lookups:
@@ -83,29 +77,20 @@ class DistanceCalculator:
 
         return tuple(coords[0])
 
-
     def _save_city_coordinates(self, city: str, country: str, lat: float, lng: float) -> None:
         logger.info(f"Saving coordinates for {city}, {country}: ({lat}, {lng})")
         new_row = pd.DataFrame([{'city': city, 'country': country, 'lat': lat, 'lng': lng}])
         self._world_cities = pd.concat([self._world_cities, new_row], ignore_index=True)
-        self._world_cities.to_csv(data_dir / "world_cities_coordinates.csv", index=False)
-
+        self._world_cities.to_csv(data_dir / CsvFiles.WORLD_CITIES_COORDINATES.value, index=False)
 
     @staticmethod
     def _fetch_coordinates(city: str, country_code: str) -> Tuple[Optional[float], Optional[float]]:
         url = "https://nominatim.openstreetmap.org/search"
-        headers = {
-            'User-Agent': 'CityCoordinateFetcher/1.0'
-        }
+        headers = {'User-Agent': 'CityCoordinateFetcher/1.0'}
 
         try:
             logger.info(f"Fetching coordinates for {city}, {country_code}")
-            params: dict[str, Any] = {
-                'city': city,
-                'country': country_code,
-                'format': 'json',
-                'limit': 1
-            }
+            params: dict[str, str | int] = {'city': city, 'country': country_code, 'format': 'json', 'limit': 1}
 
             response = requests.get(url, params=params, headers=headers)
             response.raise_for_status()
@@ -127,9 +112,17 @@ class DistanceCalculator:
         if ',' in cleaned_city:
             cleaned_city = cleaned_city.split(',')[0].strip()
         suffixes_to_remove = [
-            ' municipality', ' city', ' town', ' village',
-            ' district', ' region', ' province', ' county',
-            ' bay area', ' metropolitan area', ' metro'
+            ' municipality',
+            ' city',
+            ' town',
+            ' village',
+            ' district',
+            ' region',
+            ' province',
+            ' county',
+            ' bay area',
+            ' metropolitan area',
+            ' metro',
         ]
 
         cleaned_city_lower = cleaned_city.lower()
@@ -139,12 +132,7 @@ class DistanceCalculator:
         if cleaned_city != city and cleaned_city:
             try:
                 logger.info(f"Retrying with cleaned name: {cleaned_city}")
-                params = {
-                    'city': cleaned_city,
-                    'country': country_code,
-                    'format': 'json',
-                    'limit': 1
-                }
+                params = {'city': cleaned_city, 'country': country_code, 'format': 'json', 'limit': 1}
 
                 response = requests.get(url, params=params, headers=headers)
                 response.raise_for_status()

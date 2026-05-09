@@ -5,9 +5,11 @@ import pandas as pd
 
 from big_query_data_manager import BigQueryDataManager
 from config import columns, data_dir, logger, measurements_dir
+from data_enricher import enrich_dataframe
 from data_processer import DataProcesser
 from data_updater import DataUpdater
 from enums import CsvFiles
+from filter_anomalies import filter_df
 from logger import LogUtils
 from utils import delete_files, save_dataframe_to_csv
 
@@ -67,9 +69,16 @@ def main() -> None:
         cf_df = _prepare_cf_with_airport_data(cf_df)
         merged_df = _merge_measurements(ndt_df, cf_df)
 
-        merged_file_name = f"measurements_{start_date.strftime('%Y-%m-%d')}_{end_date.strftime('%Y-%m-%d')}.csv"
-        save_dataframe_to_csv(merged_df, merged_file_name, measurements_dir)
-        logger.info(f"Saved merged measurements to {merged_file_name}")
+        enriched_df = enrich_dataframe(merged_df)
+
+        filtered_latency_df, filtered_throughput_df = filter_df(enriched_df)
+
+        latency_file_name = f"download_latency_{start_date.strftime('%Y-%m-%d')}_{end_date.strftime('%Y-%m-%d')}.csv"
+        throughput_file_name = (
+            f"download_throughput_{start_date.strftime('%Y-%m-%d')}_{end_date.strftime('%Y-%m-%d')}.csv"
+        )
+        save_dataframe_to_csv(filtered_latency_df, latency_file_name, measurements_dir)
+        save_dataframe_to_csv(filtered_throughput_df, throughput_file_name, measurements_dir)
 
         delete_files(
             [
@@ -77,6 +86,7 @@ def main() -> None:
                 CsvFiles.CF_BEST_STARLINK_SERVERS.value,
             ]
         )
+        logger.info("Data processing complete.")
     except Exception as e:
         logger.error(f"Application failed: {e}")
         exit(1)

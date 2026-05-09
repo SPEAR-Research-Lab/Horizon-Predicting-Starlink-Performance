@@ -178,3 +178,6 @@ logs/
 
 # Output
 output/
+weather_data/
+
+.cache.sqlite
