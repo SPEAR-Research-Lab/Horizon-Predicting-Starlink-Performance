@@ -54,7 +54,7 @@ def get_window_idx(group_ts: np.ndarray, group_idx: np.ndarray, center_time: np.
 def filter_outliers_isolation_forest(
     df: pd.DataFrame,
     feature: TargetFeature,
-    keep_frac: float = 0.7,
+    keep_frac: float = 0.75,
     temporal_cols: list = ['hour_with_minute', 'day_of_week'],
 ) -> pd.DataFrame:
     df = df.copy()
@@ -90,7 +90,7 @@ def composite_badness_vectorized(feature: TargetFeature, window_vals: np.ndarray
 
 
 def filter_outliers_percentile(
-    df: pd.DataFrame, feature: TargetFeature, keep_frac: float = 0.7, voting_threshold: float = 0.5
+    df: pd.DataFrame, feature: TargetFeature, keep_frac: float = 0.75, voting_threshold: float = 0.5
 ) -> pd.DataFrame:
     df = df.copy()
     df = df.sort_values(['lat', 'lon', 'ts']).reset_index(drop=True)
