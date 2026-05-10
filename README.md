@@ -10,6 +10,7 @@ This project analyzes and predicts Starlink network performance metrics globally
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Project Components](#project-components)
+- [GitHub Actions](#github-actions)
 - [License](#license)
 - [Citation](#citation)
 
@@ -44,6 +45,14 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+## Project Components
+
+- **data-collection/** — Main module for fetching performance data from Cloudflare AIM and M-Lab NDT7, processing, and database storage
+- **weekly-measurements-collection/** — Lightweight automated service for weekly data collection and CSV export. Runs via GitHub Actions every Sunday at 14:00 UTC (see [workflow](#github-actions))
+- **plots/** — Analysis and visualization notebooks for performance trends and predictions
+- **satellite-data/** — Supporting module for archiving Starlink TLE data
+- **scripts/** — Automated scripts for complete dataset collection and plot data generation
 
 ## Quick Start
 
@@ -137,6 +146,40 @@ Comprehensive Jupyter notebook-based analysis covering:
 
 For detailed instructions, see [plots/README.md](plots/README.md)
 
+### Weekly Measurements Collection (`weekly-measurements-collection/`)
+
+A lightweight, automated service that runs every Sunday at 14:00 UTC to collect, process, and export the latest week of Starlink network measurements. This service:
+
+- Automatically downloads 7 days of NDT7 and Cloudflare AIM measurements from BigQuery
+- Identifies optimal servers from the past 30 days
+- Standardizes city names and airport codes
+- Exports merged and processed data to CSV
+
+**Note:** Unlike `data-collection/`, this service does not require a PostgreSQL database. All data is exported to CSV files in the `measurements/` directory.
+
+For detailed instructions, see [weekly-measurements-collection/README.md](weekly-measurements-collection/README.md)
+
+## GitHub Actions
+
+The repository includes automated workflows for continuous data collection:
+
+### Collect Starlink Measurements
+
+**File:** `.github/workflows/starlink-data-collection.yml`  
+**Schedule:** Every Sunday at 14:00 UTC (or manually via workflow_dispatch)  
+**Action:** Runs the weekly-measurements-collection service to collect latest Starlink measurements and automatically commits results to the repository.
+
+**Secrets Required:**
+- `GCP_SERVICE_ACCOUNT_KEY` - Google Cloud service account credentials for BigQuery access
+
+### Collect Starlink TLE Data
+
+**File:** `.github/workflows/collect-starlink-tle.yml`  
+**Schedule:** Daily at 15:00 UTC (or manually via workflow_dispatch)  
+**Action:** Collects and updates Starlink Two-Line Element (TLE) data from CelesTrak and automatically commits to the repository.
+
+**Dependencies:** No external secrets required
+
 ### Model Pipeline (`model-pipeline/`)
 
 End-to-end data enrichment and model training for predicting Starlink performance. Implements pipeline stages 3-5:
@@ -154,6 +197,24 @@ python model-pipeline/src/train_model.py
 ```
 
 For detailed instructions, see [model-pipeline/README.md](model-pipeline/README.md)
+
+### LEO Viewer (`leo-viewer/`)
+
+Interactive web-based viewer for predicted Starlink network performance. Displays latency and throughput predictions on a map using zoom-adaptive H3 hexagonal grids (resolutions 2-4).
+
+- **Frontend:** Vue 3 + MapLibre GL with zoom-adaptive hexagon rendering
+- **Backend:** FastAPI serving predictions, with a daily pipeline for weather/satellite enrichment and model inference
+- **Models:** Ensemble (Random Forest + Gradient Boosting) trained in the model pipeline
+
+```bash
+# Backend
+cd leo-viewer/backend && uvicorn src.main:app --reload
+
+# Frontend
+cd leo-viewer/frontend && npm run dev
+```
+
+For detailed instructions, see [leo-viewer/README.md](leo-viewer/README.md)
 
 ## License
 

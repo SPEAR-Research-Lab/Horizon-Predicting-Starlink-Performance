@@ -1,17 +1,22 @@
 import os
 import re
 import math
-import logging
 import pandas as pd
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from sgp4.api import Satrec, jday
 from pyproj import Transformer
+from datetime import date
 import unicodedata
-from functools import lru_cache
-from collections import Counter, defaultdict
+from collections import defaultdict
 
 CIRCLE_RADIUS_KM = 580
+
+TRANSFORMER = transformer = Transformer.from_crs(
+    {"proj": "geocent", "ellps": "WGS84"},
+    {"proj": "latlong", "ellps": "WGS84"},
+    always_xy=True
+)
 
 _SUFFIXES = [
     " municipality", " district", " region", " province", " state",
@@ -62,7 +67,7 @@ def _enu_distance_km(lat0_deg: float, lon0_deg: float,
 def _in_circle(lat0, lon0, lat1, lon1, radius_km):
     return _enu_distance_km(lat0, lon0, lat1, lon1) <= radius_km
 
-def sat_density_circle_fast(lat0, lon0, dt_utc, sats, transformer, radius_km):
+def sat_density_circle_fast(lat0, lon0, dt_utc, sats, radius_km):
     jd, fr = jday(
         dt_utc.year, dt_utc.month, dt_utc.day,
         dt_utc.hour, dt_utc.minute,
@@ -76,7 +81,7 @@ def sat_density_circle_fast(lat0, lon0, dt_utc, sats, transformer, radius_km):
             continue
         x, y, z = r
         try:
-            lon_deg, lat_deg, _ = transformer.transform(
+            lon_deg, lat_deg, _ = TRANSFORMER.transform(
                 x * 1000, y * 1000, z * 1000, radians=False
             )
         except:
@@ -110,26 +115,6 @@ def build_city_index(coords_csv: str):
     city_unique = {ck: vals[0] for ck, vals in by_city.items() if len(vals) == 1}
     return by_pair, city_unique
 
-CITY_BY_PAIR = {}
-CITY_UNIQUE = {}
-
-@lru_cache(maxsize=500_000)
-def resolve_lat_lon_cached(city_raw: str, region_raw: str, iso2_raw: str):
-    city_k = norm_text(city_raw)
-    region_k = norm_text(region_raw)
-    iso2_k = (iso2_raw or "").upper()
-
-    if city_k and iso2_k and (city_k, iso2_k) in CITY_BY_PAIR:
-        return *CITY_BY_PAIR[(city_k, iso2_k)], 1
-
-    if region_k and iso2_k and (region_k, iso2_k) in CITY_BY_PAIR:
-        return *CITY_BY_PAIR[(region_k, iso2_k)], 2
-
-    if city_k and city_k in CITY_UNIQUE:
-        return *CITY_UNIQUE[city_k], 3
-
-    return None, None, 0
-
 TLE_RE = re.compile(r"^tle_(\d{8})T140001\.txt$")
 TLE_DATE_ONLY_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})$")
 
@@ -158,15 +143,7 @@ def load_sats_from_tle_file(file_path):
 
 def day_density_circle(args):
     group, tle_path, radius_km = args
-    from pyproj import Transformer
-    from tqdm import tqdm
-
     sats = load_sats_from_tle_file(tle_path)
-    transformer = Transformer.from_crs(
-        {"proj": "geocent", "ellps": "WGS84"},
-        {"proj": "latlong", "ellps": "WGS84"},
-        always_xy=True
-    )
 
     def row_worker(row):
         lat0 = row["lat"]
@@ -174,9 +151,7 @@ def day_density_circle(args):
         dt = row["test_time"]
         if pd.isna(dt):
             return None
-        return sat_density_circle_fast(
-            lat0, lon0, dt.to_pydatetime(), sats, transformer, radius_km
-        )
+        return sat_density_circle_fast(lat0, lon0, dt.to_pydatetime(), sats, radius_km)
 
     with ThreadPoolExecutor() as executor:
         densities = list(
@@ -201,25 +176,20 @@ def enrich_with_sat_density(df: pd.DataFrame, coords_csv: str, sat_dir: str, rad
     Returns:
         DataFrame with 'sat_density' column added
     """
-    global CITY_BY_PAIR, CITY_UNIQUE
-
-    if not CITY_BY_PAIR:
-        CITY_BY_PAIR, CITY_UNIQUE = build_city_index(coords_csv)
-
     df = df.copy()
     df["test_time"] = pd.to_datetime(df["test_time"], utc=True, errors="coerce")
 
     df["date"] = df["test_time"].dt.date
-    day_groups = [(d, g) for d, g in df.groupby("date")]
+    day_groups: list[tuple[date, pd.DataFrame]] = [(day, group) for day, group in df.groupby("date")]
     tle_paths, date_only_paths = index_tle_1400_paths(sat_dir)
 
     args = []
-    for d, g in day_groups:
-        key = pd.Timestamp(d).strftime("%Y%m%d")
+    for day, group in day_groups:
+        key = day.strftime("%Y%m%d")
         if key in tle_paths:
-            args.append((g, tle_paths[key], radius_km))
+            args.append((group, tle_paths[key], radius_km))
         elif key in date_only_paths:
-            args.append((g, date_only_paths[key], radius_km))
+            args.append((group, date_only_paths[key], radius_km))
 
     satdens = pd.Series(index=df.index, dtype="float64")
 

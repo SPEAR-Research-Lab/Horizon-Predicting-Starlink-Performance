@@ -1,10 +1,13 @@
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Any
 import pandas as pd
 from geopy.distance import geodesic
 import requests
 import time
 from custom_types import Coordinate
-from constants import data_dir, logger
+from constants import model_pipeline_dir, logger
+
+data_dir = model_pipeline_dir / 'data'
+
 
 
 class DistanceCalculator:
@@ -100,7 +103,7 @@ class DistanceCalculator:
 
         try:
             logger.info(f"Fetching coordinates for {city}, {country_code}")
-            params = {
+            params: dict[str, Any] = {
                 'city': city,
                 'country': country_code,
                 'format': 'json',
