@@ -15,7 +15,7 @@ FRONTEND_PUBLIC = Path(__file__).parent.parent.parent / "frontend" / "public"
 
 
 @LogUtils.log_function
-@router.get("/")
+@router.get("/api/health")
 def root(_: Request) -> str:
     return "LEO Viewer API"
 

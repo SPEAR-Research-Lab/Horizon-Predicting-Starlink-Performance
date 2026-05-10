@@ -71,7 +71,7 @@ let zoomDebounceTimer: ReturnType<typeof setTimeout> | null = null
 
 function getResolutionForZoom(zoom: number): number {
   if (zoom < 4) return 2
-  if (zoom < 6) return 3
+  if (zoom < 7) return 3
   return 4
 }
 
@@ -125,17 +125,11 @@ function makeGeoJSON() {
   if (!resData) return { type: 'FeatureCollection', features: [] }
 
   const hexIndexes = Object.keys(resData)
-  const bounds = mapLoaded ? map.getBounds() : null
 
   const features = hexIndexes
     .map((h3Index) => {
       const pred = getPrediction(resData, h3Index, selectedDate.value, selectedHour.value)
       if (!pred) return null
-
-      if (bounds && currentResolution.value >= 3) {
-        const [lat, lng] = h3.cellToLatLng(h3Index)
-        if (!bounds.contains([lng, lat])) return null
-      }
 
       const boundary = h3.cellToBoundary(h3Index, true)
       const rings = fixAntimeridian(boundary)
@@ -226,9 +220,7 @@ onMounted(async () => {
     })
 
     map.on('moveend', () => {
-      if (currentResolution.value >= 3) {
-        updateLayer()
-      }
+      updateLayer()
     })
 
     updateLayer()

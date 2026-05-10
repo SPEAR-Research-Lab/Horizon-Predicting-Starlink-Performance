@@ -5,12 +5,26 @@ import h3
 import pandas as pd
 
 from .__init__ import data_dir, logger
+from .generate_adaptive_hex_centers import generate_adaptive_hex_centers
 
 COVERAGE_JSON = Path(__file__).parent.parent.parent / "frontend" / "public" / "h3-country-coverage.json"
 RESOLUTIONS = [2, 3, 4]
 
 
-def generate_hex_centers() -> None:
+def generate_hex_centers(adaptive: bool = True) -> None:
+    """
+    Generate hex center files for the prediction pipeline.
+
+    Args:
+        adaptive: If True (default), use data-density-based adaptive resolution.
+                  If False, use static generation from coverage JSON.
+    """
+    if adaptive:
+        logger.info("Using adaptive hex generation (density-based resolution)")
+        generate_adaptive_hex_centers()
+        return
+
+    # Static fallback: dump all hexes from coverage JSON
     with open(COVERAGE_JSON) as f:
         coverage = json.load(f)
 

@@ -3,13 +3,33 @@ __pycache__/
 .venv/
 .idea/
 .DS_Store
+.vite/
 
-# leo-viewer
+# leo-viewer backend
 leo-viewer/backend/models/*.joblib
 leo-viewer/backend/logs/
 leo-viewer/backend/.env
+leo-viewer/backend/data/train-data/
+leo-viewer/backend/data/today-sat-tle.txt
+leo-viewer/backend/data/hex_centers_*_weather*.csv
+leo-viewer/backend/data/hex_centers_*_predictions.csv
+leo-viewer/backend/data/hex_predictions.csv
+leo-viewer/backend/data/unique_lat_long_points_weather*.csv
+leo-viewer/backend/data/hex_centers_adaptive.csv
+leo-viewer/backend/data/hex_centers_res*.csv
+leo-viewer/backend/data/hexagon_centers.csv
+
+# leo-viewer frontend
 leo-viewer/frontend/node_modules/
 leo-viewer/frontend/dist/
+leo-viewer/frontend/public/predicted_*.json
+leo-viewer/frontend/public/dot_predictions.json
 
 .cache.sqlite
 .gha-creds*
+
+# Presentation/temp files
+Horizon_SIGMETRICS_2026.pptx
+_assets/
+build_presentation.py
+model-pipeline/logs/
