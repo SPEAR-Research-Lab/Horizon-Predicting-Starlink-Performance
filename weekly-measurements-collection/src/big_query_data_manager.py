@@ -9,8 +9,7 @@ from bigquery_queries import (
     get_ndt_best_servers_query,
     get_ndt_formatted_query,
 )
-from config import logger
-from enums import CsvFiles
+from config import CsvFiles, logger
 from logger import LogUtils
 from utils import save_dataframe_to_csv
 
@@ -32,11 +31,11 @@ class BigQueryDataManager:
     def get_best_servers(self, start_date: date, end_date: date) -> None:
         ndt_query = get_ndt_best_servers_query(start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
         ndt_df = self._download_data(ndt_query)
-        save_dataframe_to_csv(ndt_df, CsvFiles.NDT_BEST_STARLINK_SERVERS.value)
+        save_dataframe_to_csv(ndt_df, CsvFiles.ndt_best_starlink_servers)
 
         cf_query = get_cf_best_servers_query(start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
         cf_df = self._download_data(cf_query)
-        save_dataframe_to_csv(cf_df, CsvFiles.CF_BEST_STARLINK_SERVERS.value)
+        save_dataframe_to_csv(cf_df, CsvFiles.cf_best_starlink_servers)
 
     def _download_data(self, download_query: str) -> DataFrame:
         df: DataFrame = self._client.query(download_query).to_dataframe()

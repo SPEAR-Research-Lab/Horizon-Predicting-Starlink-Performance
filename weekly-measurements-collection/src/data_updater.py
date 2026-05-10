@@ -5,8 +5,7 @@ import zipfile
 import pandas as pd
 import requests
 
-from config import data_dir, logger
-from enums import CsvFiles
+from config import CsvFiles, data_dir, logger
 from logger import LogUtils
 from utils import delete_files
 
@@ -29,7 +28,7 @@ class DataUpdater:
 
     @staticmethod
     def _should_update() -> bool:
-        last_update_path = data_dir / CsvFiles.LAST_UPDATE_FILE.value
+        last_update_path = data_dir / CsvFiles.last_update_file
         if not last_update_path.exists():
             logger.info("No previous update record found. Proceeding with update.")
             return True
@@ -54,7 +53,7 @@ class DataUpdater:
 
     @staticmethod
     def _update_last_run_date() -> None:
-        last_update_path = data_dir / CsvFiles.LAST_UPDATE_FILE.value
+        last_update_path = data_dir / CsvFiles.last_update_file
         current_time = datetime.now(tz=timezone.utc).isoformat()
         pd.DataFrame({"last_update": [current_time]}).to_csv(last_update_path, index=False)
         logger.info(f"Last update date recorded: {current_time}")
@@ -63,9 +62,9 @@ class DataUpdater:
     def _update_airport_codes() -> None:
         DataUpdater._download_file(
             "https://datahub.io/core/airport-codes/_r/-/data/airport-codes.csv",
-            CsvFiles.AIRPORT_CODES.value,
+            CsvFiles.airport_codes,
         )
-        DataUpdater._process_airport_codes(CsvFiles.AIRPORT_CODES.value, CsvFiles.CITIES.value)
+        DataUpdater._process_airport_codes()
         logger.info("Airport codes updated successfully.")
 
     @staticmethod
@@ -79,7 +78,7 @@ class DataUpdater:
             "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
             "regions.txt",
         )
-        DataUpdater._generate_cities_csv("cities.txt", "regions.txt", CsvFiles.CITIES.value)
+        DataUpdater._generate_cities_csv("cities.txt", "regions.txt")
         delete_files(["cities.txt", "regions.txt"])
         logger.info("Cities data updated successfully.")
 
@@ -105,7 +104,7 @@ class DataUpdater:
             logger.info(f"File saved to: {file_path}")
 
     @staticmethod
-    def _generate_cities_csv(cities_txt: str, regions_txt: str, final_file_name: str) -> None:
+    def _generate_cities_csv(cities_txt: str, regions_txt: str) -> None:
         column_names = [
             "geonameid",
             "name",
@@ -204,13 +203,13 @@ class DataUpdater:
         ]
         final_df = final_df.drop_duplicates(subset=["name", "asciiname", "region", "country_code"])
 
-        final_df.to_csv(data_dir / final_file_name, index=False)
+        final_df.to_csv(data_dir / CsvFiles.cities, index=False)
         logger.info(f"Cities csv successfully created {len(final_df)} records from {cities_txt} and {regions_txt}.")
 
     @staticmethod
-    def _process_airport_codes(airport_file: str, cities_file: str) -> None:
-        airport_path = data_dir / airport_file
-        cities_path = data_dir / cities_file
+    def _process_airport_codes() -> None:
+        airport_path = data_dir / CsvFiles.airport_codes
+        cities_path = data_dir / CsvFiles.cities
 
         airports_df = pd.read_csv(
             airport_path,
