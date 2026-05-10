@@ -4,11 +4,10 @@ from enum import Enum
 import pandas as pd
 
 from big_query_data_manager import BigQueryDataManager
-from config import columns, data_dir, logger, measurements_dir
+from config import CsvFiles, columns, data_dir, logger, measurements_dir
 from data_enricher import DataEnricher
 from data_processer import DataProcesser
 from data_updater import DataUpdater
-from enums import CsvFiles
 from filter_anomalies import filter_df
 from inter_city_distance_calculator import DistanceCalculator
 from logger import LogUtils
@@ -30,7 +29,7 @@ def _get_process_date_range(ref_date: date, period_days: int) -> tuple[date, dat
 
 
 def _prepare_cf_with_airport_data(cf_df: pd.DataFrame) -> pd.DataFrame:
-    airport_codes_df = pd.read_csv(data_dir / CsvFiles.AIRPORT_CODES.value)
+    airport_codes_df = pd.read_csv(data_dir / CsvFiles.airport_codes)
 
     cf_merged = cf_df.merge(
         airport_codes_df,
@@ -78,8 +77,8 @@ def clean_up(distance_calculator: DistanceCalculator) -> None:
     _maybe_delete_old_measurements()
     delete_files(
         [
-            CsvFiles.NDT_BEST_STARLINK_SERVERS.value,
-            CsvFiles.CF_BEST_STARLINK_SERVERS.value,
+            CsvFiles.ndt_best_starlink_servers,
+            CsvFiles.cf_best_starlink_servers,
         ]
     )
 

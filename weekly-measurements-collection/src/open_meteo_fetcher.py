@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 import time
-from typing import Any, MutableMapping, Union, cast
+from typing import Any, Union
 
 from openmeteo_requests import Client as OpenMeteoClient
 import pandas as pd
@@ -52,7 +52,7 @@ class OpenMeteoFetcher:
         logger.info(
             f"Fetching {'historical' if url == self._historical_url else 'forecast'} data with params: {params}"
         )
-        responses = self._client.weather_api(url, params=cast(MutableMapping[str, Any], params))
+        responses = self._client.weather_api(url, params=params)
         response = responses[0]
         response = responses[0]
 
