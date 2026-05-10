@@ -3,8 +3,7 @@ from typing import Tuple
 
 import pandas as pd
 
-from config import data_dir, logger
-from enums import CsvFiles
+from config import CsvFiles, data_dir, logger
 from logger import LogUtils
 
 
@@ -17,14 +16,14 @@ class DataProcesser:
     @LogUtils.log_function
     def process_data(self, ndt_df: pd.DataFrame, cf_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
         logger.info("Starting data processing...")
-        cities_df = pd.read_csv(data_dir / CsvFiles.CITIES.value)
+        cities_df = pd.read_csv(data_dir / CsvFiles.cities)
 
-        ndt_servers_df = pd.read_csv(data_dir / CsvFiles.NDT_BEST_STARLINK_SERVERS.value)
+        ndt_servers_df = pd.read_csv(data_dir / CsvFiles.ndt_best_starlink_servers)
         ndt_df = self._filter_ndt_servers(ndt_df, ndt_servers_df)
         ndt_df = self._standardize_ndt_cities(ndt_df, cities_df)
         logger.info(f"NDT measurements after processing: {len(ndt_df)}")
 
-        cf_servers_df = pd.read_csv(data_dir / CsvFiles.CF_BEST_STARLINK_SERVERS.value)
+        cf_servers_df = pd.read_csv(data_dir / CsvFiles.cf_best_starlink_servers)
         cf_df = self._filter_cf_servers(cf_df, cf_servers_df)
         cf_df = self._standardize_cf_cities(cf_df, cities_df)
         logger.info(f"CF measurements after processing: {len(cf_df)}")
