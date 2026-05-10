@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 import pandas as pd
 
 from big_query_data_manager import BigQueryDataManager
-from config import CsvFiles, columns, data_dir, logger, measurements_dir
+from config import CsvFiles, columns, data_dir, logger, measurements_dir, predictions_dir
 from data_enricher import DataEnricher
 from data_processer import DataProcesser
 from data_updater import DataUpdater
@@ -13,7 +13,6 @@ from logger import LogUtils
 from meteo_data_handler import WeatherDataHandler
 from open_meteo_fetcher import OpenMeteoFetcher
 from utils import delete_files, save_dataframe_to_csv
-
 
 distance_calculator = DistanceCalculator()
 weather_data_handler = WeatherDataHandler()
@@ -123,12 +122,28 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
         prev_throughput_df = pd.read_csv(str(prev_throughput_path))
         _update_city_country_set(prev_throughput_df, city_country_set)
     if prev_latency_df is not None:
-        prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df)
+        prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, 'client_city', 'client_country_code')
         prev_latency_df.to_csv(index=False)
     if prev_throughput_df is not None:
-        prev_throughput_df = data_enricher.enrich_df_with_weather(prev_throughput_df)
+        prev_throughput_df = data_enricher.enrich_df_with_weather(
+            prev_throughput_df, 'client_city', 'client_country_code'
+        )
         prev_throughput_df.to_csv(index=False)
-    open_meteo_fetcher._fetch_weather_data(city_country_set, ref_date=today_date)
+    open_meteo_fetcher.fetch_weather_for_cities(
+        city_country_set, ref_date=today_date, historical_days=15, forecast_days=0
+    )
+
+
+def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) -> None:
+    df = pd.read_csv(data_dir / input_csv)
+    open_meteo_fetcher.fetch_weather_for_locations(
+        locations=df[["lat", "lon"]].values.tolist(),
+        ref_date=today_date,
+        historical_days=None,
+        forecast_days=15,
+    )
+    df = data_enricher.generate_df_for_prediction(df, start_date=today_date, days=14)
+    df.to_csv(predictions_dir / output_csv, index=False)
 
 
 @LogUtils.log_function
@@ -152,7 +167,7 @@ def main() -> None:
 
         _update_servers_df(merged_df)
         _fetch_weather_data(merged_df, start_date, today_date)
-        enriched_df = data_enricher.enrich_dataframe(merged_df)
+        enriched_df = data_enricher.enrich_dataframe_for_training(merged_df)
 
         filtered_latency_df, filtered_throughput_df = filter_df(enriched_df)
 
@@ -162,6 +177,11 @@ def main() -> None:
 
         clean_up()
         logger.info("Data processing complete.")
+
+        _prepare_prediction_data(today_date, CsvFiles.prediction_points, CsvFiles.prediction_points_features)
+        logger.info("City data preparation complete.")
+        _prepare_prediction_data(today_date, CsvFiles.hexagon_centers, CsvFiles.hexagon_centers_features)
+        logger.info("Hexagon data preparation complete.")
     except Exception:
         logger.exception("Application failed")
         exit(1)

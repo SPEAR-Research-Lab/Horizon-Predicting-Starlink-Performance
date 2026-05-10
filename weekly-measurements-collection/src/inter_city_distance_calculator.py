@@ -19,6 +19,7 @@ class DistanceCalculator:
     def __init__(self) -> None:
         self._client_server_distance = pd.read_csv(data_dir / CsvFiles.client_server_distance)
         self._world_cities = None
+        self._server_locations = None
         self._distance_cache_dirty = False
         self._failed_lookups = set()
         self._coordinates_cache_dirty = False
@@ -64,6 +65,22 @@ class DistanceCalculator:
         unresolved_cities.update(self._failed_lookups)
         unresolved_cities_df = pd.DataFrame(unresolved_cities, columns=['city', 'country'])
         unresolved_cities_df.to_csv(unresolved_cities_path, index=False)
+
+    def get_closest_server_for_location(self, lat: float, lon: float) -> float:
+        if self._server_locations is None:
+            self._server_locations = pd.read_csv(data_dir / CsvFiles.server_locations)
+
+        min_distance = float('inf')
+        for _, row in self._server_locations.iterrows():  # type: ignore
+            server_coords = self.get_city_coordinates(row["server_city"], row["server_country_code"])
+            if server_coords is None:
+                continue
+            distance = geodesic((lat, lon), server_coords).kilometers
+            if distance < min_distance:
+                min_distance = distance
+        if min_distance == float('inf'):
+            raise ValueError(f"No valid server locations found to calculate distance for coordinates ({lat}, {lon})")
+        return min_distance
 
     def get_city_coordinates(self, city: str, country: str) -> Optional[Coordinate]:
         if self._world_cities is None:

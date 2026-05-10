@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 import time
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 from openmeteo_requests import Client as OpenMeteoClient
 import pandas as pd
@@ -10,7 +10,7 @@ from retry_requests import retry
 from config import logger, weather_data_dir
 from custom_types import ForecastParams, HistoricalParams
 from inter_city_distance_calculator import DistanceCalculator
-from utils import get_weather_file_name
+from utils import get_weather_file_names
 
 
 class OpenMeteoFetcher:
@@ -122,32 +122,73 @@ class OpenMeteoFetcher:
         else:
             df.to_csv(file_path, index=False)
 
-    def _fetch_weather_data(
-        self, city_country_set: set[tuple[str, str]], ref_date: date, historical_days: int = 15, forecast_days: int = 15
+    def fetch_weather_for_cities(
+        self,
+        city_country_set: set[tuple[str, str]],
+        ref_date: date,
+        historical_days: Optional[int],
+        forecast_days: Optional[int],
     ) -> None:
         for city, country in city_country_set:
-            historical_file_name = get_weather_file_name(city, country, is_historical=True)
-            forecast_file_name = get_weather_file_name(city, country, is_historical=False)
+            historical_file_name, forecast_file_name = get_weather_file_names(
+                city_country_tuple=(city, country), location=None
+            )
 
             coords = self._distance_calculator.get_city_coordinates(city, country)
             if coords is None or len(coords) < 2:
                 logger.warning(f"Could not get coordinates for {city}, {country}. Skipping weather fetch.")
                 continue
 
-            latitude, longitude = coords[0], coords[1]
+            self._fetch_weather(
+                lat=coords[0],
+                lon=coords[1],
+                ref_date=ref_date,
+                historical_file_name=historical_file_name,
+                forecast_file_name=forecast_file_name,
+                historical_days=historical_days,
+                forecast_days=forecast_days,
+            )
+
+    def fetch_weather_for_locations(
+        self,
+        locations: list[tuple[float, float]],
+        ref_date: date,
+        historical_days: Optional[int],
+        forecast_days: Optional[int],
+    ) -> None:
+        for lat, lon in locations:
+            historical_file_name, forecast_file_name = get_weather_file_names(
+                city_country_tuple=None, location=(lat, lon)
+            )
+            self._fetch_weather(
+                lat, lon, ref_date, historical_file_name, forecast_file_name, historical_days, forecast_days
+            )
+
+    def _fetch_weather(
+        self,
+        lat: float,
+        lon: float,
+        ref_date: date,
+        historical_file_name: str,
+        forecast_file_name: str,
+        historical_days: Optional[int],
+        forecast_days: Optional[int],
+    ) -> None:
+        if historical_days is not None:
             self.fetch_and_save_historical(
-                latitude=latitude,
-                longitude=longitude,
+                latitude=lat,
+                longitude=lon,
                 start_date=pd.to_datetime(ref_date, utc=True).date() - timedelta(days=historical_days),
                 end_date=ref_date,
                 file_name=historical_file_name,
             )
+        if forecast_days is not None:
             self.fetch_and_save_forecast(
-                latitude=latitude,
-                longitude=longitude,
+                latitude=lat,
+                longitude=lon,
                 file_name=forecast_file_name,
-                past_days=historical_days,
+                past_days=historical_days if historical_days is not None else 0,
                 forecast_days=forecast_days,
             )
 
-            time.sleep(1)  # Rate limiting between cities
+        time.sleep(1)  # Rate limiting between locations
