@@ -88,7 +88,6 @@ def load_training_data_locations() -> pd.DataFrame:
 def get_starlink_countries(train_df: pd.DataFrame) -> set[str]:
     """Derive Starlink-available country names (as used in coverage JSON) from training data."""
     codes = set(train_df["client_country_code"].dropna().unique())
-    # Convert codes to country names matching the coverage JSON
     names = set()
     for code in codes:
         name = COUNTRY_CODE_TO_NAME.get(code)
@@ -100,7 +99,6 @@ def get_starlink_countries(train_df: pd.DataFrame) -> set[str]:
 
 def count_points_per_hex(train_df: pd.DataFrame, resolution: int = 2) -> dict[str, int]:
     """Count training data points falling within each H3 hex at given resolution."""
-    # Get unique locations with their point counts
     location_counts = train_df.groupby(["lat", "lon"]).size().reset_index(name="count")
 
     counts: dict[str, int] = {}
@@ -168,7 +166,6 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
     logger.info("Counting data points per res-2 hex...")
     hex_counts = count_points_per_hex(train_df, resolution=2)
 
-    # Compute density percentiles (only for hexes with data)
     counts_with_data = [c for c in hex_counts.values() if c > 0]
     if counts_with_data:
         p25 = np.percentile(counts_with_data, 25)
@@ -178,24 +175,20 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
 
     logger.info(f"Density percentiles - P25: {p25:.0f}, P75: {p75:.0f} points")
 
-    # Process each res-2 hex
     res2_hexes = list(coverage.get("2", {}).keys())
     results: dict[int, list[dict]] = {2: [], 3: [], 4: []}
 
     for h3_index in res2_hexes:
         total_coverage, countries = get_hex_land_coverage(coverage, h3_index, 2)
 
-        # Filter: skip if mostly water
         if total_coverage < MIN_LAND_COVERAGE_PCT:
             continue
 
-        # Filter: skip if no Starlink country
         if not countries.intersection(starlink_countries):
             continue
 
         point_count = hex_counts.get(h3_index, 0)
 
-        # Always include parent at res 2 (for zoomed-out view)
         lat, lon = h3.cell_to_latlng(h3_index)
         results[2].append({
             "h3Index": h3_index,
@@ -205,7 +198,6 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
         })
 
         if point_count > p75 and p75 > 0:
-            # High density: subdivide to res 3 AND res 4
             children_3 = list(h3.cell_to_children(h3_index, 3))
             valid_children_3 = filter_children_by_coverage(children_3, 3, coverage, starlink_countries)
             for child in valid_children_3:
@@ -227,7 +219,6 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
                     "parent_data_points": point_count,
                 })
         elif point_count > p25 and p25 > 0:
-            # Medium density: subdivide to res 3
             children = list(h3.cell_to_children(h3_index, 3))
             valid_children = filter_children_by_coverage(children, 3, coverage, starlink_countries)
             for child in valid_children:
@@ -239,7 +230,6 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
                     "parent_data_points": point_count,
                 })
 
-    # Convert to DataFrames and save
     output_dfs: dict[int, pd.DataFrame] = {}
     all_rows = []
 
@@ -256,7 +246,6 @@ def generate_adaptive_hex_centers() -> dict[int, pd.DataFrame]:
         for _, row in df.iterrows():
             all_rows.append({**row.to_dict(), "resolution": res})
 
-    # Save combined adaptive file
     combined_df = pd.DataFrame(all_rows)
     combined_path = data_dir / "hex_centers_adaptive.csv"
     combined_df.to_csv(combined_path, index=False)

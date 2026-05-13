@@ -1,8 +1,9 @@
 """
 Run the full Horizon prediction pipeline.
 
-Generates adaptive hex centers, enriches with weather and satellite data,
-runs ML predictions, and exports JSON files for the frontend.
+Generates adaptive hex centers, enriches with real weather data (Open-Meteo)
+and real satellite density (SGP4 orbital propagation), runs ML predictions,
+and exports JSON files for the frontend.
 
 Usage:
     python -m src.run_pipeline          (from leo-viewer/backend/)
@@ -10,6 +11,7 @@ Usage:
 """
 
 import datetime
+import math
 from pathlib import Path
 
 import numpy as np
@@ -17,7 +19,6 @@ import pandas as pd
 
 import sys
 
-# Allow running from repo root or from backend/
 if "leo-viewer/backend" not in str(Path.cwd()):
     sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -28,55 +29,176 @@ from src.predicts_json import export_hex_json, export_dot_json
 
 FRONTEND_PUBLIC = Path(__file__).parent.parent.parent / "frontend" / "public"
 
-# Model training window — predictions use this date range
 PREDICTION_DATES = [datetime.date(2025, 11, d) for d in range(24, 31)]
 HOURS = list(range(24))
 
+SAT_DATA_DIR = Path(__file__).parent.parent.parent.parent / "satellite-data" / "data"
+RADIUS_KM = 580
 
-def generate_weather_and_satellites(hex_csv: Path, output_csv: Path) -> None:
-    """Generate time-series data with estimated weather and satellite density."""
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
+
+
+def tle_path_for_date(date: datetime.date) -> Path:
+    """Get TLE file path for a date using DD-MM-YYYY.tle naming convention."""
+    return SAT_DATA_DIR / f"{date.strftime('%d-%m-%Y')}.tle"
+
+
+def load_tle_satellites(tle_path: Path):
+    from sgp4.api import Satrec
+    lines = [l.strip() for l in tle_path.read_text().splitlines() if l.strip()]
+    sats = []
+    for i in range(0, len(lines) - 2, 3):
+        try:
+            sats.append(Satrec.twoline2rv(lines[i + 1], lines[i + 2]))
+        except Exception:
+            continue
+    return sats
+
+
+def compute_sat_density(lat, lon, dt, sats):
+    from sgp4.api import jday
+    jd, fr = jday(dt.year, dt.month, dt.day, dt.hour, 0, 0)
+    count = 0
+    for sat in sats:
+        e, r, _ = sat.sgp4(jd, fr)
+        if e != 0:
+            continue
+        x, y, z = r
+        r_mag = math.sqrt(x**2 + y**2 + z**2)
+        sat_lat = math.degrees(math.asin(z / r_mag))
+        sat_lon = math.degrees(math.atan2(y, x))
+        gmst = 280.46061837 + 360.98564736629 * (jd + fr - 2451545.0)
+        sat_lon = (sat_lon - gmst) % 360
+        if sat_lon > 180:
+            sat_lon -= 360
+        dist = haversine(lat, lon, sat_lat, sat_lon)
+        if dist <= RADIUS_KM:
+            count += 1
+    return count
+
+
+def compute_sat_density_for_locations(unique_locs: pd.DataFrame, date: datetime.date, hour: int) -> dict:
+    """Compute satellite density for unique locations at a specific time."""
+    tle_path = tle_path_for_date(date)
+    if not tle_path.exists():
+        available = sorted(SAT_DATA_DIR.glob("*.tle"))
+        if available:
+            tle_path = available[-1]
+        else:
+            return {}
+
+    sats = load_tle_satellites(tle_path)
+    dt = datetime.datetime(date.year, date.month, date.day, hour)
+
+    densities = {}
+    for _, row in unique_locs.iterrows():
+        key = (round(row["lat"], 4), round(row["lon"], 4))
+        if key not in densities:
+            densities[key] = compute_sat_density(row["lat"], row["lon"], dt, sats)
+    return densities
+
+
+def fetch_weather_for_locations(unique_locs: pd.DataFrame) -> dict:
+    """Fetch real weather from Open-Meteo for unique locations."""
+    import time
+    import requests
+
+    weather_cache = {}
+    for _, row in unique_locs.iterrows():
+        lat, lon = round(row["lat"], 2), round(row["lon"], 2)
+        key = (lat, lon)
+        if key in weather_cache:
+            continue
+        try:
+            resp = requests.get(
+                "https://api.open-meteo.com/v1/forecast",
+                params={
+                    "latitude": lat, "longitude": lon,
+                    "hourly": "temperature_2m,precipitation,cloud_cover,wind_speed_10m",
+                    "start_date": "2025-11-24", "end_date": "2025-11-30",
+                    "timezone": "UTC",
+                },
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                data = resp.json()["hourly"]
+                weather_cache[key] = {
+                    "temperature_2m": data["temperature_2m"],
+                    "precipitation": data["precipitation"],
+                    "cloud_cover": data["cloud_cover"],
+                    "wind_speed_10m": data["wind_speed_10m"],
+                    "time": data["time"],
+                }
+            time.sleep(0.2)
+        except Exception as e:
+            logger.warning(f"Weather fetch failed for ({lat},{lon}): {e}")
+    return weather_cache
+
+
+def generate_enriched_data(hex_csv: Path, output_csv: Path, use_real_weather: bool = True, use_real_sats: bool = True) -> None:
+    """Generate time-series data with real or estimated weather and satellite density."""
     hexes = pd.read_csv(hex_csv)
     lat_col = "lat" if "lat" in hexes.columns else "Latitude"
     lon_col = "lon" if "lon" in hexes.columns else "Longitude"
 
+    unique_locs = hexes[[lat_col, lon_col]].drop_duplicates().rename(columns={lat_col: "lat", lon_col: "lon"})
+
+    weather_cache = {}
+    if use_real_weather:
+        logger.info(f"  Fetching weather for {len(unique_locs)} locations...")
+        weather_cache = fetch_weather_for_locations(unique_locs)
+        logger.info(f"  Got weather for {len(weather_cache)} locations")
+
+    sat_cache = {}
+    if use_real_sats and SAT_DATA_DIR.exists():
+        logger.info(f"  Computing satellite density for {len(unique_locs)} locations...")
+        for date in PREDICTION_DATES:
+            densities = compute_sat_density_for_locations(unique_locs, date, 12)
+            for key, val in densities.items():
+                sat_cache[(key, date.strftime("%Y-%m-%d"))] = val
+        logger.info(f"  Computed {len(sat_cache)} sat density values")
+
     rows = []
     for _, h in hexes.iterrows():
-        for date in PREDICTION_DATES:
+        lat, lon = h[lat_col], h[lon_col]
+        weather_key = (round(lat, 2), round(lon, 2))
+        weather = weather_cache.get(weather_key)
+
+        for di, date in enumerate(PREDICTION_DATES):
+            date_str = date.strftime("%Y-%m-%d")
+            sat_key = ((round(lat, 4), round(lon, 4)), date_str)
+            sat_density = sat_cache.get(sat_key, 18)  # fallback
+
             for hour in HOURS:
-                row = {
-                    "lat": h[lat_col],
-                    "lon": h[lon_col],
-                    "Date": date.strftime("%Y-%m-%d"),
-                    "Hour": hour,
-                }
+                row = {"lat": lat, "lon": lon, "Date": date_str, "Hour": hour}
                 if "h3Index" in hexes.columns:
                     row["h3Index"] = h["h3Index"]
+
+                hour_idx = di * 24 + hour
+                if weather and hour_idx < len(weather["temperature_2m"]):
+                    row["temperature_2m"] = weather["temperature_2m"][hour_idx]
+                    row["precipitation"] = weather["precipitation"][hour_idx]
+                    row["cloud_cover"] = weather["cloud_cover"][hour_idx]
+                    row["wind_speed_10m"] = weather["wind_speed_10m"][hour_idx]
+                else:
+                    abs_lat = abs(lat)
+                    row["temperature_2m"] = -2 if abs_lat > 50 else (12 if abs_lat > 30 else 26)
+                    row["precipitation"] = 0.3
+                    row["cloud_cover"] = 45
+                    row["wind_speed_10m"] = 10
+
+                row["sat_density"] = sat_density
                 rows.append(row)
 
     df = pd.DataFrame(rows)
-    abs_lat = df["lat"].abs()
-
-    # November weather estimates by latitude band
-    n = len(df)
-    df["temperature_2m"] = np.where(
-        abs_lat > 50, -5 + np.random.normal(0, 3, n),
-        np.where(abs_lat > 30, 10 + np.random.normal(0, 4, n),
-                 25 + np.random.normal(0, 3, n))
-    )
-    df["precipitation"] = np.random.exponential(0.5, n)
-    df["cloud_cover"] = np.clip(np.random.normal(50, 25, n), 0, 100)
-    df["wind_speed_10m"] = np.clip(np.random.exponential(8, n), 0, 40)
-
-    # Satellite density estimate by latitude (Starlink coverage pattern)
-    df["sat_density"] = np.where(
-        abs_lat < 20, 12,
-        np.where(abs_lat < 40, 18,
-                 np.where(abs_lat < 60, 22,
-                          np.where(abs_lat < 70, 16, 8)))
-    )
-
     df.to_csv(output_csv, index=False)
-    logger.info(f"Generated {len(df)} rows -> {output_csv}")
+    logger.info(f"  -> {output_csv} ({len(df)} rows)")
 
 
 def run_pipeline() -> None:
@@ -89,8 +211,8 @@ def run_pipeline() -> None:
     logger.info("\n[1/5] Generating adaptive hex centers...")
     generate_adaptive_hex_centers()
 
-    # Step 2: Generate weather + satellite data for each resolution
-    logger.info("\n[2/5] Generating weather and satellite features...")
+    # Step 2: Enrich with real weather + satellite data
+    logger.info("\n[2/5] Enriching with weather and satellite data...")
     input_files = {
         "hex_centers_res2.csv": "hex_centers_res2_weather_satellites.csv",
         "hex_centers_res3.csv": "hex_centers_res3_weather_satellites.csv",
@@ -100,7 +222,8 @@ def run_pipeline() -> None:
     for in_name, out_name in input_files.items():
         in_path = data_dir / in_name
         if in_path.exists():
-            generate_weather_and_satellites(in_path, data_dir / out_name)
+            logger.info(f"  Processing {in_name}...")
+            generate_enriched_data(in_path, data_dir / out_name)
 
     # Step 3: Run ML predictions
     logger.info("\n[3/5] Running ML predictions...")

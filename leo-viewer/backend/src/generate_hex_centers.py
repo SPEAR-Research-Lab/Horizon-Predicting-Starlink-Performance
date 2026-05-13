@@ -24,7 +24,6 @@ def generate_hex_centers(adaptive: bool = True) -> None:
         generate_adaptive_hex_centers()
         return
 
-    # Static fallback: dump all hexes from coverage JSON
     with open(COVERAGE_JSON) as f:
         coverage = json.load(f)
 

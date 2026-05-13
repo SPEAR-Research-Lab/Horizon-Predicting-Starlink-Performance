@@ -1,13 +1,9 @@
-import csv
 from pathlib import Path
 
 from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse
 
-from .__init__ import data_dir, logger
-from .custom_types import GroundStation, GroundStationList, SatelliteList
 from .logger import LogUtils
-from .sat_locations import calculate_satellites
 
 router = APIRouter()
 
@@ -18,29 +14,6 @@ FRONTEND_PUBLIC = Path(__file__).parent.parent.parent / "frontend" / "public"
 @router.get("/api/health")
 def root(_: Request) -> str:
     return "LEO Viewer API"
-
-
-@LogUtils.log_function
-@router.get("/satellites")
-def get_satellites(req: Request) -> SatelliteList:
-    from datetime import datetime
-
-    import pytz
-
-    date_hour = req.query_params.get("date_hour")
-    if date_hour:
-        dt = datetime.strptime(date_hour, "%Y-%m-%d:%H")
-        return calculate_satellites(pytz.UTC.localize(dt))
-    return calculate_satellites()
-
-
-@LogUtils.log_function
-@router.get("/groundstations")
-def get_groundstations(_: Request) -> GroundStationList:
-    gs_file = data_dir / "ground_stations.csv"
-    with open(gs_file, "r") as f:
-        data = list(csv.DictReader(f, delimiter=";"))
-        return [GroundStation(gs["name"], float(gs["lat"]), float(gs["long"])) for gs in data]
 
 
 @LogUtils.log_function

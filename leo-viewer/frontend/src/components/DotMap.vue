@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, nextTick, computed } from 'vue'
+import { ref, reactive, onMounted, watch, nextTick } from 'vue'
 import maplibregl, { Map } from 'maplibre-gl'
 import Legend from './Legend.vue'
 import { fetchDotPredictions } from './FetchData.vue'

@@ -1,17 +1,23 @@
 import math
-import re
 from pathlib import Path
 
 import joblib
 import numpy as np
 import pandas as pd
 
-from .__init__ import data_dir, models_dir, logger
+import sys
+from pathlib import Path as _Path
+
+if __package__ is None or __package__ == "":
+    sys.path.insert(0, str(_Path(__file__).parent.parent))
+    from src.__init__ import data_dir, models_dir, logger
+else:
+    from .__init__ import data_dir, models_dir, logger
 
 MODEL_CONFIGS = {
     "download_latency_ms": {
-        "path": models_dir / "ensemble_model_filtered_percentile_0-75_3m_rf_weight_50_download_latency_ms.joblib",
-        "rf_weight": 0.50,
+        "path": models_dir / "ensemble_model_filtered_percentile_0-75_2m_rf_weight_55_download_latency_ms.joblib",
+        "rf_weight": 0.55,
         "weather_weights": {"cloud_cover": 0.462, "precipitation": 0.232, "wind_speed_10m": 0.229, "temperature_2m": 0.077},
     },
     "download_throughput_mbps": {
@@ -107,18 +113,11 @@ def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def load_and_predict(model_path: Path, rf_weight: float, X: np.ndarray) -> np.ndarray:
+def load_and_predict(model_path: Path, rf_weight: float, X: pd.DataFrame) -> np.ndarray:
     loaded = joblib.load(model_path, mmap_mode="r")
     gbr, rf, scaler = loaded
     X_scaled = scaler.transform(X)
     return rf_weight * rf.predict(X_scaled) + (1 - rf_weight) * gbr.predict(X_scaled)
-
-
-def estimate_throughput_from_latency(latency: pd.Series) -> pd.Series:
-    """Estimate throughput from latency using inverse relationship from paper data."""
-    # Based on paper's observed correlation: higher latency = lower throughput
-    # Typical Starlink: 30ms -> 200Mbps, 100ms -> 80Mbps, 200ms -> 30Mbps
-    return np.clip(300 - 1.5 * latency + np.random.normal(0, 5, len(latency)), 5, 300)
 
 
 def predict_file(input_csv: Path, output_csv: Path) -> None:
@@ -136,27 +135,19 @@ def predict_file(input_csv: Path, output_csv: Path) -> None:
     if "sat_density" not in df.columns and "SatDensity" in df.columns:
         df = df.rename(columns={"SatDensity": "sat_density"})
 
-    features = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
+    features_latency = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
+    features_throughput = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
 
     for target, config in MODEL_CONFIGS.items():
         logger.info(f"Predicting {target}...")
         df["weather_index"] = compute_weather_index(df, config["weather_weights"])
 
         if not config["path"].exists():
-            logger.warning(f"Model not found: {config['path']}, using estimation")
-            if target == "download_throughput_mbps" and "download_latency_ms" in df.columns:
-                df[target] = estimate_throughput_from_latency(df["download_latency_ms"])
+            logger.warning(f"Model not found: {config['path']}")
             continue
 
-        # Check model size — skip if too large to load (>50GB)
-        model_size_gb = config["path"].stat().st_size / (1024**3)
-        if model_size_gb > 50:
-            logger.warning(f"Model too large ({model_size_gb:.0f}GB): {config['path'].name}, using estimation")
-            if target == "download_throughput_mbps" and "download_latency_ms" in df.columns:
-                df[target] = estimate_throughput_from_latency(df["download_latency_ms"])
-            continue
-
-        X = df[features].values
+        features = features_throughput if target == "download_throughput_mbps" else features_latency
+        X = df[features]
         df[target] = load_and_predict(config["path"], config["rf_weight"], X)
 
     df.to_csv(output_csv, index=False)

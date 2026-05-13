@@ -9,19 +9,17 @@ FRONTEND_PUBLIC = Path(__file__).parent.parent.parent / "frontend" / "public"
 
 
 def performance_color(latency: float, throughput: float) -> str:
-    if throughput < 10:
+    if throughput < 10 or latency > 300:
         return "#800026"
-    if latency > 300 or throughput < 20:
-        return "#800026"
-    elif latency > 220 or throughput < 35:
+    elif throughput < 20 or latency > 200:
         return "#d73027"
-    elif latency > 170 or throughput < 50:
+    elif throughput < 30 or latency > 150:
         return "#fc8d59"
-    elif latency > 130 or throughput < 75:
+    elif throughput < 45 or latency > 110:
         return "#fee08b"
-    elif latency > 100 or throughput < 120:
+    elif throughput < 60 or latency > 85:
         return "#d9ef8b"
-    elif latency > 70 or throughput < 200:
+    elif throughput < 80 or latency > 65:
         return "#91cf60"
     else:
         return "#1a9850"
