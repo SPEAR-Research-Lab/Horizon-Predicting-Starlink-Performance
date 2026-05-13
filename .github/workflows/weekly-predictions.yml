@@ -1,4 +1,4 @@
-name: Weekly Prediction Pipeline (EC2)
+name: Train, Predict & Deploy
 
 on:
   workflow_run:
@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
+  pages: write
+  id-token: write
 
 env:
   INSTANCE_TYPE: r5.2xlarge
@@ -18,7 +19,7 @@ env:
   AWS_REGION: eu-west-1
 
 jobs:
-  run-predictions:
+  train-and-predict:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
@@ -50,8 +51,43 @@ jobs:
 
       - name: Wait for instance to terminate
         run: |
-          echo "Instance ${{ steps.ec2.outputs.instance_id }} running pipeline..."
-          echo "It will push results and shut itself down."
+          echo "EC2 is training + predicting + pushing JSONs..."
           aws ec2 wait instance-terminated \
             --instance-ids ${{ steps.ec2.outputs.instance_id }} || true
-          echo "Instance terminated."
+          echo "EC2 done."
+
+  deploy:
+    needs: train-and-predict
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend deps
+        working-directory: leo-viewer/frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: leo-viewer/frontend
+        run: npm run build-only
+
+      - name: Copy paper website to dist
+        run: cp website/index.html leo-viewer/frontend/dist/paper.html
+
+      - uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: leo-viewer/frontend/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

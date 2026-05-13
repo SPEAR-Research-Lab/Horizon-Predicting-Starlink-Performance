@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO_DIR="/home/ubuntu/horizon"
+REPO_DIR="/home/ec2-user/horizon"
 
 cd $REPO_DIR
 git pull origin main
