@@ -29,7 +29,11 @@ def _find_nearest_tle(target: date, available: list[Path]) -> tuple[Optional[Pat
         file_date = _parse_tle_filename(path)
         if file_date is None:
             continue
+<<<<<<< leo-viewer
         delta = abs((target - file_date).days)
+=======
+        delta = abs((target - file_date.date()).days)
+>>>>>>> main
         if best_delta is None or delta < best_delta:
             best_path, best_delta = path, delta
     return best_path, best_delta
@@ -145,7 +149,7 @@ def enrich_with_sat_density(df: pd.DataFrame) -> pd.DataFrame:
             fallback_path, delta = _find_nearest_tle(day, available_tle_files)
             if fallback_path is not None:
                 fallback_date = _parse_tle_filename(fallback_path)
-                sign = "+" if (day - fallback_date).days >= 0 else "-"
+                sign = "+" if (day - fallback_date.date()).days >= 0 else "-"
                 logger.warning(f"No exact TLE for {day} — using fallback {fallback_path.name} ({sign}{delta}d)")
                 args.append((group, fallback_path, CIRCLE_RADIUS_KM, day, True, delta))
             else:

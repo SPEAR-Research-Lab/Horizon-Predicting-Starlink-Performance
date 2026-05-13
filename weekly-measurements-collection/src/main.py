@@ -1,14 +1,24 @@
 from datetime import date, datetime, timedelta, timezone
+<<<<<<< leo-viewer
 from enum import Enum
+=======
+>>>>>>> main
 
 import pandas as pd
 
 from big_query_data_manager import BigQueryDataManager
+<<<<<<< leo-viewer
 from config import columns, data_dir, logger, measurements_dir
 from data_enricher import DataEnricher
 from data_processer import DataProcesser
 from data_updater import DataUpdater
 from enums import CsvFiles
+=======
+from config import CsvFiles, columns, data_dir, logger, measurements_dir, predictions_dir
+from data_enricher import DataEnricher
+from data_processer import DataProcesser
+from data_updater import DataUpdater
+>>>>>>> main
 from filter_anomalies import filter_df
 from inter_city_distance_calculator import DistanceCalculator
 from logger import LogUtils
@@ -16,10 +26,17 @@ from meteo_data_handler import WeatherDataHandler
 from open_meteo_fetcher import OpenMeteoFetcher
 from utils import delete_files, save_dataframe_to_csv
 
+<<<<<<< leo-viewer
 
 class DataSource(Enum):
     NDT7 = "NDT7"
     CF = "Cloudflare AIM"
+=======
+distance_calculator = DistanceCalculator()
+weather_data_handler = WeatherDataHandler()
+open_meteo_fetcher = OpenMeteoFetcher(distance_calculator=distance_calculator)
+data_enricher = DataEnricher(distance_calculator=distance_calculator, weather_data_handler=weather_data_handler)
+>>>>>>> main
 
 
 def _get_process_date_range(ref_date: date, period_days: int) -> tuple[date, date]:
@@ -30,7 +47,11 @@ def _get_process_date_range(ref_date: date, period_days: int) -> tuple[date, dat
 
 
 def _prepare_cf_with_airport_data(cf_df: pd.DataFrame) -> pd.DataFrame:
+<<<<<<< leo-viewer
     airport_codes_df = pd.read_csv(data_dir / CsvFiles.AIRPORT_CODES.value)
+=======
+    airport_codes_df = pd.read_csv(data_dir / CsvFiles.airport_codes)
+>>>>>>> main
 
     cf_merged = cf_df.merge(
         airport_codes_df,
@@ -47,8 +68,13 @@ def _prepare_cf_with_airport_data(cf_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _merge_measurements(ndt_df: pd.DataFrame, cf_df: pd.DataFrame) -> pd.DataFrame:
+<<<<<<< leo-viewer
     ndt_df["data_source"] = DataSource.NDT7.value
     cf_df["data_source"] = DataSource.CF.value
+=======
+    ndt_df["data_source"] = "NDT7"
+    cf_df["data_source"] = "Cloudflare AIM"
+>>>>>>> main
 
     assert set(columns).issubset(set(ndt_df.columns)), "NDT DataFrame is missing required columns"
     assert set(columns).issubset(set(cf_df.columns)), "CF DataFrame is missing required columns"
@@ -73,13 +99,22 @@ def _maybe_delete_old_measurements(max_files: int = 52) -> None:
         f.unlink()
 
 
+<<<<<<< leo-viewer
 def clean_up(distance_calculator: DistanceCalculator) -> None:
+=======
+def clean_up() -> None:
+>>>>>>> main
     distance_calculator.update_unresolved_cities()
     _maybe_delete_old_measurements()
     delete_files(
         [
+<<<<<<< leo-viewer
             CsvFiles.NDT_BEST_STARLINK_SERVERS.value,
             CsvFiles.CF_BEST_STARLINK_SERVERS.value,
+=======
+            CsvFiles.ndt_best_starlink_servers,
+            CsvFiles.cf_best_starlink_servers,
+>>>>>>> main
         ]
     )
 
@@ -95,6 +130,7 @@ def _update_city_country_set(
     )
 
 
+<<<<<<< leo-viewer
 @LogUtils.log_function
 def main() -> None:
     try:
@@ -103,6 +139,64 @@ def main() -> None:
         open_meteo_fetcher = OpenMeteoFetcher(distance_calculator=distance_calculator)
         data_enricher = DataEnricher(distance_calculator=distance_calculator, weather_data_handler=weather_data_handler)
 
+=======
+def _update_servers_df(df: pd.DataFrame) -> None:
+    servers_df = pd.read_csv(data_dir / CsvFiles.server_locations)
+    combined = pd.concat(
+        [
+            servers_df[["server_city", "server_country_code"]],
+            df[["server_city", "server_country_code"]],
+        ],
+        ignore_index=True,
+    ).dropna()
+    combined = combined.drop_duplicates().reset_index(drop=True)
+    combined.to_csv(data_dir / CsvFiles.server_locations, index=False)
+    logger.info(f"Updated server locations with {len(combined) - len(servers_df)} unique entries.")
+
+
+def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: date) -> None:
+    city_country_set: set[tuple[str, str]] = set()
+    _update_city_country_set(merged_df, city_country_set)
+    prev_latency_file_name, prev_throughput_file_name = _get_file_names(*_get_process_date_range(start_date, 6))
+    prev_latency_path = measurements_dir / prev_latency_file_name
+    prev_throughput_path = measurements_dir / prev_throughput_file_name
+    prev_latency_df = None
+    prev_throughput_df = None
+    if prev_latency_path.exists():
+        prev_latency_df = pd.read_csv(str(prev_latency_path))
+        _update_city_country_set(prev_latency_df, city_country_set)
+    if prev_throughput_path.exists():
+        prev_throughput_df = pd.read_csv(str(prev_throughput_path))
+        _update_city_country_set(prev_throughput_df, city_country_set)
+    if prev_latency_df is not None:
+        prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, 'client_city', 'client_country_code')
+        prev_latency_df.to_csv(index=False)
+    if prev_throughput_df is not None:
+        prev_throughput_df = data_enricher.enrich_df_with_weather(
+            prev_throughput_df, 'client_city', 'client_country_code'
+        )
+        prev_throughput_df.to_csv(index=False)
+    open_meteo_fetcher.fetch_weather_for_cities(
+        city_country_set, ref_date=today_date, historical_days=15, forecast_days=0
+    )
+
+
+def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) -> None:
+    df = pd.read_csv(data_dir / input_csv)
+    open_meteo_fetcher.fetch_weather_for_locations(
+        locations=df[["lat", "lon"]].values.tolist(),
+        ref_date=today_date,
+        historical_days=None,
+        forecast_days=15,
+    )
+    df = data_enricher.generate_df_for_prediction(df, start_date=today_date, days=14)
+    df.to_csv(predictions_dir / output_csv, index=False)
+
+
+@LogUtils.log_function
+def main() -> None:
+    try:
+>>>>>>> main
         DataUpdater.maybe_update_data()
         today_date = datetime.now(tz=timezone.utc).date()
 
@@ -119,6 +213,7 @@ def main() -> None:
         cf_df = _prepare_cf_with_airport_data(cf_df)
         merged_df = _merge_measurements(ndt_df, cf_df)
 
+<<<<<<< leo-viewer
         city_country_set: set[tuple[str, str]] = set()
         _update_city_country_set(merged_df, city_country_set)
         prev_latency_file_name, prev_throughput_file_name = _get_file_names(*_get_process_date_range(start_date, 6))
@@ -140,6 +235,11 @@ def main() -> None:
             prev_throughput_df.to_csv(index=False)
         open_meteo_fetcher._fetch_weather_data(city_country_set, ref_date=today_date)
         enriched_df = data_enricher.enrich_dataframe(merged_df)
+=======
+        _update_servers_df(merged_df)
+        _fetch_weather_data(merged_df, start_date, today_date)
+        enriched_df = data_enricher.enrich_dataframe_for_training(merged_df)
+>>>>>>> main
 
         filtered_latency_df, filtered_throughput_df = filter_df(enriched_df)
 
@@ -147,8 +247,18 @@ def main() -> None:
         save_dataframe_to_csv(filtered_latency_df, latency_file_name, measurements_dir)
         save_dataframe_to_csv(filtered_throughput_df, throughput_file_name, measurements_dir)
 
+<<<<<<< leo-viewer
         clean_up(distance_calculator)
         logger.info("Data processing complete.")
+=======
+        clean_up()
+        logger.info("Data processing complete.")
+
+        _prepare_prediction_data(today_date, CsvFiles.prediction_points, CsvFiles.prediction_points_features)
+        logger.info("City data preparation complete.")
+        _prepare_prediction_data(today_date, CsvFiles.hexagon_centers, CsvFiles.hexagon_centers_features)
+        logger.info("Hexagon data preparation complete.")
+>>>>>>> main
     except Exception:
         logger.exception("Application failed")
         exit(1)
