@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon - Understanding and Predicting Global Starlink Performance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #ffffff;
+            --color-bg-alt: #f8f9fc;
+            --color-text: #1a1a2e;
+            --color-text-muted: #5a5a7a;
+            --color-blue: #1e3a5f;
+            --color-purple: #4a2c82;
+            --color-accent-start: #1e3a5f;
+            --color-accent-end: #4a2c82;
+            --color-border: #e8e8f0;
+            --gradient: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+            --shadow-sm: 0 2px 8px rgba(30, 58, 95, 0.06);
+            --shadow-md: 0 4px 20px rgba(30, 58, 95, 0.1);
+            --shadow-lg: 0 8px 40px rgba(30, 58, 95, 0.12);
+            --radius: 12px;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sticky Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover {
+            color: var(--color-blue);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(30, 58, 95, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-blue);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-blue);
+            transform: translateY(-1px);
+        }
+
+        .btn-large {
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            border-radius: 10px;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-text);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(74, 44, 130, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.05;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .hero-text .venue {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-graphic {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-graphic svg {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-alt {
+            background: var(--color-bg-alt);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* Contributions */
+        .contributions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .contribution-card {
+            padding: 2rem;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contribution-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contribution-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--gradient);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contribution-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--color-text);
+        }
+
+        .contribution-card p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* Pipeline */
+        .pipeline-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .pipeline-flow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .pipeline-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pipeline-step:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pipeline-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .pipeline-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .pipeline-step h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--color-text);
+        }
+
+        .pipeline-step p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* Results */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            padding: 2rem;
+            background: var(--gradient);
+            border-radius: var(--radius);
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .result-card p {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .team-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .team-avatar span {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .team-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-card .affiliation {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card a {
+            font-size: 0.8rem;
+            color: var(--color-blue);
+            text-decoration: none;
+        }
+
+        .team-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 2rem;
+            background: var(--color-text);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-graphic {
+                order: -1;
+            }
+
+            .hero-graphic svg {
+                max-width: 280px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pipeline-flow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pipeline-flow::before {
+                display: none;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+
+            .header-nav.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(12px);
+                padding: 1.5rem 2rem;
+                box-shadow: var(--shadow-md);
+                gap: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .contributions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="header-logo">Horizon</a>
+            <nav class="header-nav" id="nav">
+                <a href="#about">About</a>
+                <a href="#results">Results</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#team">Team</a>
+                <a href="https://doi.org/10.1145/3805639" class="btn btn-primary">Read Paper</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Horizon</h1>
+                <h2>Understanding and Predicting Global Starlink Performance</h2>
+                <p class="venue">Proc. ACM Meas. Anal. Comput. Syst. (SIGMETRICS), Vol. 10, No. 2, June 2026</p>
+                <div class="hero-buttons">
+                    <a href="https://doi.org/10.1145/3805639" class="btn btn-primary btn-large">Read the Paper</a>
+                    <a href="/app" class="btn btn-secondary btn-large">Live Demo</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.3"/>
+                    <circle cx="200" cy="200" r="100" fill="none" stroke="url(#grad1)" stroke-width="1.5" opacity="0.2"/>
+                    <ellipse cx="200" cy="200" rx="160" ry="60" fill="none" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4" transform="rotate(-20 200 200)"/>
+                    <ellipse cx="200" cy="200" rx="155" ry="55" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.3" transform="rotate(15 200 200)"/>
+                    <ellipse cx="200" cy="200" rx="150" ry="50" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.25" transform="rotate(45 200 200)"/>
+                    <ellipse cx="200" cy="200" rx="120" ry="40" fill="none" stroke="url(#grad1)" stroke-width="0.8" opacity="0.15"/>
+                    <ellipse cx="200" cy="200" rx="80" ry="120" fill="none" stroke="url(#grad1)" stroke-width="0.8" opacity="0.15"/>
+                    <ellipse cx="200" cy="200" rx="40" ry="120" fill="none" stroke="url(#grad1)" stroke-width="0.8" opacity="0.15"/>
+                    <line x1="80" y1="200" x2="320" y2="200" stroke="url(#grad1)" stroke-width="0.8" opacity="0.15"/>
+                    <circle cx="95" cy="155" r="4" fill="url(#grad1)" opacity="0.9"/>
+                    <circle cx="310" cy="170" r="4" fill="url(#grad1)" opacity="0.9"/>
+                    <circle cx="240" cy="100" r="3.5" fill="url(#grad1)" opacity="0.8"/>
+                    <circle cx="150" cy="280" r="3.5" fill="url(#grad1)" opacity="0.8"/>
+                    <circle cx="280" cy="260" r="3" fill="url(#grad1)" opacity="0.7"/>
+                    <circle cx="130" cy="120" r="3" fill="url(#grad1)" opacity="0.7"/>
+                    <line x1="95" y1="155" x2="170" y2="190" stroke="url(#grad1)" stroke-width="0.8" opacity="0.3" stroke-dasharray="4 3"/>
+                    <line x1="310" y1="170" x2="250" y2="195" stroke="url(#grad1)" stroke-width="0.8" opacity="0.3" stroke-dasharray="4 3"/>
+                    <line x1="240" y1="100" x2="210" y2="160" stroke="url(#grad1)" stroke-width="0.8" opacity="0.3" stroke-dasharray="4 3"/>
+                    <circle cx="200" cy="200" r="120" fill="url(#grad1)" opacity="0.04"/>
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1e3a5f"/>
+                            <stop offset="100%" stop-color="#4a2c82"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>What is Horizon?</h2>
+                <p>Horizon is the first global-scale machine learning system for predicting LEO satellite Internet performance. By integrating crowdsourced measurements from M-Lab NDT7 and Cloudflare AIM with meteorological data and satellite orbital propagation, Horizon achieves accurate performance predictions spanning 90+ countries.</p>
+            </div>
+
+            <div class="stats-grid fade-in">
+                <div class="stat-card">
+                    <div class="stat-number">90+</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7,800+</div>
+                    <div class="stat-label">Starlink Satellites</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">17.76 ms</div>
+                    <div class="stat-label">MAE Latency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Months of Data</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Key Contributions</h2>
+            </div>
+            <div class="contributions-grid fade-in">
+                <div class="contribution-card">
+                    <div class="contribution-number">1</div>
+                    <h3>Global-Scale Prediction</h3>
+                    <p>First ML system predicting Starlink performance globally using crowdsourced measurements from M-Lab NDT7 and Cloudflare AIM.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contribution-number">2</div>
+                    <h3>Novel Feature Engineering</h3>
+                    <p>Integration of weather indices, satellite density via orbital propagation, and spatio-temporal features for comprehensive modeling.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contribution-number">3</div>
+                    <h3>Robust Generalization</h3>
+                    <p>Leave-one-location-out experiments validate predictions for entirely unseen regions with comparable accuracy.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contribution-number">4</div>
+                    <h3>Open Dataset &amp; Pipeline</h3>
+                    <p>Publicly available dataset spanning 11 months, 90+ countries, with full reproducible pipeline.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pipeline" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>How It Works</h2>
+            </div>
+            <div class="pipeline-flow fade-in">
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <h3>Data Collection</h3>
+                    <p>M-Lab NDT7, Cloudflare AIM, 90+ countries</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>Feature Engineering</h3>
+                    <p>Weather Index (PLS), Satellite Density (SGP4), Distance features</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>Model Training</h3>
+                    <p>Ensemble: Random Forest + Gradient Boosting, Percentile-based anomaly filtering</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Prediction</h3>
+                    <p>17.76ms MAE latency, 25.63 Mbps MAE throughput</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Key Results</h2>
+            </div>
+            <div class="results-grid fade-in">
+                <div class="result-card">
+                    <p>Latitude contributes 42-46% of feature importance, confirming Starlink's orbital geometry as the dominant performance factor.</p>
+                </div>
+                <div class="result-card">
+                    <p>The novel PLS-derived Weather Index captures 14-15% of predictive power through cloud cover, precipitation, wind speed, and temperature.</p>
+                </div>
+                <div class="result-card">
+                    <p>Leave-one-location-out cross-validation shows the model generalizes to entirely unseen cities with R&sup2; = 0.44 for latency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Team</h2>
+            </div>
+            <div class="team-grid fade-in">
+                <div class="team-card">
+                    <div class="team-avatar"><span>CB</span></div>
+                    <h3>Cristian Benghe</h3>
+                    <p class="affiliation">TU Delft</p>
+                    <a href="mailto:C.Benghe@student.tudelft.nl">C.Benghe@student.tudelft.nl</a>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><span>VG</span></div>
+                    <h3>Vlad Graure</h3>
+                    <p class="affiliation">TU Delft (now at Google)</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><span>TS</span></div>
+                    <h3>Tanya Shreedhar</h3>
+                    <p class="affiliation">TU Delft</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><span>NM</span></div>
+                    <h3>Nitinder Mohan</h3>
+                    <p class="affiliation">TU Delft</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Proc. ACM Meas. Anal. Comput. Syst., Vol. 10, No. 2, Article 23, June 2026</p>
+        <p>DOI: <a href="https://doi.org/10.1145/3805639">10.1145/3805639</a></p>
+        <p>TU Delft, Department of Software Technology</p>
+    </footer>
+
+    <script>
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
