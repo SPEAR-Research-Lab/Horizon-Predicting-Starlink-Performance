@@ -1,9 +1,16 @@
 .mypy_cache/
 __pycache__/
+*.pyc
 .venv/
 .idea/
 .DS_Store
 .vite/
+.cache/
+*.sqlite
+
+# Logs
+logs/
+*.log
 
 # Large model files
 model-pipeline/models/
@@ -17,7 +24,6 @@ data/
 train-predict-pipeline/output/
 train-predict-pipeline/data/*_weather*.csv
 train-predict-pipeline/data/*_predictions*.csv
-train-predict-pipeline/logs/
 
 # leo-viewer frontend
 leo-viewer/frontend/node_modules/
@@ -25,6 +31,8 @@ leo-viewer/frontend/dist/
 leo-viewer/frontend/public/predicted_*.json
 leo-viewer/frontend/public/dot_predictions.json
 
+# Weather data cache
+weather_data/
 .cache.sqlite
 .gha-creds*
 
@@ -32,4 +40,3 @@ leo-viewer/frontend/public/dot_predictions.json
 Horizon_SIGMETRICS_2026.pptx
 _assets/
 build_presentation.py
-model-pipeline/logs/
