@@ -5,19 +5,19 @@ __pycache__/
 .DS_Store
 .vite/
 
-# leo-viewer backend
-leo-viewer/backend/models/*.joblib
-leo-viewer/backend/logs/
-leo-viewer/backend/.env
-leo-viewer/backend/data/train-data/
-leo-viewer/backend/data/today-sat-tle.txt
-leo-viewer/backend/data/hex_centers_*_weather*.csv
-leo-viewer/backend/data/hex_centers_*_predictions.csv
-leo-viewer/backend/data/hex_predictions.csv
-leo-viewer/backend/data/unique_lat_long_points_weather*.csv
-leo-viewer/backend/data/hex_centers_adaptive.csv
-leo-viewer/backend/data/hex_centers_res*.csv
-leo-viewer/backend/data/hexagon_centers.csv
+# Large model files
+model-pipeline/models/
+train-predict-pipeline/models
+
+# Training data (too large for git)
+model-pipeline/data/train-data/
+data/
+
+# Pipeline intermediate outputs
+train-predict-pipeline/output/
+train-predict-pipeline/data/*_weather*.csv
+train-predict-pipeline/data/*_predictions*.csv
+train-predict-pipeline/logs/
 
 # leo-viewer frontend
 leo-viewer/frontend/node_modules/

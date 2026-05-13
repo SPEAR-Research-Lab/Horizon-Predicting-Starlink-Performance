@@ -1,0 +1,51 @@
+name: Weekly Prediction Pipeline (EC2)
+
+on:
+  workflow_run:
+    workflows: ["Collect Starlink Measurements"]
+    types: [completed]
+  workflow_dispatch:
+
+env:
+  INSTANCE_TYPE: r5.2xlarge
+  AMI_ID: ${{ secrets.EC2_AMI_ID }}
+  SUBNET_ID: ${{ secrets.EC2_SUBNET_ID }}
+  SECURITY_GROUP: ${{ secrets.EC2_SECURITY_GROUP }}
+
+jobs:
+  run-predictions:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Start EC2 spot instance
+        id: ec2
+        run: |
+          INSTANCE_ID=$(aws ec2 run-instances \
+            --image-id $AMI_ID \
+            --instance-type $INSTANCE_TYPE \
+            --security-group-ids $SECURITY_GROUP \
+            --subnet-id $SUBNET_ID \
+            --iam-instance-profile Name=horizon-ec2-role \
+            --instance-market-options '{"MarketType":"spot","SpotOptions":{"SpotInstanceType":"one-time"}}' \
+            --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=horizon-prediction-pipeline}]' \
+            --user-data file://train-predict-pipeline/aws/user-data.sh \
+            --instance-initiated-shutdown-behavior terminate \
+            --query 'Instances[0].InstanceId' \
+            --output text)
+          echo "instance_id=$INSTANCE_ID" >> $GITHUB_OUTPUT
+          echo "Started instance: $INSTANCE_ID"
+
+      - name: Wait for instance to terminate
+        run: |
+          echo "Instance ${{ steps.ec2.outputs.instance_id }} running pipeline..."
+          echo "It will push results and shut itself down."
+          aws ec2 wait instance-terminated \
+            --instance-ids ${{ steps.ec2.outputs.instance_id }} || true
+          echo "Instance terminated."
