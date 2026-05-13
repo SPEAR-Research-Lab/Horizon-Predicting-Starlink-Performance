@@ -8,7 +8,6 @@ __pycache__/
 .cache/
 *.sqlite
 
-<<<<<<< leo-viewer
 # Logs
 logs/
 *.log
@@ -32,6 +31,11 @@ leo-viewer/frontend/dist/
 leo-viewer/frontend/public/predicted_*.json
 leo-viewer/frontend/public/dot_predictions.json
 
+# leo-viewer backend (legacy)
+leo-viewer/backend/models/*.joblib
+leo-viewer/backend/logs/
+leo-viewer/backend/.env
+
 # Weather data cache
 weather_data/
 .cache.sqlite
@@ -41,14 +45,3 @@ weather_data/
 Horizon_SIGMETRICS_2026.pptx
 _assets/
 build_presentation.py
-=======
-# leo-viewer
-leo-viewer/backend/models/*.joblib
-leo-viewer/backend/logs/
-leo-viewer/backend/.env
-leo-viewer/frontend/node_modules/
-leo-viewer/frontend/dist/
-
-.cache.sqlite
-.gha-creds*
->>>>>>> main

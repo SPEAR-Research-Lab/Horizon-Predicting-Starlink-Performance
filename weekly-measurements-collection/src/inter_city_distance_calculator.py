@@ -5,14 +5,8 @@ from geopy.distance import geodesic
 import pandas as pd
 import requests
 
-<<<<<<< leo-viewer
-from config import data_dir, logger
-from custom_types import Coordinate
-from enums import CsvFiles
-=======
 from config import CsvFiles, data_dir, logger
 from custom_types import Coordinate
->>>>>>> main
 
 
 class DistanceCalculator:
@@ -23,14 +17,9 @@ class DistanceCalculator:
     _failed_lookups: set[Tuple[str, str]]
 
     def __init__(self) -> None:
-<<<<<<< leo-viewer
-        self._client_server_distance = pd.read_csv(data_dir / CsvFiles.CLIENT_SERVER_DISTANCE.value)
-        self._world_cities = None
-=======
         self._client_server_distance = pd.read_csv(data_dir / CsvFiles.client_server_distance)
         self._world_cities = None
         self._server_locations = None
->>>>>>> main
         self._distance_cache_dirty = False
         self._failed_lookups = set()
         self._coordinates_cache_dirty = False
@@ -61,21 +50,13 @@ class DistanceCalculator:
             "server_country_code": country_to,
             "distance": distance,
         }
-<<<<<<< leo-viewer
-        self._client_server_distance.to_csv(data_dir / CsvFiles.CLIENT_SERVER_DISTANCE.value, index=False)
-=======
         self._client_server_distance.to_csv(data_dir / CsvFiles.client_server_distance, index=False)
->>>>>>> main
         return float(distance)
 
     def update_unresolved_cities(self) -> None:
         if len(self._failed_lookups) == 0:
             return
-<<<<<<< leo-viewer
-        unresolved_cities_path = data_dir / CsvFiles.UNRESOLVED_CITIES.value
-=======
         unresolved_cities_path = data_dir / CsvFiles.unresolved_cities
->>>>>>> main
         if unresolved_cities_path.exists():
             df = pd.read_csv(unresolved_cities_path)
         else:
@@ -85,11 +66,6 @@ class DistanceCalculator:
         unresolved_cities_df = pd.DataFrame(unresolved_cities, columns=['city', 'country'])
         unresolved_cities_df.to_csv(unresolved_cities_path, index=False)
 
-<<<<<<< leo-viewer
-    def get_city_coordinates(self, city: str, country: str) -> Optional[Coordinate]:
-        if self._world_cities is None:
-            self._world_cities = pd.read_csv(data_dir / CsvFiles.WORLD_CITIES_COORDINATES.value)
-=======
     def get_closest_server_for_location(self, lat: float, lon: float) -> float:
         if self._server_locations is None:
             self._server_locations = pd.read_csv(data_dir / CsvFiles.server_locations)
@@ -109,7 +85,6 @@ class DistanceCalculator:
     def get_city_coordinates(self, city: str, country: str) -> Optional[Coordinate]:
         if self._world_cities is None:
             self._world_cities = pd.read_csv(data_dir / CsvFiles.world_cities_coordinates)
->>>>>>> main
 
         # Try exact match first
         coords = self._world_cities[(self._world_cities['city'] == city) & (self._world_cities['country'] == country)][
@@ -135,11 +110,7 @@ class DistanceCalculator:
         logger.info(f"Saving coordinates for {city}, {country}: ({lat}, {lng})")
         new_row = pd.DataFrame([{'city': city, 'country': country, 'lat': lat, 'lng': lng}])
         self._world_cities = pd.concat([self._world_cities, new_row], ignore_index=True)
-<<<<<<< leo-viewer
-        self._world_cities.to_csv(data_dir / CsvFiles.WORLD_CITIES_COORDINATES.value, index=False)
-=======
         self._world_cities.to_csv(data_dir / CsvFiles.world_cities_coordinates, index=False)
->>>>>>> main
 
     @staticmethod
     def _fetch_coordinates(city: str, country_code: str) -> Tuple[Optional[float], Optional[float]]:

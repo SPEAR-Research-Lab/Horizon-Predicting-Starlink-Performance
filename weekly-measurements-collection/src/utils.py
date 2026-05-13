@@ -1,11 +1,7 @@
 from datetime import date, datetime, timedelta, timezone
 import io
 from pathlib import Path
-<<<<<<< leo-viewer
-from typing import Tuple
-=======
 from typing import Optional, Tuple
->>>>>>> main
 import zipfile
 
 import pandas as pd
@@ -190,10 +186,6 @@ def get_tle_file_names(start_date: date, end_date: date) -> list[str]:
     return result
 
 
-<<<<<<< leo-viewer
-def get_weather_file_name(city: str, country: str, is_historical: bool) -> str:
-    return f"{city}_{country}_{'historical' if is_historical else 'forecast'}.csv"
-=======
 def get_weather_file_names(
     city_country_tuple: Optional[tuple[str, str]], location: Optional[tuple[float, float]]
 ) -> Tuple[str, str]:
@@ -201,7 +193,6 @@ def get_weather_file_names(
         raise ValueError("Either city_country_tuple or location must be provided")
     first, last = city_country_tuple if city_country_tuple is not None else (str(location[0]), str(location[1]))  # type: ignore
     return f"{first}_{last}_historical.csv", f"{first}_{last}_forecast.csv"
->>>>>>> main
 
 
 def get_previous_and_next_hours_utc(dt: datetime) -> Tuple[str, str]:

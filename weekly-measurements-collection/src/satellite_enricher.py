@@ -29,11 +29,7 @@ def _find_nearest_tle(target: date, available: list[Path]) -> tuple[Optional[Pat
         file_date = _parse_tle_filename(path)
         if file_date is None:
             continue
-<<<<<<< leo-viewer
-        delta = abs((target - file_date).days)
-=======
         delta = abs((target - file_date.date()).days)
->>>>>>> main
         if best_delta is None or delta < best_delta:
             best_path, best_delta = path, delta
     return best_path, best_delta
