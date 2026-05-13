@@ -1,15 +1,14 @@
 <script lang="ts">
-const backendRoot = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
-
 async function fetchGridPredictions(resolution: number = 2) {
-  const response = await fetch(`${backendRoot}/api/predictions/grids?resolution=${resolution}`)
+  const response = await fetch(`/predicted_hex_res${resolution}.json`)
   return await response.json()
 }
 
 async function fetchDotPredictions() {
-  const response = await fetch(`${backendRoot}/api/predictions/city`)
+  const response = await fetch('/dot_predictions.json')
   return await response.json()
 }
 
+export default {}
 export { fetchGridPredictions, fetchDotPredictions }
 </script>
