@@ -1,15 +1,47 @@
 .mypy_cache/
 __pycache__/
+*.pyc
 .venv/
 .idea/
 .DS_Store
+.vite/
+.cache/
+*.sqlite
 
-# leo-viewer
+# Logs
+logs/
+*.log
+
+# Large model files
+model-pipeline/models/
+train-predict-pipeline/models
+
+# Training data (too large for git)
+model-pipeline/data/train-data/
+data/
+
+# Pipeline intermediate outputs
+train-predict-pipeline/output/
+train-predict-pipeline/data/*_weather*.csv
+train-predict-pipeline/data/*_predictions*.csv
+
+# leo-viewer frontend
+leo-viewer/frontend/node_modules/
+leo-viewer/frontend/dist/
+leo-viewer/frontend/public/predicted_*.json
+leo-viewer/frontend/public/dot_predictions.json
+
+# leo-viewer backend (legacy)
 leo-viewer/backend/models/*.joblib
 leo-viewer/backend/logs/
 leo-viewer/backend/.env
-leo-viewer/frontend/node_modules/
-leo-viewer/frontend/dist/
 
+# Weather data cache
+weather_data/
 .cache.sqlite
 .gha-creds*
+
+# Presentation/temp files
+Horizon_SIGMETRICS_2026.pptx
+_assets/
+build_presentation.py
