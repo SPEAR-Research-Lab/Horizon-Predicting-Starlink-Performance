@@ -2,13 +2,6 @@ from collections import defaultdict
 import os
 from pathlib import Path
 
-from attr import dataclass
-
-from logger import LogUtils
-
-logger = LogUtils.init_logger()
-data_dir = (Path(__file__).parent / ".." / "data").resolve()
-measurements_dir = (Path(__file__).parent / ".." / "measurements").resolve()
 predictions_dir = (Path(__file__).parent / ".." / "predictions").resolve()
 tle_data_dir = (Path(__file__).parent / ".." / ".." / "satellite-data" / "data").resolve()
 weather_data_dir = (Path(__file__).parent / ".." / "weather_data").resolve()
@@ -55,23 +48,6 @@ columns = [
     "upload_latency_ms",
     "upload_jitter_ms",
 ]
-
-df_final_columns = [
-    "uuid",
-    "test_time",
-    "data_source",
-    "asn",
-    "client_city",
-    "client_country_code",
-    "server_city",
-    "server_country_code",
-    "packet_loss_rate",
-    "download_throughput_mbps",
-    "download_latency_ms",
-    "download_jitter_ms",
-    "lat",
-    "lon",
-    "sat_density",
     "hour_with_minute",
     "day_of_week",
     "client_server_distance_km",

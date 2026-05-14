@@ -1,0 +1,17 @@
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+joblib>=1.3
+requests>=2.28
+h3>=4.0
+sgp4>=2.22
+skyfield>=1.45
+geopy>=2.3
+tqdm>=4.65
+openmeteo-requests>=1.2
+requests-cache>=1.1
+retry-requests>=2.0
+pyproj>=3.5
+matplotlib>=3.7
+PyYAML>=6.0
+python-dateutil>=2.8
