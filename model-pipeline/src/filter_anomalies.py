@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
+from config import logger
+
 MIN_WINDOW_HOURS = 1.0
 MAX_WINDOW_HOURS = 3.0
 WINDOW_STEP_HOURS = 0.5
@@ -25,9 +27,7 @@ def map_feature_to_filter_direction(feature: str) -> FilterDirection:
     return FilterDirection.BOTH
 
 
-def filter_incomplete_measurements(
-    df: pd.DataFrame, target_feature_group: list[str]
-) -> pd.DataFrame:
+def filter_incomplete_measurements(df: pd.DataFrame, target_feature_group: list[str]) -> pd.DataFrame:
     df = df.copy()
     bad_measurements = df[target_feature_group].isna().any(axis=1)
     for feature in target_feature_group:
@@ -37,13 +37,9 @@ def filter_incomplete_measurements(
     return df[~bad_measurements].reset_index(drop=True)
 
 
-def get_window_idx(
-    group_ts: np.ndarray, group_idx: np.ndarray, center_time: np.datetime64
-) -> np.ndarray | None:
+def get_window_idx(group_ts: np.ndarray, group_idx: np.ndarray, center_time: np.datetime64) -> np.ndarray | None:
     window_idx = None
-    for window_hours in np.arange(
-        MIN_WINDOW_HOURS, MAX_WINDOW_HOURS + WINDOW_STEP_HOURS, WINDOW_STEP_HOURS
-    ):
+    for window_hours in np.arange(MIN_WINDOW_HOURS, MAX_WINDOW_HOURS + WINDOW_STEP_HOURS, WINDOW_STEP_HOURS):
         time_diff = np.abs(group_ts - center_time)
         window_mask = time_diff <= np.timedelta64(int(window_hours * 30), "m")
         window_idx = group_idx[window_mask]
@@ -53,9 +49,7 @@ def get_window_idx(
     return window_idx
 
 
-def directional_mad_filter(
-    values: np.ndarray, direction: FilterDirection, k: float
-) -> np.ndarray:
+def directional_mad_filter(values: np.ndarray, direction: FilterDirection, k: float) -> np.ndarray:
     median = np.median(values)
     mad = np.median(np.abs(values - median))
 
@@ -64,32 +58,28 @@ def directional_mad_filter(
 
     if direction == FilterDirection.UPPER:
         threshold = median + k * mad
-        return values <= threshold
+        return np.asarray(values <= threshold)
     elif direction == FilterDirection.LOWER:
         threshold = median - k * mad
-        return values >= threshold
+        return np.asarray(values >= threshold)
     elif direction == FilterDirection.BOTH:
         upper_threshold = median + k * mad
         lower_threshold = median - k * mad
-        return (values >= lower_threshold) & (values <= upper_threshold)
+        return np.asarray((values >= lower_threshold) & (values <= upper_threshold))
 
 
 def filter_outliers_directional_mad(
     df: pd.DataFrame,
     k: float,
     target_feature_group: list[str],
-    detailed_stats=False,
+    detailed_stats: bool = False,
     voting_threshold: float = 0.5,
 ) -> pd.DataFrame:
     df = df.copy()
     df = df.sort_values(["lat", "lon", "ts"]).reset_index(drop=True)
 
-    violated_sets: dict[str, set[int]] = {
-        feature: set() for feature in target_feature_group
-    }
-    vals: dict[str, Any] = {
-        feature: df[feature].values for feature in target_feature_group
-    }
+    violated_sets: dict[str, set[int]] = {feature: set() for feature in target_feature_group}
+    vals: dict[str, Any] = {feature: df[feature].values for feature in target_feature_group}
     ts_vals = df["ts"].values
 
     flagged_count = np.zeros(len(df), dtype=int)
@@ -117,10 +107,7 @@ def filter_outliers_directional_mad(
                     for feature in target_feature_group:
                         violated_sets[feature].update(window_idx)
             else:
-                window_vals = {
-                    feature: vals[feature][window_idx]
-                    for feature in target_feature_group
-                }
+                window_vals = {feature: vals[feature][window_idx] for feature in target_feature_group}
                 masks = {
                     feature: directional_mad_filter(
                         window_vals[feature],
@@ -145,10 +132,9 @@ def filter_outliers_directional_mad(
     filtered_df = df[keep_mask].reset_index(drop=True)
 
     if detailed_stats:
-        print("Filtering statistics:")
+        logger.info("Filtering statistics:")
         for feature in target_feature_group:
-            print(f"Violated {feature}: {len(violated_sets[feature])}")
-        print("\n")
+            logger.info(f"Violated {feature}: {len(violated_sets[feature])}")
 
     return filtered_df
 
@@ -157,7 +143,7 @@ def filter_outliers_isolation_forest(
     df: pd.DataFrame,
     keep_frac: float,
     target_feature_group: list[str],
-    temporal_cols=["hour_with_minute", "day_of_week"],
+    temporal_cols: list[str] = ["hour_with_minute", "day_of_week"],
 ) -> pd.DataFrame:
     df = df.copy()
     df = df.sort_values(["lat", "lon", "ts"]).reset_index(drop=True)
@@ -177,9 +163,7 @@ def filter_outliers_isolation_forest(
         X = df.loc[group_idx, if_train_cols].values
         X_norm = (X - np.mean(X, axis=0)) / (np.std(X, axis=0) + 1e-8)
 
-        iso_forest = IsolationForest(
-            contamination=1 - keep_frac, random_state=42, n_estimators=100, n_jobs=-1
-        )
+        iso_forest = IsolationForest(contamination=1 - keep_frac, random_state=42, n_estimators=100, n_jobs=-1)
         predictions = iso_forest.fit_predict(X_norm)
         keep_mask[group_idx[predictions == -1]] = False
 
@@ -191,14 +175,11 @@ def composite_badness_vectorized(
     window_vals: dict[str, np.ndarray],
     max_vals: dict[str, float],
 ) -> np.ndarray:
-    norms = {
-        feature: np.minimum(window_vals[feature] / (max_vals[feature]), 1.0)
-        for feature in target_feature_group
-    }
+    norms = {feature: np.minimum(window_vals[feature] / (max_vals[feature]), 1.0) for feature in target_feature_group}
     for feature in target_feature_group:
         if map_feature_to_filter_direction(feature) == FilterDirection.LOWER:
             norms[feature] = 1 - norms[feature]
-    return np.sum(list(norms.values()), axis=0)
+    return np.asarray(np.sum(list(norms.values()), axis=0))
 
 
 def filter_outliers_percentile(
@@ -232,17 +213,9 @@ def filter_outliers_percentile(
             elif len(window_idx) < MIN_MATCHES_REQUIRED:
                 flagged_count[window_idx] += 1
             else:
-                window_vals: dict[str, Any] = {
-                    feature: vals[feature][window_idx]
-                    for feature in target_feature_group
-                }
-                max_vals = {
-                    feature: window_vals[feature].max()
-                    for feature in target_feature_group
-                }
-                badness = composite_badness_vectorized(
-                    target_feature_group, window_vals, max_vals
-                )
+                window_vals: dict[str, Any] = {feature: vals[feature][window_idx] for feature in target_feature_group}
+                max_vals = {feature: window_vals[feature].max() for feature in target_feature_group}
+                badness = composite_badness_vectorized(target_feature_group, window_vals, max_vals)
 
                 threshold = np.quantile(badness, keep_frac)
                 flagged_count[window_idx[badness > threshold]] += 1

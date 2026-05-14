@@ -1,5 +1,4 @@
-from typing import (Callable, List, Literal, Optional, Tuple, TypeAlias,
-                    TypedDict)
+from typing import Callable, List, Literal, Tuple, TypeAlias, TypedDict
 
 import pandas as pd
 
@@ -52,9 +51,3 @@ FeatureName: TypeAlias = Literal[
 ]
 
 FeatureGroup: TypeAlias = Tuple[FeatureName, ...]
-
-
-class TargetConfig(TypedDict):
-    preferred_filtration: Optional[str]
-    preferred_months: Optional[list[int]]
-    save_model: bool
