@@ -39,7 +39,6 @@ jobs:
             --instance-type $INSTANCE_TYPE \
             --security-group-ids $SECURITY_GROUP \
             --subnet-id $SUBNET_ID \
-            --iam-instance-profile Name=horizon-ec2-role \
             --instance-market-options '{"MarketType":"spot","SpotOptions":{"SpotInstanceType":"one-time"}}' \
             --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=horizon-prediction-pipeline}]' \
             --user-data file://train-predict-pipeline/aws/user-data.sh \
