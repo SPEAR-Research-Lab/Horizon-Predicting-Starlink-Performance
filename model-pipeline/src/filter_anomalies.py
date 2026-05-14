@@ -246,7 +246,7 @@ def parse_args() -> FiltrationParams:
     if args.if_k <= 0 or args.if_k >= 1:
         raise ValueError("Isolation Forest k must be between 0 and 1.")
     if args.mad_k <= 0:
-        raise ValueError("Percentile k must be positive.")
+        raise ValueError("MAD k must be positive.")
 
     latency_k = args.percentile_k
     if args.latency == "if":
