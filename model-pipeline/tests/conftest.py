@@ -2,8 +2,8 @@
 Pytest configuration for model-pipeline tests.
 """
 
-import sys
 from pathlib import Path
+import sys
 
 # Add src directory to Python path
 src_path = Path(__file__).parent.parent / "src"

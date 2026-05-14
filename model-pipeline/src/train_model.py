@@ -298,9 +298,9 @@ if __name__ == "__main__":
         default=11,
         help="Number of months to use for the download throughput model",
     )
-
     parser.add_argument("--save-models", action="store_true", help="Whether to save the trained models or not")
     args = parser.parse_args()
+
     training_data_dir = args.src
     if not training_data_dir:
         logger.error("Source directory is required")
