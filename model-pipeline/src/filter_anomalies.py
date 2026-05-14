@@ -282,13 +282,13 @@ def main() -> None:
             df['ts'] = pd.to_datetime(df['test_time'], format='mixed', utc=True)
 
             latency_df = params.latency_filtration(df)
-            latency_df.to_csv(filetered_csv_dir / f"download_latency_filtered_{file}")
             latency_df = latency_df.drop(columns=['ts'])
+            latency_df.to_csv(filetered_csv_dir / f"download_latency_filtered_{file}", index=False)
             logger.info(f"Latency filtering complete: {len(latency_df)} rows ({len(latency_df) / len(df) * 100:.2f}%)")
 
             throughput_df = params.throughput_filtration(df)
-            throughput_df.to_csv(filetered_csv_dir / f"download_throughput_filtered_{file}")
             throughput_df = throughput_df.drop(columns=['ts'])
+            throughput_df.to_csv(filetered_csv_dir / f"download_throughput_filtered_{file}", index=False)
             logger.info(
                 f"Throughput filtering complete: {len(throughput_df)} rows ({len(throughput_df) / len(df) * 100:.2f}%)"
             )
