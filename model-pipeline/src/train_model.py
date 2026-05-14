@@ -286,7 +286,7 @@ if __name__ == "__main__":
         "--src",
         "-s",
         type=str,
-        help="Source directory or file path containing CSV data",
+        help="Source directory path containing CSV data",
     )
     parser.add_argument(
         "--download-latency-months", type=int, default=2, help="Number of months to use for the download latency model"

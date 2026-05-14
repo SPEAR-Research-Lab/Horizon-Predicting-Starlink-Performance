@@ -216,7 +216,7 @@ def parse_args() -> FiltrationParams:
         "--src",
         "-s",
         type=str,
-        help="Source directory or file path containing CSV data",
+        help="Source directory path containing CSV data",
     )
     parser.add_argument(
         "--percentile-k", type=float, default=0.75, help="Param value `k` to use for percentile filtration"
