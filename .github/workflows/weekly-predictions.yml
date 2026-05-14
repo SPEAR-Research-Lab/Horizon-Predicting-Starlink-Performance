@@ -1,4 +1,4 @@
-name: Train, Predict & Deploy
+name: Train & Predict (AWS)
 
 on:
   workflow_run:
@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
   id-token: write
 
 env:
@@ -19,7 +18,7 @@ env:
   AWS_REGION: eu-west-1
 
 jobs:
-  train-and-predict:
+  start-ec2:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
@@ -31,8 +30,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Start EC2 spot instance
-        id: ec2
+      - name: Start EC2 spot instance (fire and forget)
         run: |
           INSTANCE_ID=$(aws ec2 run-instances \
             --image-id $AMI_ID \
@@ -45,70 +43,5 @@ jobs:
             --instance-initiated-shutdown-behavior terminate \
             --query 'Instances[0].InstanceId' \
             --output text)
-          echo "instance_id=$INSTANCE_ID" >> $GITHUB_OUTPUT
-          echo "Started instance: $INSTANCE_ID"
-
-      - name: Wait for instance to terminate
-        run: |
-          echo "EC2 is training + predicting + pushing JSONs..."
-          echo "Polling every 60s for up to 90 minutes..."
-          for i in $(seq 1 90); do
-            STATE=$(aws ec2 describe-instances \
-              --instance-ids ${{ steps.ec2.outputs.instance_id }} \
-              --query 'Reservations[0].Instances[0].State.Name' \
-              --output text 2>/dev/null || echo "unknown")
-            echo "  [$i/90] Instance state: $STATE"
-            if [ "$STATE" = "terminated" ] || [ "$STATE" = "shutting-down" ]; then
-              echo "EC2 finished."
-              break
-            fi
-            if [ "$i" -eq 90 ]; then
-              echo "Timeout waiting for EC2. Terminating..."
-              aws ec2 terminate-instances --instance-ids ${{ steps.ec2.outputs.instance_id }} || true
-              exit 1
-            fi
-            sleep 60
-          done
-
-  deploy:
-    needs: train-and-predict
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Pull latest (includes EC2 pushed JSONs)
-        run: git pull origin main
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install frontend deps
-        working-directory: leo-viewer/frontend
-        run: npm install
-
-      - name: Build frontend
-        working-directory: leo-viewer/frontend
-        run: npm run build-only
-
-      - name: Assemble site
-        run: |
-          mkdir -p deploy
-          cp website/index.html deploy/index.html
-          cp -r leo-viewer/frontend/dist deploy/app
-
-      - uses: actions/configure-pages@v4
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: deploy
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "Started EC2: $INSTANCE_ID"
+          echo "It will train, predict, push JSONs, and terminate itself."
