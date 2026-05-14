@@ -1,10 +1,10 @@
-from datetime import datetime, timezone
 import functools
 import logging
-from logging import Logger
 import os
-from pathlib import Path
 import time
+from datetime import datetime, timezone
+from logging import Logger
+from pathlib import Path
 from typing import Any, Callable, Optional
 
 
@@ -27,7 +27,7 @@ class LogUtils:
         LogUtils._logger = logging.getLogger("daily_logger")
         LogUtils._logger.setLevel(logging.INFO)
 
-        handler = logging.FileHandler(log_path, encoding='utf-8')
+        handler = logging.FileHandler(log_path, encoding="utf-8")
         formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
         handler.setFormatter(formatter)
 
@@ -50,7 +50,9 @@ class LogUtils:
                 logger.info(f"Finished: {func.__name__} (Duration: {duration:.2f}s)")
                 return result
             except Exception as e:
-                logger.error(f"Exception in {func.__name__}: {e.__class__.__name__} - {e}")
+                logger.error(
+                    f"Exception in {func.__name__}: {e.__class__.__name__} - {e}"
+                )
                 raise e
 
         return wrapper
