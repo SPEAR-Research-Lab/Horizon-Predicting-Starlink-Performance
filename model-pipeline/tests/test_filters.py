@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.anomaly.filters import (
+from src.filter_anomalies import (
     filter_incomplete_measurements,
     filter_outliers_directional_mad,
     filter_outliers_isolation_forest,
@@ -36,7 +36,7 @@ def test_filter_incomplete_measurements(sample_data: pd.DataFrame) -> None:
     df.loc[0, "download_latency_ms"] = -1
     df.loc[1, "download_latency_ms"] = np.nan
 
-    result = filter_incomplete_measurements(df, ["download_latency_ms"])
+    result = filter_incomplete_measurements(df, "download_latency_ms")
 
     assert len(result) < len(df)
     assert (result["download_latency_ms"] > 0).all()
@@ -44,21 +44,21 @@ def test_filter_incomplete_measurements(sample_data: pd.DataFrame) -> None:
 
 
 def test_percentile_filtering(sample_data: pd.DataFrame) -> None:
-    result = filter_outliers_percentile(sample_data, 0.75, ["download_latency_ms"])
+    result = filter_outliers_percentile(sample_data, 0.75, "download_latency_ms")
 
     assert len(result) <= len(sample_data)
     assert "download_latency_ms" in result.columns
 
 
 def test_directional_mad_filtering(sample_data: pd.DataFrame) -> None:
-    result = filter_outliers_directional_mad(sample_data, 2.5, ["download_latency_ms"])
+    result = filter_outliers_directional_mad(sample_data, 2.5, "download_latency_ms")
 
     assert len(result) <= len(sample_data)
     assert "download_latency_ms" in result.columns
 
 
 def test_isolation_forest_filtering(sample_data: pd.DataFrame) -> None:
-    result = filter_outliers_isolation_forest(sample_data, 0.75, ["download_latency_ms"])
+    result = filter_outliers_isolation_forest(sample_data, 0.75, "download_latency_ms")
 
     assert len(result) <= len(sample_data)
     assert "download_latency_ms" in result.columns
