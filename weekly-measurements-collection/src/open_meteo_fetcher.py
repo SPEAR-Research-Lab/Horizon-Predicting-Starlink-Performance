@@ -25,7 +25,7 @@ class OpenMeteoFetcher:
         self._client = OpenMeteoClient(session=retry_session)
         self._distance_calculator = distance_calculator
 
-    def _getParams_historical(
+    def _get_params_historical(
         self, latitude: float, longitude: float, start_date: date, end_date: date
     ) -> HistoricalParams:
         return {
@@ -37,7 +37,7 @@ class OpenMeteoFetcher:
             "timezone": "GMT",
         }
 
-    def _getParams_forecast(
+    def _get_params_forecast(
         self, latitude: float, longitude: float, past_days: int, forecast_days: int
     ) -> ForecastParams:
         return {
@@ -98,7 +98,7 @@ class OpenMeteoFetcher:
         end_date: date,
         file_name: str,
     ) -> None:
-        params = self._getParams_historical(latitude, longitude, start_date, end_date)
+        params = self._get_params_historical(latitude, longitude, start_date, end_date)
         new_df = self._fetch(self._historical_url, params)
         file_path = weather_data_dir / file_name
 
@@ -114,7 +114,7 @@ class OpenMeteoFetcher:
     def fetch_and_save_forecast(
         self, latitude: float, longitude: float, file_name: str, past_days: int, forecast_days: int
     ) -> None:
-        params = self._getParams_forecast(latitude, longitude, past_days, forecast_days)
+        params = self._get_params_forecast(latitude, longitude, past_days, forecast_days)
         df = self._fetch(self._forecast_url, params)
         file_path = weather_data_dir / file_name
         if file_path.exists():
@@ -129,6 +129,9 @@ class OpenMeteoFetcher:
         historical_days: Optional[int],
         forecast_days: Optional[int],
     ) -> None:
+        logger.info(
+            f"Fetching for {len(city_country_set)} cities with historical_days={historical_days} and forecast_days={forecast_days}"
+        )
         for city, country in city_country_set:
             historical_file_name, forecast_file_name = get_weather_file_names(
                 city_country_tuple=(city, country), location=None

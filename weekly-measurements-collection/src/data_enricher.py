@@ -14,7 +14,7 @@ class DataEnricher:
         self._distance_calculator = distance_calculator
         self._weather_data_handler = weather_data_handler
 
-    def enrich_dataframe_for_training(self, df: pd.DataFrame) -> pd.DataFrame:
+    def enrich_df_for_training(self, df: pd.DataFrame) -> pd.DataFrame:
         df = df.dropna(subset=["client_city", "client_country_code", "server_city", "server_country_code", "test_time"])
         df = df.reset_index(drop=True)
         logger.info(f"Processing DataFrame with {len(df)} rows...")
@@ -114,6 +114,7 @@ class DataEnricher:
         return df
 
     def enrich_df_with_weather(self, df: pd.DataFrame, first_column: str, second_column: str) -> pd.DataFrame:
+        self._weather_data_handler.initialize_weather_data(force=True)
         def add_weather_data(row: pd.Series) -> pd.Series:
             try:
                 weather_data = self._weather_data_handler.get_weather_data(
@@ -124,8 +125,8 @@ class DataEnricher:
                 row['cloud_cover'] = weather_data.get('cloud_cover', float('nan'))
                 row['wind_speed_10m'] = weather_data.get('wind_speed_10m', float('nan'))
             except Exception:
-                logger.exception(
-                    f"Error fetching weather for {row[first_column]}, {row[second_column]} at {row['test_time']}"
+                logger.warning(
+                    f"Error getting weather for {row[first_column]}, {row[second_column]} at {row['test_time']}"
                 )
                 row['temperature_2m'] = float('nan')
                 row['precipitation'] = float('nan')
