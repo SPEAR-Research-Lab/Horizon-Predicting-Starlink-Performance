@@ -4,6 +4,7 @@ set -e
 sudo -u ec2-user bash <<'EOF'
 cd /home/ec2-user/horizon
 git pull origin main
+git lfs pull
 
 cd train-predict-pipeline
 rm -f models 2>/dev/null
