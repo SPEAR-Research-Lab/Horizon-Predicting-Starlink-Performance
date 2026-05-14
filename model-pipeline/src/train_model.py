@@ -1,5 +1,4 @@
 import argparse
-from dataclasses import dataclass
 import gc
 import os
 from typing import Any, Optional
@@ -13,15 +12,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import RobustScaler
 
 from config import EnumFiles, df_features_download, df_features_upload, logger, models_dir
+from custom_types import TargetFeatures
 from explain_model_feature_imp import plot_feature_importances_and_save
 from utils import ModelType, add_weather_index, get_file_matchers
-
-
-@dataclass(frozen=True)
-class TargetFeatures:
-    download_latency = "download_latency_ms"
-    download_throughput = "download_throughput_mbps"
-
 
 features = [
     "lat",
@@ -293,7 +286,7 @@ if __name__ == "__main__":
         "--src",
         "-s",
         type=str,
-        help="Source directory or file path containing raw CSV data",
+        help="Source directory or file path containing CSV data",
     )
     parser.add_argument(
         "--download-latency-months", type=int, default=2, help="Number of months to use for the download latency model"

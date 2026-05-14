@@ -1,6 +1,5 @@
-from typing import Callable, List, Literal, Tuple, TypeAlias, TypedDict
-
-import pandas as pd
+from dataclasses import dataclass
+from typing import List, Tuple, TypedDict
 
 
 class HistoricalParams(TypedDict):
@@ -27,27 +26,10 @@ class WeatherData(TypedDict):
     wind_speed_10m: float
 
 
-class Timefeatures(TypedDict):
-    day_of_week: int
-    month: int
-    hour: int
-
-
 Coordinate = Tuple[float, float]
 
-FilterFunction: TypeAlias = Callable[[pd.DataFrame, float, list[str]], pd.DataFrame]
 
-
-class FiltrationConfig(TypedDict):
-    args: list[float]
-    name: str
-
-
-FiltrationDict: TypeAlias = dict[FilterFunction, FiltrationConfig]
-
-FeatureName: TypeAlias = Literal[
-    "download_latency_ms",
-    "download_throughput_mbps",
-]
-
-FeatureGroup: TypeAlias = Tuple[FeatureName, ...]
+@dataclass(frozen=True)
+class TargetFeatures:
+    download_latency = "download_latency_ms"
+    download_throughput = "download_throughput_mbps"

@@ -13,14 +13,14 @@ project_root = model_pipeline_root.parent
 
 data_dir = model_pipeline_root / "data"
 weather_data_dir = model_pipeline_root / "weather_data"
-starlink_data_dir = model_pipeline_root / "starlink_data"
 models_dir = model_pipeline_root / "models"
+filetered_csv_dir = model_pipeline_root / "filtered"
 
 sat_dir = project_root / "satellite-data" / "data"
 
 os.makedirs(models_dir, exist_ok=True)
 os.makedirs(weather_data_dir, exist_ok=True)
-os.makedirs(starlink_data_dir, exist_ok=True)
+os.makedirs(filetered_csv_dir, exist_ok=True)
 
 
 @dataclass(frozen=True)

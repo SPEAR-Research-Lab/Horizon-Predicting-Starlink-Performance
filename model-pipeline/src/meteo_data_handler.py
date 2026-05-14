@@ -1,10 +1,9 @@
 from datetime import datetime
 import os
-from typing import Optional
 
 import pandas as pd
 
-from config import logger, starlink_data_dir, weather_data_dir
+from config import logger, weather_data_dir
 from custom_types import WeatherData
 from utils import get_previous_and_next_hours_utc, get_weather_file_name
 
@@ -62,31 +61,3 @@ class WeatherDataHandler:
                 + beta * next_hour_datapoint["wind_speed_10m"].item()
             ),
         }
-
-    def populate_csv_with_weather_data(self, csv_name: str) -> None:
-        df = pd.read_csv(starlink_data_dir / csv_name)
-        weather_features = WeatherData.__annotations__.keys()
-        for feature in weather_features:
-            df[feature] = None
-
-        for idx, row in df.iterrows():
-            weather_data: Optional[WeatherData] = None
-            if (
-                pd.notna(row.get("client_city"))
-                and pd.notna(row.get("client_country_code"))
-                and pd.notna(row.get("test_time"))
-                and str(row.get("client_city")).strip() != ""
-                and str(row.get("client_country_code")).strip() != ""
-                and str(row.get("test_time")).strip() != ""
-            ):
-                weather_data = self.get_weather_data_for_city_and_time(
-                    str(row["client_city"]),
-                    str(row["client_country_code"]),
-                    str(row["test_time"]),
-                )
-            if not weather_data:
-                continue
-            for feature, value in weather_data.items():
-                df.at[idx, feature] = value
-
-        df.to_csv(starlink_data_dir / csv_name, index=False)
