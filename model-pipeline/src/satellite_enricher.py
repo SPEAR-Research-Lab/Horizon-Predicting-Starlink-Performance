@@ -1,203 +1,194 @@
+from concurrent.futures import ProcessPoolExecutor
+from datetime import date, datetime
 import os
-import re
-import math
+from pathlib import Path
+import time
+from typing import Optional
+
+import numpy as np
 import pandas as pd
-from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from sgp4.api import Satrec, jday
-from pyproj import Transformer
-from datetime import date
-import unicodedata
-from collections import defaultdict
+from sgp4.api import Satrec, SatrecArray
 
+from constants import logger, sat_dir
+from logger import LogUtils
+
+CHUNK_SIZE = 500
 CIRCLE_RADIUS_KM = 580
+_A_KM = 6378.137
+_E2 = 0.00669437999014
+_KM_PER_DEG = 111.32
 
-TRANSFORMER = transformer = Transformer.from_crs(
-    {"proj": "geocent", "ellps": "WGS84"},
-    {"proj": "latlong", "ellps": "WGS84"},
-    always_xy=True
-)
 
-_SUFFIXES = [
-    " municipality", " district", " region", " province", " state",
-    " city", " town", " village", " shire", " borough", " county"
-]
+def _parse_tle_filename(path: Path) -> pd.Timestamp:
+    return pd.Timestamp(datetime.strptime(path.stem, "%d-%m-%Y"), tz="UTC")
 
-_ALIASES = {
-    "ulan bator": "ulaanbaatar",
-    "nukualofa": "nuku'alofa",
-    "st peter port": "saint peter port",
-    "yaren district": "yaren",
-    "haganta": "hagatna",
-    "hagatna": "hagatna",
-    "mariehamns stad": "mariehamn",
-    "adelaide hills": "adelaide",
-    "lima region": "lima",
-}
 
-_SPACES = re.compile(r"\s+")
-_PUNCT = re.compile(r"[^\w\s']+")
-
-def _strip_diacritics(s: str) -> str:
-    return ''.join(c for c in unicodedata.normalize('NFKD', s) if not unicodedata.combining(c))
-
-def norm_text(s: str) -> str:
-    if s is None:
-        return ""
-    s = str(s).strip()
-    if s.lower() in {"nan", "none", ""}:
-        return ""
-    s = _strip_diacritics(s).lower()
-    s = _PUNCT.sub(" ", s)
-    for suf in _SUFFIXES:
-        if s.endswith(suf):
-            s = s[: -len(suf)]
-    s = _SPACES.sub(" ", s).strip()
-    return _ALIASES.get(s, s)
-
-def _enu_distance_km(lat0_deg: float, lon0_deg: float,
-                     lat1_deg: float, lon1_deg: float) -> float:
-    km_per_deg = 111.32
-    dlat = lat1_deg - lat0_deg
-    dlon = lon1_deg - lon0_deg
-    east_km = km_per_deg * math.cos(math.radians(lat0_deg)) * dlon
-    north_km = km_per_deg * dlat
-    return math.sqrt(east_km**2 + north_km**2)
-
-def _in_circle(lat0, lon0, lat1, lon1, radius_km):
-    return _enu_distance_km(lat0, lon0, lat1, lon1) <= radius_km
-
-def sat_density_circle_fast(lat0, lon0, dt_utc, sats, radius_km):
-    jd, fr = jday(
-        dt_utc.year, dt_utc.month, dt_utc.day,
-        dt_utc.hour, dt_utc.minute,
-        dt_utc.second + dt_utc.microsecond / 1e6
-    )
-
-    cnt = 0
-    for sat, name, l1, l2 in sats:
-        e, r, v = sat.sgp4(jd, fr)
-        if e != 0:
+def _find_nearest_tle(target: date, available: list[Path]) -> tuple[Optional[Path], Optional[int]]:
+    best_path, best_delta = None, None
+    for path in available:
+        file_date = _parse_tle_filename(path)
+        if file_date is None:
             continue
-        x, y, z = r
-        try:
-            lon_deg, lat_deg, _ = TRANSFORMER.transform(
-                x * 1000, y * 1000, z * 1000, radians=False
-            )
-        except:
-            continue
-        if math.isnan(lat_deg) or math.isnan(lon_deg):
-            continue
-        if _in_circle(lat0, lon0, lat_deg, lon_deg, radius_km):
-            cnt += 1
-    return cnt
+        delta = abs((target - file_date.date()).days)
+        if best_delta is None or delta < best_delta:
+            best_path, best_delta = path, delta
+    return best_path, best_delta
 
-def build_city_index(coords_csv: str):
-    df = pd.read_csv(coords_csv)
-    df["_city_key"] = df["city"].astype(str).map(norm_text)
-    df["_iso2_key"] = df["country"].astype(str).str.upper().fillna("")
 
-    by_pair = {}
-    by_city = defaultdict(list)
-
-    for _, r in df.iterrows():
-        ckey = r["_city_key"]
-        iso2 = r["_iso2_key"]
-        try:
-            lat = float(r["lat"]); lng = float(r["lng"])
-        except:
-            continue
-        if ckey and iso2:
-            by_pair[(ckey, iso2)] = (lat, lng)
-        if ckey:
-            by_city[ckey].append((lat, lng))
-
-    city_unique = {ck: vals[0] for ck, vals in by_city.items() if len(vals) == 1}
-    return by_pair, city_unique
-
-TLE_RE = re.compile(r"^tle_(\d{8})T140001\.txt$")
-TLE_DATE_ONLY_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})$")
-
-def index_tle_1400_paths(sat_dir: str):
-    paths = {}
-    date_only_paths = {}
-    for fn in os.listdir(sat_dir):
-        m = TLE_RE.match(fn)
-        if m:
-            paths[m.group(1)] = os.path.join(sat_dir, fn)
-        else:
-            m_date = TLE_DATE_ONLY_RE.match(fn)
-            if m_date:
-                date_str = m_date.group(1).replace("-", "")
-                date_only_paths[date_str] = os.path.join(sat_dir, fn)
-    return paths, date_only_paths
-
-def load_sats_from_tle_file(file_path):
+def _load_sats_from_tle_file(file_path: Path) -> SatrecArray:
     with open(file_path) as f:
         lines = [line.strip() for line in f if line.strip()]
-    sats = []
+    satrecs = []
     for i in range(0, len(lines) - 2, 3):
-        name, l1, l2 = lines[i:i+3]
-        sats.append((Satrec.twoline2rv(l1, l2), name, l1, l2))
-    return sats
+        name, l1, l2 = lines[i : i + 3]
+        satrecs.append(Satrec.twoline2rv(l1, l2))
+    return SatrecArray(satrecs)
 
-def day_density_circle(args):
-    group, tle_path, radius_km = args
-    sats = load_sats_from_tle_file(tle_path)
 
-    def row_worker(row):
-        lat0 = row["lat"]
-        lon0 = row["lon"]
-        dt = row["test_time"]
-        if pd.isna(dt):
-            return None
-        return sat_density_circle_fast(lat0, lon0, dt.to_pydatetime(), sats, radius_km)
+def day_density_circle(
+    args: tuple[pd.DataFrame, Path, float, str, bool, Optional[int]],
+) -> tuple[np.ndarray, list[Optional[int]], dict]:
+    group, tle_path, radius_km, date_label, is_fallback, fallback_delta = args
+    t0 = time.monotonic()
 
-    with ThreadPoolExecutor() as executor:
-        densities = list(
-            tqdm(
-                executor.map(row_worker, (r[1] for r in group.iterrows())),
-                total=len(group),
-                desc=f"Circle {group['date'].iloc[0]}"
-            )
-        )
+    sat_array = _load_sats_from_tle_file(tle_path)
 
-    return group.index.to_numpy(), densities
+    valid_mask = (group["lat"].notna() & group["lon"].notna() & group["test_time"].notna()).to_numpy()
 
-def enrich_with_sat_density(df: pd.DataFrame, coords_csv: str, sat_dir: str, radius_km: int = CIRCLE_RADIUS_KM) -> pd.DataFrame:
-    """Enrich dataframe with satellite density in circle.
+    filled_times = group["test_time"]
+    unix_ns = filled_times.astype(np.int64).to_numpy() + 1000
+    jd_full = unix_ns / (86400.0 * 1e9) + 2440587.5
+    jd_arr = np.floor(jd_full)
+    fr_arr = jd_full - jd_arr
 
-    Args:
-        df: Input dataframe with 'lat', 'lon', 'test_time' columns
-        coords_csv: Path to world_cities_coordinates.csv
-        sat_dir: Path to directory containing TLE files
-        radius_km: Circle radius in km
+    meas_lats = group["lat"].to_numpy()
+    meas_lons = group["lon"].to_numpy()
+    n_meas = len(group)
 
-    Returns:
-        DataFrame with 'sat_density' column added
-    """
+    counts = np.zeros(n_meas, dtype=np.int32)
+
+    for start in range(0, n_meas, CHUNK_SIZE):
+        end = min(start + CHUNK_SIZE, n_meas)
+        jd_chunk = jd_arr[start:end]
+        fr_chunk = fr_arr[start:end]
+
+        e_chunk, r_chunk, _ = sat_array.sgp4(jd_chunk, fr_chunk)
+
+        x_km = r_chunk[:, :, 0]
+        y_km = r_chunk[:, :, 1]
+        z_km = r_chunk[:, :, 2]
+
+        lon_rad = np.arctan2(y_km, x_km)
+        p = np.sqrt(x_km**2 + y_km**2)
+        lat_rad = np.arctan2(z_km, p * (1.0 - _E2))
+        for _ in range(3):
+            sin_lat = np.sin(lat_rad)
+            N = _A_KM / np.sqrt(1.0 - _E2 * sin_lat * sin_lat)
+            lat_rad = np.arctan2(z_km + _E2 * N * sin_lat, p)
+
+        sat_lats = np.degrees(lat_rad)
+        sat_lons = np.degrees(lon_rad)
+
+        chunk_lats = meas_lats[start:end]
+        chunk_lons = meas_lons[start:end]
+
+        dlat = sat_lats - chunk_lats[np.newaxis, :]
+        dlon = sat_lons - chunk_lons[np.newaxis, :]
+        cos_lat = np.cos(np.radians(chunk_lats))[np.newaxis, :]
+
+        dist2 = (_KM_PER_DEG * dlat) ** 2 + (_KM_PER_DEG * cos_lat * dlon) ** 2
+        within = (dist2 <= radius_km * radius_km) & (e_chunk == 0)
+        counts[start:end] = within.sum(axis=0)
+
+    density_list: list[Optional[int]] = [int(counts[i]) if valid_mask[i] else None for i in range(n_meas)]
+
+    valid_counts = counts[valid_mask]
+    stats = {
+        "date": date_label,
+        "n_measurements": len(group),
+        "n_valid": int(valid_mask.sum()),
+        "n_invalid": int((~valid_mask).sum()),
+        "mean_density": float(valid_counts.mean()) if valid_counts.size > 0 else float("nan"),
+        "min_density": int(valid_counts.min()) if valid_counts.size > 0 else None,
+        "max_density": int(valid_counts.max()) if valid_counts.size > 0 else None,
+        "tle_file": tle_path.name,
+        "is_fallback": is_fallback,
+        "fallback_delta_days": fallback_delta,
+        "elapsed_s": round(time.monotonic() - t0, 1),
+    }
+
+    return group.index.to_numpy(), density_list, stats
+
+
+@LogUtils.log_function
+def enrich_with_sat_density(df: pd.DataFrame) -> pd.DataFrame:
+    t_start = time.monotonic()
+
     df = df.copy()
-    df["test_time"] = pd.to_datetime(df["test_time"], utc=True, errors="coerce")
-
+    df["test_time"] = pd.to_datetime(df["test_time"], format='mixed', utc=True)
     df["date"] = df["test_time"].dt.date
-    day_groups: list[tuple[date, pd.DataFrame]] = [(day, group) for day, group in df.groupby("date")]
-    tle_paths, date_only_paths = index_tle_1400_paths(sat_dir)
 
-    args = []
+    day_groups: list[tuple[date, pd.DataFrame]] = [(day, group) for day, group in df.groupby("date")]
+    n_days = len(day_groups)
+    logger.info(f"Satellite density enrichment starting — {len(df):,} measurements across {n_days} dates")
+
+    available_tle_files = sorted([p for p in sat_dir.glob("*.tle") if _parse_tle_filename(p) is not None])
+    logger.info(f"Found {len(available_tle_files)} TLE files in {sat_dir}")
+
+    args: list[tuple[pd.DataFrame, Path, float, date, bool, Optional[int]]] = []
+    skipped_dates: list[str] = []
     for day, group in day_groups:
-        key = day.strftime("%Y%m%d")
-        if key in tle_paths:
-            args.append((group, tle_paths[key], radius_km))
-        elif key in date_only_paths:
-            args.append((group, date_only_paths[key], radius_km))
+        exact_path = sat_dir / day.strftime("%d-%m-%Y.tle")
+        if exact_path.exists():
+            args.append((group, exact_path, CIRCLE_RADIUS_KM, day, False, None))
+        else:
+            fallback_path, delta = _find_nearest_tle(day, available_tle_files)
+            if fallback_path is not None:
+                fallback_date = _parse_tle_filename(fallback_path)
+                sign = "+" if (day - fallback_date.date()).days >= 0 else "-"
+                logger.warning(f"No exact TLE for {day} — using fallback {fallback_path.name} ({sign}{delta}d)")
+                args.append((group, fallback_path, CIRCLE_RADIUS_KM, day, True, delta))
+            else:
+                logger.error(f"No TLE found for {day} — {len(group):,} measurements will be NaN")
+                skipped_dates.append(str(day))
+
+    n_scheduled = len(args)
+    n_skipped = len(skipped_dates)
+    logger.info(f"TLE resolution complete: {n_scheduled}/{n_days} dates scheduled, {n_skipped} skipped (no TLE found)")
 
     satdens = pd.Series(index=df.index, dtype="float64")
+    max_workers = min(n_scheduled, os.cpu_count() or 2)
+    completed = 0
 
-    with ProcessPoolExecutor() as pex:
-        for idxs, dens in tqdm(pex.map(day_density_circle, args), total=len(args), desc="Calculating satellite density"):
-            satdens.loc[idxs] = dens
+    with ProcessPoolExecutor(max_workers=max_workers) as pex:
+        for idxs, dens, stats in pex.map(day_density_circle, args):
+            completed += 1
+            satdens.loc[idxs] = np.asarray([np.nan if v is None else float(v) for v in dens], dtype="float64")
+
+            tle_note = (
+                f"fallback {stats['tle_file']} (±{stats['fallback_delta_days']}d)"
+                if stats["is_fallback"]
+                else stats["tle_file"]
+            )
+            invalid_note = f", {stats['n_invalid']} invalid" if stats["n_invalid"] > 0 else ""
+            logger.info(
+                f"[{completed}/{n_scheduled}] {stats['date']} — "
+                f"{stats['n_valid']:,} measurements{invalid_note} — "
+                f"density min/mean/max: {stats['min_density']}/{stats['mean_density']:.1f}/{stats['max_density']} — "
+                f"TLE: {tle_note} — "
+                f"{stats['elapsed_s']}s"
+            )
 
     df["sat_density"] = satdens.reindex(df.index).tolist()
     df.drop(columns=["date"], inplace=True)
+
+    elapsed = round(time.monotonic() - t_start, 1)
+    n_enriched = int(satdens.notna().sum())
+    n_null = int(satdens.isna().sum())
+    logger.info(
+        f"Satellite density enrichment complete — "
+        f"{n_enriched:,} enriched, {n_null:,} null — "
+        f"total time: {elapsed}s"
+    )
 
     return df

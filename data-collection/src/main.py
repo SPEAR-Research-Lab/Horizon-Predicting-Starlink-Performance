@@ -119,13 +119,13 @@ def main() -> None:
             if args.export_monthly:
                 handler.export_monthly(args.export_monthly)
     except psycopg2.OperationalError as e:
-        logger.error(f"OperationalError: Failed to connect to the database - {e}")
+        logger.exception("OperationalError: Failed to connect to the database")
     except psycopg2.InterfaceError as e:
-        logger.error(f"InterfaceError: Problem with the connection interface - {e}")
+        logger.exception("InterfaceError: Problem with the connection interface")
     except psycopg2.DatabaseError as e:
-        logger.error(f"DatabaseError: General database error occurred - {e}")
+        logger.exception("DatabaseError: General database error occurred")
     except Exception as e:
-        logger.error(f"Unexpected error occurred - {e}")
+        logger.exception("Unexpected error occurred")
         return
 
     logger.info("Application exited successfully.")
