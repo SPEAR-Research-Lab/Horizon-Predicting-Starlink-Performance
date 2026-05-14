@@ -8,18 +8,22 @@ import pandas as pd
 
 from . import data_dir, models_dir, logger
 
-MODEL_CONFIGS = {
-    "download_latency_ms": {
-        "path": models_dir / "ensemble_model_filtered_percentile_0-75_2m_rf_weight_55_download_latency_ms.joblib",
-        "rf_weight": 0.55,
-        "weather_weights": {"cloud_cover": 0.462, "precipitation": 0.232, "wind_speed_10m": 0.229, "temperature_2m": 0.077},
-    },
-    "download_throughput_mbps": {
-        "path": models_dir / "ensemble_model_filtered_isolation_forest_0-75_11m_rf_weight_40_download_throughput_mbps.joblib",
-        "rf_weight": 0.40,
-        "weather_weights": {"cloud_cover": 0.619, "precipitation": 0.289, "wind_speed_10m": 0.087, "temperature_2m": 0.005},
-    },
+WEATHER_WEIGHTS = {
+    "download_latency_ms": {"cloud_cover": 0.462, "precipitation": 0.232, "wind_speed_10m": 0.229, "temperature_2m": 0.077},
+    "download_throughput_mbps": {"cloud_cover": 0.619, "precipitation": 0.289, "wind_speed_10m": 0.087, "temperature_2m": 0.005},
 }
+
+
+def find_model(target: str):
+    """Find the latest model file and extract rf_weight from filename."""
+    matches = sorted(models_dir.glob(f"*_{target}.joblib"))
+    if not matches:
+        return None, None
+    model_path = matches[-1]
+    import re
+    weight_match = re.search(r"rf_weight_(\d+)", model_path.name)
+    rf_weight = int(weight_match.group(1)) / 100.0 if weight_match else 0.5
+    return model_path, rf_weight
 
 SERVER_LOCATIONS = data_dir / "server_locations.csv"
 WORLD_COORDS = data_dir / "world_cities_coordinates.csv"
@@ -131,16 +135,19 @@ def predict_file(input_csv: Path, output_csv: Path) -> None:
 
     features = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
 
-    for target, config in MODEL_CONFIGS.items():
+    targets = ["download_latency_ms", "download_throughput_mbps"]
+    for target in targets:
         logger.info(f"Predicting {target}...")
-        df["weather_index"] = compute_weather_index(df, config["weather_weights"])
+        df["weather_index"] = compute_weather_index(df, WEATHER_WEIGHTS[target])
 
-        if not config["path"].exists():
-            logger.warning(f"Model not found: {config['path']}")
+        model_path, rf_weight = find_model(target)
+        if model_path is None:
+            logger.warning(f"No model found for {target}")
             continue
+        logger.info(f"  Using {model_path.name} (rf_weight={rf_weight})")
 
         X = df[features]
-        df[target] = load_and_predict(config["path"], config["rf_weight"], X)
+        df[target] = load_and_predict(model_path, rf_weight, X)
 
     df.to_csv(output_csv, index=False)
     logger.info(f"Wrote predictions to {output_csv}")
