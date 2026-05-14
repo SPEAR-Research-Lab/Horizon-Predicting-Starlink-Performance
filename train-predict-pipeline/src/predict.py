@@ -1,5 +1,6 @@
 import math
 from pathlib import Path
+from typing import Optional
 
 import joblib
 import numpy as np
@@ -54,7 +55,7 @@ def load_server_coordinates() -> list[dict]:
     return merged.to_dict("records")
 
 
-_server_list: list[dict] | None = None
+_server_list: Optional[list] = None
 
 
 def get_server_list() -> list[dict]:
