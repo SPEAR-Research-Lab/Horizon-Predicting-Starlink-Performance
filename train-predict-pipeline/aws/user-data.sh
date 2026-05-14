@@ -6,6 +6,8 @@ cd /home/ec2-user/horizon
 git pull origin main
 
 cd train-predict-pipeline
+rm -f models 2>/dev/null
+mkdir -p models
 source .venv/bin/activate
 
 python -m src.train_model --data-dir ../weekly-measurements-collection/measurements

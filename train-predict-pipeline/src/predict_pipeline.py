@@ -147,7 +147,7 @@ def enrich_satellites(input_csv: Path, output_csv: Path) -> None:
     logger.info(f"  -> {output_csv}")
 
 
-def run(output_path: Path | None = None) -> None:
+def run(output_path=None) -> None:
     target = output_path or output_dir
     target.mkdir(parents=True, exist_ok=True)
 
