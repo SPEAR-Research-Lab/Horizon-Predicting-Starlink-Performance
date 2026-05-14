@@ -1,14 +1,12 @@
-import re
 from pathlib import Path
+import re
 
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.base import RegressorMixin
 
 
-def get_importances_and_name(
-    model_tuple, model_name: str
-) -> tuple[np.ndarray, str, list[str]]:
+def get_importances_and_name(model_tuple: tuple, model_name: str) -> tuple[np.ndarray, str, list[str]]:
     regressors = [m for m in model_tuple if isinstance(m, RegressorMixin)]
 
     feature_names = None
@@ -27,11 +25,11 @@ def get_importances_and_name(
         else:
             rf_weight = 0.6
         gbr, rf = regressors
-        importances = (1 - rf_weight) * gbr.feature_importances_ + rf_weight * rf.feature_importances_  # type: ignore
+        importances = (1 - rf_weight) * gbr.feature_importances_ + rf_weight * rf.feature_importances_
         model_name = "Ensemble (GBR + RF)"
     elif len(regressors) == 1:
         reg = regressors[0]
-        importances = reg.feature_importances_  # type: ignore
+        importances = reg.feature_importances_
         model_name = reg.__class__.__name__
     else:
         raise ValueError("No regressor found in joblib.")
@@ -41,7 +39,7 @@ def get_importances_and_name(
 
 def plot_feature_importances_and_save(
     importances: np.ndarray, feature_names: list[str], model_name: str, output_dir: Path
-):
+) -> None:
     plt.figure(figsize=(8, 6))
     sorted_idx = np.argsort(importances)
     sorted_features = [feature_names[i] for i in sorted_idx]

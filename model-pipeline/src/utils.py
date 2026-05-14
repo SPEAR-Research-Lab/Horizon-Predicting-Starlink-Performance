@@ -1,10 +1,10 @@
-import re
 from datetime import datetime, timedelta, timezone
 from enum import Enum
+import re
 from typing import Optional, Tuple
 
-import pandas as pd
 from dateutil.relativedelta import relativedelta
+import pandas as pd
 
 
 class ModelType(Enum):
@@ -24,9 +24,7 @@ def get_previous_and_next_hours_utc(dt: datetime) -> Tuple[str, str]:
 
     previous_hour = dt.replace(minute=0, second=0, microsecond=0)
     next_hour = previous_hour + timedelta(hours=1)
-    return previous_hour.isoformat().replace("T", " "), next_hour.isoformat().replace(
-        "T", " "
-    )
+    return previous_hour.isoformat().replace("T", " "), next_hour.isoformat().replace("T", " ")
 
 
 def extract_month_and_year_mark_from_filename(filename: str) -> str:
@@ -38,9 +36,7 @@ def extract_month_and_year_mark_from_filename(filename: str) -> str:
     if match:
         return f"{match.group(1)}_{match.group(2)}"
 
-    raise ValueError(
-        f"Filename '{filename}' does not contain a valid month and year pattern."
-    )
+    raise ValueError(f"Filename '{filename}' does not contain a valid month and year pattern.")
 
 
 def get_file_matchers(
@@ -71,18 +67,12 @@ def get_file_matchers(
 
 
 def add_weather_index(df: pd.DataFrame, target: str) -> pd.DataFrame:
-    df["cloud_cover"] = (df["cloud_cover"] - df["cloud_cover"].mean()) / df[
-        "cloud_cover"
-    ].std()
+    df["cloud_cover"] = (df["cloud_cover"] - df["cloud_cover"].mean()) / df["cloud_cover"].std()
     df["precipitation"] = (df["precipitation"] - df["precipitation"].mean()) / (
         df["precipitation"].std() if df["precipitation"].std() != 0 else 1
     )
-    df["wind_speed_10m"] = (df["wind_speed_10m"] - df["wind_speed_10m"].mean()) / df[
-        "wind_speed_10m"
-    ].std()
-    df["temperature_2m"] = (df["temperature_2m"] - df["temperature_2m"].mean()) / df[
-        "temperature_2m"
-    ].std()
+    df["wind_speed_10m"] = (df["wind_speed_10m"] - df["wind_speed_10m"].mean()) / df["wind_speed_10m"].std()
+    df["temperature_2m"] = (df["temperature_2m"] - df["temperature_2m"].mean()) / df["temperature_2m"].std()
     if "latency" in target:
         df["weather_index"] = (
             0.462 * df["cloud_cover"]
@@ -100,7 +90,5 @@ def add_weather_index(df: pd.DataFrame, target: str) -> pd.DataFrame:
     else:
         raise ValueError(f"Unknown target for weather index calculation: {target}")
 
-    df = df.drop(
-        columns=["cloud_cover", "precipitation", "wind_speed_10m", "temperature_2m"]
-    )
+    df = df.drop(columns=["cloud_cover", "precipitation", "wind_speed_10m", "temperature_2m"])
     return df

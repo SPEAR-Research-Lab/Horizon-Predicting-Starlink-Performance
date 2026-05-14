@@ -1,10 +1,10 @@
+from datetime import datetime, timezone
 import functools
 import logging
-import os
-import time
-from datetime import datetime, timezone
 from logging import Logger
+import os
 from pathlib import Path
+import time
 from typing import Any, Callable, Optional
 
 
@@ -50,9 +50,7 @@ class LogUtils:
                 logger.info(f"Finished: {func.__name__} (Duration: {duration:.2f}s)")
                 return result
             except Exception as e:
-                logger.error(
-                    f"Exception in {func.__name__}: {e.__class__.__name__} - {e}"
-                )
-                raise e
+                logger.exception(f"Exception in {func.__name__}: {e.__class__.__name__}")
+                raise
 
         return wrapper

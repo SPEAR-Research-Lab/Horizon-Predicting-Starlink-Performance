@@ -1,3 +1,4 @@
+from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
@@ -61,14 +62,22 @@ def _get_file_names(start_date: date, end_date: date) -> tuple[str, str]:
 
 def _maybe_delete_old_measurements(max_files: int = 52) -> None:
     files = list(measurements_dir.iterdir())
-    if len(files) <= max_files:
-        return
-    files.sort(
-        key=lambda f: datetime.strptime(f.name.split("_")[2], "%Y-%m-%d"),
-        reverse=True,
-    )
-    for f in files[max_files:]:
-        f.unlink()
+    grouped = defaultdict(list)
+    for f in files:
+        parts = f.name.split("_")
+        try:
+            target = f"{parts[0]}_{parts[1]}"
+            grouped[target].append(f)
+        except IndexError:
+            continue
+
+    for target, target_files in grouped.items():
+        target_files.sort(
+            key=lambda f: datetime.strptime(f.name.split("_")[2], "%Y-%m-%d"),
+            reverse=True,
+        )
+        for f in target_files[max_files:]:
+            f.unlink()
 
 
 def clean_up() -> None:
@@ -121,6 +130,11 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
     if prev_throughput_path.exists():
         prev_throughput_df = pd.read_csv(str(prev_throughput_path))
         _update_city_country_set(prev_throughput_df, city_country_set)
+
+    open_meteo_fetcher.fetch_weather_for_cities(
+        city_country_set, ref_date=today_date, historical_days=15, forecast_days=0
+    )
+
     if prev_latency_df is not None:
         prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, 'client_city', 'client_country_code')
         prev_latency_df.to_csv(index=False)
@@ -129,9 +143,6 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
             prev_throughput_df, 'client_city', 'client_country_code'
         )
         prev_throughput_df.to_csv(index=False)
-    open_meteo_fetcher.fetch_weather_for_cities(
-        city_country_set, ref_date=today_date, historical_days=15, forecast_days=0
-    )
 
 
 def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) -> None:
@@ -167,7 +178,7 @@ def main() -> None:
 
         _update_servers_df(merged_df)
         _fetch_weather_data(merged_df, start_date, today_date)
-        enriched_df = data_enricher.enrich_dataframe_for_training(merged_df)
+        enriched_df = data_enricher.enrich_df_for_training(merged_df)
 
         filtered_latency_df, filtered_throughput_df = filter_df(enriched_df)
 

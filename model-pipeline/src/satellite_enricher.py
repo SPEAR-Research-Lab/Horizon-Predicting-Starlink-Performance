@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from sgp4.api import Satrec, SatrecArray
 
-from constants import logger, sat_dir
+from config import logger, sat_dir
 from logger import LogUtils
 
 CHUNK_SIZE = 500

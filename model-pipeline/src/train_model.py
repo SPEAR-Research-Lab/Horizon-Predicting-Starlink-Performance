@@ -1,19 +1,18 @@
+import argparse
 import gc
 import os
-from pathlib import Path
 from typing import Any, Optional
 
+from joblib import dump
 import numpy as np
 import pandas as pd
-from joblib import dump
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import RobustScaler
 
-from constants import (df_features_download, df_features_upload,
-                       filtration_dir_base, models_dir, root_dir)
-from custom_types import TargetConfig
+from config import EnumFiles, df_features_download, df_features_upload, logger, models_dir
+from custom_types import TargetFeatures
 from explain_model_feature_imp import plot_feature_importances_and_save
 from utils import ModelType, add_weather_index, get_file_matchers
 
@@ -32,39 +31,31 @@ features = [
 
 
 def prepare_data_for_target(
-    path_to_training_data: Path,
+    training_data_dir: str,
     target: str,
     model_type: ModelType,
     file_matchers: list[str],
-    useWeatherIndex: bool,
 ) -> pd.DataFrame:
-    column_set = (
-        df_features_download if model_type == ModelType.DOWNLOAD else df_features_upload
-    )
+    column_set = df_features_download if model_type == ModelType.DOWNLOAD else df_features_upload
     column_set_with_time = column_set.union({"test_time"})
     concatenated_df = None
 
-    for file in os.listdir(path_to_training_data):
+    for file in os.listdir(training_data_dir):
         if (
             file.endswith(".csv")
             and model_type.value in file
             and any(matcher in file for matcher in file_matchers)
             and target in file
         ):
-            print(f"Loading file: {file}")
-            file_path = path_to_training_data / file
+            logger.info(f"Loading file: {file}")
             df = pd.read_csv(
-                file_path, usecols=list(column_set_with_time), low_memory=False
+                os.path.join(training_data_dir, file), usecols=list(column_set_with_time), low_memory=False
             )
 
             for col in df.select_dtypes(include=["float64"]).columns:
                 df[col] = df[col].astype("float32")
 
-            concatenated_df = (
-                pd.concat([concatenated_df, df], ignore_index=True)
-                if concatenated_df is not None
-                else df
-            )
+            concatenated_df = pd.concat([concatenated_df, df], ignore_index=True) if concatenated_df is not None else df
 
             del df
             gc.collect()
@@ -72,51 +63,41 @@ def prepare_data_for_target(
     if concatenated_df is None:
         raise ValueError(f"No files found for preparing {model_type.value} data.")
 
-    print("Concatenated df size before dropping NA:", concatenated_df.shape)
+    logger.info(f"Concatenated df size before dropping NA: {concatenated_df.shape}")
     concatenated_df = concatenated_df.dropna().reset_index(drop=True)
-    print("Concatenated df size after dropping NA:", concatenated_df.shape)
+    logger.info(f"Concatenated df size after dropping NA: {concatenated_df.shape}")
 
-    concatenated_df["test_time"] = pd.to_datetime(
-        concatenated_df["test_time"], format="mixed"
-    )
+    concatenated_df["test_time"] = pd.to_datetime(concatenated_df["test_time"], format="mixed")
     initial_size = len(concatenated_df)
 
     if "latency" in target:
         concatenated_df = concatenated_df[
-            (concatenated_df["test_time"] >= "2025-09-23")
-            & (concatenated_df["test_time"] <= "2025-11-23 23:59:59")
+            (concatenated_df["test_time"] >= "2025-09-23") & (concatenated_df["test_time"] <= "2025-11-23 23:59:59")
         ].reset_index(drop=True)
-        print(
-            f"Filtered latency data to Sep 23 - Nov 23: {initial_size} -> {len(concatenated_df)} rows"
-        )
+        logger.info(f"Filtered latency data to Sep 23 - Nov 23: {initial_size} -> {len(concatenated_df)} rows")
     elif "throughput" in target:
         concatenated_df = concatenated_df[
-            (concatenated_df["test_time"] >= "2025-01-01")
-            & (concatenated_df["test_time"] <= "2025-11-23 23:59:59")
+            (concatenated_df["test_time"] >= "2025-01-01") & (concatenated_df["test_time"] <= "2025-11-23 23:59:59")
         ].reset_index(drop=True)
-        print(
-            f"Filtered throughput data to Jan 1 - Nov 23: {initial_size} -> {len(concatenated_df)} rows"
-        )
+        logger.info(f"Filtered throughput data to Jan 1 - Nov 23: {initial_size} -> {len(concatenated_df)} rows")
 
     concatenated_df = concatenated_df.drop(columns=["test_time"])
-
-    if useWeatherIndex:
-        concatenated_df = add_weather_index(concatenated_df, target)
-        if "weather_index" not in features:
-            features.append("weather_index")
-            for col in [
-                "cloud_cover",
-                "precipitation",
-                "wind_speed_10m",
-                "temperature_2m",
-            ]:
-                if col in features:
-                    features.remove(col)
+    concatenated_df = add_weather_index(concatenated_df, target)
+    if "weather_index" not in features:
+        features.append("weather_index")
+        for col in [
+            "cloud_cover",
+            "precipitation",
+            "wind_speed_10m",
+            "temperature_2m",
+        ]:
+            if col in features:
+                features.remove(col)
 
     return concatenated_df
 
 
-def evaluate(y_true, y_pred):
+def evaluate(y_true: np.ndarray, y_pred: np.ndarray) -> tuple[float, float, float]:
     mae = mean_absolute_error(y_true, y_pred)
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     r2 = r2_score(y_true, y_pred)
@@ -137,13 +118,8 @@ def build_model_artifacts(
     model_tuple: tuple[Any, ...]
     if ensemble_rmse < min(gbr_rmse, rf_rmse):
         model_type_name = "ensemble"
-        model_name_full = (
-            f"ensemble_model_{model_name}_rf_weight_{int(best_weight * 100):d}_{target}"
-        )
-        importances = (
-            (1 - best_weight) * gbr_full.feature_importances_
-            + best_weight * rf_full.feature_importances_
-        )
+        model_name_full = f"ensemble_model_{model_name}_rf_weight_{int(best_weight * 100):d}_{target}"
+        importances = (1 - best_weight) * gbr_full.feature_importances_ + best_weight * rf_full.feature_importances_
         model_tuple = (gbr_full, rf_full, scaler_full)
     elif gbr_rmse < rf_rmse:
         model_type_name = "GBR"
@@ -156,32 +132,22 @@ def build_model_artifacts(
         importances = rf_full.feature_importances_
         model_tuple = (rf_full, scaler_full)
 
-    plot_feature_importances_and_save(
-        importances, list(rf_full.feature_names_in_), model_name_full, models_dir
-    )
+    plot_feature_importances_and_save(importances, list(rf_full.feature_names_in_), model_name_full, models_dir)
 
     return model_type_name, model_name_full, model_tuple
 
 
-def train_target_model_and_evaluate(
-    df: pd.DataFrame, target: str, model_name: str, save_model=False
-) -> dict:
-    print(f"Starting model training for {target}...")
+def train_target_model_and_evaluate(df: pd.DataFrame, target: str, model_name: str, save_model: bool) -> dict:
+    logger.info(f"Starting model training for {target}...")
     y = df[target]
     X = df[features]
 
-    print("Step 1: Finding optimal weights with 80-20 split...")
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
+    logger.info("Step 1: Finding optimal weights with 80-20 split...")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     scaler_validation = RobustScaler()
-    X_train_scaled = pd.DataFrame(
-        scaler_validation.fit_transform(X_train), columns=X_train.columns
-    )
-    X_test_scaled = pd.DataFrame(
-        scaler_validation.transform(X_test), columns=X_test.columns
-    )
+    X_train_scaled = pd.DataFrame(scaler_validation.fit_transform(X_train), columns=X_train.columns)
+    X_test_scaled = pd.DataFrame(scaler_validation.transform(X_test), columns=X_test.columns)
 
     gbr_validation = GradientBoostingRegressor(
         n_estimators=100,
@@ -190,15 +156,15 @@ def train_target_model_and_evaluate(
     )
     rf_validation = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=42)
 
-    print("Training GradientBoosting for validation...")
+    logger.info("Training GradientBoosting for validation...")
     gbr_validation.fit(X_train_scaled, y_train)
     gbr_pred = gbr_validation.predict(X_test_scaled)
 
-    print("Training RandomForest for validation...")
+    logger.info("Training RandomForest for validation...")
     rf_validation.fit(X_train_scaled, y_train)
     rf_pred = rf_validation.predict(X_test_scaled)
 
-    print(f"Optimizing ensemble weights for {target}...")
+    logger.info(f"Optimizing ensemble weights for {target}...")
     best_weight = 0.5
     best_rmse = float("inf")
     for rf_weight in np.arange(0.05, 1, 0.05):
@@ -210,7 +176,7 @@ def train_target_model_and_evaluate(
             best_rmse = rmse
             best_weight = float(rf_weight)
 
-    print(f"Best ensemble weights - RF: {best_weight:.2f}, GBR: {1 - best_weight:.2f}")
+    logger.info(f"Best ensemble weights - RF: {best_weight:.2f}, GBR: {1 - best_weight:.2f}")
     final_pred = best_weight * rf_pred + (1 - best_weight) * gbr_pred
 
     gbr_mae, gbr_rmse, gbr_r2 = evaluate(y_test, gbr_pred)
@@ -244,16 +210,14 @@ def train_target_model_and_evaluate(
             rf_validation,
             scaler_validation,
         )
-        print(f"Model training for {target} completed without saving the model.")
+        logger.info(f"Model training for {target} completed without saving the model.")
         return stats
 
     del X_train_scaled, X_test_scaled, y_train, y_test, gbr_pred, rf_pred, final_pred
     del gbr_validation, rf_validation, scaler_validation
     gc.collect()
 
-    print(
-        f"Step 2: Retraining on 100% of data with weights RF={best_weight:.2f}, GBR={1-best_weight:.2f}..."
-    )
+    logger.info(f"Step 2: Retraining on 100% of data with weights RF={best_weight:.2f}, GBR={1 - best_weight:.2f}...")
 
     scaler_full = RobustScaler()
     X_scaled_full = pd.DataFrame(scaler_full.fit_transform(X), columns=X.columns)
@@ -265,10 +229,10 @@ def train_target_model_and_evaluate(
     )
     rf_full = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=42)
 
-    print("Training final GradientBoosting on 100% data...")
+    logger.info("Training final GradientBoosting on 100% data...")
     gbr_full.fit(X_scaled_full, y)
 
-    print("Training final RandomForest on 100% data...")
+    logger.info("Training final RandomForest on 100% data...")
     rf_full.fit(X_scaled_full, y)
 
     del X, y, X_scaled_full
@@ -287,105 +251,74 @@ def train_target_model_and_evaluate(
     )
 
     dump(model_tuple, os.path.join(models_dir, f"{model_name_full}.joblib"))
-    print(f"Saved {model_type_name} model (trained on 100% data) for {target}")
+    logger.info(f"Saved {model_type_name} model (trained on 100% data) for {target}")
 
     gc.collect()
     return stats
 
 
-months_to_use = [3]
-use_weather_index = True
-
-targets: dict[str, TargetConfig] = {
-    "download_latency_ms": {
-        "preferred_filtration": "percentile_0.75",
-        "preferred_months": [2],
-        "save_model": True,
-    },
-    "download_throughput_mbps": {
-        "preferred_filtration": "isolation_forest_0.75",
-        "preferred_months": [11],
-        "save_model": True,
-    },
-}
-all_stats = []
-
-
 def train_model(
     target: str,
-    data_dir: str,
-    useWeatherIndex: bool,
+    training_data_dir: str,
     save_model: bool,
-    number_of_months=3,
+    number_of_months: int,
     last_month: Optional[str] = None,
 ) -> None:
-    from pathlib import Path as PathLib
-
     model_type = ModelType.DOWNLOAD if "download" in target else ModelType.UPLOAD
-    data_path = PathLib(data_dir) if os.path.isabs(data_dir) else root_dir / data_dir
-    data_files = os.listdir(data_path)
-    file_matchers = get_file_matchers(
-        data_files, model_type, number_of_months, last_month
-    )
-    df = prepare_data_for_target(
-        data_path, target, model_type, file_matchers, useWeatherIndex
-    )
-    dir_name = os.path.basename(str(data_path).rstrip("/"))
-    model_name = f"{dir_name.replace('.', '-')}_{number_of_months}m"
-    print(
-        f"Training model for {target} with {number_of_months} months of data and matchers {file_matchers}"
-    )
+    data_files = os.listdir(training_data_dir)
+    file_matchers = get_file_matchers(data_files, model_type, number_of_months, last_month)
+    df = prepare_data_for_target(training_data_dir, target, model_type, file_matchers)
+    model_name = f"{target}_{number_of_months}m"
+    logger.info(f"Training model for {target} with {number_of_months} months of data and matchers {file_matchers}")
     stats = train_target_model_and_evaluate(df, target, model_name, save_model)
-    stats["data_dir"] = data_dir
+    stats["data_dir"] = training_data_dir
     stats["target"] = target
     all_stats.append(stats)
     del df
     gc.collect()
 
 
+all_stats: list[dict] = []
+
 if __name__ == "__main__":
-    from pathlib import Path as PathLib
+    parser = argparse.ArgumentParser(description="Trains the models with the given configuration.")
+    parser.add_argument(
+        "--src",
+        "-s",
+        type=str,
+        help="Source directory path containing CSV data",
+    )
+    parser.add_argument(
+        "--download-latency-months", type=int, default=2, help="Number of months to use for the download latency model"
+    )
 
-    script_dir = PathLib(__file__).parent.absolute()
-    project_root = script_dir.parent
-    train_data_dir = project_root / "data" / "train-data"
-    models_output_dir = project_root / "models"
-    os.makedirs(models_output_dir, exist_ok=True)
+    parser.add_argument(
+        "--download-throughput-months",
+        type=int,
+        default=11,
+        help="Number of months to use for the download throughput model",
+    )
+    parser.add_argument("--save-models", action="store_true", help="Whether to save the trained models or not")
+    args = parser.parse_args()
 
-    data_dirs = [
-        entry.name
-        for entry in os.scandir(train_data_dir)
-        if entry.is_dir() and any(filt in entry.name for filt in filtration_dir_base)
-    ]
+    training_data_dir = args.src
+    if not training_data_dir:
+        logger.error("Source directory is required")
+        raise ValueError("Source directory is required")
 
-    for target, config in targets.items():
-        preferred_months = config.get("preferred_months")
-        months_list = preferred_months if preferred_months else months_to_use
+    train_model(
+        TargetFeatures.download_latency,
+        training_data_dir,
+        args.save_models,
+        args.download_latency_months,
+    )
+    train_model(
+        TargetFeatures.download_throughput,
+        training_data_dir,
+        args.save_models,
+        args.download_throughput_months,
+    )
 
-        if (preferred_filtration := config.get("preferred_filtration")) is not None:
-            data_dir = next((d for d in data_dirs if preferred_filtration in d), None)
-            if data_dir is None:
-                raise ValueError(
-                    f"No data directory found for filtration {preferred_filtration} and target {target}."
-                )
-            print(f"Using preferred data directory {data_dir} for target {target}.")
-            dirs_to_process = [data_dir]
-        else:
-            print(
-                f"No preferred filtration for target {target}, training on all data dirs."
-            )
-            dirs_to_process = data_dirs
-
-        for data_dir in dirs_to_process:
-            for months in months_list:
-                train_model(
-                    target,
-                    f"data/train-data/{data_dir}",
-                    use_weather_index,
-                    config["save_model"],
-                    number_of_months=months,
-                )
     stats_df = pd.DataFrame(all_stats)
-    stats_csv_path = os.path.join(models_output_dir, "model_training_stats.csv")
-    stats_df.to_csv(stats_csv_path, index=False)
-    print(f"\nSaved training statistics to {stats_csv_path}")
+    stats_df.to_csv(models_dir / EnumFiles.model_training_stats, index=False)
+    logger.info("Saved training statistics.")

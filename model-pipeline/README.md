@@ -66,8 +66,6 @@ model-pipeline/
 │   ├── utils.py                    # Helper functions
 │   ├── logger.py                   # Logging setup
 │   └── __init__.py
-├── config/
-│   └── default_config.yaml         # Pipeline configuration
 ├── data/
 │   ├── raw/                        # Raw measurement data
 │   ├── enriched/                   # After feature enrichment
