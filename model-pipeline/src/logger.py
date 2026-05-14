@@ -51,6 +51,6 @@ class LogUtils:
                 return result
             except Exception as e:
                 logger.exception(f"Exception in {func.__name__}: {e.__class__.__name__}")
-                raise e
+                raise
 
         return wrapper
