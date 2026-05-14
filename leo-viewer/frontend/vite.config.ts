@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? '/Horizon-Predicting-Starlink-Performance/' : '/',
+  base: process.env.GITHUB_ACTIONS ? '/Horizon-Predicting-Starlink-Performance/app/' : '/',
   plugins: [
     vue(),
     vueJsx(),
