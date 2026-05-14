@@ -139,7 +139,7 @@ def enrich_data_directory(src_dir: str, dst_dir: str, with_sat_density: bool) ->
             logger.info(f"Enriching data file: {file}")
             enrich_data_file(
                 os.path.join(src_dir, file),
-                os.path.join(dst_dir, f"{file.split(".")[0]}_enriched.csv"),
+                os.path.join(dst_dir, f"{file.split('.')[0]}_enriched.csv"),
                 with_sat_density,
             )
 
