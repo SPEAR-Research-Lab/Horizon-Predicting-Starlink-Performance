@@ -15,7 +15,7 @@ python -m src.train_model --data-dir ../weekly-measurements-collection/measureme
 python -m src.predict_pipeline --output ../leo-viewer/frontend/public
 
 cd /home/ec2-user/horizon
-git add leo-viewer/frontend/public/*.json
+git add -f leo-viewer/frontend/public/*.json
 if git diff --staged --quiet; then
     echo "No changes"
 else
