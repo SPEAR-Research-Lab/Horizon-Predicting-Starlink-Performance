@@ -1,29 +1,33 @@
-import os
 from collections import defaultdict
+from dataclasses import dataclass
+import os
 from pathlib import Path
 
 from logger import LogUtils
 
-script_dir = Path(__file__).parent.absolute()
-project_root = script_dir.parent.parent
+logger = LogUtils.init_logger()
 
-data_dir = project_root / "data"
-model_pipeline_dir = project_root / "model-pipeline"
-data_dir = model_pipeline_dir / "data"
-data_training_dir = model_pipeline_dir / "data" / "processed"
-weather_data_dir = model_pipeline_dir / "weather_data"
-starlink_data_dir = model_pipeline_dir / "starlink_data"
-models_dir = model_pipeline_dir / "models"
+src_dir = Path(__file__).resolve().parent
+model_pipeline_root = src_dir.parent
+project_root = model_pipeline_root.parent
+
+data_dir = model_pipeline_root / "data"
+weather_data_dir = model_pipeline_root / "weather_data"
+models_dir = model_pipeline_root / "models"
+filetered_csv_dir = model_pipeline_root / "filtered"
+
 sat_dir = project_root / "satellite-data" / "data"
+
 os.makedirs(models_dir, exist_ok=True)
 os.makedirs(weather_data_dir, exist_ok=True)
-os.makedirs(starlink_data_dir, exist_ok=True)
+os.makedirs(filetered_csv_dir, exist_ok=True)
 
-filtration_dir_base = {
-    "filtered_percentile",
-    "filtered_directional_mad",
-    "filtered_isolation_forest",
-}
+
+@dataclass(frozen=True)
+class EnumFiles:
+    world_cities_coords = "world_cities_coordinates.csv"
+    client_server_distance = "client_server_distance.csv"
+    model_training_stats = "model_training_stats.csv"
 
 
 df_final_columns = [
@@ -111,5 +115,3 @@ dtype_spec = defaultdict(
         "wind_speed_10m": "float32",
     },
 )
-
-logger = LogUtils.init_logger()

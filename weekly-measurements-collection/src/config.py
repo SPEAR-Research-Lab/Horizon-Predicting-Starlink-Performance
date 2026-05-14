@@ -27,7 +27,6 @@ class CsvFiles:
     ndt_best_starlink_servers = "ndt-best-starlink-servers.csv"
     cf_best_starlink_servers = "cf-best-starlink-servers.csv"
     last_update_file = "last_update.csv"
-    client_cities = "client_cities.csv"
     client_server_distance = "client_server_distance.csv"
     world_cities_coordinates = "world_cities_coordinates.csv"
     unresolved_cities = "unresolved_cities.csv"

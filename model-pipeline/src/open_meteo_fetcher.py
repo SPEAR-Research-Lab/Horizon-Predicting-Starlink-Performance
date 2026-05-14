@@ -1,13 +1,13 @@
-import time
 from datetime import date, timedelta
+import time
 from typing import Any, MutableMapping, Union, cast
 
+from openmeteo_requests import Client as OpenMeteoClient
 import pandas as pd
 import requests_cache
-from openmeteo_requests import Client as OpenMeteoClient
 from retry_requests import retry
 
-from constants import logger, weather_data_dir
+from config import logger, weather_data_dir
 from custom_types import ForecastParams, HistoricalParams
 from inter_city_distance_calculator import DistanceCalculator
 from utils import get_weather_file_name
@@ -19,10 +19,10 @@ class OpenMeteoFetcher:
     _client: OpenMeteoClient
     _distance_calculator: DistanceCalculator
 
-    def __init__(self):
+    def __init__(self) -> None:
         cache_session = requests_cache.CachedSession(".cache", expire_after=-1)
         retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
-        self._client = OpenMeteoClient(session=retry_session)  # type: ignore
+        self._client = OpenMeteoClient(session=retry_session)
         self._distance_calculator = DistanceCalculator()
 
     def _getParams_historical(
@@ -58,15 +58,11 @@ class OpenMeteoFetcher:
             "forecast_days": forecast_days,
         }
 
-    def _fetch(
-        self, url: str, params: Union[HistoricalParams, ForecastParams]
-    ) -> pd.DataFrame:
+    def _fetch(self, url: str, params: Union[HistoricalParams, ForecastParams]) -> pd.DataFrame:
         logger.info(
             f"Fetching {'historical' if url == self._historical_url else 'forecast'} data with params: {params}"
         )
-        responses = self._client.weather_api(
-            url, params=cast(MutableMapping[str, Any], params)
-        )
+        responses = self._client.weather_api(url, params=cast(MutableMapping[str, Any], params))
         response = responses[0]
 
         hourly = response.Hourly()
@@ -79,9 +75,7 @@ class OpenMeteoFetcher:
         var3 = hourly.Variables(3)
 
         if var0 is None or var1 is None or var2 is None or var3 is None:
-            logger.error(
-                f"Missing variable data from Open-Meteo API for params: {params}"
-            )
+            logger.error(f"Missing variable data from Open-Meteo API for params: {params}")
             raise ValueError("Missing variable data from Open-Meteo API.")
 
         hourly_temperature_2m = var0.ValuesAsNumpy()
@@ -142,9 +136,7 @@ class OpenMeteoFetcher:
         else:
             df.to_csv(file_path, index=False)
 
-    def _fetch_missing_weather_data(
-        self, min_max_date_map: dict[tuple[str, str], dict]
-    ) -> bool:
+    def _fetch_missing_weather_data(self, min_max_date_map: dict[tuple[str, str], dict]) -> bool:
         fetched_any_file = False
         for (city, country), date_range in min_max_date_map.items():
             file_name = get_weather_file_name(city, country, is_historical=True)
@@ -152,18 +144,12 @@ class OpenMeteoFetcher:
 
             coords = self._distance_calculator.get_city_coordinates(city, country)
             if coords is None or len(coords) < 2:
-                logger.warning(
-                    f"Could not get coordinates for {city}, {country}. Skipping weather fetch."
-                )
+                logger.warning(f"Could not get coordinates for {city}, {country}. Skipping weather fetch.")
                 continue
 
             latitude, longitude = coords[0], coords[1]
-            required_start_date = pd.to_datetime(
-                date_range["earliest"], utc=True
-            ).date() - timedelta(days=1)
-            required_end_date = pd.to_datetime(
-                date_range["latest"], utc=True
-            ).date() + timedelta(days=1)
+            required_start_date = pd.to_datetime(date_range["earliest"], utc=True).date() - timedelta(days=1)
+            required_end_date = pd.to_datetime(date_range["latest"], utc=True).date() + timedelta(days=1)
 
             if not file_path.exists():
                 logger.info(
@@ -184,9 +170,7 @@ class OpenMeteoFetcher:
                     existing_start_date = date_series.min().date()
                     existing_end_date = date_series.max().date()
                     distinct_dates_in_file = date_series.dt.date.nunique()
-                    expected_days_in_range = (
-                        existing_end_date - existing_start_date
-                    ).days + 1
+                    expected_days_in_range = (existing_end_date - existing_start_date).days + 1
 
                     has_gaps = distinct_dates_in_file != expected_days_in_range
                     needs_earlier_data = required_start_date < existing_start_date
@@ -214,9 +198,7 @@ class OpenMeteoFetcher:
                         )
                         fetch_start_date = existing_end_date + timedelta(days=1)
                     else:
-                        logger.info(
-                            f"Weather data for {city}, {country} already covers required range."
-                        )
+                        logger.info(f"Weather data for {city}, {country} already covers required range.")
                         continue
 
                     fetched_any_file = True
@@ -228,9 +210,7 @@ class OpenMeteoFetcher:
                         file_name=file_name,
                     )
                 except Exception as e:
-                    logger.exception(
-                        f"Error checking existing weather file for {city}, {country}: {e}"
-                    )
+                    logger.exception(f"Error checking existing weather file for {city}, {country}: {e}")
                     logger.info(f"Refetching complete range for {city}, {country}")
                     fetched_any_file = True
                     self.fetch_and_save_historical(
@@ -246,16 +226,12 @@ class OpenMeteoFetcher:
     def fetch_weather_data_for_dataframe(self, df: pd.DataFrame) -> bool:
         logger.info("Extracting timestamp ranges for cities...")
         df_copy = df.copy()
-        df_copy["test_time"] = pd.to_datetime(
-            df_copy["test_time"], utc=True, format="mixed"
-        )
+        df_copy["test_time"] = pd.to_datetime(df_copy["test_time"], utc=True, format="mixed")
 
-        grouped = df_copy.groupby(["client_city", "client_country_code"])[
-            "test_time"
-        ].agg(["min", "max"])
+        grouped = df_copy.groupby(["client_city", "client_country_code"])["test_time"].agg(["min", "max"])
 
         min_max_date_map = {}
-        for (city, country), row in grouped.iterrows():  # type: ignore
+        for (city, country), row in grouped.iterrows():
             key = (city, country)
             min_max_date_map[key] = {"earliest": row["min"], "latest": row["max"]}
         logger.info(f"Found {len(min_max_date_map)} unique city-country combinations")

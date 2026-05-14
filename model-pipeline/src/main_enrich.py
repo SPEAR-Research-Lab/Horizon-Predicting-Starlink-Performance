@@ -3,7 +3,7 @@ import os
 
 import pandas as pd
 
-from constants import df_common_features, df_final_columns, dtype_spec, logger
+from config import df_common_features, df_final_columns, dtype_spec, logger
 from inter_city_distance_calculator import DistanceCalculator
 from meteo_data_handler import WeatherDataHandler
 from open_meteo_fetcher import OpenMeteoFetcher
@@ -14,9 +14,7 @@ weather_data_handler = WeatherDataHandler()
 open_meteo_fetcher = OpenMeteoFetcher()
 
 
-def enrich_data_file(
-    src_file_path: str, dst_file_path: str, with_sat_density: bool
-) -> None:
+def enrich_data_file(src_file_path: str, dst_file_path: str, with_sat_density: bool) -> None:
     df = pd.read_csv(src_file_path, dtype=dtype_spec, low_memory=False)
 
     df = df.dropna(
@@ -34,9 +32,7 @@ def enrich_data_file(
     logger.info("Time feature extraction...")
     test_time_dt = pd.to_datetime(df["test_time"], format="mixed", utc=True)
     df["hour"] = test_time_dt.dt.hour
-    df["hour_with_minute"] = round(
-        test_time_dt.dt.hour + test_time_dt.dt.minute / 60.0, 2
-    )
+    df["hour_with_minute"] = round(test_time_dt.dt.hour + test_time_dt.dt.minute / 60.0, 2)
     df["day_of_week"] = test_time_dt.dt.dayofweek
     df["month"] = test_time_dt.dt.month
     df["year"] = test_time_dt.dt.year
@@ -65,18 +61,12 @@ def enrich_data_file(
         lambda row: coords_map.get((row["client_city"], row["client_country_code"])),
         axis=1,
     )
-    df["lat"] = df["coords"].apply(
-        lambda x: x[0] if x and len(x) >= 2 else float("nan")
-    )
-    df["lon"] = df["coords"].apply(
-        lambda x: x[1] if x and len(x) >= 2 else float("nan")
-    )
+    df["lat"] = df["coords"].apply(lambda x: x[0] if x and len(x) >= 2 else float("nan"))
+    df["lon"] = df["coords"].apply(lambda x: x[1] if x and len(x) >= 2 else float("nan"))
     df = df.drop("coords", axis=1)
 
     logger.info("Client-server distances extraction...")
-    unique_routes = df[
-        ["client_city", "client_country_code", "server_city", "server_country_code"]
-    ].drop_duplicates()
+    unique_routes = df[["client_city", "client_country_code", "server_city", "server_country_code"]].drop_duplicates()
     distance_map = {}
 
     for _, row in unique_routes.iterrows():
@@ -108,7 +98,7 @@ def enrich_data_file(
     fetched_files = open_meteo_fetcher.fetch_weather_data_for_dataframe(df)
     weather_data_handler.initialize_weather_data(force=fetched_files)
 
-    def add_weather_data(row):
+    def add_weather_data(row: pd.Series) -> pd.Series:
         try:
             weather_data = weather_data_handler.get_weather_data_for_city_and_time(
                 str(row["client_city"]),
@@ -147,10 +137,9 @@ def enrich_data_directory(src_dir: str, dst_dir: str, with_sat_density: bool) ->
     for file in os.listdir(src_dir):
         if file.endswith(".csv"):
             logger.info(f"Enriching data file: {file}")
-            base_name = file.split(".")[0]
             enrich_data_file(
                 os.path.join(src_dir, file),
-                os.path.join(dst_dir, base_name + "_enriched.csv"),
+                os.path.join(dst_dir, f"{file.split('.')[0]}_enriched.csv"),
                 with_sat_density,
             )
 
