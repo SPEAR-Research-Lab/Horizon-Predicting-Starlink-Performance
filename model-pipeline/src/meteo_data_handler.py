@@ -1,10 +1,13 @@
-from datetime import datetime
 import os
+from datetime import datetime
 from typing import Optional
-from utils import get_weather_file_name, get_previous_and_next_hours_utc
-from custom_types import WeatherData
+
 import pandas as pd
-from constants import weather_data_dir, starlink_data_dir, logger
+
+from constants import logger, starlink_data_dir, weather_data_dir
+from custom_types import WeatherData
+from utils import get_previous_and_next_hours_utc, get_weather_file_name
+
 
 class WeatherDataHandler:
     _file_to_df_map: dict[str, pd.DataFrame] = {}
@@ -18,7 +21,9 @@ class WeatherDataHandler:
             df = df.set_index("date")
             self._file_to_df_map[file] = df
 
-    def get_weather_data_for_city_and_time(self, city: str, country: str, date_str: str) -> WeatherData:
+    def get_weather_data_for_city_and_time(
+        self, city: str, country: str, date_str: str
+    ) -> WeatherData:
         self.initialize_weather_data()
         dt = datetime.fromisoformat(date_str)
         prev_hour_str, next_hour_str = get_previous_and_next_hours_utc(dt)
@@ -32,12 +37,14 @@ class WeatherDataHandler:
             prev_hour_datapoint = df.loc[prev_hour_str]
             next_hour_datapoint = df.loc[next_hour_str]
         except KeyError:
-            logger.error(f"No data available for city {city}, country {country} at time {date_str}.")
+            logger.error(
+                f"No data available for city {city}, country {country} at time {date_str}."
+            )
             return WeatherData(
-                temperature_2m=float('nan'),
-                precipitation=float('nan'),
-                cloud_cover=float('nan'),
-                wind_speed_10m=float('nan'),
+                temperature_2m=float("nan"),
+                precipitation=float("nan"),
+                cloud_cover=float("nan"),
+                wind_speed_10m=float("nan"),
             )
 
         beta = (dt - datetime.fromisoformat(prev_hour_str)).total_seconds() / 3600.0
@@ -45,17 +52,21 @@ class WeatherDataHandler:
 
         return {
             "temperature_2m": float(
-                alpha * prev_hour_datapoint["temperature_2m"].item() +
-                beta * next_hour_datapoint["temperature_2m"].item()),
+                alpha * prev_hour_datapoint["temperature_2m"].item()
+                + beta * next_hour_datapoint["temperature_2m"].item()
+            ),
             "precipitation": float(
-                alpha * prev_hour_datapoint["precipitation"].item() +
-                beta * next_hour_datapoint["precipitation"].item()),
+                alpha * prev_hour_datapoint["precipitation"].item()
+                + beta * next_hour_datapoint["precipitation"].item()
+            ),
             "cloud_cover": float(
-                alpha * prev_hour_datapoint["cloud_cover"].item() +
-                beta * next_hour_datapoint["cloud_cover"].item()),
+                alpha * prev_hour_datapoint["cloud_cover"].item()
+                + beta * next_hour_datapoint["cloud_cover"].item()
+            ),
             "wind_speed_10m": float(
-                alpha * prev_hour_datapoint["wind_speed_10m"].item() +
-                beta * next_hour_datapoint["wind_speed_10m"].item()),
+                alpha * prev_hour_datapoint["wind_speed_10m"].item()
+                + beta * next_hour_datapoint["wind_speed_10m"].item()
+            ),
         }
 
     def populate_csv_with_weather_data(self, csv_name: str) -> None:
@@ -77,7 +88,8 @@ class WeatherDataHandler:
                 weather_data = self.get_weather_data_for_city_and_time(
                     str(row["client_city"]),
                     str(row["client_country_code"]),
-                    str(row["test_time"]))
+                    str(row["test_time"]),
+                )
             if not weather_data:
                 continue
             for feature, value in weather_data.items():
