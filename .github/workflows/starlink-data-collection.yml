@@ -27,7 +27,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: $AWS_REGION
+          aws-region: eu-west-1
 
       - name: Install deps
         run: pip install -r weekly-measurements-collection/requirements.txt
