@@ -63,7 +63,7 @@ def _get_file_names(start_date: date, end_date: date) -> tuple[str, str]:
     return latency_file_name, throughput_file_name
 
 
-def _maybe_delete_old_measurements(max_files: int = 120) -> None:
+def _maybe_delete_old_measurements(max_files: int = 12) -> None:
     grouped = defaultdict(list)
     for f in s3_client.get_measurements_files():
         parts = f.split("_")
@@ -79,6 +79,7 @@ def _maybe_delete_old_measurements(max_files: int = 120) -> None:
             reverse=True,
         )
         s3_client.delete_files(S3Directory.MEASUREMENTS, target_files[max_files:])
+    logger.info("Successfully deleted old files.")
 
 
 def clean_up() -> None:
@@ -126,9 +127,11 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
     if prev_latency_file_name in s3_client.get_measurements_files():
         prev_latency_df = s3_client.get_dataframe(S3Directory.MEASUREMENTS, prev_latency_file_name)
         _update_city_country_set(prev_latency_df, city_country_set)
+        logger.info(f"Found previous latency CSV: {prev_latency_file_name}")
     if prev_throughput_file_name in s3_client.get_measurements_files():
         prev_throughput_df = s3_client.get_dataframe(S3Directory.MEASUREMENTS, prev_throughput_file_name)
         _update_city_country_set(prev_throughput_df, city_country_set)
+        logger.info(f"Found previous throughput CSV: {prev_throughput_file_name}")
 
     open_meteo_fetcher.fetch_weather_for_cities(
         city_country_set, ref_date=today_date, historical_days=15, forecast_days=0
@@ -137,11 +140,13 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
     if prev_latency_df is not None:
         prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, "client_city", "client_country_code")
         s3_client.save_csv(S3Directory.MEASUREMENTS, prev_latency_file_name, prev_latency_df)
+        logger.info(f"Updated weather data for {prev_latency_file_name}")
     if prev_throughput_df is not None:
         prev_throughput_df = data_enricher.enrich_df_with_weather(
             prev_throughput_df, "client_city", "client_country_code"
         )
         s3_client.save_csv(S3Directory.MEASUREMENTS, prev_throughput_file_name, prev_throughput_df)
+        logger.info(f"Updated weather data for {prev_throughput_file_name}")
 
 
 def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) -> None:

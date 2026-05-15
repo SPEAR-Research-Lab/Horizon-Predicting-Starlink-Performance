@@ -4,6 +4,8 @@ import io
 import boto3
 import pandas as pd
 
+from config import logger
+
 
 class S3Directory(StrEnum):
     MEASUREMENTS = "measurements"
@@ -32,7 +34,10 @@ class AwsS3Client:
         return pd.read_csv(file_bytes)
 
     def save_csv(self, directory: S3Directory, file: str, df: pd.DataFrame) -> None:
-        self._s3_bucket.put_object(Key=self._get_key(directory, file), Body=df.to_csv(index=False))
+        key = self._get_key(directory, file)
+        self._s3_bucket.put_object(Key=key, Body=df.to_csv(index=False))
+        logger.info(f"Successfully saved {key} to S3")
 
-    def delete_files(self, directory: S3Directory, files: list[str]) -> None:
-        self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": self._get_key(directory, file)} for file in files]})
+    def delete_files(self, paths: list[str]) -> None:
+        self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": path} for path in paths]})
+        logger.info(f"Successfully deleted {len(paths)} files from S3")
