@@ -33,6 +33,8 @@ jobs:
           git add satellite-data/
           if ! git diff --cached --quiet; then
             git commit -m "Update Starlink TLE data - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-            git pull
+            git pull --rebase
             git push
+          else
+            echo "No changes to commit — script may not have written any files"
           fi

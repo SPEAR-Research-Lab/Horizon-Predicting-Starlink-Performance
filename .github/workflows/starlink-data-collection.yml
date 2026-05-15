@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true
 
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
@@ -45,9 +43,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add weekly-measurements-collection/ ':!weekly-measurements-collection/measurements/'
+          git add weekly-measurements-collection/
           if ! git diff --cached --quiet; then
             git commit -m "Update Starlink Measurements - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-            git pull
+            git pull --rebase
             git push
+          else
+            echo "No changes to commit — script may not have written any files"
           fi

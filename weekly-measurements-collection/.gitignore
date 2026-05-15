@@ -181,3 +181,6 @@ output/
 weather_data/
 
 .cache.sqlite
+
+measurements/
+predictions/

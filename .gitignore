@@ -13,14 +13,10 @@ logs/
 *.log
 
 # Large model files
-model-pipeline/models/
 train-predict-pipeline/models
 
 # Training data (too large for git)
 model-pipeline/data/train-data/
-data/
-weekly-measurements-collection/measurements/
-weekly-measurements-collection/predictions/
 
 # Pipeline intermediate outputs
 train-predict-pipeline/output/
@@ -31,17 +27,5 @@ train-predict-pipeline/data/*_predictions*.csv
 leo-viewer/frontend/node_modules/
 leo-viewer/frontend/dist/
 
-# leo-viewer backend (legacy)
-leo-viewer/backend/models/*.joblib
-leo-viewer/backend/logs/
-leo-viewer/backend/.env
-
-# Weather data cache
-weather_data/
 .cache.sqlite
 .gha-creds*
-
-# Presentation/temp files
-Horizon_SIGMETRICS_2026.pptx
-_assets/
-build_presentation.py
