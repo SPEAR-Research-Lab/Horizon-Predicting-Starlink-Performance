@@ -1,0 +1,38 @@
+from enum import StrEnum
+import io
+
+import boto3
+import pandas as pd
+
+
+class S3Directory(StrEnum):
+    MEASUREMENTS = "measurements"
+    PREDICTIONS = "predictions"
+
+
+class AwsS3Client:
+    def __init__(self, bucket_name: str) -> None:
+        self._s3_bucket = boto3.resource("s3").Bucket(bucket_name)
+        self._measurement_files: list[str] | None = None
+
+    def _get_key(self, directory: S3Directory, file: str) -> str:
+        return f"{directory}/{file}"
+
+    def _get_object_names_by_directory(self, directory: S3Directory) -> list[str]:
+        return [obj.key for obj in self._s3_bucket.objects.filter(Prefix=f"{directory}/")]
+
+    def get_measurements_files(self, refetch: bool = False) -> list[str]:
+        if self._measurement_files is None or refetch:
+            self._measurement_files = self._get_object_names_by_directory(S3Directory.MEASUREMENTS)
+        return self._measurement_files
+
+    def get_dataframe(self, directory: S3Directory, file: str) -> pd.DataFrame:
+        obj = self._s3_bucket.Object(self._get_key(directory, file))
+        file_bytes = io.BytesIO(obj.get()["Body"].read())
+        return pd.read_csv(file_bytes)
+
+    def save_csv(self, directory: S3Directory, file: str, df: pd.DataFrame) -> None:
+        self._s3_bucket.put_object(Key=self._get_key(directory, file), Body=df.to_csv(index=False))
+
+    def delete_files(self, directory: S3Directory, files: list[str]) -> None:
+        self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": self._get_key(directory, file)} for file in files]})

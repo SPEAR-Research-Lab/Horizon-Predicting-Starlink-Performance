@@ -1,10 +1,12 @@
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
+import os
 
 import pandas as pd
 
+from aws_s3_client import AwsS3Client, S3Directory
 from big_query_data_manager import BigQueryDataManager
-from config import CsvFiles, columns, data_dir, logger, measurements_dir, predictions_dir
+from config import CsvFiles, columns, data_dir, logger
 from data_enricher import DataEnricher
 from data_processer import DataProcesser
 from data_updater import DataUpdater
@@ -13,8 +15,9 @@ from inter_city_distance_calculator import DistanceCalculator
 from logger import LogUtils
 from meteo_data_handler import WeatherDataHandler
 from open_meteo_fetcher import OpenMeteoFetcher
-from utils import delete_files, save_dataframe_to_csv
+from utils import delete_files
 
+s3_client = AwsS3Client(os.environ["S3_BUCKET"])
 distance_calculator = DistanceCalculator()
 weather_data_handler = WeatherDataHandler()
 open_meteo_fetcher = OpenMeteoFetcher(distance_calculator=distance_calculator)
@@ -60,11 +63,10 @@ def _get_file_names(start_date: date, end_date: date) -> tuple[str, str]:
     return latency_file_name, throughput_file_name
 
 
-def _maybe_delete_old_measurements(max_files: int = 12) -> None:
-    files = list(measurements_dir.iterdir())
+def _maybe_delete_old_measurements(max_files: int = 120) -> None:
     grouped = defaultdict(list)
-    for f in files:
-        parts = f.name.split("_")
+    for f in s3_client.get_measurements_files():
+        parts = f.split("_")
         try:
             target = f"{parts[0]}_{parts[1]}"
             grouped[target].append(f)
@@ -73,11 +75,10 @@ def _maybe_delete_old_measurements(max_files: int = 12) -> None:
 
     for target, target_files in grouped.items():
         target_files.sort(
-            key=lambda f: datetime.strptime(f.name.split("_")[2], "%Y-%m-%d"),
+            key=lambda f: datetime.strptime(f.split("_")[2], "%Y-%m-%d"),
             reverse=True,
         )
-        for f in target_files[max_files:]:
-            f.unlink()
+        s3_client.delete_files(S3Directory.MEASUREMENTS, target_files[max_files:])
 
 
 def clean_up() -> None:
@@ -120,15 +121,13 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
     city_country_set: set[tuple[str, str]] = set()
     _update_city_country_set(merged_df, city_country_set)
     prev_latency_file_name, prev_throughput_file_name = _get_file_names(*_get_process_date_range(start_date, 6))
-    prev_latency_path = measurements_dir / prev_latency_file_name
-    prev_throughput_path = measurements_dir / prev_throughput_file_name
     prev_latency_df = None
     prev_throughput_df = None
-    if prev_latency_path.exists():
-        prev_latency_df = pd.read_csv(str(prev_latency_path))
+    if prev_latency_file_name in s3_client.get_measurements_files():
+        prev_latency_df = s3_client.get_dataframe(S3Directory.MEASUREMENTS, prev_latency_file_name)
         _update_city_country_set(prev_latency_df, city_country_set)
-    if prev_throughput_path.exists():
-        prev_throughput_df = pd.read_csv(str(prev_throughput_path))
+    if prev_throughput_file_name in s3_client.get_measurements_files():
+        prev_throughput_df = s3_client.get_dataframe(S3Directory.MEASUREMENTS, prev_throughput_file_name)
         _update_city_country_set(prev_throughput_df, city_country_set)
 
     open_meteo_fetcher.fetch_weather_for_cities(
@@ -136,13 +135,13 @@ def _fetch_weather_data(merged_df: pd.DataFrame, start_date: date, today_date: d
     )
 
     if prev_latency_df is not None:
-        prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, 'client_city', 'client_country_code')
-        prev_latency_df.to_csv(index=False)
+        prev_latency_df = data_enricher.enrich_df_with_weather(prev_latency_df, "client_city", "client_country_code")
+        s3_client.save_csv(S3Directory.MEASUREMENTS, prev_latency_file_name, prev_latency_df)
     if prev_throughput_df is not None:
         prev_throughput_df = data_enricher.enrich_df_with_weather(
-            prev_throughput_df, 'client_city', 'client_country_code'
+            prev_throughput_df, "client_city", "client_country_code"
         )
-        prev_throughput_df.to_csv(index=False)
+        s3_client.save_csv(S3Directory.MEASUREMENTS, prev_throughput_file_name, prev_throughput_df)
 
 
 def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) -> None:
@@ -153,8 +152,8 @@ def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) 
         historical_days=None,
         forecast_days=15,
     )
-    df = data_enricher.generate_df_for_prediction(df, start_date=today_date, days=14)
-    df.to_csv(predictions_dir / output_csv, index=False)
+    df = data_enricher.generate_df_for_prediction(df, start_date=today_date, days=14).reset_index(drop=True)
+    s3_client.save_csv(S3Directory.PREDICTIONS, output_csv, df)
 
 
 @LogUtils.log_function
@@ -183,8 +182,8 @@ def main() -> None:
         filtered_latency_df, filtered_throughput_df = filter_df(enriched_df)
 
         latency_file_name, throughput_file_name = _get_file_names(start_date, end_date)
-        save_dataframe_to_csv(filtered_latency_df, latency_file_name, measurements_dir)
-        save_dataframe_to_csv(filtered_throughput_df, throughput_file_name, measurements_dir)
+        s3_client.save_csv(S3Directory.MEASUREMENTS, latency_file_name, filtered_latency_df)
+        s3_client.save_csv(S3Directory.MEASUREMENTS, throughput_file_name, filtered_throughput_df)
 
         clean_up()
         logger.info("Data processing complete.")

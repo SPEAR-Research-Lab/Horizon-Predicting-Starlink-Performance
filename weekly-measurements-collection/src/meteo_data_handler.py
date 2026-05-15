@@ -1,6 +1,5 @@
-from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime
 import os
 from typing import Optional
 
@@ -63,7 +62,10 @@ class WeatherDataHandler:
 
         self._city_to_df_map = city_map
         self._initialized = True
-        logger.info("Initialized weather data cache with keys: %s", list(self._city_to_df_map.keys()))
+        logger.info(
+            "Initialized weather data cache with keys: %s",
+            list(self._city_to_df_map.keys()),
+        )
 
     def get_weather_data(self, first: str, second: str, date_str: str) -> WeatherData:
         self.initialize_weather_data()
@@ -74,9 +76,7 @@ class WeatherDataHandler:
         container = self._city_to_df_map.get(cache_key)
         if container is None:
             available = list(self._city_to_df_map.keys())
-            raise ValueError(
-                f"No weather data found for '{cache_key}'. Available keys: {available}"
-            )
+            raise ValueError(f"No weather data found for '{cache_key}'. Available keys: {available}")
 
         prev_hour_datapoint = WeatherDataHandler._get_point(container.historical, prev_hour_str)
         next_hour_datapoint = WeatherDataHandler._get_point(container.historical, next_hour_str)
@@ -87,9 +87,7 @@ class WeatherDataHandler:
             next_hour_datapoint = WeatherDataHandler._get_point(container.forecast, next_hour_str)
 
         if prev_hour_datapoint is None or next_hour_datapoint is None:
-            raise ValueError(
-                f"Could not find weather data for '{cache_key}' at {prev_hour_str} or {next_hour_str}."
-            )
+            raise ValueError(f"Could not find weather data for '{cache_key}' at {prev_hour_str} or {next_hour_str}.")
 
         beta = (dt - datetime.fromisoformat(prev_hour_str)).total_seconds() / 3600.0
         alpha = 1.0 - beta
@@ -100,12 +98,10 @@ class WeatherDataHandler:
                 + beta * next_hour_datapoint["temperature_2m"].item()
             ),
             "precipitation": float(
-                alpha * prev_hour_datapoint["precipitation"].item()
-                + beta * next_hour_datapoint["precipitation"].item()
+                alpha * prev_hour_datapoint["precipitation"].item() + beta * next_hour_datapoint["precipitation"].item()
             ),
             "cloud_cover": float(
-                alpha * prev_hour_datapoint["cloud_cover"].item()
-                + beta * next_hour_datapoint["cloud_cover"].item()
+                alpha * prev_hour_datapoint["cloud_cover"].item() + beta * next_hour_datapoint["cloud_cover"].item()
             ),
             "wind_speed_10m": float(
                 alpha * prev_hour_datapoint["wind_speed_10m"].item()

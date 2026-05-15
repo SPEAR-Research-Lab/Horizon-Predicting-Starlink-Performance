@@ -20,7 +20,7 @@ class OpenMeteoFetcher:
     _distance_calculator: DistanceCalculator
 
     def __init__(self, distance_calculator: DistanceCalculator) -> None:
-        cache_session = requests_cache.CachedSession('.cache', expire_after=-1)
+        cache_session = requests_cache.CachedSession(".cache", expire_after=-1)
         retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
         self._client = OpenMeteoClient(session=retry_session)
         self._distance_calculator = distance_calculator
@@ -33,7 +33,12 @@ class OpenMeteoFetcher:
             "longitude": longitude,
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
-            "hourly": ["temperature_2m", "precipitation", "cloud_cover", "wind_speed_10m"],
+            "hourly": [
+                "temperature_2m",
+                "precipitation",
+                "cloud_cover",
+                "wind_speed_10m",
+            ],
             "timezone": "GMT",
         }
 
@@ -43,7 +48,12 @@ class OpenMeteoFetcher:
         return {
             "latitude": latitude,
             "longitude": longitude,
-            "hourly": ["temperature_2m", "precipitation", "cloud_cover", "wind_speed_10m"],
+            "hourly": [
+                "temperature_2m",
+                "precipitation",
+                "cloud_cover",
+                "wind_speed_10m",
+            ],
             "past_days": past_days,
             "forecast_days": forecast_days,
         }
@@ -103,22 +113,27 @@ class OpenMeteoFetcher:
         file_path = weather_data_dir / file_name
 
         if file_path.exists():
-            existing_df = pd.read_csv(file_path, parse_dates=['date'])
+            existing_df = pd.read_csv(file_path, parse_dates=["date"])
             combined_df = pd.concat([existing_df, new_df], ignore_index=True)
-            combined_df = combined_df.drop_duplicates(subset=['date'], keep='last')
-            combined_df = combined_df.sort_values('date').reset_index(drop=True)
+            combined_df = combined_df.drop_duplicates(subset=["date"], keep="last")
+            combined_df = combined_df.sort_values("date").reset_index(drop=True)
             combined_df.to_csv(file_path, index=False)
         else:
             new_df.to_csv(file_path, index=False)
 
     def fetch_and_save_forecast(
-        self, latitude: float, longitude: float, file_name: str, past_days: int, forecast_days: int
+        self,
+        latitude: float,
+        longitude: float,
+        file_name: str,
+        past_days: int,
+        forecast_days: int,
     ) -> None:
         params = self._get_params_forecast(latitude, longitude, past_days, forecast_days)
         df = self._fetch(self._forecast_url, params)
         file_path = weather_data_dir / file_name
         if file_path.exists():
-            df.to_csv(file_path, mode='a', header=False, index=False)
+            df.to_csv(file_path, mode="a", header=False, index=False)
         else:
             df.to_csv(file_path, index=False)
 
@@ -164,7 +179,13 @@ class OpenMeteoFetcher:
                 city_country_tuple=None, location=(lat, lon)
             )
             self._fetch_weather(
-                lat, lon, ref_date, historical_file_name, forecast_file_name, historical_days, forecast_days
+                lat,
+                lon,
+                ref_date,
+                historical_file_name,
+                forecast_file_name,
+                historical_days,
+                forecast_days,
             )
 
     def _fetch_weather(

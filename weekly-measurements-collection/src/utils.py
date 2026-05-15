@@ -187,7 +187,8 @@ def get_tle_file_names(start_date: date, end_date: date) -> list[str]:
 
 
 def get_weather_file_names(
-    city_country_tuple: Optional[tuple[str, str]], location: Optional[tuple[float, float]]
+    city_country_tuple: Optional[tuple[str, str]],
+    location: Optional[tuple[float, float]],
 ) -> Tuple[str, str]:
     if city_country_tuple is None and location is None:
         raise ValueError("Either city_country_tuple or location must be provided")
