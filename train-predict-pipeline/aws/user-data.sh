@@ -4,6 +4,7 @@ set -e
 sudo -u ec2-user bash <<'EOF'
 cd /home/ec2-user/horizon
 git pull origin main
+git lfs pull
 
 cd train-predict-pipeline
 rm -f models 2>/dev/null
@@ -14,7 +15,7 @@ python -m src.train_model --data-dir ../weekly-measurements-collection/measureme
 python -m src.predict_pipeline --output ../leo-viewer/frontend/public
 
 cd /home/ec2-user/horizon
-git add leo-viewer/frontend/public/*.json
+git add -f leo-viewer/frontend/public/*.json
 if git diff --staged --quiet; then
     echo "No changes"
 else

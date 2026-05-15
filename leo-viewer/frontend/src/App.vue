@@ -34,19 +34,19 @@ body,
   transform: translateX(-50%);
   z-index: 9999;
   background: white;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
   display: flex;
-  gap: 20px;
+  gap: 12px;
 }
 
 .topbar button {
-  font-size: 1.1em;
+  font-size: 0.95em;
   background: #fafbfc;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 7px 18px;
+  padding: 6px 14px;
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -56,5 +56,17 @@ body,
 .topbar button.active {
   background: #e0e0e0;
   border-color: #999;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    top: 10px;
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .topbar button {
+    font-size: 0.82em;
+    padding: 5px 10px;
+  }
 }
 </style>

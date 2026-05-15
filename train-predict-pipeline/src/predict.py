@@ -1,12 +1,11 @@
-import math
+import re
 from pathlib import Path
-from typing import Optional
 
 import joblib
 import numpy as np
 import pandas as pd
 
-from . import data_dir, models_dir, logger
+from . import models_dir, logger
 
 WEATHER_WEIGHTS = {
     "download_latency_ms": {"cloud_cover": 0.462, "precipitation": 0.232, "wind_speed_10m": 0.229, "temperature_2m": 0.077},
@@ -15,84 +14,16 @@ WEATHER_WEIGHTS = {
 
 
 def find_model(target: str):
-    """Find the latest model file and extract rf_weight from filename."""
     matches = sorted(models_dir.glob(f"*_{target}.joblib"))
     if not matches:
         return None, None
     model_path = matches[-1]
-    import re
     weight_match = re.search(r"rf_weight_(\d+)", model_path.name)
     rf_weight = int(weight_match.group(1)) / 100.0 if weight_match else 0.5
     return model_path, rf_weight
 
-SERVER_LOCATIONS = data_dir / "server_locations.csv"
-WORLD_COORDS = data_dir / "world_cities_coordinates.csv"
 
-WEATHER_COLS = ["cloud_cover", "temperature_2m", "wind_speed_10m", "precipitation"]
-
-
-def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    R = 6371
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
-    return 2 * R * math.asin(math.sqrt(a))
-
-
-def load_server_coordinates() -> list[dict]:
-    servers = pd.read_csv(SERVER_LOCATIONS)
-    coords = pd.read_csv(WORLD_COORDS)
-
-    coords["city_key"] = coords["city"].astype(str).str.strip()
-    coords["country_key"] = coords["country"].astype(str).str.strip().str.upper()
-    servers["server_city_key"] = servers["server_city"].astype(str).str.strip()
-    servers["server_country_key"] = servers["server_country_code"].astype(str).str.strip().str.upper()
-
-    merged = servers.merge(
-        coords,
-        left_on=["server_city_key", "server_country_key"],
-        right_on=["city_key", "country_key"],
-        how="left",
-    )
-    merged = merged[["server_city", "server_country_code", "lat", "lng"]].rename(columns={"lng": "lon"})
-    merged = merged.dropna(subset=["lat", "lon"])
-    return merged.to_dict("records")
-
-
-_server_list: Optional[list] = None
-
-
-def get_server_list() -> list[dict]:
-    global _server_list
-    if _server_list is None:
-        _server_list = load_server_coordinates()
-    return _server_list
-
-
-def find_nearest_server_distance(lat: float, lon: float) -> float:
-    servers = get_server_list()
-    best_dist = float("inf")
-    for s in servers:
-        dist = haversine(lat, lon, s["lat"], s["lon"])
-        if dist < best_dist:
-            best_dist = dist
-    return best_dist
-
-
-def add_nearest_server_distances(df: pd.DataFrame) -> pd.DataFrame:
-    servers = get_server_list()
-    server_lats = np.array([s["lat"] for s in servers])
-    server_lons = np.array([s["lon"] for s in servers])
-
-    distances = []
-    for _, row in df.iterrows():
-        dists = [haversine(row["lat"], row["lon"], slat, slon) for slat, slon in zip(server_lats, server_lons)]
-        distances.append(min(dists))
-    df["client_server_distance_km"] = distances
-    return df
-
-
-def compute_weather_index(df: pd.DataFrame, weights: dict[str, float]) -> pd.Series:
+def compute_weather_index(df: pd.DataFrame, weights: dict) -> pd.Series:
     cloud_std = (df["cloud_cover"] - df["cloud_cover"].mean()) / (df["cloud_cover"].std() or 1)
     precip_std = (df["precipitation"] - df["precipitation"].mean()) / (df["precipitation"].std() or 1)
     wind_std = (df["wind_speed_10m"] - df["wind_speed_10m"].mean()) / (df["wind_speed_10m"].std() or 1)
@@ -105,12 +36,6 @@ def compute_weather_index(df: pd.DataFrame, weights: dict[str, float]) -> pd.Ser
     )
 
 
-def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
-    df["day_of_week"] = pd.to_datetime(df["Date"]).dt.dayofweek
-    df["hour_with_minute"] = df["Hour"].astype(float)
-    return df
-
-
 def load_and_predict(model_path: Path, rf_weight: float, X: pd.DataFrame) -> np.ndarray:
     loaded = joblib.load(model_path, mmap_mode="r")
     gbr, rf, scaler = loaded
@@ -121,17 +46,8 @@ def load_and_predict(model_path: Path, rf_weight: float, X: pd.DataFrame) -> np.
 def predict_file(input_csv: Path, output_csv: Path) -> None:
     df = pd.read_csv(input_csv)
 
-    if "Latitude" in df.columns:
-        df = df.rename(columns={"Latitude": "lat", "Longitude": "lon"})
-
-    df = add_time_features(df)
-
-    if "client_server_distance_km" not in df.columns:
-        logger.info("Computing nearest server distances...")
-        df = add_nearest_server_distances(df)
-
-    if "sat_density" not in df.columns and "SatDensity" in df.columns:
-        df = df.rename(columns={"SatDensity": "sat_density"})
+    df["day_of_week"] = pd.to_datetime(df["Date"]).dt.dayofweek
+    df["hour_with_minute"] = df["Hour"].astype(float)
 
     features = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
 
