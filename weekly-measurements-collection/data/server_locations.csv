@@ -1,3 +1,157 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6ebb0151800b040b4f7a494acee004882d43ce7c78e4e9454fc638e9a82f5161
-size 2235
+server_city,server_country_code
+Winnipeg,CA
+Miami,US
+Melbourne,AU
+Calgary,CA
+Bogota,CO
+Sydney,AU
+Auckland,NZ
+Seattle,US
+Vancouver,CA
+Mexico City,MX
+Monterrey,MX
+Los Angeles,US
+Manila,PH
+Tokyo,JP
+Dallas,US
+Sydney (Mascot),AU
+Wellington,NZ
+Narita,JP
+San Francisco Bay Area,US
+Perth,AU
+Salt Lake City,US
+Manila (Pasay),PH
+Portland,US
+Singapore,SG
+Johannesburg,ZA
+Nairobi,KE
+Antananarivo,MG
+Maputo,MZ
+Warsaw,PL
+Lagos,NG
+Stavanger,NO
+Sofia,BG
+Paris,FR
+Marseille,FR
+Belgrade,RS
+Prague,CZ
+Madrid,ES
+Brussels,BE
+Cape Town,ZA
+London,GB
+Milan,IT
+Lisbon,PT
+Turin,IT
+Doha,QA
+Seoul,KR
+Chennai,IN
+Frankfurt am Main,DE
+Tel Aviv,IL
+Zurich,CH
+Athens,GR
+Buenos Aires,AR
+Berlin,DE
+Santiago,CL
+New York,US
+Hamburg,DE
+Frankfurt,DE
+Ferno (VA),IT
+Sao Paulo,BR
+Denver,US
+Las Vegas,US
+Moncton,CA
+Toronto,CA
+Lima,PE
+Amsterdam,NL
+Chicago,US
+Montreal,CA
+Dulles,US
+Washington,US
+Stockholm,SE
+Lorain,US
+Kansas City,US
+Dublin,IE
+Atlanta,US
+Dallas-Fort Worth,US
+Phoenix,US
+Brisbane,AU
+Minneapolis,US
+Florianopolis,BR
+Guatemala City,GT
+Buenos Aires (Ezeiza),AR
+Macomb,US
+Newark,US
+Helsinki,FI
+Reisterstown,US
+San Jose,US
+Hong Kong,HK
+Mumbai,IN
+Muscat,OM
+Podgorica,ME
+Querétaro,MX
+"Manchester, Greater Manchester",GB
+Dhaka,BD
+New Delhi,IN
+Vienna,AT
+St. Charles,US
+Charlestown,US
+Charleston,US
+Honolulu,US
+Jakarta,ID
+Barcelona,ES
+Omaha,US
+Osaka,JP
+Spokane,US
+Columbus,US
+Tangier,US
+Shelabagh,NZ
+"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA
+Manga,ES
+Contao,JP
+Anahidrano,BG
+Tuli Lodge,PL
+Herrljunga,GB
+West Chicago,US
+North Sea,DE
+Navolato,MX
+Laranjal Do Jari,AR
+Sanjeong-ri,US
+"Soissons, Aisne",ZA
+Wurtsboro,US
+Bojnurd,KE
+Madan,CO
+Red Bluff,US
+Balsas,BR
+Braga,US
+Konaev,US
+Kent,US
+Chicago/Prospect Heights/Wheeling,US
+Suben,US
+Brasnorte,CL
+Jateí,BR
+Mora,US
+Plainview,US
+Lewisport,US
+Douglas,US
+Minter City,IT
+Springfield,FR
+Bebedouro,PH
+Ponta Delgada,US
+Goyang-si,US
+Kaiserslautern,NL
+Tunis,TN
+Tylertown,US
+Saarlouis,CA
+Neresheim,CA
+Gaddani,NZ
+Farmington,KZ
+Eura,NG
+Puntarenas,IT
+Yonggang-ri,QA
+Klingenberg,CA
+Zolotonosha,PE
+Soto La Marina,CR
+Miyazaki,OM
+Montemorelos,GT
+Qasr-e Shirin,KE
+George Town,US
