@@ -1,0 +1,10 @@
+models/
+output/
+data/*_weather*.csv
+data/*_predictions*.csv
+data/*_satellites*.csv
+__pycache__/
+*.pyc
+.venv/
+logs/
+*.log

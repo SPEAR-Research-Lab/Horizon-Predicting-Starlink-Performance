@@ -28,8 +28,6 @@ train-predict-pipeline/data/*_predictions*.csv
 # leo-viewer frontend
 leo-viewer/frontend/node_modules/
 leo-viewer/frontend/dist/
-leo-viewer/frontend/public/predicted_*.json
-leo-viewer/frontend/public/dot_predictions.json
 
 # leo-viewer backend (legacy)
 leo-viewer/backend/models/*.joblib

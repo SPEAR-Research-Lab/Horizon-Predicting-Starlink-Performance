@@ -42,12 +42,12 @@ WEATHER_WEIGHTS = {
 
 TARGETS = {
     "download_latency_ms": {
-        "time_filter": ("2025-09-23", None),
         "months_label": "2m",
+        "weeks": 8,
     },
     "download_throughput_mbps": {
-        "time_filter": ("2025-01-01", None),
-        "months_label": "11m",
+        "months_label": "2m",
+        "weeks": 8,
     },
 }
 
@@ -66,14 +66,16 @@ def add_weather_index(df: pd.DataFrame, target: str) -> pd.DataFrame:
     return df
 
 
-def load_training_data(data_dir: Path, target: str) -> pd.DataFrame:
-    """Load all measurement CSVs containing the target metric."""
+def load_training_data(data_dir: Path, target: str, weeks: int = 8) -> pd.DataFrame:
+    """Load the most recent N weeks of measurement CSVs for the target."""
     csv_files = sorted(data_dir.glob("*.csv"))
     keyword = "latency" if "latency" in target else "throughput"
     matching = [f for f in csv_files if keyword in f.name]
 
     if not matching:
         raise ValueError(f"No CSV files matching '{keyword}' found in {data_dir}")
+
+    matching = matching[-weeks:]
 
     dfs = []
     for f in matching:
@@ -84,19 +86,16 @@ def load_training_data(data_dir: Path, target: str) -> pd.DataFrame:
         dfs.append(df)
 
     combined = pd.concat(dfs, ignore_index=True)
-    logger.info(f"Loaded {len(combined)} rows from {len(matching)} files")
+    logger.info(f"Loaded {len(combined)} rows from {len(matching)} files ({weeks} weeks)")
     return combined
 
 
 def prepare_data(df: pd.DataFrame, target: str) -> pd.DataFrame:
-    """Filter by time range and add weather index."""
+    """Clean data and add weather index."""
     df = df.dropna(subset=[target]).reset_index(drop=True)
     df = df[df[target] > 0].reset_index(drop=True)
 
     if 'test_time' in df.columns:
-        df['test_time'] = pd.to_datetime(df['test_time'], format='mixed')
-        start_date = TARGETS[target]["time_filter"][0]
-        df = df[df['test_time'] >= start_date].reset_index(drop=True)
         df = df.drop(columns=['test_time'])
 
     df = add_weather_index(df, target)
@@ -181,7 +180,8 @@ def run(data_dir: Path) -> None:
     all_stats = []
     for target in TARGETS:
         logger.info(f"\nTraining: {target}")
-        df = load_training_data(data_dir, target)
+        weeks = TARGETS[target]["weeks"]
+        df = load_training_data(data_dir, target, weeks=weeks)
         df = prepare_data(df, target)
         stats = train_and_save(df, target)
         all_stats.append(stats)

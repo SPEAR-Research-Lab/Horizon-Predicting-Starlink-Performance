@@ -21,7 +21,7 @@ import numpy as np
 import requests
 from sgp4.api import Satrec, jday
 
-from . import data_dir, output_dir, satellite_data_dir, logger
+from . import data_dir, output_dir, satellite_data_dir, root_dir, logger
 from .predict import predict_file
 from .predicts_json import export_hex_json, export_dot_json
 
@@ -43,7 +43,7 @@ def _haversine(lat1, lon1, lat2, lon2):
     return 2 * R * math.asin(math.sqrt(a))
 
 
-def enrich_weather(input_csv: Path, output_csv: Path, forecast_days: int = 3) -> None:
+def enrich_weather(input_csv: Path, output_csv: Path, forecast_days: int = 14) -> None:
     """Fetch Open-Meteo weather for each unique location and expand into time series."""
     df = pd.read_csv(input_csv)
     lat_col = "lat" if "lat" in df.columns else "Latitude"
@@ -179,15 +179,21 @@ def run(output_path=None) -> None:
             outpath = data_dir / fname.replace(".csv", "_weather_satellites_predictions.csv")
             predict_file(inpath, outpath)
 
+    predictions_dir = root_dir.parent / "weekly-measurements-collection" / "predictions"
+    dot_input = predictions_dir / "prediction_points_features.csv"
+    dot_predictions_csv = data_dir / "dot_predictions.csv"
+    if dot_input.exists():
+        logger.info("  Predicting for dot/city points...")
+        predict_file(dot_input, dot_predictions_csv)
+
     logger.info("\n[4/4] Exporting frontend JSONs...")
     for res in [2, 3, 4]:
         csv_path = data_dir / f"hex_centers_res{res}_weather_satellites_predictions.csv"
         if csv_path.exists():
             export_hex_json(csv_path, target / f"predicted_hex_res{res}.json")
 
-    dot_csv = data_dir / "unique_lat_long_points_weather_satellites_predictions.csv"
-    if dot_csv.exists():
-        export_dot_json(dot_csv, target / "dot_predictions.json")
+    if dot_predictions_csv.exists():
+        export_dot_json(dot_predictions_csv, target / "dot_predictions.json")
 
     logger.info("\n" + "=" * 60)
     logger.info(f"PIPELINE COMPLETE - Output: {target}")
