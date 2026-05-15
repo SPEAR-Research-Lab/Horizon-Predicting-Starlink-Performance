@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   run:
@@ -20,19 +21,31 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
-    
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-west-1
+
       - name: Install deps
         run: pip install -r weekly-measurements-collection/requirements.txt
 
       - name: Collect Starlink Measurements
         run: python weekly-measurements-collection/src/main.py
 
-      - name: Commit and push changes
+      - name: Upload measurements to S3
+        if: success()
+        run: |
+          aws s3 sync weekly-measurements-collection/measurements/ s3://${{ secrets.S3_BUCKET }}/measurements/ --delete
+          aws s3 sync weekly-measurements-collection/predictions/ s3://${{ secrets.S3_BUCKET }}/predictions/ --delete
+
+      - name: Commit and push changes (without measurements)
         if: success()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add weekly-measurements-collection/
+          git add weekly-measurements-collection/ ':!weekly-measurements-collection/measurements/'
           if ! git diff --cached --quiet; then
             git commit -m "Update Starlink Measurements - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
             git pull

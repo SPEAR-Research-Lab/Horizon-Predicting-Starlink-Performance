@@ -60,7 +60,7 @@ def _get_file_names(start_date: date, end_date: date) -> tuple[str, str]:
     return latency_file_name, throughput_file_name
 
 
-def _maybe_delete_old_measurements(max_files: int = 52) -> None:
+def _maybe_delete_old_measurements(max_files: int = 12) -> None:
     files = list(measurements_dir.iterdir())
     grouped = defaultdict(list)
     for f in files:

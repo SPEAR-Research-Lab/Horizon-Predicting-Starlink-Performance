@@ -179,7 +179,7 @@ def run(output_path=None) -> None:
             outpath = data_dir / fname.replace(".csv", "_weather_satellites_predictions.csv")
             predict_file(inpath, outpath)
 
-    predictions_dir = root_dir.parent / "weekly-measurements-collection" / "predictions"
+    predictions_dir = Path("/tmp/predictions")
     dot_input = predictions_dir / "prediction_points_features.csv"
     dot_predictions_csv = data_dir / "dot_predictions.csv"
     if dot_input.exists():

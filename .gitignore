@@ -19,6 +19,8 @@ train-predict-pipeline/models
 # Training data (too large for git)
 model-pipeline/data/train-data/
 data/
+weekly-measurements-collection/measurements/
+weekly-measurements-collection/predictions/
 
 # Pipeline intermediate outputs
 train-predict-pipeline/output/

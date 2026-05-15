@@ -9,9 +9,14 @@ git lfs pull
 cd train-predict-pipeline
 rm -f models 2>/dev/null
 mkdir -p models
+mkdir -p /tmp/measurements
+mkdir -p /tmp/predictions
 source .venv/bin/activate
 
-python -m src.train_model --data-dir ../weekly-measurements-collection/measurements
+aws s3 sync s3://horizon-starlink-data/measurements/ /tmp/measurements/
+aws s3 sync s3://horizon-starlink-data/predictions/ /tmp/predictions/
+
+python -m src.train_model --data-dir /tmp/measurements
 python -m src.predict_pipeline --output ../leo-viewer/frontend/public
 
 cd /home/ec2-user/horizon
