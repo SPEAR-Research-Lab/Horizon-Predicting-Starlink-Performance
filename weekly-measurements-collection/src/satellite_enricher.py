@@ -108,7 +108,7 @@ def day_density_circle(
         "n_measurements": len(group),
         "n_valid": int(valid_mask.sum()),
         "n_invalid": int((~valid_mask).sum()),
-        "mean_density": float(valid_counts.mean()) if valid_counts.size > 0 else float("nan"),
+        "mean_density": (float(valid_counts.mean()) if valid_counts.size > 0 else float("nan")),
         "min_density": int(valid_counts.min()) if valid_counts.size > 0 else None,
         "max_density": int(valid_counts.max()) if valid_counts.size > 0 else None,
         "tle_file": tle_path.name,
@@ -125,7 +125,7 @@ def enrich_with_sat_density(df: pd.DataFrame) -> pd.DataFrame:
     t_start = time.monotonic()
 
     df = df.copy()
-    df["test_time"] = pd.to_datetime(df["test_time"], format='mixed', utc=True)
+    df["test_time"] = pd.to_datetime(df["test_time"], format="mixed", utc=True)
     df["date"] = df["test_time"].dt.date
 
     day_groups: list[tuple[date, pd.DataFrame]] = [(day, group) for day, group in df.groupby("date")]

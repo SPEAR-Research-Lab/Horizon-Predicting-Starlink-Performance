@@ -26,10 +26,10 @@ class DistanceCalculator:
 
     def get_distance_between_cities(self, city_from: str, country_from: str, city_to: str, country_to: str) -> float:
         cached_distance = self._client_server_distance[
-            (self._client_server_distance['client_city'] == city_from)
-            & (self._client_server_distance['client_country_code'] == country_from)
-            & (self._client_server_distance['server_city'] == city_to)
-            & (self._client_server_distance['server_country_code'] == country_to)
+            (self._client_server_distance["client_city"] == city_from)
+            & (self._client_server_distance["client_country_code"] == country_from)
+            & (self._client_server_distance["server_city"] == city_to)
+            & (self._client_server_distance["server_country_code"] == country_to)
         ]["distance"]
 
         if cached_distance.notnull().any():
@@ -40,7 +40,7 @@ class DistanceCalculator:
 
         if coord_from is None or coord_to is None:
             logger.error(f"Could not retrieve coordinates for {city_from}, {country_from} or {city_to}, {country_to}")
-            return float('nan')
+            return float("nan")
 
         distance = geodesic(coord_from, coord_to).kilometers
         self._client_server_distance.loc[len(self._client_server_distance)] = {
@@ -60,17 +60,17 @@ class DistanceCalculator:
         if unresolved_cities_path.exists():
             df = pd.read_csv(unresolved_cities_path)
         else:
-            df = pd.DataFrame(columns=['city', 'country'])
-        unresolved_cities: set[Tuple[str, str]] = set(zip(df['city'], df['country']))
+            df = pd.DataFrame(columns=["city", "country"])
+        unresolved_cities: set[Tuple[str, str]] = set(zip(df["city"], df["country"]))
         unresolved_cities.update(self._failed_lookups)
-        unresolved_cities_df = pd.DataFrame(unresolved_cities, columns=['city', 'country'])
+        unresolved_cities_df = pd.DataFrame(unresolved_cities, columns=["city", "country"])
         unresolved_cities_df.to_csv(unresolved_cities_path, index=False)
 
     def get_closest_server_for_location(self, lat: float, lon: float) -> float:
         if self._server_locations is None:
             self._server_locations = pd.read_csv(data_dir / CsvFiles.server_locations)
 
-        min_distance = float('inf')
+        min_distance = float("inf")
         for _, row in self._server_locations.iterrows():  # type: ignore
             server_coords = self.get_city_coordinates(row["server_city"], row["server_country_code"])
             if server_coords is None:
@@ -78,7 +78,7 @@ class DistanceCalculator:
             distance = geodesic((lat, lon), server_coords).kilometers
             if distance < min_distance:
                 min_distance = distance
-        if min_distance == float('inf'):
+        if min_distance == float("inf"):
             raise ValueError(f"No valid server locations found to calculate distance for coordinates ({lat}, {lon})")
         return min_distance
 
@@ -87,8 +87,8 @@ class DistanceCalculator:
             self._world_cities = pd.read_csv(data_dir / CsvFiles.world_cities_coordinates)
 
         # Try exact match first
-        coords = self._world_cities[(self._world_cities['city'] == city) & (self._world_cities['country'] == country)][
-            ['lat', 'lng']
+        coords = self._world_cities[(self._world_cities["city"] == city) & (self._world_cities["country"] == country)][
+            ["lat", "lng"]
         ].values
 
         if len(coords) == 0:
@@ -108,26 +108,31 @@ class DistanceCalculator:
 
     def _save_city_coordinates(self, city: str, country: str, lat: float, lng: float) -> None:
         logger.info(f"Saving coordinates for {city}, {country}: ({lat}, {lng})")
-        new_row = pd.DataFrame([{'city': city, 'country': country, 'lat': lat, 'lng': lng}])
+        new_row = pd.DataFrame([{"city": city, "country": country, "lat": lat, "lng": lng}])
         self._world_cities = pd.concat([self._world_cities, new_row], ignore_index=True)
         self._world_cities.to_csv(data_dir / CsvFiles.world_cities_coordinates, index=False)
 
     @staticmethod
     def _fetch_coordinates(city: str, country_code: str) -> Tuple[Optional[float], Optional[float]]:
         url = "https://nominatim.openstreetmap.org/search"
-        headers = {'User-Agent': 'CityCoordinateFetcher/1.0'}
+        headers = {"User-Agent": "CityCoordinateFetcher/1.0"}
 
         try:
             logger.info(f"Fetching coordinates for {city}, {country_code}")
-            params: dict[str, str | int] = {'city': city, 'country': country_code, 'format': 'json', 'limit': 1}
+            params: dict[str, str | int] = {
+                "city": city,
+                "country": country_code,
+                "format": "json",
+                "limit": 1,
+            }
 
             response = requests.get(url, params=params, headers=headers, timeout=10)
             response.raise_for_status()
 
             data = response.json()
             if data:
-                lat = float(data[0]['lat'])
-                lng = float(data[0]['lon'])
+                lat = float(data[0]["lat"])
+                lng = float(data[0]["lon"])
                 return lat, lng
 
         except Exception as e:
@@ -136,40 +141,45 @@ class DistanceCalculator:
         time.sleep(1)
         logger.info(f"Retrying with cleaned city name for {city}, {country_code}")
         cleaned_city = city
-        if '(' in cleaned_city:
-            cleaned_city = cleaned_city.split('(')[0].strip()
-        if ',' in cleaned_city:
-            cleaned_city = cleaned_city.split(',')[0].strip()
+        if "(" in cleaned_city:
+            cleaned_city = cleaned_city.split("(")[0].strip()
+        if "," in cleaned_city:
+            cleaned_city = cleaned_city.split(",")[0].strip()
         suffixes_to_remove = [
-            ' municipality',
-            ' city',
-            ' town',
-            ' village',
-            ' district',
-            ' region',
-            ' province',
-            ' county',
-            ' bay area',
-            ' metropolitan area',
-            ' metro',
+            " municipality",
+            " city",
+            " town",
+            " village",
+            " district",
+            " region",
+            " province",
+            " county",
+            " bay area",
+            " metropolitan area",
+            " metro",
         ]
 
         cleaned_city_lower = cleaned_city.lower()
         for suffix in suffixes_to_remove:
-            cleaned_city_lower = cleaned_city_lower.replace(suffix, '')
+            cleaned_city_lower = cleaned_city_lower.replace(suffix, "")
 
         if cleaned_city != city and cleaned_city:
             try:
                 logger.info(f"Retrying with cleaned name: {cleaned_city}")
-                params = {'city': cleaned_city, 'country': country_code, 'format': 'json', 'limit': 1}
+                params = {
+                    "city": cleaned_city,
+                    "country": country_code,
+                    "format": "json",
+                    "limit": 1,
+                }
 
                 response = requests.get(url, params=params, headers=headers, timeout=10)
                 response.raise_for_status()
 
                 data = response.json()
                 if data:
-                    lat = float(data[0]['lat'])
-                    lng = float(data[0]['lon'])
+                    lat = float(data[0]["lat"])
+                    lng = float(data[0]["lon"])
                     logger.info(f"Successfully found coordinates using cleaned name: {cleaned_city}")
                     return lat, lng
 

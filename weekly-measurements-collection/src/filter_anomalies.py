@@ -21,8 +21,8 @@ class FilterDirection(Enum):
 
 
 class TargetFeature(Enum):
-    DOWNLOAD_LATENCY = 'download_latency_ms'
-    DOWNLOAD_THROUGHPUT = 'download_throughput_mbps'
+    DOWNLOAD_LATENCY = "download_latency_ms"
+    DOWNLOAD_THROUGHPUT = "download_throughput_mbps"
 
 
 def map_feature_to_filter_direction(feature: TargetFeature) -> FilterDirection:
@@ -43,7 +43,7 @@ def get_window_idx(group_ts: np.ndarray, group_idx: np.ndarray, center_time: np.
     window_idx = None
     for window_hours in np.arange(MIN_WINDOW_HOURS, MAX_WINDOW_HOURS + WINDOW_STEP_HOURS, WINDOW_STEP_HOURS):
         time_diff = np.abs(group_ts - center_time)
-        window_mask = time_diff <= np.timedelta64(int(window_hours * 30), 'm')  # half window both sides
+        window_mask = time_diff <= np.timedelta64(int(window_hours * 30), "m")  # half window both sides
         window_idx = group_idx[window_mask]
 
         if len(window_idx) >= MIN_MATCHES_REQUIRED:
@@ -55,16 +55,16 @@ def filter_outliers_isolation_forest(
     df: pd.DataFrame,
     feature: TargetFeature,
     keep_frac: float = 0.75,
-    temporal_cols: list = ['hour_with_minute', 'day_of_week'],
+    temporal_cols: list = ["hour_with_minute", "day_of_week"],
 ) -> pd.DataFrame:
     df = df.copy()
-    df = df.sort_values(['lat', 'lon', 'ts']).reset_index(drop=True)
+    df = df.sort_values(["lat", "lon", "ts"]).reset_index(drop=True)
 
     keep_mask = np.ones(len(df), dtype=bool)
 
     if_train_cols = [feature.value] + temporal_cols
 
-    for (lat, lon), group in df.groupby(['lat', 'lon'], sort=False):
+    for (lat, lon), group in df.groupby(["lat", "lon"], sort=False):
         group_idx = group.index.values
         n = len(group_idx)
 
@@ -90,17 +90,20 @@ def composite_badness_vectorized(feature: TargetFeature, window_vals: np.ndarray
 
 
 def filter_outliers_percentile(
-    df: pd.DataFrame, feature: TargetFeature, keep_frac: float = 0.75, voting_threshold: float = 0.5
+    df: pd.DataFrame,
+    feature: TargetFeature,
+    keep_frac: float = 0.75,
+    voting_threshold: float = 0.5,
 ) -> pd.DataFrame:
     df = df.copy()
-    df = df.sort_values(['lat', 'lon', 'ts']).reset_index(drop=True)
-    ts_vals = df['ts'].values
+    df = df.sort_values(["lat", "lon", "ts"]).reset_index(drop=True)
+    ts_vals = df["ts"].values
     vals = df[feature.value].values
 
     flagged_count = np.zeros(len(df), dtype=int)
     window_count = np.zeros(len(df), dtype=int)
 
-    for (lat, lon), group in df.groupby(['lat', 'lon'], sort=False):
+    for (lat, lon), group in df.groupby(["lat", "lon"], sort=False):
         group_idx = group.index.values
         group_ts = np.asarray(ts_vals[group_idx])
         n = len(group_idx)
@@ -135,15 +138,15 @@ def filter_outliers_percentile(
 def filter_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     logger.info(f"Filtering anomalies from {len(df)} measurements...")
     latency_df = filter_incomplete_measurements(df.copy(), TargetFeature.DOWNLOAD_LATENCY)
-    latency_df['ts'] = pd.to_datetime(latency_df['test_time'], format='mixed', utc=True)
+    latency_df["ts"] = pd.to_datetime(latency_df["test_time"], format="mixed", utc=True)
     latency_df = filter_outliers_percentile(latency_df, TargetFeature.DOWNLOAD_LATENCY)
-    latency_df = latency_df.drop(columns=['ts'])
+    latency_df = latency_df.drop(columns=["ts"])
     logger.info(f"Latency filtering complete: {len(latency_df)} rows ({len(latency_df) / len(df) * 100:.2f}%)")
 
     throughput_df = filter_incomplete_measurements(df.copy(), TargetFeature.DOWNLOAD_THROUGHPUT)
-    throughput_df['ts'] = pd.to_datetime(throughput_df['test_time'], format='mixed', utc=True)
+    throughput_df["ts"] = pd.to_datetime(throughput_df["test_time"], format="mixed", utc=True)
     throughput_df = filter_outliers_percentile(throughput_df, TargetFeature.DOWNLOAD_THROUGHPUT)
-    throughput_df = throughput_df.drop(columns=['ts'])
+    throughput_df = throughput_df.drop(columns=["ts"])
     logger.info(f"Throughput filtering complete: {len(throughput_df)} rows ({len(throughput_df) / len(df) * 100:.2f}%)")
 
     return latency_df, throughput_df

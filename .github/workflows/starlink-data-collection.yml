@@ -12,6 +12,9 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+    env:
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +27,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: eu-west-1
+          aws-region: $AWS_REGION
 
       - name: Install deps
         run: pip install -r weekly-measurements-collection/requirements.txt
@@ -32,20 +35,14 @@ jobs:
       - name: Collect Starlink Measurements
         run: python weekly-measurements-collection/src/main.py
 
-      - name: Upload measurements to S3
-        if: success()
-        run: |
-          aws s3 sync weekly-measurements-collection/measurements/ s3://${{ secrets.S3_BUCKET }}/measurements/ --delete
-          aws s3 sync weekly-measurements-collection/predictions/ s3://${{ secrets.S3_BUCKET }}/predictions/ --delete
-
-      - name: Commit and push changes (without measurements)
+      - name: Commit and push changes
         if: success()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add weekly-measurements-collection/
+          git add weekly-measurements-collection/data/
           if ! git diff --cached --quiet; then
-            git commit -m "Update Starlink Measurements - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
+            git commit -m "Update Starlink Measurements Data - $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
             git pull --rebase
             git push
           else
