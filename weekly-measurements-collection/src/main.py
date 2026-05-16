@@ -65,7 +65,7 @@ def _get_file_names(start_date: date, end_date: date) -> tuple[str, str]:
 
 def _maybe_delete_old_measurements(max_files: int = 12) -> None:
     grouped = defaultdict(list)
-    for f in s3_client.get_measurements_files():
+    for f in s3_client.get_measurements_files(refetch=True):
         parts = f.split("_")
         try:
             target = f"{parts[0]}_{parts[1]}"

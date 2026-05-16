@@ -42,6 +42,6 @@ class AwsS3Client:
         if not paths:
             return
         for i in range(0, len(paths), 1000):
-            chunk = paths[i:i + 1000]
+            chunk = paths[i : i + 1000]
             self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": path} for path in chunk]})
         logger.info(f"Successfully deleted {len(paths)} files from S3")
