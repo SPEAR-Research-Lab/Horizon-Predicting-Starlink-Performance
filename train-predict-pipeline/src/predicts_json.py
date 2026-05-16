@@ -45,9 +45,11 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
     date_col = "Date" if "Date" in df.columns else "test_time"
     hour_col = "Hour" if "Hour" in df.columns else "hour_with_minute"
 
-    if "h3Index" in df.columns:
+    h3_col = "h3Index" if "h3Index" in df.columns else "h3_index" if "h3_index" in df.columns else None
+
+    if h3_col:
         out = {}
-        for h3_index, group in df.groupby("h3Index"):
+        for h3_index, group in df.groupby(h3_col):
             out[h3_index] = [
                 {
                     "lat": float(row["lat"]),
