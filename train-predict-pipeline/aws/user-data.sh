@@ -61,11 +61,10 @@ for f in "${JSON_FILES[@]}"; do
     git add -- "$f"
 done
 
-# Commit & push — no stash, no rebase
-if git diff --staged --quiet; then
-    log "No prediction changes — skipping commit"
-else
-    step "git commit" git commit -m "Update predictions - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-    step "git push"   git push origin main
-fi
+# Push predictions to orphan branch (force push, no history)
+git checkout --orphan predictions-data
+git reset
+git add -- leo-viewer/frontend/public/
+git commit -m "Update predictions - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+git push origin predictions-data --force
 EOF
