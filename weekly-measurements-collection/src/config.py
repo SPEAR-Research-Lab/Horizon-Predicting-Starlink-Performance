@@ -28,9 +28,13 @@ class CsvFiles:
     unresolved_cities = "unresolved_cities.csv"
     server_locations = "server_locations.csv"
     prediction_points = "prediction_points.csv"
-    hexagon_centers = "hexagon_centers.csv"
+    hex_centers_res2 = "hex_centers_res2.csv"
+    hex_centers_res3 = "hex_centers_res3.csv"
+    hex_centers_res4 = "hex_centers_res4.csv"
     prediction_points_features = "prediction_points_features.csv"
-    hexagon_centers_features = "hexagon_centers_features.csv"
+    hex_centers_res2_features = "hex_centers_res2_features.csv"
+    hex_centers_res3_features = "hex_centers_res3_features.csv"
+    hex_centers_res4_features = "hex_centers_res4_features.csv"
 
 
 columns = [

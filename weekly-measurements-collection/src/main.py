@@ -155,10 +155,11 @@ def _prepare_prediction_data(today_date: date, input_csv: str, output_csv: str) 
         locations=df[["lat", "lon"]].values.tolist(),
         ref_date=today_date,
         historical_days=None,
-        forecast_days=15,
+        forecast_days=16,
     )
     df = data_enricher.generate_df_for_prediction(df, start_date=today_date, days=14).reset_index(drop=True)
     s3_client.save_csv(S3Directory.PREDICTIONS, output_csv, df)
+    logger.info(f"{output_csv} data preparation complete")
 
 
 @LogUtils.log_function
@@ -194,9 +195,9 @@ def main() -> None:
         logger.info("Data processing complete.")
 
         _prepare_prediction_data(today_date, CsvFiles.prediction_points, CsvFiles.prediction_points_features)
-        logger.info("City data preparation complete.")
-        _prepare_prediction_data(today_date, CsvFiles.hexagon_centers, CsvFiles.hexagon_centers_features)
-        logger.info("Hexagon data preparation complete.")
+        _prepare_prediction_data(today_date, CsvFiles.hex_centers_res2, CsvFiles.hex_centers_res2_features)
+        _prepare_prediction_data(today_date, CsvFiles.hex_centers_res3, CsvFiles.hex_centers_res3_features)
+        _prepare_prediction_data(today_date, CsvFiles.hex_centers_res4, CsvFiles.hex_centers_res4_features)
     except Exception:
         logger.exception("Application failed")
         exit(1)
