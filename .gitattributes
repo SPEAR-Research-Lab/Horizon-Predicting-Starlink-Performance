@@ -2,3 +2,4 @@ model-pipeline/data/*.csv filter=lfs diff=lfs merge=lfs -text
 plots/**/*.csv filter=lfs diff=lfs merge=lfs -text
 train-predict-pipeline/data/*.csv -filter -diff -merge
 weekly-measurements-collection/** -filter -diff -merge -text
+leo-viewer/frontend/public/*.json filter=lfs diff=lfs merge=lfs -text
