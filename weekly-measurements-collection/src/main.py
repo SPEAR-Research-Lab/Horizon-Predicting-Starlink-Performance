@@ -78,7 +78,7 @@ def _maybe_delete_old_measurements(max_files: int = 12) -> None:
             key=lambda f: datetime.strptime(f.split("_")[2], "%Y-%m-%d"),
             reverse=True,
         )
-        s3_client.delete_files(S3Directory.MEASUREMENTS, target_files[max_files:])
+        s3_client.delete_files(target_files[max_files:])
     logger.info("Successfully deleted old files.")
 
 
