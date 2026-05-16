@@ -6,17 +6,19 @@ A comprehensive research project for analyzing and visualizing network performan
 
 ## Project Overview
 
-This repository contains three main analysis modules:
+This repository contains the following analysis modules:
 
-1. **Anomaly Filtration Analysis** - Evaluates the impact of anomaly detection and filtration on Starlink performance metrics
-2. **Client-Server Filtering Analysis** - Compares network performance before and after applying geographic/distance-based filtering
-3. **Distribution Comparison (JSD)** - Investigates and compares statistical distributions between NDT7 and Cloudflare datasets
+1. **Anomaly Filtration Analysis** (`anomaly-filtration-plots/`) - Evaluates the impact of anomaly detection and filtration on Starlink performance metrics
+2. **Client-Server Filtering Analysis** (`map-plots/`) - Geographic performance visualization and client-server filtering comparisons
+3. **Distribution Comparison (JSD)** (`statistical-analysis-plots/`) - Investigates and compares statistical distributions between NDT7 and Cloudflare datasets
+4. **Weather Validation** (`weather-validation-plots/`) - Weather correlation analysis and PLS-derived index validation
+5. **Leave-One-Out Analysis** (`leave-one-out/`) - Feature importance via leave-one-out evaluation
 
 ## Getting Started
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.13+
 - Jupyter Notebook or JupyterLab
 - LaTeX (required for some plots that generate publication-quality figures)
 
@@ -30,6 +32,7 @@ This repository contains three main analysis modules:
    - `map-plots/data/`
    - `statistical-analysis-plots/data/`
    - `weather-validation-plots/data/`
+   - `leave-one-out/data/`
 
 **To generate data files automatically:**
    

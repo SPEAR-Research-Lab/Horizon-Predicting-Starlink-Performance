@@ -1,34 +1,15 @@
+# Core
 python-dotenv
+pandas~=2.2.3
+numpy~=1.26.4
+requests~=2.32.5
+
+# Database (data-collection)
 psycopg2
-black
-isort
-flake8
-mypy
 google-cloud-bigquery-storage
 google-cloud-bigquery
 db-dtypes
-types-requests
-graphqlclient
-pytest
-freezegun
-pandas~=2.2.3
-matplotlib~=3.9.2
-numpy~=1.26.4
-pycountry~=24.6.1
-scipy~=1.14.1
-plotly~=5.24.1
-nbformat~=5.10.4
-requests~=2.32.5
-dotenv~=0.9.9
-xarray~=2024.6.0
-openpyxl~=3.1.5
-kaleido~=0.1.0
-setuptools~=80.9.0
-pykml~=0.2.0
-beautifulsoup4~=4.12.2
-selenium~=4.14.0
-webdriver-manager~=4.0.0
-pymap3d~=3.0.1
+
 # Model pipeline
 scikit-learn~=1.8.0
 joblib~=1.3.0
@@ -36,10 +17,40 @@ python-dateutil~=2.8.0
 PyYAML~=6.0
 geopy~=2.4.0
 openmeteo_requests~=1.7.5
-urllib3~=2.0.0
 requests_cache~=1.3.1
 retry_requests~=2.0.0
 tqdm~=4.67.0
+
+# Satellite data
 sgp4~=2.23
 pyproj~=3.7.0
 skyfield>=1.46
+
+# Plotting & analysis
+matplotlib~=3.9.2
+scipy~=1.14.1
+plotly~=5.24.1
+nbformat~=5.10.4
+xarray~=2024.6.0
+openpyxl~=3.1.5
+kaleido~=0.1.0
+pykml~=0.2.0
+
+# Utilities
+pycountry~=24.6.1
+beautifulsoup4~=4.12.2
+selenium~=4.14.0
+webdriver-manager~=4.0.0
+pymap3d~=3.0.1
+urllib3~=2.0.0
+setuptools~=80.9.0
+graphqlclient
+
+# Dev & testing
+pytest
+freezegun
+black
+isort
+flake8
+mypy
+types-requests
