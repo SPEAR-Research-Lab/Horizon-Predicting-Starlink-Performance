@@ -11,7 +11,13 @@ git reset --hard origin/main
 cd train-predict-pipeline
 rm -f models 2>/dev/null
 mkdir -p models
-source .venv/bin/activate
+if [ ! -f .venv/bin/activate ]; then
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+else
+    source .venv/bin/activate
+fi
 
 python -m src.s3_download --bucket horizon-starlink-data
 python -m src.train_model --data-dir /tmp/measurements
