@@ -1,7 +1,9 @@
 #!/bin/bash
 
+exec > /var/log/horizon-pipeline.log 2>&1
+
 sudo -u ec2-user bash <<'EOF'
-set -e
+set -ex
 
 cd /home/ec2-user/horizon
 git fetch origin main
@@ -28,4 +30,5 @@ else
 fi
 EOF
 
+echo "Script exit code: $?"
 shutdown -h now
