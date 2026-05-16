@@ -17,6 +17,14 @@ from .predicts_json import export_hex_json, export_dot_json
 
 PREDICTIONS_DIR = Path("/tmp/predictions")
 
+HEX_FILES = {
+    2: "hex_centers_res2_features.csv",
+    3: "hex_centers_res3_features.csv",
+    4: "hex_centers_res4_features.csv",
+}
+DOT_FILE = "prediction_points_features.csv"
+FALLBACK_HEX = "hexagon_centers_features.csv"
+
 
 def run(output_path=None) -> None:
     target = output_path or output_dir
@@ -26,32 +34,39 @@ def run(output_path=None) -> None:
     logger.info("HORIZON PREDICTION PIPELINE")
     logger.info("=" * 60)
 
-    hex_input = PREDICTIONS_DIR / "hexagon_centers_features.csv"
-    dot_input = PREDICTIONS_DIR / "prediction_points_features.csv"
-
     logger.info("\n[1/2] Running ML predictions...")
 
-    hex_predictions_csv = Path("/tmp/hex_predictions.csv")
-    if hex_input.exists():
-        logger.info(f"  Predicting for hexagon centers...")
-        predict_file(hex_input, hex_predictions_csv)
-    else:
-        logger.error(f"  {hex_input} not found!")
+    hex_found = False
+    for res, fname in HEX_FILES.items():
+        hex_input = PREDICTIONS_DIR / fname
+        if hex_input.exists():
+            hex_found = True
+            hex_output = Path(f"/tmp/hex_predictions_res{res}.csv")
+            logger.info(f"  Predicting for hex res{res}...")
+            predict_file(hex_input, hex_output)
 
-    dot_predictions_csv = Path("/tmp/dot_predictions.csv")
+    if not hex_found:
+        fallback = PREDICTIONS_DIR / FALLBACK_HEX
+        if fallback.exists():
+            logger.info(f"  Predicting for combined hexagons (fallback)...")
+            predict_file(fallback, Path("/tmp/hex_predictions_res2.csv"))
+            hex_found = True
+
+    dot_input = PREDICTIONS_DIR / DOT_FILE
+    dot_output = Path("/tmp/dot_predictions.csv")
     if dot_input.exists():
         logger.info(f"  Predicting for dot/city points...")
-        predict_file(dot_input, dot_predictions_csv)
-    else:
-        logger.warning(f"  {dot_input} not found, skipping dots")
+        predict_file(dot_input, dot_output)
 
     logger.info("\n[2/2] Exporting frontend JSONs...")
 
-    if hex_predictions_csv.exists():
-        export_hex_json(hex_predictions_csv, target / "predicted_hex_res2.json")
+    for res in [2, 3, 4]:
+        hex_csv = Path(f"/tmp/hex_predictions_res{res}.csv")
+        if hex_csv.exists():
+            export_hex_json(hex_csv, target / f"predicted_hex_res{res}.json")
 
-    if dot_predictions_csv.exists():
-        export_dot_json(dot_predictions_csv, target / "dot_predictions.json")
+    if dot_output.exists():
+        export_dot_json(dot_output, target / "dot_predictions.json")
 
     logger.info("\n" + "=" * 60)
     logger.info(f"PIPELINE COMPLETE - Output: {target}")
