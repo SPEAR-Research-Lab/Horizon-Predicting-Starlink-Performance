@@ -46,8 +46,17 @@ def load_and_predict(model_path: Path, rf_weight: float, X: pd.DataFrame) -> np.
 def predict_file(input_csv: Path, output_csv: Path) -> None:
     df = pd.read_csv(input_csv)
 
-    df["day_of_week"] = pd.to_datetime(df["Date"]).dt.dayofweek
-    df["hour_with_minute"] = df["Hour"].astype(float)
+    if "day_of_week" not in df.columns:
+        if "Date" in df.columns:
+            df["day_of_week"] = pd.to_datetime(df["Date"]).dt.dayofweek
+        elif "test_time" in df.columns:
+            df["day_of_week"] = pd.to_datetime(df["test_time"]).dt.dayofweek
+    if "hour_with_minute" not in df.columns:
+        if "Hour" in df.columns:
+            df["hour_with_minute"] = df["Hour"].astype(float)
+        elif "test_time" in df.columns:
+            dt = pd.to_datetime(df["test_time"])
+            df["hour_with_minute"] = dt.dt.hour + dt.dt.minute / 60.0
 
     features = ["lat", "lon", "client_server_distance_km", "hour_with_minute", "day_of_week", "sat_density", "weather_index"]
 
