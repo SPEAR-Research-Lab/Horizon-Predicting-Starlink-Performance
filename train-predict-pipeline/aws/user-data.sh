@@ -1,8 +1,6 @@
 #!/bin/bash
 
-exec > /var/log/horizon-pipeline.log 2>&1
-
-sudo -u ec2-user bash <<'EOF'
+sudo -u ec2-user bash <<'EOF' 2>&1 | tee /tmp/horizon-pipeline.log
 set -ex
 
 cd /home/ec2-user/horizon
@@ -30,5 +28,5 @@ else
 fi
 EOF
 
-echo "Script exit code: $?"
+echo "Pipeline exit code: $?"
 shutdown -h now
