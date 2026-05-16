@@ -53,7 +53,7 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
                 {
                     "lat": float(row["lat"]),
                     "lon": float(row["lon"]),
-                    "date": str(row[date_col]),
+                    "date": str(row[date_col])[:10],
                     "hour": int(float(row[hour_col])),
                     "latency": float(row["download_latency_ms"]),
                     "throughput": float(row["download_throughput_mbps"]),
@@ -75,7 +75,7 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
             {
                 "lat": float(row["lat"]),
                 "lon": float(row["lon"]),
-                "date": str(row[date_col]) if date_col in df.columns else "",
+                "date": str(row[date_col])[:10] if date_col in df.columns else "",
                 "hour": int(float(row[hour_col])) if hour_col in df.columns else 0,
                 "latency": float(row["download_latency_ms"]),
                 "throughput": float(row["download_throughput_mbps"]),
