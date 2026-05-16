@@ -4,7 +4,8 @@ sudo -u ec2-user bash <<'EOF'
 set -e
 
 cd /home/ec2-user/horizon
-GIT_LFS_SKIP_SMUDGE=1 git pull origin main
+git fetch origin main
+git reset --hard origin/main
 
 cd train-predict-pipeline
 rm -f models 2>/dev/null
