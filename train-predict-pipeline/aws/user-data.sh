@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo -u ec2-user bash <<'EOF' 2>&1 | tee /tmp/horizon-pipeline.log
+sudo -u ec2-user bash <<'EOF'
 set -ex
 
 cd /home/ec2-user/horizon
@@ -9,7 +9,7 @@ git fetch origin main
 git reset --hard origin/main
 
 cd train-predict-pipeline
-rm -f models 2>/dev/null
+rm -rf models
 mkdir -p models
 if [ ! -f .venv/bin/activate ]; then
     python3 -m venv .venv
