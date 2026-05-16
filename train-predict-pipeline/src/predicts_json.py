@@ -28,13 +28,25 @@ def performance_color(latency: float, throughput: float) -> str:
 def export_dot_json(csv_path: Path, out_json: Path) -> None:
     df = pd.read_csv(csv_path)
     df["color"] = df.apply(lambda row: performance_color(row["download_latency_ms"], row["download_throughput_mbps"]), axis=1)
-    out = df.rename(columns={
-        "download_latency_ms": "Pred_Latency",
-        "download_throughput_mbps": "Pred_Throughput",
-    })
-    cols = ["lat", "lon", "Date", "Hour", "test_time", "hour_with_minute", "sat_density", "Pred_Latency", "Pred_Throughput", "color"]
-    available = [c for c in cols if c in out.columns]
-    out[available].to_json(out_json, orient="records")
+
+    date_col = "Date" if "Date" in df.columns else "test_time"
+    hour_col = "Hour" if "Hour" in df.columns else "hour_with_minute"
+
+    records = []
+    for _, row in df.iterrows():
+        records.append({
+            "lat": float(row["lat"]),
+            "lon": float(row["lon"]),
+            "Date": str(row[date_col])[:10],
+            "Hour": int(float(row[hour_col])),
+            "sat_density": int(row["sat_density"]) if "sat_density" in df.columns and pd.notna(row.get("sat_density")) else 0,
+            "Pred_Latency": float(row["download_latency_ms"]),
+            "Pred_Throughput": float(row["download_throughput_mbps"]),
+            "color": row["color"],
+        })
+
+    with open(out_json, "w") as f:
+        json.dump(records, f)
     logger.info(f"Wrote {out_json}")
 
 
