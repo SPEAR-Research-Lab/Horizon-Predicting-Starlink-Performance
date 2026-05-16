@@ -4,6 +4,7 @@ sudo -u ec2-user bash <<'EOF' 2>&1 | tee /tmp/horizon-pipeline.log
 set -ex
 
 cd /home/ec2-user/horizon
+git lfs install --skip-smudge --force
 git fetch origin main
 git reset --hard origin/main
 
