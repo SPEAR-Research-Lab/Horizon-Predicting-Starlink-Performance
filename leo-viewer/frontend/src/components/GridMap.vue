@@ -99,25 +99,12 @@ function getPrediction(resData: Record<string, any[]>, h3Index: string, date: st
   return preds.find((p) => p.date === date && Number(p.hour) === Number(hour))
 }
 
-function fixAntimeridian(coords: [number, number][]): [number, number][][] {
-  let crosses = false
+
+function crossesAntimeridian(coords: [number, number][]): boolean {
   for (let i = 1; i < coords.length; i++) {
-    if (Math.abs(coords[i - 1][0] - coords[i][0]) > 180) {
-      crosses = true
-      break
-    }
+    if (Math.abs(coords[i - 1][0] - coords[i][0]) > 180) return true
   }
-  if (!crosses) return [[...coords, coords[0]]]
-  const west: [number, number][] = []
-  const east: [number, number][] = []
-  coords.forEach(([lng, lat]) => {
-    if (lng < 0) west.push([lng, lat])
-    else east.push([lng, lat])
-  })
-  return [
-    [...west, west[0]],
-    [...east, east[0]],
-  ]
+  return false
 }
 
 function makeGeoJSON() {
@@ -132,10 +119,11 @@ function makeGeoJSON() {
       if (!pred) return null
 
       const boundary = h3.cellToBoundary(h3Index, true)
-      const rings = fixAntimeridian(boundary)
+      if (crossesAntimeridian(boundary)) return null
+
       return {
         type: 'Feature',
-        geometry: { type: 'MultiPolygon', coordinates: rings.map((ring) => [ring]) },
+        geometry: { type: 'Polygon', coordinates: [[...boundary, boundary[0]]] },
         properties: { h3Index, ...pred, color: pred.color },
       }
     })
