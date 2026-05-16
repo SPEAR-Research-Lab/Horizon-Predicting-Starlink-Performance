@@ -39,5 +39,9 @@ class AwsS3Client:
         logger.info(f"Successfully saved {key} to S3")
 
     def delete_files(self, paths: list[str]) -> None:
-        self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": path} for path in paths]})
+        if not paths:
+            return
+        for i in range(0, len(paths), 1000):
+            chunk = paths[i:i + 1000]
+            self._s3_bucket.delete_objects(Delete={"Objects": [{"Key": path} for path in chunk]})
         logger.info(f"Successfully deleted {len(paths)} files from S3")
