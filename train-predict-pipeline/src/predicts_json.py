@@ -3,7 +3,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from . import output_dir, logger
+from . import logger
+
+MAX_JSON_SIZE_MB = 50
 
 
 def performance_color(latency: float, throughput: float) -> str:
@@ -26,15 +28,13 @@ def performance_color(latency: float, throughput: float) -> str:
 def export_dot_json(csv_path: Path, out_json: Path) -> None:
     df = pd.read_csv(csv_path)
     df["color"] = df.apply(lambda row: performance_color(row["download_latency_ms"], row["download_throughput_mbps"]), axis=1)
-    out = df.rename(
-        columns={
-            "download_latency_ms": "Pred_Latency",
-            "download_throughput_mbps": "Pred_Throughput",
-        }
-    )
-    cols = ["lat", "lon", "Date", "Hour", "sat_density", "Pred_Latency", "Pred_Throughput", "color"]
+    out = df.rename(columns={
+        "download_latency_ms": "Pred_Latency",
+        "download_throughput_mbps": "Pred_Throughput",
+    })
+    cols = ["lat", "lon", "Date", "Hour", "test_time", "hour_with_minute", "sat_density", "Pred_Latency", "Pred_Throughput", "color"]
     available = [c for c in cols if c in out.columns]
-    out[available].to_json(out_json, orient="records", indent=2)
+    out[available].to_json(out_json, orient="records")
     logger.info(f"Wrote {out_json}")
 
 
@@ -44,13 +44,12 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
 
     date_col = "Date" if "Date" in df.columns else "test_time"
     hour_col = "Hour" if "Hour" in df.columns else "hour_with_minute"
-
     h3_col = "h3Index" if "h3Index" in df.columns else "h3_index" if "h3_index" in df.columns else None
 
     if h3_col:
         out = {}
         for h3_index, group in df.groupby(h3_col):
-            out[h3_index] = [
+            out[str(h3_index)] = [
                 {
                     "lat": float(row["lat"]),
                     "lon": float(row["lon"]),
@@ -63,12 +62,17 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
                 }
                 for _, row in group.iterrows()
             ]
-        with open(out_json, "w") as f:
-            json.dump(out, f)
+
+        data = json.dumps(out)
+        if len(data) > MAX_JSON_SIZE_MB * 1024 * 1024:
+            _write_chunked(out, out_json)
+        else:
+            with open(out_json, "w") as f:
+                f.write(data)
+            logger.info(f"Wrote {out_json}")
     else:
-        records = []
-        for _, row in df.iterrows():
-            records.append({
+        records = [
+            {
                 "lat": float(row["lat"]),
                 "lon": float(row["lon"]),
                 "date": str(row[date_col]) if date_col in df.columns else "",
@@ -77,38 +81,26 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
                 "throughput": float(row["download_throughput_mbps"]),
                 "sat_density": int(row["sat_density"]) if "sat_density" in df.columns and pd.notna(row.get("sat_density")) else 0,
                 "color": row["color"],
-            })
+            }
+            for _, row in df.iterrows()
+        ]
         with open(out_json, "w") as f:
             json.dump(records, f)
-
-    logger.info(f"Wrote {out_json}")
-    with open(out_json, "w") as f:
-        json.dump(out, f)
-    logger.info(f"Wrote {out_json}")
+        logger.info(f"Wrote {out_json}")
 
 
-RESOLUTION_FILES = {
-    2: "hex_centers_res2_weather_satellites_predictions.csv",
-    3: "hex_centers_res3_weather_satellites_predictions.csv",
-    4: "hex_centers_res4_weather_satellites_predictions.csv",
-}
+def _write_chunked(data: dict, out_json: Path) -> None:
+    keys = list(data.keys())
+    chunk_size = len(keys) // 4 + 1
+    out_dir = out_json.parent
+    stem = out_json.stem
 
-
-DOT_PREDICTIONS_FILE = "unique_lat_long_points_weather_satellites_predictions.csv"
-
-
-if __name__ == "__main__":
-    for res, fname in RESOLUTION_FILES.items():
-        csv_path = output_dir / fname
-        if csv_path.exists():
-            json_path = output_dir / f"predicted_hex_res{res}.json"
-            export_hex_json(csv_path, json_path)
-        else:
-            logger.warning(f"Skipping {csv_path} (not found)")
-
-    dot_csv = output_dir / DOT_PREDICTIONS_FILE
-    if dot_csv.exists():
-        dot_json = output_dir / "dot_predictions.json"
-        export_dot_json(dot_csv, dot_json)
-    else:
-        logger.warning(f"Skipping {dot_csv} (not found)")
+    for i in range(4):
+        chunk_keys = keys[i * chunk_size : (i + 1) * chunk_size]
+        if not chunk_keys:
+            break
+        chunk = {k: data[k] for k in chunk_keys}
+        chunk_path = out_dir / f"{stem}_part{i+1}.json"
+        with open(chunk_path, "w") as f:
+            json.dump(chunk, f)
+        logger.info(f"Wrote {chunk_path}")

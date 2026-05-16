@@ -50,16 +50,13 @@ step "s3 download"      python -m src.s3_download --bucket horizon-starlink-data
 step "train model"      python -m src.train_model --data-dir /tmp/measurements
 step "predict pipeline" python -m src.predict_pipeline --output ../leo-viewer/frontend/public
 
-# Validate outputs
+# Validate and stage outputs
 cd /home/ec2-user/horizon
-PREDICTION_FILES=(
-    "leo-viewer/frontend/public/predicted_hex_res2.json"
-    "leo-viewer/frontend/public/predicted_hex_res3.json"
-    "leo-viewer/frontend/public/predicted_hex_res4.json"
-    "leo-viewer/frontend/public/dot_predictions.json"
-)
-for f in "${PREDICTION_FILES[@]}"; do
-    [ -f "$f" ] || { log "✘ Missing output: $f"; exit 1; }
+shopt -s nullglob
+JSON_FILES=(leo-viewer/frontend/public/predicted_hex_res*.json leo-viewer/frontend/public/dot_predictions.json)
+shopt -u nullglob
+[ ${#JSON_FILES[@]} -eq 0 ] && { log "✘ No prediction JSONs found"; exit 1; }
+for f in "${JSON_FILES[@]}"; do
     log "  ✔ $f ($(wc -c < "$f") bytes)"
     git add -- "$f"
 done
