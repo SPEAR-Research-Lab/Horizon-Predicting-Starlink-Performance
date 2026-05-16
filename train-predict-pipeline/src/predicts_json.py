@@ -42,21 +42,44 @@ def export_hex_json(csv_path: Path, out_json: Path) -> None:
     df = pd.read_csv(csv_path)
     df["color"] = df.apply(lambda row: performance_color(row["download_latency_ms"], row["download_throughput_mbps"]), axis=1)
 
-    out: dict[str, list] = {}
-    for h3_index, group in df.groupby("h3Index"):
-        out[h3_index] = [
-            {
+    date_col = "Date" if "Date" in df.columns else "test_time"
+    hour_col = "Hour" if "Hour" in df.columns else "hour_with_minute"
+
+    if "h3Index" in df.columns:
+        out = {}
+        for h3_index, group in df.groupby("h3Index"):
+            out[h3_index] = [
+                {
+                    "lat": float(row["lat"]),
+                    "lon": float(row["lon"]),
+                    "date": str(row[date_col]),
+                    "hour": int(float(row[hour_col])),
+                    "latency": float(row["download_latency_ms"]),
+                    "throughput": float(row["download_throughput_mbps"]),
+                    "sat_density": int(row["sat_density"]) if pd.notna(row.get("sat_density")) else 0,
+                    "color": row["color"],
+                }
+                for _, row in group.iterrows()
+            ]
+        with open(out_json, "w") as f:
+            json.dump(out, f)
+    else:
+        records = []
+        for _, row in df.iterrows():
+            records.append({
                 "lat": float(row["lat"]),
                 "lon": float(row["lon"]),
-                "date": str(row["Date"]),
-                "hour": int(row["Hour"]),
+                "date": str(row[date_col]) if date_col in df.columns else "",
+                "hour": int(float(row[hour_col])) if hour_col in df.columns else 0,
                 "latency": float(row["download_latency_ms"]),
                 "throughput": float(row["download_throughput_mbps"]),
-                "sat_density": int(row["sat_density"]) if pd.notna(row.get("sat_density")) else 0,
+                "sat_density": int(row["sat_density"]) if "sat_density" in df.columns and pd.notna(row.get("sat_density")) else 0,
                 "color": row["color"],
-            }
-            for _, row in group.iterrows()
-        ]
+            })
+        with open(out_json, "w") as f:
+            json.dump(records, f)
+
+    logger.info(f"Wrote {out_json}")
     with open(out_json, "w") as f:
         json.dump(out, f)
     logger.info(f"Wrote {out_json}")
