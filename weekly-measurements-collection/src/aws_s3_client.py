@@ -2,7 +2,9 @@ from enum import StrEnum
 import io
 
 import boto3
+from botocore.exceptions import BotoCoreError
 import pandas as pd
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from config import logger
 
@@ -20,6 +22,11 @@ class AwsS3Client:
     def _get_key(self, directory: S3Directory, file: str) -> str:
         return f"{directory}/{file}"
 
+    @retry(
+        retry=retry_if_exception_type(BotoCoreError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+    )
     def _get_object_names_by_directory(self, directory: S3Directory) -> list[str]:
         return [obj.key for obj in self._s3_bucket.objects.filter(Prefix=f"{directory}/")]
 
@@ -28,16 +35,31 @@ class AwsS3Client:
             self._measurement_files = self._get_object_names_by_directory(S3Directory.MEASUREMENTS)
         return self._measurement_files
 
+    @retry(
+        retry=retry_if_exception_type(BotoCoreError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+    )
     def get_dataframe(self, directory: S3Directory, file: str) -> pd.DataFrame:
         obj = self._s3_bucket.Object(self._get_key(directory, file))
         file_bytes = io.BytesIO(obj.get()["Body"].read())
         return pd.read_csv(file_bytes)
 
+    @retry(
+        retry=retry_if_exception_type(BotoCoreError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+    )
     def save_csv(self, directory: S3Directory, file: str, df: pd.DataFrame) -> None:
         key = self._get_key(directory, file)
         self._s3_bucket.put_object(Key=key, Body=df.to_csv(index=False))
         logger.info(f"Successfully saved {key} to S3")
 
+    @retry(
+        retry=retry_if_exception_type(BotoCoreError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+    )
     def delete_files(self, paths: list[str]) -> None:
         if not paths:
             return

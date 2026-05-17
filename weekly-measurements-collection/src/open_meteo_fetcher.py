@@ -59,9 +59,6 @@ class OpenMeteoFetcher:
         }
 
     def _fetch(self, url: str, params: Union[HistoricalParams, ForecastParams]) -> pd.DataFrame:
-        logger.info(
-            f"Fetching {'historical' if url == self._historical_url else 'forecast'} data with params: {params}"
-        )
         responses = self._client.weather_api(url, params=params)
         response = responses[0]
         response = responses[0]
@@ -144,9 +141,6 @@ class OpenMeteoFetcher:
         historical_days: Optional[int],
         forecast_days: Optional[int],
     ) -> None:
-        logger.info(
-            f"Fetching for {len(city_country_set)} cities with historical_days={historical_days} and forecast_days={forecast_days}"
-        )
         for city, country in city_country_set:
             historical_file_name, forecast_file_name = get_weather_file_names(
                 city_country_tuple=(city, country), location=None

@@ -45,6 +45,7 @@ pymap3d~=3.0.1
 urllib3~=2.0.0
 setuptools~=80.9.0
 graphqlclient
+tenacity
 
 # Dev & testing
 pytest
