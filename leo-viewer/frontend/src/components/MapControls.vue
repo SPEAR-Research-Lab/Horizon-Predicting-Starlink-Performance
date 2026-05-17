@@ -1,8 +1,18 @@
 <template>
   <div>
-    <button class="mobile-toggle" @click="open = !open">
-      Controls
-    </button>
+    <div class="mobile-toggle-wrapper">
+      <button class="mobile-toggle" @click="open = !open">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" 
+            fill="none" stroke="currentColor" stroke-width="2" 
+            stroke-linecap="round" stroke-linejoin="round" 
+            aria-hidden="true" style="flex-shrink: 0;">
+          <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+          <line x1="9" y1="3" x2="9" y2="18"/>
+          <line x1="15" y1="6" x2="15" y2="21"/>
+        </svg>
+        Controls
+      </button>
+    </div>
     <div
       v-if="!isMobile || open"
       class="map-controls"
@@ -88,20 +98,50 @@ onBeforeUnmount(() => {
   border-radius: 20px;
   font-size: 1em;
   font-weight: 500;
+  max-width: 90px;
+  text-align: center;
   border: none;
 }
 
-.mobile-toggle {
-  display: none;
-  position: absolute;
+.mobile-toggle-wrapper {
   top: 1rem;
   left: 1rem;
+  height: 40px;
   z-index: 1100;
   background: white;
   border: 1px solid #ccc;
-  padding: 8px 12px;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  padding: 5px;
+  display: none;
+  position: absolute;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
+}
+
+.mobile-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82em;
+  font-weight: 400;
+  padding: 5px 10px;
+  background: #f4f4f5;
+  border: 1px solid #a1a1aa;
+  color: #18181b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.mobile-toggle:hover {
+  background: #e4e4e7;
+  border-color: #71717a;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+  flex-shrink: 0;
 }
 
 .backdrop {
@@ -119,9 +159,10 @@ onBeforeUnmount(() => {
     right: 10px;
     flex-direction: column;
     align-items: stretch;
+    width: max-content;
   }
 
-  .mobile-toggle {
+  .mobile-toggle-wrapper {
     display: block;
   }
 }

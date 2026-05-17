@@ -32,20 +32,31 @@ const controls = ref({
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 html,
 body,
 #app {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  color: black;
+  color: #18181b;
+}
+
+*, *::before, *::after {
+  font-family: inherit;
+  box-sizing: border-box;
+  color: #18181b;
 }
 
 .topbar {
   position: fixed;
-  top: 20px;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -55,6 +66,7 @@ body,
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
   display: flex;
   gap: 12px;
+  height: 56px;
 }
 
 @media (max-width: 1400px) {
@@ -67,12 +79,16 @@ body,
 
 .topbar button {
   font-size: 1em;
+  font-weight: 400;
+  color: #18181b;
   background: #fafbfc;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 6px 14px;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
+  text-emphasis: none;
 }
 
 .topbar button:hover {
@@ -86,10 +102,9 @@ body,
 
 @media (max-width: 850px) {
   .topbar {
-    top: 10px;
-    right: 10px;
-    padding: 6px 10px;
+    padding: 5px 10px;
     gap: 8px;
+    height: 40px;
   }
 
   .topbar button {

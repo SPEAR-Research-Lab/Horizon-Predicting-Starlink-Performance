@@ -6,14 +6,12 @@
       @update:controls="emit('update:controls', $event)"
     />
     <div id="dot-map" class="map-container"></div>
-    <div v-if="tooltip.show" :style="tooltip.style" class="dot-tooltip">
-      <div><b>{{ tooltip.data.Date }} {{ tooltip.data.Hour }}:00</b></div>
-      <div>Lat: {{ tooltip.data.lat }}</div>
-      <div>Lon: {{ tooltip.data.lon }}</div>
-      <div>Latency: {{ Number(tooltip.data.Pred_Latency).toFixed(1) }} ms</div>
-      <div>Throughput: {{ Number(tooltip.data.Pred_Throughput).toFixed(1) }} Mbps</div>
-      <div v-if="tooltip.data.sat_density">SatDensity: {{ tooltip.data.sat_density }}</div>
-    </div>
+    <TooltipCard
+      :show="tooltip.show"
+      :x="tooltip.x"
+      :y="tooltip.y"
+      :data="tooltip.data"
+    />
   </div>
 </template>
 
@@ -22,6 +20,7 @@ import { ref, reactive, onMounted, watch, nextTick } from 'vue'
 import maplibregl, { Map } from 'maplibre-gl'
 import Legend from './Legend.vue'
 import MapControls from './MapControls.vue'
+import TooltipCard from './TooltipCard.vue'
 import { fetchDotPredictions } from './FetchData.vue'
 
 interface Controls {
@@ -47,16 +46,9 @@ const dotData = ref<any[]>([])
 
 const tooltip = reactive({
   show: false,
-  style: {
-    position: 'fixed' as const,
-    left: '0px', top: '0px',
-    zIndex: 10000, pointerEvents: 'none' as const,
-    background: '#fff', color: '#222',
-    border: '1px solid #aaa', borderRadius: '8px',
-    padding: '10px', fontSize: '1em',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-  },
-  data: {} as any,
+  x: 0,
+  y: 0,
+  data: {} as Record<string, any>,
 })
 
 let map: Map | null = null
@@ -128,13 +120,23 @@ onMounted(async () => {
 
     map!.on('mousemove', 'dot-layer', (e) => {
       if (!e.features?.length) { tooltip.show = false; return }
-      tooltip.data = e.features[0].properties
-      const { x, y } = e.originalEvent
-      tooltip.style.left = x + 15 + 'px'
-      tooltip.style.top = y + 15 + 'px'
+      const p = e.features[0].properties
+      tooltip.data = {
+        lat: p.lat,
+        lon: p.lon,
+        date: p.Date ?? p.date,
+        hour: p.Hour ?? p.hour,
+        latency: p.Pred_Latency,
+        throughput: p.Pred_Throughput,
+        sat_density: p.sat_density,
+      }
+      tooltip.x = e.originalEvent.x + 15
+      tooltip.y = e.originalEvent.y + 15
       tooltip.show = true
     })
     map!.on('mouseleave', 'dot-layer', () => { tooltip.show = false })
+    map!.on('touchstart', () => { tooltip.show = false })
+    map!.on('movestart', () => { tooltip.show = false })
 
     watch(() => [props.controls.selectedDate, props.controls.selectedHour], updateDotsLayer)
   })
@@ -149,10 +151,5 @@ onMounted(async () => {
   top: 0;
   left: 0;
   z-index: 0;
-}
-.dot-tooltip {
-  pointer-events: none;
-  min-width: 170px;
-  white-space: nowrap;
 }
 </style>

@@ -25,8 +25,7 @@
 
     <div class="divider" />
 
-    <span class="time">{{ selectedHour }}:00 (UTC)</span>
-  </div>
+    <span class="time"><span class="time-hour">{{ selectedHour }}</span>:00 (UTC)</span>  </div>
 </template>
 
 <script setup>
@@ -94,10 +93,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 .time {
   font-size: 0.9rem;
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-  width: 10ch;
-  text-align: right;
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-hour {
+  display: inline-block;
+  min-width: 20px;
+  text-align: right;
 }
 </style>

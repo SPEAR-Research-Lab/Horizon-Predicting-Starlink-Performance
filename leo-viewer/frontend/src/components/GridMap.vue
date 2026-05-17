@@ -8,22 +8,19 @@
     />
     <div v-if="loading" class="loading-overlay">Loading...</div>
     <div id="grid-map" class="map-container"></div>
-    <div v-if="tooltip.show" :style="tooltip.style" class="dot-tooltip">
-      <div><b>{{ tooltip.data.date }} {{ tooltip.data.hour }}:00</b></div>
-      <div>Lat: {{ tooltip.data.lat }}</div>
-      <div>Lon: {{ tooltip.data.lon }}</div>
-      <div>Latency: {{ Number(tooltip.data.latency).toFixed(1) }} ms</div>
-      <div>Throughput: {{ Number(tooltip.data.throughput).toFixed(1) }} Mbps</div>
-      <div v-if="tooltip.data.sat_density !== undefined">
-        SatDensity: {{ tooltip.data.sat_density }}
-      </div>
-    </div>
+    <TooltipCard
+      :show="tooltip.show"
+      :x="tooltip.x"
+      :y="tooltip.y"
+      :data="tooltip.data"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import Legend from './Legend.vue'
 import MapControls from './MapControls.vue'
+import TooltipCard from './TooltipCard.vue'
 import { fetchGridPredictions } from './FetchData.vue'
 import { ref, reactive, watch, onMounted, nextTick } from 'vue'
 import maplibregl, { Map } from 'maplibre-gl'
@@ -50,16 +47,9 @@ const colorLegend = [
 
 const tooltip = reactive({
   show: false,
-  style: {
-    position: 'fixed' as const,
-    left: '0px', top: '0px',
-    zIndex: 10000, pointerEvents: 'none' as const,
-    background: '#fff', color: '#222',
-    border: '1px solid #aaa', borderRadius: '8px',
-    padding: '10px', fontSize: '1em',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-  },
-  data: {} as any,
+  x: 0,
+  y: 0,
+  data: {} as Record<string, any>,
 })
 
 const predictionsByRes = ref<Record<number, Record<string, any[]>>>({})
@@ -176,12 +166,13 @@ onMounted(async () => {
     map.on('mousemove', 'prediction-layer', (e) => {
       if (!e.features?.length) { tooltip.show = false; return }
       tooltip.data = e.features[0].properties
-      const { x, y } = e.originalEvent
-      tooltip.style.left = x + 15 + 'px'
-      tooltip.style.top = y + 15 + 'px'
+      tooltip.x = e.originalEvent.x + 15
+      tooltip.y = e.originalEvent.y + 15
       tooltip.show = true
     })
     map.on('mouseleave', 'prediction-layer', () => { tooltip.show = false })
+    map!.on('touchstart', () => { tooltip.show = false })
+    map!.on('movestart', () => { tooltip.show = false })
 
     map.on('zoomend', () => {
       if (zoomDebounceTimer) clearTimeout(zoomDebounceTimer)
@@ -223,10 +214,5 @@ onMounted(async () => {
   border-radius: 8px;
   z-index: 9999;
   font-family: sans-serif;
-}
-.dot-tooltip {
-  pointer-events: none;
-  min-width: 170px;
-  white-space: nowrap;
 }
 </style>
