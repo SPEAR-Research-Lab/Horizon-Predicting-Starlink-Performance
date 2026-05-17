@@ -50,6 +50,10 @@ pip install -r requirements.txt
 
 - **data-collection/** — Main module for fetching performance data from Cloudflare AIM and M-Lab NDT7, processing, and database storage
 - **weekly-measurements-collection/** — Lightweight automated service for weekly data collection and CSV export. Runs via GitHub Actions every Sunday at 14:00 UTC (see [workflow](#github-actions))
+- **model-pipeline/** — Data enrichment and model training (pipeline stages 3-5)
+- **train-predict-pipeline/** — AWS-based weekly training and prediction pipeline. Triggered automatically after data collection, runs on EC2 spot instances
+- **leo-viewer/** — Interactive web-based viewer for predicted Starlink performance (static Vue 3 frontend deployed to GitHub Pages)
+- **website/** — Paper presentation landing page (deployed alongside the viewer)
 - **plots/** — Analysis and visualization notebooks for performance trends and predictions
 - **satellite-data/** — Supporting module for archiving Starlink TLE data
 - **scripts/** — Automated scripts for complete dataset collection and plot data generation
@@ -94,13 +98,7 @@ Navigate to the plots directory:
 cd ../plots
 ```
 
-Install additional dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Open and run the Jupyter notebooks:
+Open and run the Jupyter notebooks (dependencies are covered by the root `requirements.txt`):
 
 ```bash
 jupyter notebook
@@ -111,10 +109,11 @@ Available analysis notebooks:
 - **map-plots/** - Geographic performance visualization
 - **statistical-analysis-plots/** - Statistical comparisons
 - **weather-validation-plots/** - Weather correlation analysis
+- **leave-one-out/** - Feature importance via leave-one-out evaluation
 
 > **Note:** Interactive Plotly visualizations in the notebooks don't render on GitHub. Clone the repository and run locally with Jupyter to view all plots.
 
-## Project Components
+## Detailed Component Descriptions
 
 ### Data Collection (`data-collection/`)
 
@@ -161,24 +160,18 @@ For detailed instructions, see [weekly-measurements-collection/README.md](weekly
 
 ## GitHub Actions
 
-The repository includes automated workflows for continuous data collection:
+The repository includes automated workflows for continuous data collection and deployment:
 
-### Collect Starlink Measurements
-
-**File:** `.github/workflows/starlink-data-collection.yml`  
-**Schedule:** Every Sunday at 14:00 UTC (or manually via workflow_dispatch)  
-**Action:** Runs the weekly-measurements-collection service to collect latest Starlink measurements and automatically commits results to the repository.
+| Workflow | File | Trigger | Action |
+|----------|------|---------|--------|
+| Collect Starlink Measurements | `starlink-data-collection.yml` | Weekly (Sun 14:00 UTC) | Collects latest measurements from BigQuery, commits to repo |
+| Collect Starlink TLE Data | `collect-starlink-tle.yml` | Daily (15:00 UTC) | Archives TLE data from CelesTrak |
+| Train & Predict (AWS) | `weekly-predictions.yml` | After measurements collected | EC2 spot: train models, generate predictions, push to `predictions-data` |
+| Deploy to GitHub Pages | `deploy-pages.yml` | Push to main/predictions-data | Builds frontend + landing page, deploys |
 
 **Secrets Required:**
-- `GCP_SERVICE_ACCOUNT_KEY` - Google Cloud service account credentials for BigQuery access
-
-### Collect Starlink TLE Data
-
-**File:** `.github/workflows/collect-starlink-tle.yml`  
-**Schedule:** Daily at 15:00 UTC (or manually via workflow_dispatch)  
-**Action:** Collects and updates Starlink Two-Line Element (TLE) data from CelesTrak and automatically commits to the repository.
-
-**Dependencies:** No external secrets required
+- `GCP_SERVICE_ACCOUNT_KEY` - BigQuery access (data collection)
+- `AWS_ROLE_ARN`, `EC2_AMI_ID`, `EC2_SUBNET_ID`, `EC2_SECURITY_GROUP` - AWS pipeline
 
 ### Model Pipeline (`model-pipeline/`)
 
@@ -198,23 +191,33 @@ python model-pipeline/src/train_model.py
 
 For detailed instructions, see [model-pipeline/README.md](model-pipeline/README.md)
 
+### Train & Predict Pipeline (`train-predict-pipeline/`)
+
+AWS-based weekly pipeline that retrains models on fresh measurements and generates prediction JSONs for the viewer. Triggered automatically after each data collection run via GitHub Actions.
+
+- Runs on EC2 spot instances (r5.2xlarge), self-terminates when done
+- Downloads latest measurements from S3, trains models, predicts for all H3 hex centers
+- Pushes prediction JSONs to the `predictions-data` branch
+
+For detailed instructions, see [train-predict-pipeline/README.md](train-predict-pipeline/README.md)
+
 ### LEO Viewer (`leo-viewer/`)
 
 Interactive web-based viewer for predicted Starlink network performance. Displays latency and throughput predictions on a map using zoom-adaptive H3 hexagonal grids (resolutions 2-4).
 
-- **Frontend:** Vue 3 + MapLibre GL with zoom-adaptive hexagon rendering
-- **Backend:** FastAPI serving predictions, with a daily pipeline for weather/satellite enrichment and model inference
-- **Models:** Ensemble (Random Forest + Gradient Boosting) trained in the model pipeline
+- **Frontend:** Static Vue 3 + MapLibre GL app with zoom-adaptive hexagon rendering
+- **Data:** Pre-generated prediction JSONs committed to `frontend/public/`
+- **Deployment:** GitHub Pages (auto-deployed on push to main or predictions-data)
 
 ```bash
-# Backend
-cd leo-viewer/backend && uvicorn src.main:app --reload
-
-# Frontend
-cd leo-viewer/frontend && npm run dev
+cd leo-viewer/frontend && npm install && npm run dev
 ```
 
 For detailed instructions, see [leo-viewer/README.md](leo-viewer/README.md)
+
+### Website (`website/`)
+
+Paper presentation landing page. Deployed to GitHub Pages alongside the LEO Viewer at the root URL.
 
 ## License
 

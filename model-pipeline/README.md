@@ -61,6 +61,8 @@ model-pipeline/
 │   ├── inter_city_distance_calculator.py  # Distance caching
 │   ├── meteo_data_handler.py       # Weather data loading
 │   ├── open_meteo_fetcher.py       # OpenMeteo API client
+│   ├── explain_model_feature_imp.py # Feature importance analysis
+│   ├── config.py                   # Configuration management
 │   ├── constants.py                # Feature specs & paths
 │   ├── custom_types.py             # Type definitions
 │   ├── utils.py                    # Helper functions
@@ -80,10 +82,13 @@ model-pipeline/
 
 - pandas, numpy, scikit-learn
 - geopy (distance calculation)
-- requests (API calls)
+- openmeteo_requests (weather data)
+- sgp4, pyproj, skyfield (satellite computation)
+- requests, requests_cache, retry_requests (API calls)
 - python-dateutil (time parsing)
 - PyYAML (config)
 - joblib (model persistence)
+- tqdm (progress bars)
 - pytest (testing)
 
 Install: `pip install -r requirements.txt` (from the repository root)
