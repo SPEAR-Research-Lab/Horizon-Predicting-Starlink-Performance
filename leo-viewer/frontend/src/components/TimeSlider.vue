@@ -45,7 +45,7 @@ function onHourInput(e) {
 .hour-control {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   height: 40px;
   padding: 0 16px 0 14px;
   background: #fff;
