@@ -46,7 +46,7 @@ function onHourInput(e) {
 .hour-control {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   height: 40px;
   padding: 0 16px 0 14px;
   background: #fff;
@@ -95,8 +95,8 @@ input[type="range"]::-webkit-slider-thumb {
 .time {
   font-size: 0.9rem;
   font-weight: 400;
-  font-variant-numeric: tabular-nums;
-  width: 10ch;
+  width: 12ch;
+  margin-left: -16px;
   text-align: right;
   flex-shrink: 0;
 }
