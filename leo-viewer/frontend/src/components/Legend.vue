@@ -2,11 +2,11 @@
   <div class="legend-container" :class="{ collapsed }">
     <div class="legend-header" @click="collapsed = !collapsed">
       <span class="legend-title">{{ title }}</span>
-      <span class="collapse-btn">{{ collapsed ? '▲' : '▼' }}</span>
+      <span class="collapse-btn">{{ collapsed ? "▲" : "▼" }}</span>
     </div>
     <div v-show="!collapsed" class="legend-body">
       <div class="legend-row" v-for="item in colorLegend" :key="item.label">
-        <span class="legend-color" :style="{background: item.color}"></span>
+        <span class="legend-color" :style="{ background: item.color }"></span>
         <span>{{ item.label }}</span>
       </div>
       <span class="info-icon" @click="showInfo = true">ⓘ Info</span>
@@ -18,7 +18,9 @@
         <ul>
           <li><b>Latency</b>: Delay in ms (lower is better)</li>
           <li><b>Throughput</b>: Mbps (higher is better)</li>
-          <li v-if="showSatDensity"><b>SatDensity</b>: Number of visible LEO satellites</li>
+          <li v-if="showSatDensity">
+            <b>SatDensity</b>: Number of visible LEO satellites
+          </li>
         </ul>
         <button @click="showInfo = false" class="close-btn">Close</button>
       </div>
@@ -27,17 +29,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const props = defineProps<{
-  colorLegend: { color: string, label: string }[]
-  title?: string
-  showSatDensity?: boolean
-  extraInfo?: string
-}>()
+  colorLegend: { color: string; label: string }[];
+  title?: string;
+  showSatDensity?: boolean;
+  extraInfo?: string;
+}>();
 
-const showInfo = ref(false)
-const collapsed = ref(window.innerWidth < 768)
+const showInfo = ref(false);
+const collapsed = ref(window.innerWidth < 850);
 </script>
 
 <style scoped>
@@ -45,10 +47,10 @@ const collapsed = ref(window.innerWidth < 768)
   position: absolute;
   bottom: 20px;
   left: 20px;
-  background: rgba(255,255,255,0.97);
+  background: rgba(255, 255, 255, 0.97);
   border-radius: 8px;
   padding: 10px 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.17);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.17);
   z-index: 1001;
   min-width: 140px;
   font-family: sans-serif;
@@ -97,7 +99,7 @@ const collapsed = ref(window.innerWidth < 768)
 .legend-popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,7 +111,7 @@ const collapsed = ref(window.innerWidth < 768)
   padding: 18px 24px;
   min-width: 280px;
   max-width: 90vw;
-  box-shadow: 0 6px 40px rgba(0,0,0,0.20);
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.2);
   font-size: 1em;
   display: flex;
   flex-direction: column;
@@ -131,7 +133,7 @@ const collapsed = ref(window.innerWidth < 768)
   font-size: 0.95em;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .legend-container {
     bottom: 10px;
     left: 10px;

@@ -1,13 +1,10 @@
 <template>
   <div>
     <Legend :colorLegend="colorLegend" title="Network Quality" />
-    <div class="controls" v-if="allowedDates.length && selectedDate">
-      <select v-model="selectedDate">
-        <option v-for="d in allowedDates" :key="d" :value="d">{{ d }}</option>
-      </select>
-      <input type="range" v-model.number="selectedHour" min="0" max="23" step="1" />
-      <span>{{ selectedHour }}:00</span>
-    </div>
+    <MapControls
+      :controls="controls"
+      @update:controls="emit('update:controls', $event)"
+    />
     <div id="dot-map" class="map-container"></div>
     <div v-if="tooltip.show" :style="tooltip.style" class="dot-tooltip">
       <div><b>{{ tooltip.data.Date }} {{ tooltip.data.Hour }}:00</b></div>
@@ -24,7 +21,17 @@
 import { ref, reactive, onMounted, watch, nextTick } from 'vue'
 import maplibregl, { Map } from 'maplibre-gl'
 import Legend from './Legend.vue'
+import MapControls from './MapControls.vue'
 import { fetchDotPredictions } from './FetchData.vue'
+
+interface Controls {
+  selectedDate: string
+  selectedHour: number
+  allowedDates: string[]
+}
+
+const props = defineProps<{ controls: Controls }>()
+const emit = defineEmits<{ 'update:controls': [controls: Controls] }>()
 
 const colorLegend = [
   { color: '#1a9850', label: 'Excellent' },
@@ -37,24 +44,16 @@ const colorLegend = [
 ]
 
 const dotData = ref<any[]>([])
-const allowedDates = ref<string[]>([])
-const selectedDate = ref('')
-const selectedHour = ref(0)
 
 const tooltip = reactive({
   show: false,
   style: {
     position: 'fixed' as const,
-    left: '0px',
-    top: '0px',
-    zIndex: 10000,
-    pointerEvents: 'none' as const,
-    background: '#fff',
-    color: '#222',
-    border: '1px solid #aaa',
-    borderRadius: '8px',
-    padding: '10px',
-    fontSize: '1em',
+    left: '0px', top: '0px',
+    zIndex: 10000, pointerEvents: 'none' as const,
+    background: '#fff', color: '#222',
+    border: '1px solid #aaa', borderRadius: '8px',
+    padding: '10px', fontSize: '1em',
     boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
   },
   data: {} as any,
@@ -66,23 +65,26 @@ let dotLayerAdded = false
 async function loadDotData() {
   dotData.value = await fetchDotPredictions()
   if (!Array.isArray(dotData.value)) dotData.value = []
-  allowedDates.value = [...new Set(dotData.value.map((d) => d.Date))].sort()
-  selectedDate.value = allowedDates.value[0] || ''
-}
-
-function getDotsForCurrentTime() {
-  return dotData.value.filter((d) => d.Date === selectedDate.value && Number(d.Hour) === Number(selectedHour.value))
+  const dates = [...new Set(dotData.value.map((d) => d.Date))].sort()
+  const currentDate = props.controls.selectedDate
+  emit('update:controls', {
+    ...props.controls,
+    allowedDates: dates,
+    selectedDate: dates.includes(currentDate) ? currentDate : (dates[0] ?? currentDate),
+  })
 }
 
 function makeDotGeoJSON() {
-  const features = getDotsForCurrentTime().map((d, i) => ({
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [Number(d.lon || d.Longitude), Number(d.lat || d.Latitude)],
-    },
-    properties: { ...d, color: d.color || '#ccc', id: i },
-  }))
+  const features = dotData.value
+    .filter((d) => d.Date === props.controls.selectedDate && Number(d.Hour) === Number(props.controls.selectedHour))
+    .map((d, i) => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [Number(d.lon || d.Longitude), Number(d.lat || d.Latitude)],
+      },
+      properties: { ...d, color: d.color || '#ccc', id: i },
+    }))
   return { type: 'FeatureCollection', features }
 }
 
@@ -108,10 +110,7 @@ onMounted(async () => {
 
   map.on('load', () => {
     if (!dotLayerAdded) {
-      map!.addSource('dot-predictions', {
-        type: 'geojson',
-        data: makeDotGeoJSON(),
-      })
+      map!.addSource('dot-predictions', { type: 'geojson', data: makeDotGeoJSON() })
       map!.addLayer({
         id: 'dot-layer',
         type: 'circle',
@@ -128,21 +127,16 @@ onMounted(async () => {
     }
 
     map!.on('mousemove', 'dot-layer', (e) => {
-      if (!e.features?.length) {
-        tooltip.show = false
-        return
-      }
+      if (!e.features?.length) { tooltip.show = false; return }
       tooltip.data = e.features[0].properties
       const { x, y } = e.originalEvent
       tooltip.style.left = x + 15 + 'px'
       tooltip.style.top = y + 15 + 'px'
       tooltip.show = true
     })
-    map!.on('mouseleave', 'dot-layer', () => {
-      tooltip.show = false
-    })
+    map!.on('mouseleave', 'dot-layer', () => { tooltip.show = false })
 
-    watch([selectedDate, selectedHour], updateDotsLayer)
+    watch(() => [props.controls.selectedDate, props.controls.selectedHour], updateDotsLayer)
   })
 })
 </script>
@@ -155,20 +149,6 @@ onMounted(async () => {
   top: 0;
   left: 0;
   z-index: 0;
-}
-.controls {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  z-index: 1;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  font-family: sans-serif;
-  display: flex;
-  gap: 10px;
-  align-items: center;
 }
 .dot-tooltip {
   pointer-events: none;

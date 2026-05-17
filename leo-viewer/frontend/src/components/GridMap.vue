@@ -1,14 +1,11 @@
 <template>
   <div>
     <Legend :colorLegend="colorLegend" title="Network Quality" />
-    <div class="controls" v-if="allowedDates.length && selectedDate">
-      <select v-model="selectedDate">
-        <option v-for="d in allowedDates" :key="d" :value="d">{{ d }}</option>
-      </select>
-      <input type="range" v-model.number="selectedHour" min="0" max="23" step="1" />
-      <span>{{ selectedHour }}:00</span>
-      <span class="res-badge">H3 res {{ currentResolution }}</span>
-    </div>
+    <MapControls
+      :controls="controls"
+      :resolution="currentResolution"
+      @update:controls="emit('update:controls', $event)"
+    />
     <div v-if="loading" class="loading-overlay">Loading...</div>
     <div id="grid-map" class="map-container"></div>
     <div v-if="tooltip.show" :style="tooltip.style" class="dot-tooltip">
@@ -17,17 +14,29 @@
       <div>Lon: {{ tooltip.data.lon }}</div>
       <div>Latency: {{ Number(tooltip.data.latency).toFixed(1) }} ms</div>
       <div>Throughput: {{ Number(tooltip.data.throughput).toFixed(1) }} Mbps</div>
-      <div v-if="tooltip.data.sat_density !== undefined">SatDensity: {{ tooltip.data.sat_density }}</div>
+      <div v-if="tooltip.data.sat_density !== undefined">
+        SatDensity: {{ tooltip.data.sat_density }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Legend from './Legend.vue'
+import MapControls from './MapControls.vue'
 import { fetchGridPredictions } from './FetchData.vue'
 import { ref, reactive, watch, onMounted, nextTick } from 'vue'
 import maplibregl, { Map } from 'maplibre-gl'
 import * as h3 from 'h3-js'
+
+interface Controls {
+  selectedDate: string
+  selectedHour: number
+  allowedDates: string[]
+}
+
+const props = defineProps<{ controls: Controls }>()
+const emit = defineEmits<{ 'update:controls': [controls: Controls] }>()
 
 const colorLegend = [
   { color: '#1a9850', label: 'Excellent' },
@@ -43,16 +52,11 @@ const tooltip = reactive({
   show: false,
   style: {
     position: 'fixed' as const,
-    left: '0px',
-    top: '0px',
-    zIndex: 10000,
-    pointerEvents: 'none' as const,
-    background: '#fff',
-    color: '#222',
-    border: '1px solid #aaa',
-    borderRadius: '8px',
-    padding: '10px',
-    fontSize: '1em',
+    left: '0px', top: '0px',
+    zIndex: 10000, pointerEvents: 'none' as const,
+    background: '#fff', color: '#222',
+    border: '1px solid #aaa', borderRadius: '8px',
+    padding: '10px', fontSize: '1em',
     boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
   },
   data: {} as any,
@@ -60,9 +64,6 @@ const tooltip = reactive({
 
 const predictionsByRes = ref<Record<number, Record<string, any[]>>>({})
 const currentResolution = ref(2)
-const allowedDates = ref<string[]>([])
-const selectedDate = ref('')
-const selectedHour = ref(0)
 const loading = ref(false)
 
 let map: Map
@@ -87,9 +88,7 @@ async function loadResolution(res: number) {
 
 function extractDates(resData: Record<string, any[]>) {
   const dates = new Set<string>()
-  Object.values(resData).forEach((arr) => {
-    arr.forEach((rec: any) => dates.add(rec.date))
-  })
+  Object.values(resData).forEach((arr) => arr.forEach((rec: any) => dates.add(rec.date)))
   return Array.from(dates).sort()
 }
 
@@ -110,14 +109,10 @@ function crossesAntimeridian(coords: [number, number][]): boolean {
 function makeGeoJSON() {
   const resData = predictionsByRes.value[currentResolution.value]
   if (!resData) return { type: 'FeatureCollection', features: [] }
-
-  const hexIndexes = Object.keys(resData)
-
-  const features = hexIndexes
+  const features = Object.keys(resData)
     .map((h3Index) => {
-      const pred = getPrediction(resData, h3Index, selectedDate.value, selectedHour.value)
+      const pred = getPrediction(resData, h3Index, props.controls.selectedDate, props.controls.selectedHour)
       if (!pred) return null
-
       const boundary = h3.cellToBoundary(h3Index, true)
       if (crossesAntimeridian(boundary)) return null
 
@@ -128,15 +123,13 @@ function makeGeoJSON() {
       }
     })
     .filter(Boolean)
-
   return { type: 'FeatureCollection', features }
 }
 
 function updateLayer() {
   if (!mapLoaded) return
-  const geojson = makeGeoJSON()
   const source = map.getSource('prediction-grid') as maplibregl.GeoJSONSource
-  if (source) source.setData(geojson)
+  if (source) source.setData(makeGeoJSON())
 }
 
 onMounted(async () => {
@@ -144,10 +137,13 @@ onMounted(async () => {
 
   const resData = predictionsByRes.value[2]
   if (resData) {
-    allowedDates.value = extractDates(resData)
-    if (allowedDates.value.length > 0) {
-      selectedDate.value = allowedDates.value[0]
-    }
+    const dates = extractDates(resData)
+    const currentDate = props.controls.selectedDate
+    emit('update:controls', {
+      ...props.controls,
+      allowedDates: dates,
+      selectedDate: dates.includes(currentDate) ? currentDate : (dates[0] ?? currentDate),
+    })
   }
 
   await nextTick()
@@ -165,10 +161,7 @@ onMounted(async () => {
   map.on('load', () => {
     mapLoaded = true
 
-    map.addSource('prediction-grid', {
-      type: 'geojson',
-      data: makeGeoJSON(),
-    })
+    map.addSource('prediction-grid', { type: 'geojson', data: makeGeoJSON() })
     map.addLayer({
       id: 'prediction-layer',
       type: 'fill',
@@ -181,19 +174,14 @@ onMounted(async () => {
     })
 
     map.on('mousemove', 'prediction-layer', (e) => {
-      if (!e.features?.length) {
-        tooltip.show = false
-        return
-      }
+      if (!e.features?.length) { tooltip.show = false; return }
       tooltip.data = e.features[0].properties
       const { x, y } = e.originalEvent
       tooltip.style.left = x + 15 + 'px'
       tooltip.style.top = y + 15 + 'px'
       tooltip.show = true
     })
-    map.on('mouseleave', 'prediction-layer', () => {
-      tooltip.show = false
-    })
+    map.on('mouseleave', 'prediction-layer', () => { tooltip.show = false })
 
     map.on('zoomend', () => {
       if (zoomDebounceTimer) clearTimeout(zoomDebounceTimer)
@@ -207,12 +195,10 @@ onMounted(async () => {
       }, 300)
     })
 
-    map.on('moveend', () => {
-      updateLayer()
-    })
+    map.on('moveend', () => { updateLayer() })
 
     updateLayer()
-    watch([selectedDate, selectedHour], updateLayer)
+    watch(() => [props.controls.selectedDate, props.controls.selectedHour], updateLayer)
   })
 })
 </script>
@@ -225,27 +211,6 @@ onMounted(async () => {
   top: 0;
   left: 0;
   z-index: 0;
-}
-.controls {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  z-index: 1;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  font-family: sans-serif;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.res-badge {
-  background: #337ab7;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.85em;
 }
 .loading-overlay {
   position: fixed;
