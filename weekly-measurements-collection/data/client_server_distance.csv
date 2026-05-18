@@ -4513,15 +4513,15 @@ Warsaw,PL,Tuli Lodge,PL,8261.620186982402
 Yaounde,CM,Eura,NG,6386.504947275521
 Zagreb,HR,Anahidrano,BG,7413.879032319012
 Delhi,IN,New Delhi,IN,2.108374124758464
-Papeete,PF,Auckland,NZ,4095.2339491457665
-Brades,MS,Bogota,CO,1860.7009254095947
+Papeete,PF,Auckland,NZ,4095.2339491457674
+Brades,MS,Bogota,CO,1860.700925409595
 Carvel,CA,Calgary,CA,276.203493359491
-Caledonia,US,Chicago,US,107.89647787167345
+Caledonia,US,Chicago,US,107.89647787167344
 Lome,TG,Lagos,NG,242.6474569273709
 Somerset,AU,Melbourne,AU,1388.2441594989837
 Reynoldsville,US,New York,US,308.2948487288701
 Bentleyville,US,New York,US,634.1659395801213
-Cooperstown,US,New York,US,237.85603145867339
+Cooperstown,US,New York,US,237.85603145867336
 Darwin,AU,Perth,AU,2649.8247178898728
 Macapa,BR,Sao Paulo,BR,2652.474302824485
 Thirlmere,AU,Sydney,AU,69.05322931607084
@@ -4529,23 +4529,23 @@ Halton,AU,Sydney,AU,174.6416995513451
 Revesby,AU,Sydney,AU,19.22884239003308
 Ottawa,CA,Toronto,CA,346.80092336587177
 Damascus,SY,Warsaw,PL,2415.4867957460306
-Cambridge Springs,US,Washington,US,412.63975257129675
+Cambridge Springs,US,Washington,US,412.6397525712968
 Fayette,US,Washington,US,1355.2733467758942
 Beaver County,US,Washington,US,347.5381455170624
-Elkins,US,Washington,US,245.47695279683197
-Apollo,US,Washington,US,287.21544797444153
-Albuquerque,US,Kent,US,1880.7389667825873
+Elkins,US,Washington,US,245.476952796832
+Apollo,US,Washington,US,287.2154479744416
+Albuquerque,US,Kent,US,1880.7389667825876
 Portland,US,Sanjeong-ri,US,8494.955896464022
 Lilongwe,MW,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7381.91407708954
-Khartoum,SD,Bojnurd,KE,3439.8258950616655
+Khartoum,SD,Bojnurd,KE,3439.825895061665
 Gaborone,BW,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8177.914064468004
-El Paso,US,Kent,US,2185.1016280024674
+El Paso,US,Kent,US,2185.101628002468
 Guatemala City,GT,Montemorelos,GT,1520.3217480407072
 Tripoli,LY,Kaiserslautern,NL,1892.9555737980136
 Kuwait City,KW,Yonggang-ri,QA,6886.927878503015
-Kinshasa,CD,Qasr-e Shirin,KE,5342.8013304962515
+Kinshasa,CD,Qasr-e Shirin,KE,5342.801330496252
 Antananarivo,MG,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8561.181710041627
-Road Town,VG,Tangier,US,2419.3120488023055
+Road Town,VG,Tangier,US,2419.312048802305
 Mariehamn,AX,North Sea,DE,1095.2603681814755
 Maputo,MZ,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8543.039574278455
 Mbabane,SZ,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8530.031215774494
@@ -4567,10 +4567,10 @@ Bangui,CF,Bojnurd,KE,5380.709425695291
 Skopje,MK,Anahidrano,BG,6822.772777808906
 Ljubljana,SI,North Sea,DE,1366.0507024671422
 Quito,EC,Zolotonosha,PE,11492.073746084958
-Windhoek,NA,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7717.313230680518
+Windhoek,,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7717.313230680518
 Iqaluit,CA,Klingenberg,CA,4664.743978482025
 Accra,GH,"Soissons, Aisne",ZA,4870.4393551374
-Buenos Aires,AR,Laranjal Do Jari,AR,3792.5917136107123
+Buenos Aires,AR,Laranjal Do Jari,AR,3792.591713610712
 Charlotte,US,Goyang-si,US,11448.867879440431
 Chicago,US,Mora,US,635.959593644956
 Harare,ZW,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7655.554725579927
@@ -4579,3 +4579,15 @@ Lusaka,ZM,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7297.998250615463
 Mexico City,MX,Tangier,US,3029.254880751332
 Paris,FR,Kaiserslautern,NL,400.4237925773541
 Phoenix,US,Plainview,US,3491.610533813872
+Dushanbe,TJ,New Delhi,IN,1349.0010108597724
+Windhoek,NA,Cape Town,ZA,1264.495508811999
+Papeete,PF,Sydney,AU,6128.776601474354
+Apollo,US,Toronto,CA,351.26317969337805
+Duncannon,US,Washington,US,165.26464509887245
+Loretto,US,Washington,US,225.09915498400338
+New Castle,US,Washington,US,367.17278781157506
+Windber,US,Washington,US,215.3819124715171
+Boise,US,Kent,US,628.8649569289155
+Windhoek,NA,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7717.313230680518
+Johannesburg,ZA,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8409.87622526503
+Cayenne,GF,Balsas,BR,1545.5881407978197
