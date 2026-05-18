@@ -3,10 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main, predictions-data]
-    paths:
-      - 'leo-viewer/frontend/**'
-      - 'leo-viewer/frontend/public/**'
-      - 'website/**'
   workflow_dispatch:
 
 permissions:
