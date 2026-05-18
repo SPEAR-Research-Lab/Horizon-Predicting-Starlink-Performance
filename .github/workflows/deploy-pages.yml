@@ -5,6 +5,7 @@ on:
     branches: [main, predictions-data]
     paths:
       - 'leo-viewer/frontend/**'
+      - 'leo-viewer/frontend/public/**'
       - 'website/**'
   workflow_dispatch:
 
@@ -25,13 +26,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Fetch prediction data
         run: |
-          git fetch origin predictions-data || true
-          if git rev-parse origin/predictions-data >/dev/null 2>&1; then
-            git checkout origin/predictions-data -- leo-viewer/frontend/public/
-          fi
+          git fetch origin predictions-data
+
+          rm -rf leo-viewer/frontend/public
+          mkdir -p leo-viewer/frontend/public
+
+          git checkout origin/predictions-data -- leo-viewer/frontend/public/
 
       - uses: actions/setup-node@v4
         with:
