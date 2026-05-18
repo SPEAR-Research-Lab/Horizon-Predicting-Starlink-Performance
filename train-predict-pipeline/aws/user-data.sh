@@ -86,4 +86,10 @@ git reset
 git add -f -- leo-viewer/frontend/public/
 git commit -m "Update predictions - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 git push origin predictions-data --force
+
+# Trigger GitHub Pages deploy
+GH_TOKEN=$(git remote get-url origin | sed 's|https://\([^@]*\)@.*|\1|')
+log "Triggering deploy workflow..."
+curl -s -X POST "https://api.github.com/repos/SPEAR-Research-Lab/Horizon-Predicting-Starlink-Performance/dispatches" -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GH_TOKEN" -d '{"event_type":"predictions-updated"}'
+log "Deploy triggered"
 EOF

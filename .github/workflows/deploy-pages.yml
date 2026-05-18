@@ -2,7 +2,13 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, predictions-data]
+    branches: [main]
+    paths:
+      - 'leo-viewer/frontend/**'
+      - 'website/**'
+      - '.github/workflows/deploy-pages.yml'
+  repository_dispatch:
+    types: [predictions-updated]
   workflow_dispatch:
 
 permissions:
