@@ -78,13 +78,12 @@ shopt -u nullglob
 [ ${#JSON_FILES[@]} -eq 0 ] && { log "✘ No prediction JSONs found"; exit 1; }
 for f in "${JSON_FILES[@]}"; do
     log "  ✔ $f ($(wc -c < "$f") bytes)"
-    git add -- "$f"
 done
 
 # Push predictions to orphan branch (force push, no history)
 git checkout --orphan predictions-data
 git reset
-git add -- leo-viewer/frontend/public/
+git add -f -- leo-viewer/frontend/public/
 git commit -m "Update predictions - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 git push origin predictions-data --force
 EOF
