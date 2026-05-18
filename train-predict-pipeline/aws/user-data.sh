@@ -8,9 +8,29 @@ exec > "$LOGFILE" 2>&1
 echo "=== Pipeline started: $(date -u +'%Y-%m-%d %H:%M:%S UTC') ==="
 
 trap 'EXIT_CODE=$?
-      echo "=== Pipeline finished: $(date -u +"%Y-%m-%d %H:%M:%S UTC") | exit: $EXIT_CODE ==="
+      END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+      STATUS="SUCCESS"
+      if [ $EXIT_CODE -ne 0 ]; then
+          STATUS="FAILED"
+
+          MESSAGE="Pipeline FAILED | exit: $EXIT_CODE | time: $END_TIME | host: $(hostname)"
+
+          echo "=== Pipeline FAILED: $MESSAGE ==="
+
+          aws sns publish \
+            --topic-arn failure-email-notification \
+            --region eu-west-1 \
+            --message "$MESSAGE" \
+            --subject "Train and Predict Pipeline FAILED"
+      else
+          echo "=== Pipeline finished successfully | exit: 0 | time: $END_TIME ==="
+      fi
+
       aws s3 cp "$LOGFILE" "$S3_LOG" || echo "WARNING: log upload to S3 failed"
-      shutdown -h now' EXIT
+
+      shutdown -h now
+' EXIT
 
 sudo -u ec2-user bash <<'EOF'
 set -euo pipefail
