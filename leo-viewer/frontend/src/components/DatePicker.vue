@@ -235,7 +235,9 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
   background: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 220px;
   z-index: 50;
 }
 

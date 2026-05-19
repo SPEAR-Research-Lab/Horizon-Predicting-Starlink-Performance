@@ -59,7 +59,7 @@ body,
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 1500;
   background: white;
   padding: 8px 16px;
   border-radius: 12px;
