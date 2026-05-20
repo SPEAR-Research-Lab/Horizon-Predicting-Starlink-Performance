@@ -354,22 +354,12 @@
 
         /* Pipeline */
         .pipeline-flow {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
             position: relative;
-        }
-
-        .pipeline-flow::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--gradient);
-            opacity: 0.2;
-            z-index: 0;
+            overflow-x: auto;
+            padding: 1rem 0;
         }
 
         .pipeline-step {
@@ -382,11 +372,55 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--color-border);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1;
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .pipeline-step.animated {
+            animation: stepFadeIn 0.5s ease forwards;
         }
 
         .pipeline-step:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-md);
+        }
+
+        .pipeline-step.animated:hover {
+            transform: translateY(-4px);
+        }
+
+        .pipeline-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            opacity: 0;
+        }
+
+        .pipeline-arrow.animated {
+            animation: arrowFadeIn 0.3s ease forwards;
+        }
+
+        .pipeline-arrow svg {
+            width: 24px;
+            height: 24px;
+            color: var(--color-blue);
+            opacity: 0.4;
+        }
+
+        @keyframes stepFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes arrowFadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         .pipeline-icon {
@@ -421,6 +455,38 @@
             font-size: 0.85rem;
             color: var(--color-text-muted);
             line-height: 1.5;
+        }
+
+        .pipeline-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--gradient);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .pipeline-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            margin-top: 0.6rem;
+        }
+
+        .pipeline-tag {
+            font-size: 0.72rem;
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: var(--color-text-muted);
+            white-space: nowrap;
         }
 
         /* Results */
@@ -567,10 +633,11 @@
             }
 
             .pipeline-flow {
-                grid-template-columns: repeat(2, 1fr);
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .pipeline-flow::before {
+            .pipeline-arrow.horizontal {
                 display: none;
             }
 
@@ -628,7 +695,17 @@
             }
 
             .pipeline-flow {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pipeline-step {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .pipeline-arrow.horizontal {
+                display: none;
             }
 
             .team-grid {
@@ -766,35 +843,93 @@
         <div class="container">
             <div class="section-header fade-in">
                 <h2>How It Works</h2>
+                <p>A five-phase pipeline from raw measurements to global predictions</p>
             </div>
-            <div class="pipeline-flow fade-in">
-                <div class="pipeline-step">
+            <div class="pipeline-flow" id="pipelineFlow">
+                <div class="pipeline-step" data-step="0">
+                    <div class="pipeline-number">1</div>
                     <div class="pipeline-icon">
                         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     </div>
                     <h3>Data Collection</h3>
-                    <p>M-Lab NDT7, Cloudflare AIM, 90+ countries</p>
+                    <p>Crowdsourced measurements, weather APIs, satellite orbital databases</p>
+                    <div class="pipeline-detail">
+                        <span class="pipeline-tag">M-Lab NDT7</span>
+                        <span class="pipeline-tag">Cloudflare AIM</span>
+                        <span class="pipeline-tag">OpenMeteo</span>
+                        <span class="pipeline-tag">TLE/SGP4</span>
+                    </div>
                 </div>
-                <div class="pipeline-step">
+
+                <div class="pipeline-arrow horizontal" data-step="0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+                <div class="pipeline-step" data-step="1">
+                    <div class="pipeline-number">2</div>
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/><path d="M19 6l-2 12"/><path d="M5 6l2 12"/></svg>
+                    </div>
+                    <h3>Pre-processing</h3>
+                    <p>Data cleaning, server filtering, cross-dataset validation</p>
+                    <div class="pipeline-detail">
+                        <span class="pipeline-tag">Unified format</span>
+                        <span class="pipeline-tag">Server bias removal</span>
+                    </div>
+                </div>
+
+                <div class="pipeline-arrow horizontal" data-step="1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+                <div class="pipeline-step" data-step="2">
+                    <div class="pipeline-number">3</div>
                     <div class="pipeline-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                     </div>
-                    <h3>Feature Engineering</h3>
-                    <p>Weather Index (PLS), Satellite Density (SGP4), Distance features</p>
-                </div>
-                <div class="pipeline-step">
-                    <div class="pipeline-icon">
-                        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <h3>Feature Enrichment</h3>
+                    <p>Weather Index via PLS, satellite density from orbital propagation</p>
+                    <div class="pipeline-detail">
+                        <span class="pipeline-tag">Weather Index</span>
+                        <span class="pipeline-tag">Sat Density</span>
+                        <span class="pipeline-tag">Spatio-temporal</span>
                     </div>
-                    <h3>Model Training</h3>
-                    <p>Ensemble: Random Forest + Gradient Boosting, Percentile-based anomaly filtering</p>
                 </div>
-                <div class="pipeline-step">
+
+                <div class="pipeline-arrow horizontal" data-step="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+                <div class="pipeline-step" data-step="3">
+                    <div class="pipeline-number">4</div>
+                    <div class="pipeline-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M8 12h8" opacity="0.4"/></svg>
+                    </div>
+                    <h3>Anomaly Detection</h3>
+                    <p>Location-aware filtering preserving natural variability</p>
+                    <div class="pipeline-detail">
+                        <span class="pipeline-tag">Percentile</span>
+                        <span class="pipeline-tag">Directional MAD</span>
+                        <span class="pipeline-tag">Isolation Forest</span>
+                    </div>
+                </div>
+
+                <div class="pipeline-arrow horizontal" data-step="3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+                <div class="pipeline-step" data-step="4">
+                    <div class="pipeline-number">5</div>
                     <div class="pipeline-icon">
                         <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     </div>
-                    <h3>Prediction</h3>
-                    <p>17.76ms MAE latency, 25.63 Mbps MAE throughput</p>
+                    <h3>Model Training</h3>
+                    <p>Ensemble combining Random Forest + Gradient Boosting</p>
+                    <div class="pipeline-detail">
+                        <span class="pipeline-tag">RF (100 trees)</span>
+                        <span class="pipeline-tag">GBR (100 trees)</span>
+                        <span class="pipeline-tag">Weight optimization</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -891,6 +1026,31 @@
         });
 
         fadeElements.forEach(el => observer.observe(el));
+
+        // Pipeline sequential animation
+        const pipelineSection = document.getElementById('pipelineFlow');
+        let pipelineAnimated = false;
+
+        const pipelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !pipelineAnimated) {
+                    pipelineAnimated = true;
+                    const steps = pipelineSection.querySelectorAll('.pipeline-step');
+                    const arrows = pipelineSection.querySelectorAll('.pipeline-arrow');
+                    let delay = 0;
+                    steps.forEach((step, i) => {
+                        setTimeout(() => step.classList.add('animated'), delay);
+                        delay += 300;
+                        if (arrows[i]) {
+                            setTimeout(() => arrows[i].classList.add('animated'), delay);
+                            delay += 150;
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        pipelineObserver.observe(pipelineSection);
     </script>
 </body>
 </html>

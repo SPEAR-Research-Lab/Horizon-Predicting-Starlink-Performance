@@ -53,6 +53,13 @@
                   <span class="metric-desc">Number of LEO satellites visible from this location at the recorded time.</span>
                 </div>
               </div>
+
+              <div class="popup-section">
+                <span class="metric-name">Adaptive Hexagons</span>
+                <span class="metric-desc">
+                  The map uses H3 hexagonal grid cells that adapt to your zoom level. As you zoom in, smaller and more detailed hexagons appear (higher resolution). When you zoom out, hexagons merge into larger regions to give you a broader overview. Some hexagons may appear or disappear during zoom transitions as the grid resolution changes.
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -202,6 +209,8 @@ const collapsed = ref(window.innerWidth < 850)
   display: flex;
   flex-direction: column;
   gap: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 .popup-extra {
   font-size: 0.85em;
@@ -228,6 +237,14 @@ const collapsed = ref(window.innerWidth < 850)
   font-size: 0.8em;
   color: #71717a;
   line-height: 1.45;
+}
+
+.popup-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 1px solid #f4f4f5;
 }
 
 .popup-enter-active,
