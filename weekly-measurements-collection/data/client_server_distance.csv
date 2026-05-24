@@ -4513,7 +4513,7 @@ Warsaw,PL,Tuli Lodge,PL,8261.620186982402
 Yaounde,CM,Eura,NG,6386.504947275521
 Zagreb,HR,Anahidrano,BG,7413.879032319012
 Delhi,IN,New Delhi,IN,2.108374124758464
-Papeete,PF,Auckland,NZ,4095.2339491457674
+Papeete,PF,Auckland,NZ,4095.233949145768
 Brades,MS,Bogota,CO,1860.700925409595
 Carvel,CA,Calgary,CA,276.203493359491
 Caledonia,US,Chicago,US,107.89647787167344
@@ -4534,7 +4534,7 @@ Fayette,US,Washington,US,1355.2733467758942
 Beaver County,US,Washington,US,347.5381455170624
 Elkins,US,Washington,US,245.476952796832
 Apollo,US,Washington,US,287.2154479744416
-Albuquerque,US,Kent,US,1880.7389667825876
+Albuquerque,US,Kent,US,1880.738966782588
 Portland,US,Sanjeong-ri,US,8494.955896464022
 Lilongwe,MW,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7381.91407708954
 Khartoum,SD,Bojnurd,KE,3439.825895061665
@@ -4580,14 +4580,56 @@ Mexico City,MX,Tangier,US,3029.254880751332
 Paris,FR,Kaiserslautern,NL,400.4237925773541
 Phoenix,US,Plainview,US,3491.610533813872
 Dushanbe,TJ,New Delhi,IN,1349.0010108597724
-Windhoek,NA,Cape Town,ZA,1264.495508811999
+Windhoek,,Cape Town,ZA,1264.495508811999
 Papeete,PF,Sydney,AU,6128.776601474354
 Apollo,US,Toronto,CA,351.26317969337805
 Duncannon,US,Washington,US,165.26464509887245
-Loretto,US,Washington,US,225.09915498400338
-New Castle,US,Washington,US,367.17278781157506
+Loretto,US,Washington,US,225.09915498400335
+New Castle,US,Washington,US,367.1727878115751
 Windber,US,Washington,US,215.3819124715171
 Boise,US,Kent,US,628.8649569289155
-Windhoek,NA,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7717.313230680518
+Windhoek,,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7717.313230680518
 Johannesburg,ZA,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8409.87622526503
-Cayenne,GF,Balsas,BR,1545.5881407978197
+Cayenne,GF,Balsas,BR,1545.5881407978195
+Almaty,KZ,Helsinki,FI,3920.14294055787
+Damascus,SY,Stavanger,NO,3620.5219334421354
+Kukes,AL,Sofia,BG,248.74057425994405
+Atafu Village,TK,Auckland,NZ,3388.611131664613
+Ravenna,US,Chicago,US,543.1715090274153
+Boise,US,Denver,US,1035.957598305503
+Bissau,GW,Lagos,NG,2165.6686474129165
+Polk City,US,Miami,US,2164.0154261939374
+Valletta,MT,Milan,IT,1153.2313319032037
+South China,US,Montreal,CA,338.2867013444933
+Clearfield,US,New York,US,3184.719304730044
+Monongahela,US,New York,US,511.8192038560452
+Springdale,US,Spokane,US,2299.1920308707677
+Karnup,AU,Sydney,AU,3290.915603941389
+Cabot,US,Washington,US,1404.4712825539432
+Morann,US,Washington,US,238.7721793152685
+Redwood Falls,US,Winnipeg,CA,613.7442932992752
+Tripoli,LY,Springfield,FR,9141.363539429469
+Monrovia,LR,"Soissons, Aisne",ZA,4955.320437829581
+San Francisco de Dos Ríos,CR,Tangier,US,3196.1399951098147
+Wyldwood,US,Chicago/Prospect Heights/Wheeling,US,1581.8739335688642
+Kukes,AL,Anahidrano,BG,6873.309276828404
+Managua,NI,Tangier,US,3023.6637533635367
+Djibouti,DJ,Qasr-e Shirin,KE,2550.463927051776
+Juba,SS,Qasr-e Shirin,KE,3590.0001085180697
+Cheyenne,US,Ponta Delgada,US,6576.458128674947
+Salt Lake City,US,Plainview,US,3219.7580656274035
+Nouakchott,MR,Manga,ES,2494.1872294837676
+Khartoum,SD,Qasr-e Shirin,KE,2468.944590804654
+Paris,FR,Herrljunga,GB,1244.0401026258182
+Maseru,LS,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8716.283427805836
+Abuja,NG,Eura,NG,5874.617774194966
+Bishkek,KG,Tuli Lodge,PL,8553.1542984404
+Baku,AZ,Anahidrano,BG,6076.936276306395
+Dodoma,TZ,Bojnurd,KE,5326.641654782683
+Majuro,MH,Contao,JP,16282.20578937437
+Montevideo,UY,Laranjal Do Jari,AR,3795.5600962973945
+Omaha,US,Plainview,US,1894.481370593706
+Asmara,ER,Qasr-e Shirin,KE,2226.2668056553844
+Kyiv,UA,Anahidrano,BG,7394.277733951075
+Milan,IT,Kaiserslautern,NL,454.93851836169364
+Philadelphia,US,Goyang-si,US,11118.078113600872
