@@ -71,7 +71,7 @@ Shīnḏanḏ,Shindand,Asfazar,Asfazār,OAH,Sabzavar,Herat,AF
 Shibirghān,Shibirghan,Chibirchan,Markaz-e Wilayat-e Shibirghan,Markaz-e Wilāyat-e Shibirghan,Schibirgan,Jowzjan,AF
 Shahrak,Shahrak,Bati Dara,Kala Shaharak,Kala Shahrak,Kala Shahārak,Ghowr,AF
 Sar-e Pul,Sar-e Pul,Sar-e Pol,Sar-e Poul,Sar-e Pul,Sar-i-Pul,Sar-e Pol Province,AF
-Sang-e Chārak,Sang-e Charak,Sang-e Charak,Sang-e Chārak,,,Sar-e Pol Province,AF
+Sang-e Chārak,Sang-e Charak,Sang-e Charak,Sang-e Chārak,Sangcharak,sngchark,Sar-e Pol Province,AF
 Aībak,Aibak,Aibak,Ajbak,Ajbakˌ,Aybak,Samangan,AF
 Rustāq,Rustaq,Rostaq,Rostāq,Rustak,Rustaq,Takhar,AF
 Qarqīn,Qarqin,Karkin,Karkin Bazar,Karkˌyn,Kkhanika,Jowzjan,AF
@@ -115,7 +115,7 @@ Baghlān,Baghlan,Baghlan,Baghlan - bghlan,Baghlan-e Jadid,Baghlin,Baghlan,AF
 Ārt Khwājah,Art Khwajah,Art Khvajeh (1),Art Khwajah,At Khvajeh,At Khwaja,Takhar,AF
 Āsmār,Asmar,Asma,Asmar,Asmor,Asmār,Kunar,AF
 Asadābād,Asadabad,Asadabad,Asadabada,Asadabadas,Asadobod,Kunar,AF
-Andkhōy,Andkhoy,Andkho'y,Andkhoi,Andkhoj,Andkhoy,Faryab,AF
+Andkhoy,Andkhoy,Andkho'y,Andkhoi,Andkhoj,Andkhoy,Faryab,AF
 Bāzārak,Bazarak,Bazarak,Bāzārak,bajaraka,bazarak,Panjshir,AF
 Markaz-e Woluswalī-ye Āchīn,Markaz-e Woluswali-ye Achin,Achin,Achin-Ulusvali,Acin Oluswali,Kahi,Nangarhar,AF
 Saint John’s,Saint John's,Saint John,Saint John's,Saint John’s,San Gioan,Saint John Parish,AG
@@ -131,6 +131,7 @@ Bulqizë,Bulqize,Bul'kiza,Bulchica,Bulcica,Bulciza,Diber County,AL
 Vlorë,Vlore,Au'lon,Au’lon,Avlon,Avlona,Vlore County,AL
 Tirana,Tirana,TIA,Terana,Theranda,Tiorana,Tirana,AL
 Shkodër,Shkoder,Iskodra,Scutari,Shkoder,Shkodra,Shkoder County,AL
+Rrashbull,Rrashbull,Rashbulle,Rezbul,Režbul,Rrashbull,Durres County,AL
 Peqin,Peqin,Pecin,Pekin,Pekini,Pekinis,Elbasan County,AL
 Patos Fshat,Patos Fshat,Patos Fshat,Patosi Fshat,,,Fier County,AL
 Patos,Patos,Pahtosa,Pahtosi,Patos,Patosi,Fier County,AL
@@ -139,6 +140,7 @@ Lezhë,Lezhe,Alessio,Les,Lesh,Leshe,Lezhe County,AL
 Kuçovë,Kucove,Kuchova,Kucova,Kucove,Kuçova,Berat County,AL
 Krujë,Kruje,Akcehisar,Akçehisar,Croia,Cruja,Durres County,AL
 Kavajë,Kavaje,Cavaia,Cavaja,Kavaia,Kavaj,Tirana,AL
+Fushë-Krujë,Fushe-Kruje,Fus e Krujs,Fush' e Krujes,Fush-Kruja,Fusha-Kruja,Durres County,AL
 Fier-Çifçi,Fier-Cifci,,,,,Fier County,AL
 Fier,Fier,Fearica,Fier,Fieri,Fieris,Fier County,AL
 Durrës,Durres,DUH,Drac,Drach,Drač,Durres County,AL
@@ -181,23 +183,31 @@ Lumbala,Lumbala,GGC,Gago Coutinho,Gago Kotinyu,Lumbala,Moxico,AO
 Luau,Luau,Luao,Luau,Teixeira de Sousa,Teixera de Sousa,Moxico,AO
 Cazombo,Cazombo,CAV,Cazombo,Kazombo,Kazombu,Moxico,AO
 Nzagi,Nzagi,Nzagi,Zage,,,Cuanza Norte,AO
+Viana,Viana,Viana,,,,Luanda,AO
 Uíge,Uige,Carmona,UGO,Uige,Uije,Uige,AO
+Úcua,Ucua,Castendo,Ucua,Úcua,,Bengo,AO
 Tombôco,Tomboco,Bembe,Tomboco,Tombôco,,Zaire,AO
 Soyo,Soyo,SZA,Saint Antonio do Zaire,San Antonio,Santo Antoni,Zaire,AO
 Songo,Songo,Songo,,,,Uige,AO
 Sanza Pombo,Sanza Pombo,Sanza,Sanza Pombo,,,Uige,AO
+Piri,Piri,Piri,,,,Bengo,AO
+Pango Aluquém,Pango Aluquem,Pango Aluquem,Pango Aluquém,,,Bengo,AO
 N'zeto,N'zeto,ARZ,Ambrisette,Ambrizete,Ambrizette,Zaire,AO
 Negage,Negage,Dimuca,N'gage,N'gaje,Negage,Uige,AO
 N'dalatando,N'dalatando,Dalatando,N'dalatando,NDF,Ndalatanda,Cuanza Norte,AO
+Muxaluando,Muxaluando,General Freire,Muchalnau,Muchaluando,Muchaluau,Bengo,AO
 Mussende,Mussende,Munende,Mussende,Муссенде,,Kwanza Sul,AO
 Mbanza Kongo,Mbanza Kongo,M'banza Kongo,Mbanza Congo,Mbanza Kongo,Mbanza-Kongo,Zaire,AO
 Maquela do Zombo,Maquela do Zombo,Maguela do Zombo,Makello do Zombo,Maquela,Maquela do Zombo,Uige,AO
 Malanje,Malanje,MEG,Malandje,Malane,Malange,Malanje,AO
 Maianga,Maianga,Maianga,maianga,マイアンガ,,Luanda,AO
+Mabubas,Mabubas,,,,,Bengo,AO
 Lucala,Lucala,Lucala,,,,Cuanza Norte,AO
 Lubalo,Lubalo,Lobalu,Lubalo,,,Luanda Norte,AO
 Luanda,Luanda,LAD,Loanda,Louanda,Louanta,Luanda,AO
-Cunda diá Baze,Cunda dia Baze,Cunda Ria-Baza,Cunda Rio-Baza,Cunda dia Baze,Cunda diá Baze,Malanje,AO
+Kunda dya Baze,Kunda dya Baze,Cunda Ria-Baza,Cunda Rio-Baza,Cunda dia Baze,Cunda diá Baze,Malanje,AO
+Benfica,Benfica,Bemfica,Benfica,Cabolombo,Gomes e Irmao,Luanda,AO
+Gombe,Gombe,Gombe,Gombe Dua,,,Bengo,AO
 Golungo Alto,Golungo Alto,Galungo Alto,Golungo Alto,Golungu Al'tu,Голунгу Альту,Cuanza Norte,AO
 Dondo,Dondo,,,,,Cuanza Norte,AO
 Cuímba,Cuimba,Banza Cuimba,Cuimba,Cuimbo,Cuímba,Zaire,AO
@@ -206,22 +216,29 @@ Cuango-Luzamba,Cuango-Luzamba,Cuango,Cuango-Luzamba,LZM,Luzamba,Luanda Norte,AO
 Cazombo,Cazombo,Cazemba,Cazombo,Kazombo,Казомбо,Cuanza Norte,AO
 Caxito,Caxito,Caxito,Kashito,Kaxito,kaikasito,Bengo,AO
 Cangandala,Cangandala,Cagandala,Cangandala,Kangandala,Кангандала,Malanje,AO
+Canacassala,Canacassala,Canacassala,,,,Bengo,AO
 Camabatela,Camabatela,Ambaca,Camabatela,Kamabatela,Камабатела,Cuanza Norte,AO
+Calumbo,Calumbo,Calumbo,Catumbo,Columbo,Kalumbo,Bengo,AO
+Cage Mazumbo,Cage Mazumbo,Cage,Cage Mazumbo,Caje,,Bengo,AO
 Cacuso,Cacuso,Cacoso,Cacuso,Kakuso,Kakuzu,Malanje,AO
+Cacuaco,Cacuaco,Bengo,Cacuaco,Kakuako,,Luanda,AO
 Cabinda,Cabinda,CAB,Cabinda,Kabenda,Kabinda,Cabinda,AO
+Bula Atumba,Bula Atumba,Bula Atumba,,,,Bengo,AO
 Buco Zau,Buco Zau,Bucco-Lau,Buco Zau,,,Cabinda,AO
 Belize,Belize,Belize,,,,Cabinda,AO
 Barra do Dande,Barra do Dande,Barra do Dande,Dande,,,Bengo,AO
 Bailundo,Bailundo,Bailundo,Bajlundu,Vunda,Байлунду,Malanje,AO
 Gama,Gama,,,,,Bengo,AO
 Cazenga,Cazenga,Cazenga,Kazenga,kazenga,Казенга,Luanda,AO
+Golfe,Golfe,Golfe,,,,Luanda,AO
+Camama,Camama,Camama,,,,Luanda,AO
 Talatona,Talatona,Talatona,,,,Luanda,AO
 Xangongo,Xangongo,Chingongo,Forte Rocadas,Forte Roçadas,Ksangongo,Cunene,AO
 Alto Hama,Alto Hama,Alto Hama,Alto-Uama,Wama,,Huambo,AO
 Virei,Virei,Virei,,,,Namibe,AO
 Ucuma,Ucuma,Cuma,Ucuma,Ukuma,Укума,Huambo,AO
 Ucu Seles,Ucu Seles,Seles,Uco,Ucu Seles,Uku,Kwanza Sul,AO
-Tômbua,Tombua,Port Alexander,Porto Alexandre,Tombua,Tômbua,Namibe,AO
+Tômbua,Tombua,Port Alexander,Porto Alexandre,Tombua,Tombwa,Namibe,AO
 Sumbe,Sumbe,Angungescapolo,NDD,Ngunza,Nova Redonda,Kwanza Sul,AO
 Quipungo,Quipungo,Quipungo,,,,Huila,AO
 Quibala,Quibala,Kibala,Quibala,Кибала,,Kwanza Sul,AO
@@ -230,7 +247,7 @@ Ondjiva,Ondjiva,N'Giva,N'Jiva,N’Giva,N’Jiva,Cunene,AO
 Nharêa,Nharea,N'Harreia,Nharea,Nhareia,Nharêa,Bie,AO
 Mossamedes,Mossamedes,MSZ,Mocamedes,Mosamedes,Mossamedes,Namibe,AO
 Mungo,Mungo,Mungo,,,,Huambo,AO
-Menongue,Menongue,Menonge,Menongue,Menongve,Menongė,Cuando Cobango,AO
+Menongue,Menongue,Menonge,Menongue,Menongve,Menongė,,AO
 Matala,Matala,Aldeia da Matala,Matala,Матала,,Huila,AO
 Luquembo,Luquembo,Luquembo,,,,Malanje,AO
 Luena,Luena,LUO,Luehna,Luena,Luene,Moxico,AO
@@ -239,17 +256,19 @@ Longonjo,Longonjo,Congonjo,Logonzhu,Longonjo,Логонжу,Huambo,AO
 Londuimbali,Londuimbali,Londuimbali,Luimbale,Vila Massano de Amorim,,Huambo,AO
 Lobito,Lobito,LLT,Labitu,Llobin,Llobín,Benguela,AO
 Cuíto,Cuito,Bie,Bihe,Bihé,Bié,Bie,AO
-Catchiungo,Catchiungo,Bela Vista,Catchiungo,Katchiungo,Vila-Nova,Huambo,AO
+Catchiungo,Catchiungo,Bela Vista,Cachiungo,Catchiungo,Katchiungo,Huambo,AO
 Humbe,Humbe,Humbe,Humbe Mutano,Mutano,,Cunene,AO
 Huambo,Huambo,Huambas,Huambo,Huamdo,Khuambo,Huambo,AO
 Ganda,Ganda,Ganda,Genda,Kakenda,Mariano Machado,Benguela,AO
 Gabela,Gabela,Amboim,Cabela,Gabela,Габела,Kwanza Sul,AO
 Dombe Grande,Dombe Grande,Dombe,Dombe Grande,Домбе Гранде,,Benguela,AO
 Cuemba,Cuemba,Coemba,Cuemba,Koemba,Neves Ferreira,Bie,AO
+Cubal do Lumbo,Cubal do Lumbo,Cubal do Lumbo,Fazenda Maria Judite,,,Benguela,AO
 Cubal,Cubal,Cubal,Cubal da Ganda,Hanha,Kubal,Benguela,AO
 Conda,Conda,Conda,Konda,Конда,,Kwanza Sul,AO
 Chitembo,Chitembo,Chitembo,,,,Bie,AO
 Chinguar,Chinguar,Chinguar,Chingwari,Xinguar,,Bie,AO
+Chindumbo,Chindumbo,Chindumbo,,,,Benguela,AO
 Cela,Cela,CEO,Cela,Cela-Cungo,Kela,Kwanza Sul,AO
 Catumbela,Catumbela,Asseiceira,CBT,Catumbela,Catumbella,Benguela,AO
 Catabola,Catabola,Catabola,Katabola,Катабола,,Bie,AO
@@ -266,13 +285,24 @@ Balombo,Balombo,Balombo,Norton de Matos,Vila Norton de Matos,Баломбо,Beng
 Baía Farta,Baia Farta,Bahia Farta,Baia Farta,Baía Farta,Farta,Benguela,AO
 Andulo,Andulo,ANL,Andulo,Andulu,Caunde,Bie,AO
 Cambundi,Cambundi,,,,,Malanje,AO
+Kikolo,Kikolo,Quicolo,,,,Luanda,AO
 Cafunfo,Cafunfo,CFF,Cafunfo,Kafounfo,kafunfo,Luanda Norte,AO
 Santa Clara,Santa Clara,,,,,Kwanza Sul,AO
 Quissecula,Quissecula,,,,,Kwanza Sul,AO
+Mulenvos,Mulenvos,Mulenvos,,,,Luanda,AO
+Kilamba,Kilamba,Kilamba,Kilamba Kiaxi,,,Luanda,AO
 Ingombota,Ingombota,Ingombota,ingonbota,Інгомбота,インゴンボタ,Luanda,AO
+Nova Vida,Nova Vida,,,,,Luanda,AO
+Zango,Zango,,,,,Luanda,AO
+Vila Flor,Vila Flor,Vila Flor,,,,Luanda,AO
 Rangel,Rangel,rangeru,ランゲル,,,Luanda,AO
 Samba,Samba,Samba,Szamba,sanba,Самба,Luanda,AO
 Sambizanga,Sambizanga,Sambizanga,Sambizanha,sanbizanga,Самбізанга,Luanda,AO
+Navegantes,Navegantes,Administracao Municipal dos Navegantes,Administração Municipal dos Navegantes,,,Benguela,AO
+Kima Kieza,Kima Kieza,Quima Quieza,,,,Luanda,AO
+Panguíla,Panguila,Panguila,Panguíla,,,Bengo,AO
+Ramiros,Ramiros,Ramiros,,,,Luanda,AO
+Hoji ya Henda,Hoji ya Henda,,,,,Luanda,AO
 Zárate,Zarate,General J.F. Uriburu,General Jose F. Uriburu,General José F. Uriburu,General Uriburu,Buenos Aires,AR
 Colonia Wanda,Colonia Wanda,Colonia Wanda,Wanda,,,Misiones,AR
 Villa Ortúzar,Villa Ortuzar,Villa Ortuzar,Villa Ortúzar,,,Buenos Aires F.D.,AR
@@ -281,12 +311,14 @@ Villa Lugano,Villa Lugano,Vilja Luganas,Villa Lugano,ビジャ・ルガーノ,,B
 Villaguay,Villaguay,Vil'jaguaj,Villaguay,bhilaguye,bijaguai,Entre Rios,AR
 Villa Gesell,Villa Gesell,VLG,Vil'ja-Khesel',Вилья-Хесель,,Buenos Aires,AR
 Villa de Mayo,Villa de Mayo,C. de Mayo,Villa de Mayo,,,Buenos Aires,AR
+Tristán Suárez,Tristan Suarez,T. Suarez,T. Suárez,Tristan Suarez,Tristán Suárez,Buenos Aires,AR
 Tortuguitas,Tortuguitas,Tortugitas,Tortuguitas,tuo er tu ji ta si,twrtwgytas,Buenos Aires,AR
 Tigre,Tigre,Las Conchas,Tigre,Тигре,,Buenos Aires,AR
 Tandil,Tandil,TDL,Tandil,Tandil',Tandilis,Buenos Aires,AR
 San Vicente,San Vicente,San Vicente,,,,Misiones,AR
 Santo Tomé,Santo Tome,Santo Tome,Santo Tomé,Santo-Tome,sainto tome,Corrientes,AR
 Santos Lugares,Santos Lugares,S. Lugares,Santos Lugares,santws lwgars,sheng lu jia lei si,Buenos Aires,AR
+Santa Teresita,Santa Teresita,Balneario Santa Teresa,SST,Santa Teresita,,Buenos Aires,AR
 Santa Elena,Santa Elena,Santa Elena,,,,Entre Rios,AR
 San Pedro,San Pedro,San Pedro,San-Pedro,saim pedaro,saina pedro,Buenos Aires,AR
 San Pedro,San Pedro,San Pedro,San-Pedro,saim pedaro,saina pedro,Misiones,AR
@@ -296,6 +328,7 @@ San Justo,San Justo,San Justo,San-Khusto,saim jasato,saina justo,Buenos Aires,AR
 San Javier,San Javier,San Javier,San-Khar'er,saim jevi'ara,saina jeviyara,Santa Fe,AR
 San Isidro,San Isidro,San Isidro,San-Isidro,saim isidro,saina isidro,Buenos Aires,AR
 San Antonio de Padua,San Antonio de Padua,San Antonio de Padua,San-Antonia-deh-Padua,San-Antonio-de-Padua,san antwnyw dh padwa,Buenos Aires,AR
+San Antonio de Areco,San Antonio de Areco,San A. de Areco,San Antonio de Areco,San-Antonio-de-Areso,saim atoni'o de areko,Buenos Aires,AR
 Saladillo,Saladillo,Saladil'o,Saladillo,saladilo,saladylw,Buenos Aires,AR
 Saladas,Saladas,Saladas,Saljadas,saladas,saladasa,Corrientes,AR
 Retiro,Retiro,Retiras,Retiro,lei di luo,retiro,Buenos Aires F.D.,AR
@@ -309,6 +342,7 @@ Puerto Eldorado,Puerto Eldorado,Eldorado,Puerto Eldorado,,,Misiones,AR
 Posadas,Posadas,PSS,Posadas,Posadasa,Posadasas,Misiones,AR
 Pontevedra,Pontevedra,Pontevedra,bwntyfydra,peng te wei de la,بونتيفيدرا,Buenos Aires,AR
 Pirané,Pirane,Pirane,Pirané,byran,pirane,Formosa,AR
+Pinamar,Pinamar,Balneario Pinamar,Pinamar,QPQ,bynamar,Buenos Aires,AR
 Pilar,Pilar,Pilar,bylar,pilara,piraru,Buenos Aires,AR
 Paso de los Libres,Paso de los Libres,AOL,Paso de los Libres,basw dy lws lybrys,paso de losa libresa,Corrientes,AR
 Oberá,Obera,Obera,Oberá,Yerbal Viejo,ao wei la,Misiones,AR
@@ -323,6 +357,7 @@ Mercedes,Mercedes,Mercedes,Mercedo,Mersedes,Mersedesas,Buenos Aires,AR
 Mercedes,Mercedes,MDX,Mercedes,Mersedes,Mersedesas,Corrientes,AR
 Haedo,Haedo,Haedo,M.J. Haedo,Mariano J. Haedo,,Buenos Aires,AR
 Mar del Plata,Mar del Plata,MDQ,Mar Del Plat,Mar de Plata,Mar del Plata,Buenos Aires,AR
+Mar de Ajó,Mar de Ajo,Balneario Mar de Ajo,Balneario Mar de Ajó,Mar de Ajo,Mar de Ajó,Buenos Aires,AR
 Luján,Lujan,Lujan,Luján,Lukhan,Luxan,Buenos Aires,AR
 Los Polvorines,Los Polvorines,Los Palverines,Los Polvorines,Polvorines,,Buenos Aires,AR
 Lomas de Zamora,Lomas de Zamora,L. de Zamora,Lomas de Zamora,lomasa de jamora,lomasa de zamora,Buenos Aires,AR
@@ -336,12 +371,13 @@ Gualeguay,Gualeguay,Gualegaj,Gualeguajus,Gualeguay,gavelega'i,Entre Rios,AR
 Goya,Goya,Goja,Gojja,Goya,OYA,Corrientes,AR
 Gobernador Virasora,Gobernador Virasora,Gobernador Ingeniero Valentin Virasoro,Gobernador Ingeniero Valentín Virasoro,Gobernador Virasora,Gobernador Virasoro,Corrientes,AR
 General Pacheco,General Pacheco,General Pacheco,Kheneral'-Pacheko,jnral batshykw,khnral pachykw,Buenos Aires,AR
+General Juan Madariaga,General Juan Madariaga,General J. Madariaga,General Juan Madariaga,General Khuan Madariaga,General Madariaga,Buenos Aires,AR
 General José de San Martín,General Jose de San Martin,Cheneral Chose de San Martinas,Colonia Zapallar,El Zapallar,General Jose de San Martin,Chaco,AR
 Garupá,Garupa,Garupa,Garupá,,,Misiones,AR
 Formosa,Formosa,Ciudad de Formosa,FMA,Formosa,Formoza,Formosa,AR
 Fontana,Fontana,Fontana,,,,Chaco,AR
 Federal,Federal,Federal,Federal',Villa Federal,fdral,Entre Rios,AR
-Ezeiza,Ezeiza,Ehseisa,Ezeiza,Jose Maria Ezeiza,José María Ezeiza,Buenos Aires,AR
+Ezeiza,Ezeiza,EZE,Ehseisa,Ezeiza,Jose Maria Ezeiza,Buenos Aires,AR
 Esquina,Esquina,Ehskina,Eskina,Esquina,askwyna,Corrientes,AR
 El Soberbio,El Soberbio,Ehl' Soberbio,El Soberbio,aila sobarabi'o,al swbrbyw,Misiones,AR
 El Palomar,El Palomar,EPA,El Palomar,,,Buenos Aires,AR
@@ -390,6 +426,7 @@ Ushuaia,Ushuaia,Ousouaia,Owsuaya,USH,Ushuaia,Tierra del Fuego,AR
 Unquillo,Unquillo,Unquillo,,,,Cordoba,AR
 Tres Isletas,Tres Isletas,Tres Isdeta,Tres Isletas,tiresi ʿisiletasi,toresu・isuretasu,Chaco,AR
 Tres Arroyos,Tres Arroyos,OYO,Tres Arojosas,Tres Arrojos,Tres Arroyos,Buenos Aires,AR
+Trenque Lauquen,Trenque Lauquen,T. Lauquen,Trenke Lauken,Trenque Lauquen,te lun ke lao ken,Buenos Aires,AR
 Trelew,Trelew,REL,Trelew,Trelju,te lei li wu,Chubut,AR
 Termas de Río Hondo,Termas de Rio Hondo,Banos,Baños,Las Termas,Las Termas de Rio Hondo,Santiago del Estero,AR
 Tartagal,Tartagal,TTG,Tartagal,Tartagalis,ta ta jia er,Salta,AR
@@ -415,6 +452,7 @@ San José de Jáchal,San Jose de Jachal,Jachal,Jáchal,San Chose de Chacalis,San
 San Jorge,San Jorge,San Jorge,,,,Santa Fe,AR
 San Francisco,San Francisco,San Francisco,San Fransiskas,San Fransisko,San-Francisko,Cordoba,AR
 Catamarca,Catamarca,CTC,Catamarca,Katamarka,San Fernando del Vale de Katamarka,Catamarca,AR
+San Carlos de Bolívar,San Carlos de Bolivar,Bolivar,Bolívar,San Carlos de Bolivar,San Carlos de Bolívar,Buenos Aires,AR
 San Antonio Oeste,San Antonio Oeste,OES,Puerto San Antonio Oeste,San Antonio Oeste,San Antonio Oestė,Rio Negro,AR
 Salto,Salto,M. Ugarte,Marcelino Ugarte,Salto,salato,Buenos Aires,AR
 Salta,Salta,Ciudad de Salta,SLA,Sal'ta,Salta,Salta,AR
@@ -520,6 +558,7 @@ Villa Mercedes,Villa Mercedes,VME,Vila Mersedes,Vilja Mersedesas,biyameleusedese
 San Miguel,San Miguel,San Migel,san myghyl  bwyns ayrs,san mygwyl,sheng mi ge er,Buenos Aires,AR
 San Carlos de Bariloche,San Carlos de Bariloche,BRC,Bariloce,Bariloche,Bariloĉe,Rio Negro,AR
 Adrogué,Adrogue,Adroge,Adrogue,Adrogué,adrwghy,Buenos Aires,AR
+La Unión,La Union,La Union,La Unión,Union Ferroviaria,Unión Ferroviaria,Buenos Aires,AR
 Ingeniero Pablo Nogués,Ingeniero Pablo Nogues,Ingeniero Pablo Nogues,Ingeniero Pablo Nogués,,,Buenos Aires,AR
 Villa Sarmiento,Villa Sarmiento,Villa Sarmiento,,,,Buenos Aires,AR
 José C. Paz,Jose C. Paz,Jose C. Paz,José C. Paz,Khose K. Pas,hose si. ፓዝ,Buenos Aires,AR
@@ -915,7 +954,7 @@ Lankaran,Lankaran,LLK,Lankaran,Lencoran,Lenkoran,Lankaran,AZ
 Imishli,Imishli,Emishti,Imishli,Imishly,Imisli,Imisli,AZ
 Fizuli,Fizuli,FZL,Fizuli,Fuzuli,Füzuli,Fuzuli District,AZ
 Jalilabad,Jalilabad,Astrahanka,Astrakhan-Bazar,Astrakhanka,Astrakhanovka,Jalilabad,AZ
-Pushkino,Pushkino,Bilasuvar,Biljasuvar,Biləsuvar,Pushkin,Bilasuvar District,AZ
+Pushkino,Pushkino,Biljasuvar,Biləsuvar,Pushkin,Pushkino,Bilasuvar District,AZ
 Beylagan,Beylagan,Bejlagan,Bejlakˌon,Beylagan,Beylaganli,Beylaqan,AZ
 Astara,Astara,Astara,Azerbaydzhanskaya Astara,a si ta la,asatara,Astara,AZ
 Şirvan,Sirvan,Ali Bairamly,Ali Bayramli,Ali-Bairamli,Ali-Bajramly,Shirvan,AZ
@@ -927,7 +966,7 @@ Göygöl,Goygol,Elenendorf,Gejgel',Gjojgjol',Goeygoel,Goygol Rayon,AZ
 Xaçmaz,Xacmaz,Chatschmas,Hacimaz,Hacmaz,Haçmaz,Xacmaz,AZ
 Ujar,Ujar,Ucar,Udshary,Udzhar,Udzhara,Ucar,AZ
 Tovuz,Tovuz,Tauz,Tavus,Tovuz,Tovyz,Tovuz District,AZ
-Terter,Terter,Mir Bashir,Mir Basir,Mirbashir,Mirbasir,Tartar District,AZ
+Terter,Terter,Mir Bashir,Mir Basir,Mir-Bashir,Mirbashir,Tartar District,AZ
 Sumqayıt,Sumqayit,Sumgait,Sumgajyt,Sumgayit,Sumgayıt,Sumqayit,AZ
 Qaraçuxur,Qaracuxur,Garachukhur,Garadzuchur,Garadžuchur,Imeni Kaganovicha,Baki,AZ
 Shamkhor,Shamkhor,Anenfelt,Anino,Annenfel'd,Annenfel’d,Shamkir Rayon,AZ
@@ -3985,7 +4024,7 @@ Zhlobin,Zhlobin,Korpilovka,Zhlobin,Zlobin,Жлобин,Homyel' Voblasc',BY
 Zaslawye,Zaslawye,Saslauje,Zaslaue,Zaslauje,Zaslav,Minsk,BY
 Vitebsk,Vitebsk,VTB,Vicebsk,Vicebsko,Vicebszk,Vitebsk,BY
 Vileyka,Vileyka,Vileika,Vilejka,Vileyka,Vilyeyka,Minsk,BY
-Volkovysk,Volkovysk,Valkaviskas,Vaukavisk,Vaukavysk,Vavkavisk,Grodnenskaya,BY
+Vaukavysk,Vaukavysk,Valkaviskas,Vaukavisk,Vaukavysk,Vavkavisk,Grodnenskaya,BY
 Svetlogorsk,Svetlogorsk,Shatilki,Shatsilki,Svetlagorsk,Svetlogorsk,Homyel' Voblasc',BY
 Stowbtsy,Stowbtsy,Stolbci,Stolbcy,Stolbtsy,Stolbtzy,Minsk,BY
 Smarhoń,Smarhon,Smargon',Smarhon',Smarhon’,Smorgon',Grodnenskaya,BY
@@ -4734,6 +4773,7 @@ Sankt Gallen,Sankt Gallen,Saint Gallen,Saint-Gall,San Gallo,San Gallu,Saint Gall
 Renens,Renens,Renan,Renens,lei nan,rwnan,Vaud,CH
 Rapperswil,Rapperswil,Raperswil,Rappersvil',Rapperswil,Rapperswil SG,Saint Gallen,CH
 Pully,Pully,pi li,pwly,پولی,皮利,Vaud,CH
+Opfikon,Opfikon,Opfikon,Opfikon-Glattbrugg,ao pu fei kong,awpfykwn,Zurich,CH
 Onex,Onex,One,Onex,Onèx,ao nei,Geneva,CH
 Olten,Olten,Ol'ten,Olten,ZJU,ao er teng,Solothurn,CH
 Zürich (Kreis 11) / Oerlikon,Zuerich (Kreis 11) / Oerlikon,Oerlikon,,,,Zurich,CH
@@ -4761,7 +4801,7 @@ Zürich (Kreis 10) / Höngg,Zuerich (Kreis 10) / Hoengg,Hoengg,Höngg,,,Zurich,C
 Herisau,Herisau,Gerisau,Gerizau,Herisan,Herisau,Appenzell Ausserrhoden,CH
 Grenchen,Grenchen,Granges,Grenchenas,Grenkhen,ZHI,Solothurn,CH
 Gossau,Gossau,Cozesaua,Gosau,Gossau,Gossau SG,Saint Gallen,CH
-Genève,Geneve,Cenevre,Cenevrə,GVA,Genava,Geneva,CH
+Geneva,Geneva,Cenevre,Cenevrə,GVA,Genava,Geneva,CH
 Fribourg,Fribourg,Freiburg,Freiburg im UEechtland,Freiburg im Üechtland,Friborg,Fribourg,CH
 Frauenfeld,Frauenfeld,Frauehnfel'd,Frauenfel'd,Frauenfeld,Frauenfelda,Thurgau,CH
 Emmen,Emmen,EML,Ehmmen,Emmen,ai men,Lucerne,CH
@@ -5371,7 +5411,6 @@ Zhuoshui,Zhuoshui,Cho-shui,Zhuoshui,Zhuoshui Zhen,zhuo shui,Chongqing,CN
 Zhumadian,Zhumadian,Chu-ma-tien,Chu-ma-tien-chen,Chu-ma-tien-shih,Chzhumadjan',Henan,CN
 Zhujing,Zhujing,Chin-shan,Chin-shan-hsien,Chu-ching,Chu-ching-chen,Shanghai,CN
 Zhujiajiao,Zhujiajiao,Ching-t'ing-chiang,Ching-t’ing-chiang,Chu-chia-chiao,Chu-chieh-ko,Shanghai,CN
-Shangqiu,Shangqiu,Chu-chi,Chu-kia-tsi,Chu-sun-chi,Sang-cchiou,Henan,CN
 Zhuji,Zhuji,Chu-chi,Chu-chi-hsien,Chu-chi-hsien-ch'eng,Chu-chi-hsien-ch’eng,Zhejiang,CN
 Zhouqu Chengguanzhen,Zhouqu Chengguanzhen,Chou-ch'u,Chou-ch'u-hsien,Chou-ch’ü,Chou-ch’ü-hsien,Gansu,CN
 Zhucheng,Zhucheng,Chu-ch'eng,Chu-ch’eng,Chu-hsien,Mizhou,Shandong,CN
@@ -5427,7 +5466,7 @@ Zhabei,Zhabei,Cha-pei,Zhabei,zha bei,闸北,Shanghai,CN
 Zaozhuang,Zaozhuang,Cao-cuang,Cao-čuang,Cho-chng-chhi,Chó-chng-chhī,Shandong,CN
 Zaoyang,Zaoyang,Tsao-yang,Tsao-yang-hsien,Zaoyang,,Hubei,CN
 Yuyao,Yuyao,Ju-kao,Jujao,YYP,Yuyao,Zhejiang,CN
-Yingchuan,Yingchuan,Yingchuan,Yu,Yu-hsien,Yuchow,Henan,CN
+Yuzhou,Yuzhou,Yingchuan,Yu,Yu-hsien,Yuchow,Henan,CN
 Yuxia,Yuxia,Yu-hsia,Yu-hsia-li,Yuxia,Yuxia Zhen,Shaanxi,CN
 Yuxi,Yuxi,Yu-hsi,Yuxi,Yuxi Zhen,Yü-hsi,Chongqing,CN
 Yushan,Yushan,Yu-shan-chen,Yushan,Yushan Zhen,Yü-shan-chen,Chongqing,CN
@@ -5563,6 +5602,7 @@ Xingguo,Xingguo,Ch'in-an,Ch'in-an-hsien,Ch'ing-ang,Ch’in-an,Gansu,CN
 Ankang,Ankang,AKA,An-k'ang-hsien,An-k’ang-hsien,Ankan,Shaanxi,CN
 Wenfeng,Wenfeng,Hsin-tien-tzu,Wenfeng,Wenfeng Zhen,Xindianzi,Chongqing,CN
 Xindian,Xindian,Hsin-tien,Hsingtien,Sintien,Xindian,Shandong,CN
+Xindian,Xindian,,,,,Yunnan,CN
 Xindi,Xindi,Honghu,Hsin-ti,Hsin-ti-chen,Hung-hu,Hubei,CN
 Feicheng,Feicheng,Fei-ch'eng-hsien,Fei-ch’eng-hsien,Feicheng,Feychen,Shandong,CN
 Xincheng,Xincheng,Hsin-ch'eng,Hsin-ch’eng,Lin-t'an,Lin-t’an,Gansu,CN
@@ -5603,7 +5643,7 @@ Xiangxiang,Xiangxiang,Hsan-shan,Hsiang-hsiang,Hsiang-hsiang-hsien,Siangsiang,Hun
 Xiangtan,Xiangtan,Hsiang-t'an-ch'eng,Hsiang-t'an-hsien,Hsiang-t'an-shih,Hsiang-tan,Hunan,CN
 Xiangshui,Xiangshui,Xiangshui,Xiangshui Zhen,xiang shui,xiang shui zhen,Chongqing,CN
 Xiangyang,Xiangyang,Fancheng,Fancheng Zhen,Hsiang-fan,Hsiang-yang,Hubei,CN
-Xiangcheng Chengguanzhen,Xiangcheng Chengguanzhen,Hsiang-ch'eng,Hsiang-ch'eng-hsien,Hsiang-ch’eng,Hsiang-ch’eng-hsien,Henan,CN
+Xiangcheng,Xiangcheng,Hsiang-ch'eng,Hsiang-ch'eng-hsien,Hsiang-ch’eng,Hsiang-ch’eng-hsien,Henan,CN
 Xianfeng,Xianfeng,Hsien-feng,Xianfeng,Xianfeng Zhen,Xianfengchang,Chongqing,CN
 Xi’an,Xi'an,Ch'ang-an,Ch'ang-an-hsien,Ch’ang-an,Ch’ang-an-hsien,Shaanxi,CN
 Xiamen,Xiamen,A-muong,Amoy,E-mng-chhi,Ha Mon,Fujian,CN
@@ -5789,6 +5829,7 @@ Shanting,Shanting,,,,,Shandong,CN
 Shankou,Shankou,Shan-how,Shan-k'ou-hsu,Shan-k’ou-hsü,Shanhau,Guangxi,CN
 Shanji,Shanji,Danji,Shan-chi,Shanji,,Jiangsu,CN
 Shangluo,Shangluo,DFA,Shanchzhou,Shang,Shang-hsien,Shaanxi,CN
+Shangqiu,Shangqiu,Kuei-te,Kweiteh,Shang-ch'in,Shang-ch'iu,Henan,CN
 Shangkou,Shangkou,Shang-k'ou-chieh,Shang-k’ou-chieh,Shangkou,,Shandong,CN
 Shanghuang,Shanghuang,Shanghuang,Shanghuang Zhen,Shanghuangkkong,Shanghuangqian,Chongqing,CN
 Shanghai,Shanghai,Gaa Ding,Ka Ting,SHA,San'nkae,Shanghai,CN
@@ -6019,7 +6060,7 @@ Liuquan,Liuquan,Liu-ch'uan,Liu-ch’üan,Liuchun,Liuquan,Jiangsu,CN
 Lishui,Lishui,Ch'u-chou,Chuchow,Chuchowfu,Chuzhoufu,Zhejiang,CN
 Lishi,Lishi,Lishi,Lishi Zhen,Lishiba,li shi,Chongqing,CN
 Lintong,Lintong,Lin'tun,Lin-t'ung,Lin-t'ung-hsien,Lin-t’ung,Shaanxi,CN
-Liuzhou,Liuzhou,LZH,Lieu Chau,Linzhou,Liu-chiang,Guangxi,CN
+Liuzhou,Liuzhou,LZH,Lieu Chau,Linzhou,Liou-cou,Guangxi,CN
 Linyi,Linyi,I-chou,Ichow,Ichowfu,LYI,Shandong,CN
 Linxia Chengguanzhen,Linxia Chengguanzhen,Ho-chou,Khechzhou,Lin'sja,Lin'sya,Gansu,CN
 Linxi,Linxi,Lin-hsi,Lin-hsi-chuang,Linsi,Linxi,Hebei,CN
@@ -6263,6 +6304,7 @@ Guanzhuang,Guanzhuang,Guanzhuang,Kuan-chuang,Kung-chuang,,Shandong,CN
 Guanyin,Guanyin,Guanyin,Guanyinzhen,Kuan-yin-chen,guan yin,Sichuan,CN
 Guanhu,Guanhu,Guanhu,Kuan-hu,Kuan-hu-chen,,Jiangsu,CN
 Guangzhou,Guangzhou,CAN,Cantao,Canton,Cantão,Guangdong,CN
+Guangtong,Guangtong,,,,,Yunnan,CN
 Guangshun,Guangshun,Guangshun,Guangshun Jiedao,Guangshunchang,Kuang-shun-ch'ang,Chongqing,CN
 Guangshui,Guangshui,Guangshui,Guangshui Jiedao,Kuang-shui,Kuang-shui-chen,Hubei,CN
 Guandu,Guandu,Guandu,Guandu Zhen,Kuan-tu,guan du,Chongqing,CN
@@ -7033,7 +7075,7 @@ Datong,Datong,Datong,Datong Zhen,da tong,da tong zhen,Chongqing,CN
 Guanba,Guanba,Guanba,Guanba Zhen,guan ba,guan ba zhen,Chongqing,CN
 Nantong,Nantong,Nantong,Nantong Zhen,nan tong,nan tong zhen,Chongqing,CN
 Maliuzui,Maliuzui,Maliuzui,Maliuzui Zhen,ma liu zui,ma liu zui zhen,Chongqing,CN
-Guōlèmùdé,Guolemude,Golmud Town,Guolemude,Guolemude Zhen,guo lei mu de,Heilongjiang,CN
+Guōlèmùdé,Guolemude,Golmud Town,Guolemude,Guolemude Zhen,guo lei mu de,Qinghai,CN
 Anxiang,Anxiang,Anxiang,Anxiang Xiang,an xiang,an xiang xiang,Henan,CN
 Mugala,Mugala,Mugala,Mugala Zhen,Mughalla,Yutian Xian,Xinjiang,CN
 Xingning,Xingning,XIN,Xingcheng,Xingcheng Zhen,Xingning,Guangdong,CN
@@ -7592,6 +7634,7 @@ Isnos,Isnos,Isnos,,,,Huila Department,CO
 Plato,Plato,PLT,Plato,,,Magdalena Department,CO
 San José del Guaviare,San Jose del Guaviare,SJE,San Jose del Guaviare,San José del Guaviare,San Xose del Quavyare,Guaviare Department,CO
 Orito,Orito,Orito,,,,Putumayo Department,CO
+Kennedy,Kennedy,Kennedy,,,,Bogota D.C.,CO
 Piendamo,Piendamo,,,,,Cauca Department,CO
 Turrialba,Turrialba,Turialba,Turrial'ba,Turrialba,Турриальба,Cartago Province,CR
 Tejar,Tejar,Tejar,,,,San Jose,CR
@@ -7952,7 +7995,7 @@ Wittenau,Wittenau,Berlin-Wittenau,,,,State of Berlin,DE
 Witten,Witten,Vitehn,Viten,Vitenas,Vitten,North Rhine-Westphalia,DE
 Wismar,Wismar,Vismar,Vismara,Vismaras,Vismāra,Mecklenburg-Vorpommern,DE
 Wipperfürth,Wipperfuerth,Viperfirt,Viperfiurtas,Vipperfjurt,Wipperfuerth,North Rhine-Westphalia,DE
-Winterhude,Winterhude,Hamborg-Winterhuud,Hamburg-Winterhude,Vinterkhude,Winterhude,Free and Hanseatic City of Hamburg,DE
+Winterhude,Winterhude,Hamborg-Winterhuud,Hamburg-Winterhude,Vinterkhude,Winterhude,Hamburg,DE
 Winsen,Winsen,Winsen,Winsen (Luhe),Winsen an der Luhe,,Lower Saxony,DE
 Winnenden,Winnenden,Vinenden,Vinnenden,Winnenden,wen nen deng,Baden-Wurttemberg,DE
 Wilnsdorf,Wilnsdorf,Vil'nsdorf,Vilnsdorf,Wilnsdorf,wei er en si duo fu,North Rhine-Westphalia,DE
@@ -7960,7 +8003,7 @@ Wilmersdorf,Wilmersdorf,Vil'mersdorf,Wilmersdorf,wylmrsdrf,wylmrsdwrp,State of B
 Willich,Willich,Vilikh,Villikh,Villix,Willich,North Rhine-Westphalia,DE
 Wilhelmstadt,Wilhelmstadt,Berlin-Wilhelmstadt,Wilhelmstadt,,,State of Berlin,DE
 Wilhelmshaven,Wilhelmshaven,Vil'gel'msgafen,Vil'gel'mskhafen,Vilchelmschafen,Vilhelmshafenas,Lower Saxony,DE
-Wilhelmsburg,Wilhelmsburg,Hamburg-Wilhelmsburg,Vilkhelmsburg,Wilhelmsburg,Willemsborg,Free and Hanseatic City of Hamburg,DE
+Wilhelmsburg,Wilhelmsburg,Hamburg-Wilhelmsburg,Vilkhelmsburg,Wilhelmsburg,Willemsborg,Hamburg,DE
 Wildeshausen,Wildeshausen,Vil'deskhauzen,Vildeskhauzen,Wildeshausen,Wilshusen,Lower Saxony,DE
 Wiesloch,Wiesloch,Vislokh,Wiesloch,Wissloch,fyzlwkh,Baden-Wurttemberg,DE
 Wiesbaden,Wiesbaden,Aquae Mattiacae,Aquae Mattiacorum,Aquae Matticae,Uisibada,Hesse,DE
@@ -7984,7 +8027,6 @@ Werdohl,Werdohl,Verdol,Verdol',Werdohl,frdwl,North Rhine-Westphalia,DE
 Werder,Werder,Verder,Verderis,fyrdr,wrda,Brandenburg,DE
 Werdau,Werdau,Verdau,Verdava,Werdau,frdaw,Saxony,DE
 Wendlingen am Neckar,Wendlingen am Neckar,Vendlingen,Vendlingen am Nekar,Vendlingen-am-Nekkar,Wendlingen,Baden-Wurttemberg,DE
-Wenden,Wenden,Venden,Wenden,Венден,,North Rhine-Westphalia,DE
 Wendelstein,Wendelstein,Vendel'shtajn,Vendelshtajn,Wendelstein,vuenderushutain,Bavaria,DE
 Weiterstadt,Weiterstadt,Vajtehrshtat,Vajtershtadt,Vajtershtat,Weiterstadt,Hesse,DE
 Weißwasser,Weisswasser,Bela Woda,Bela Woda/Hornja Luzica,Betla Woda,Biala Woda,Saxony,DE
@@ -8004,6 +8046,7 @@ Wegberg,Wegberg,Berk,Vegberg,Wegberg,fghbrgh,North Rhine-Westphalia,DE
 Weener,Weener,Vener,Weener,fynr,wei nei er,Lower Saxony,DE
 Wedel,Wedel,Vedel,Vedel',Vedelis,Vėdelis,Schleswig-Holstein,DE
 Wedding,Wedding,Berlin-Wedding,Vedding,Veding,Wedding,State of Berlin,DE
+Wattenscheid,Wattenscheid,Bochum-Wattenscheid,Vatenseidas,Vatenšeidas,Vattenshajd,North Rhine-Westphalia,DE
 Wassenberg,Wassenberg,Vasenberg,Vassenberg,Wasseberg,Wassenberg,North Rhine-Westphalia,DE
 Warstein,Warstein,Stadt Warstein,Varshtajn,Warstein,farshtayn,North Rhine-Westphalia,DE
 Warendorf,Warendorf,Varehndorf,Varendorf,Warendorf,Warendorp,North Rhine-Westphalia,DE
@@ -8025,7 +8068,7 @@ Wadgassen,Wadgassen,Vadgasen,Vadgassen,wa de jia sen,wadgasn,Saarland,DE
 Wadern,Wadern,Vadern,Wadern,fadrn,vuadan,Saarland,DE
 Wachtberg,Wachtberg,Arzdorf,Vakhtberg,wa te bei ge,Вахтберг,North Rhine-Westphalia,DE
 Vreden,Vreden,Freden,Frethenna,Vreden,Vrene,North Rhine-Westphalia,DE
-Volksdorf,Volksdorf,Folksdorf,Hamburg-Volksdorf,Фолксдорф,,Free and Hanseatic City of Hamburg,DE
+Volksdorf,Volksdorf,Folksdorf,Hamburg-Volksdorf,Фолксдорф,,Hamburg,DE
 Völklingen,Voelklingen,Fel'klingen,Felklingen,Fjol'klingen,Voelklingen,Saarland,DE
 Voerde,Voerde,Ferde,Fjorde,Forde,Voerde,North Rhine-Westphalia,DE
 Vlotho,Vlotho,Floto,Flotowe,Flôtôwe,flwtw,North Rhine-Westphalia,DE
@@ -8037,7 +8080,7 @@ Versmold,Versmold,Fersmele,Fersmol'd,Fersmold,Versmold,North Rhine-Westphalia,DE
 Verl,Verl,Ferl,Ferl',Verl,fei er,North Rhine-Westphalia,DE
 Verden,Verden,Ferden,QVQ,Veern,Verden,Lower Saxony,DE
 Velbert,Velbert,Fel'bert,Felbert,Velbed,Velbert,North Rhine-Westphalia,DE
-Vegesack,Vegesack,Bremen-Vegesack,Vegesack,,,Free Hanseatic City of Bremen,DE
+Vegesack,Vegesack,Bremen-Vegesack,Vegesack,,,Bremen,DE
 Vechta,Vechta,Fekhta,Vechta,Vechte,fei xi ta,Lower Saxony,DE
 Vechelde,Vechelde,Fehtlon [a. 973],Fekhel'de,Fekhelde,Vechel,Lower Saxony,DE
 Vaterstetten,Vaterstetten,Fatershteten,Fatershtetten,fa te er si te teng,wtrsttn,Bavaria,DE
@@ -8086,10 +8129,10 @@ Stolberg,Stolberg,Shtol'berg,Shtolberg,Sjtolberg,Stolberg,North Rhine-Westphalia
 Stockelsdorf,Stockelsdorf,,,,,Schleswig-Holstein,DE
 Stockach,Stockach,Shtokakh,Shtokkakh,Stockach,shi tuo ka,Baden-Wurttemberg,DE
 Stendal,Stendal,Hansestadt Stendal,Shtendal,Shtendal',Stendal,Saxony-Anhalt,DE
-Stellingen,Stellingen,,,,,Free and Hanseatic City of Hamburg,DE
+Stellingen,Stellingen,,,,,Hamburg,DE
 Steinhagen,Steinhagen,Steinhagen,,,,North Rhine-Westphalia,DE
 Steinfurt,Steinfurt,Shhajnfurt,Shtajnfurt,Staynfurt,Stemmert,North Rhine-Westphalia,DE
-Steilshoop,Steilshoop,,,,,Free and Hanseatic City of Hamburg,DE
+Steilshoop,Steilshoop,,,,,Hamburg,DE
 Steglitz,Steglitz Bezirk,Berlin-Steglitz,Shteglic,Steglitz,Штеглиц,State of Berlin,DE
 Staßfurt,Stassfurt,Shtasfurt,Stadt Stassfurt,Stadt Staßfurt,Stassfurt,Saxony-Anhalt,DE
 Starnberg,Starnberg,Shharnberg,Shtarnberg,Starenberg,Starnberg,Bavaria,DE
@@ -8113,11 +8156,10 @@ Sinzig,Sinzig,Sentiacum,Sinzig,Zincig,Zincigas,Rheinland-Pfalz,DE
 Sinsheim,Sinsheim,Sinse,Zinsgajm,Zinsheimas,Zinskhajm,Baden-Wurttemberg,DE
 Singen,Singen,Singen,Zingen,singena,xin gen,Baden-Wurttemberg,DE
 Sindelfingen,Sindelfingen,Sindelfingen,ZPZ,Zindel'fingen,Zindelfingen,Baden-Wurttemberg,DE
-Simmerath,Simmerath,Simmerath,Soemmert,Sömmert,Zimerat,North Rhine-Westphalia,DE
 Sigmaringen,Sigmaringen,Sigmaringa,Sigmaringen,Zigmaringen,Zigmaryngen,Baden-Wurttemberg,DE
 Siegen,Siegen,SGE,Siegen,Zigen,jigen,North Rhine-Westphalia,DE
 Siegburg,Siegburg,Sieburch,Siegburg,Siegburgum,ZPY,North Rhine-Westphalia,DE
-Langenhorn,Langenhorn,,,,,Free and Hanseatic City of Hamburg,DE
+Langenhorn,Langenhorn,,,,,Hamburg,DE
 Senftenberg,Senftenberg,Senftenberg,Zenftenberg,Zenftenbergas,Zly Komorow,Brandenburg,DE
 Senden,Senden,Senden,,,,North Rhine-Westphalia,DE
 Senden,Senden,,,,,Bavaria,DE
@@ -8151,7 +8193,7 @@ Schopfheim,Schopfheim,Shopfgajm,Shopfkhajm,shao pu fu hai mu,shpfhaym,Baden-Wurt
 Schöneberg,Schoeneberg,Schoeneberg,Schöneberg,,,State of Berlin,DE
 Schönebeck,Schoenebeck,Schoenebeck (Elbe),Schoennebeck,Schonebeck,Schönebeck,Saxony-Anhalt,DE
 Schneverdingen,Schneverdingen,Gemeen Snevern,Schneverdingen,Shneferdingen,Shneverdingen,Lower Saxony,DE
-Schnelsen,Schnelsen,Schnelsen,,,,Free and Hanseatic City of Hamburg,DE
+Schnelsen,Schnelsen,Schnelsen,,,,Hamburg,DE
 Schneeberg,Schneeberg,Schneeberg,Shneberg,ashnybrg,Шнеберг,Saxony,DE
 Schmelz,Schmelz,,,,,Saarland,DE
 Schmargendorf,Schmargendorf,Berlin-Schmargendorf,,,,State of Berlin,DE
@@ -8164,7 +8206,7 @@ Schiffweiler,Schiffweiler,Shifvajler,xi fu wei lai er,Шифвайлер,Шиф�
 Schifferstadt,Schifferstadt,Schifferstadt,Schiwwerschdadd,Shifershtat,Shiffershtadt,Rheinland-Pfalz,DE
 Scharnhorst,Scharnhorst,,,,,North Rhine-Westphalia,DE
 Bad Saulgau,Bad Saulgau,Saulgau,,,,Baden-Wurttemberg,DE
-Sasel,Sasel,,,,,Free and Hanseatic City of Hamburg,DE
+Sasel,Sasel,,,,,Hamburg,DE
 Sarstedt,Sarstedt,Sarstedt,Zarshtedt,Zarshtet,sa er si te,Lower Saxony,DE
 Sankt Wendel,Sankt Wendel,Kreisstadt Sankt Wendel,Sankt Wendel,Sankt-Vendel',Санкт-Вендель,Saarland,DE
 Sankt Ingbert,Sankt Ingbert,Sankt Ingbert,,,,Saarland,DE
@@ -8182,14 +8224,14 @@ Rudow,Rudow,Berlin-Rudow,,,,State of Berlin,DE
 Rudolstadt,Rudolstadt,Rudol'shtadt,Rudolphopolis,Rudolshhat,Rudolshtat,Thuringia,DE
 Rottweil,Rottweil,Rottovilla,Rottweil,Rotvajl,Rotvajl',Baden-Wurttemberg,DE
 Rottenburg,Rottenburg,,,,,Baden-Wurttemberg,DE
-Rotherbaum,Rotherbaum,Hamburg-Rotherbaum,Roterbaum,Rotherbaum,Ротербаум,Free and Hanseatic City of Hamburg,DE
+Rotherbaum,Rotherbaum,Hamburg-Rotherbaum,Roterbaum,Rotherbaum,Ротербаум,Hamburg,DE
 Roth,Roth,Rot,Rota,Roth,Roth bei Nuernberg,Bavaria,DE
 Rotenburg,Rotenburg,Rotenburg,Rotenburg (Wuemme),Rotenburg (Wumme),Rotenburg (Wümme),Lower Saxony,DE
 Rostock,Rostock,RLG,Roshhok,Roshtok,Rostak,Mecklenburg-Vorpommern,DE
 Rösrath,Roesrath,Resrat,Rjosrat,Roesrath,Roesrod,North Rhine-Westphalia,DE
 Rosenheim,Rosenheim,Pons Aeni,Rosenheim,Rousnam,Rozengajm,Bavaria,DE
 Ronnenberg,Ronnenberg,Ronenberg,Ronnenberg,luo nen bei ge,rnnbwrg,Lower Saxony,DE
-Rissen,Rissen,Hamburg-Rissen,Risen,Rissen,Рисен,Free and Hanseatic City of Hamburg,DE
+Rissen,Rissen,Hamburg-Rissen,Risen,Rissen,Рисен,Hamburg,DE
 Rinteln,Rinteln,Rintel'n,Rinteln,Stadt Rinteln,lin te er en,Lower Saxony,DE
 Rietberg,Rietberg,Rietberg,Ritberg,li te bei ge,rytbrg,North Rhine-Westphalia,DE
 Riesa,Riesa,IES,Riesa,Riza,Ryzawa,Saxony,DE
@@ -8220,7 +8262,7 @@ Rathenow,Rathenow,Ratenov,Ratenovia,Rathenow,la te nuo,Brandenburg,DE
 Ratekau,Ratekau,Ratekau,Ратекау,,,Schleswig-Holstein,DE
 Rastede,Rastede,Raastaee,Raastäe,Rastede,la si te de,Lower Saxony,DE
 Rastatt,Rastatt,Rashhat,Rashtat,Rashtatt,Rastatt,Baden-Wurttemberg,DE
-Rahlstedt,Rahlstedt,Hamburg-Rahlstedt,Ralshtet,Ралштет,,Free and Hanseatic City of Hamburg,DE
+Rahlstedt,Rahlstedt,Hamburg-Rahlstedt,Ralshtet,Ралштет,,Hamburg,DE
 Rahden,Rahden,Raden,Rahden,Rakhden,raden,North Rhine-Westphalia,DE
 Radolfzell,Radolfzell,Radol'fcell',Radolfcel am Bodenze,Radolfzell,Radolfzell am Bodensee,Baden-Wurttemberg,DE
 Radevormwald,Radevormwald,Radeformval'd,Radeformvald,Radevormwald,la de fu er mu wa er de,North Rhine-Westphalia,DE
@@ -8238,7 +8280,7 @@ Preetz,Preetz,Prec,Preetz,bryyts,prytts,Schleswig-Holstein,DE
 Potsdam,Potsdam,Poczdam,Podstupim,Postupim,Potsdam,Brandenburg,DE
 Porz am Rhein,Porz am Rhein,Koeln-Porz,Köln-Porz,Porz,Porz am Rhein,North Rhine-Westphalia,DE
 Porta Westfalica,Porta Westfalica,,,,,North Rhine-Westphalia,DE
-Poppenbüttel,Poppenbuettel,Hamburg-Poppenbuettel,Hamburg-Poppenbüttel,Popenbitel,Попенбител,Free and Hanseatic City of Hamburg,DE
+Poppenbüttel,Poppenbuettel,Hamburg-Poppenbuettel,Hamburg-Poppenbüttel,Popenbitel,Попенбител,Hamburg,DE
 Plettenberg,Plettenberg,Pletenberg,Plettenberg,Plettmert,Stadt Plettenberg,North Rhine-Westphalia,DE
 Plauen,Plauen,Plauehn,Plauen,Plauenas,Plauene,Saxony,DE
 Pirna,Pirna,Perno,Pirna,Pěrno,brna,Saxony,DE
@@ -8259,13 +8301,12 @@ Pankow,Pankow,Pankov,Pankow,pankw,pnqw,State of Berlin,DE
 Paderborn,Paderborn,PAD,Padehrborn,Paderborn,Paderborna,North Rhine-Westphalia,DE
 Oyten,Oyten,Eiten,Ojten,Oyten,ao yi teng,Lower Saxony,DE
 Overath,Overath,Oferat,Overat,ao fei la te,awfrat,North Rhine-Westphalia,DE
-Ottweiler,Ottweiler,Ottvajler,Otvailer,Otvajler,ao te wei lei,Saarland,DE
 Ottobrunn bei München,Ottobrunn bei Muenchen,Otobrun,Ottobrunn,Ottomproun,ao tuo bu lun,Bavaria,DE
-Ottensen,Ottensen,Hamburg-Ottensen,Otenzen,Ottensen,Отензен,Free and Hanseatic City of Hamburg,DE
-Othmarschen,Othmarschen,Hamburg-Othmarschen,Otmarshen,Отмаршен,,Free and Hanseatic City of Hamburg,DE
+Ottensen,Ottensen,Hamburg-Ottensen,Otenzen,Ottensen,Отензен,Hamburg,DE
+Othmarschen,Othmarschen,Hamburg-Othmarschen,Otmarshen,Отмаршен,,Hamburg,DE
 Osterholz-Scharmbeck,Osterholz-Scharmbeck,Oosterholt-Scharmbeek,Osterholz-Scharmbeck,Osterkhol'c-Sharmbek,Osterkholc-Sharmbek,Lower Saxony,DE
 Osnabrück,Osnabrueck,Asnabruk,Osnabrik,Osnabrika,Osnabriukas,Lower Saxony,DE
-Osdorf,Osdorf,,,,,Free and Hanseatic City of Hamburg,DE
+Osdorf,Osdorf,,,,,Hamburg,DE
 Oschersleben,Oschersleben,FRF,Oschersleben,Oscherslewwe,Oshersleben,Saxony-Anhalt,DE
 Oschatz,Oschatz,Osaca,Oschatz,Oshac,Ossitium,Saxony,DE
 Oranienburg,Oranienburg,Aranienburg,Arausionis castrum,Oranienburg,Oraninburg,Brandenburg,DE
@@ -8291,7 +8332,7 @@ Oberkirch,Oberkirch,Oberkirkh,awbrkyrsh,Оберкирх,Оберкірх,Baden-
 Oberhausen,Oberhausen,Obergauzen,Oberhausen,Oberhauzen,Oberhauzenas,North Rhine-Westphalia,DE
 Oberasbach,Oberasbach,Oberasbakh,Oberasbax,awbrasbakh,shang a si ba he,Bavaria,DE
 Nürtingen,Nurtingen,Nirtingen,Njurtingen,Nuertingen,Nurtinga,Baden-Wurttemberg,DE
-Nürnberg,Nuernberg,NUE,Neurenberch,Neurenberg,Niamberg,Bavaria,DE
+Nuremberg,Nuremberg,NUE,Neurenberch,Neurenberg,Niamberg,Bavaria,DE
 Nümbrecht,Nuembrecht,Nimbrekht,Njumbrekht,Nuembrecht,Numbrecht,North Rhine-Westphalia,DE
 Nottuln,Nottuln,Nottul'n,Notuln,nuo tu er en,Ноттульн,North Rhine-Westphalia,DE
 Northeim,Northeim,Northeim,Nortkhajm,Nuurten,norutohaimu,Lower Saxony,DE
@@ -8302,7 +8343,7 @@ Norderstedt,Norderstedt,Nordershtedt,Nordershtet,Norderstedt,Norderstedt Stadt,S
 Nordenham,Nordenham,Nordenham,Nordenkham,Nordenkhame,Stadt Nordenham,Lower Saxony,DE
 Norden,Norden,NOD,Noerden,Norden,Nörden,Lower Saxony,DE
 Nippes,Nippes,,,,,North Rhine-Westphalia,DE
-Niendorf,Niendorf,Hamburg-Niendorf,Nindorf,ning duo fu,Ниндорф,Free and Hanseatic City of Hamburg,DE
+Niendorf,Niendorf,Hamburg-Niendorf,Nindorf,ning duo fu,Ниндорф,Hamburg,DE
 Nienburg,Nienburg,Nienborg,Nienburg,Nienburg/Weser,Nijnburg,Lower Saxony,DE
 Niederschönhausen,Niederschoenhausen,Berlin-Niederschonhausen,Berlin-Niederschönhausen,Nidershjonkhauzen,Нидершёнхаузен,State of Berlin,DE
 Niederkrüchten,Niederkruchten,Niderkrikhten,Niderkrjukhten,Niederkirchen,Niederkruchten,North Rhine-Westphalia,DE
@@ -8310,12 +8351,11 @@ Niederkassel,Niederkassel,Neddekaassel,Neddekaaßel,Niderkasel,Niderkassel',Nort
 Nieder-Ingelheim,Nieder-Ingelheim,Ingelheim-Mitte,Nieder-Ingelheim,,,Rheinland-Pfalz,DE
 Nidderau,Nidderau,Nidderau,Niderau,ni de lao,nidderau,Hesse,DE
 Nidda,Nidda,Nida,Nidda,ni da,nyda  hsn,Hesse,DE
-Neu Wulmstorf,Neu Wulmstorf,Noj Vulmstorf,Noj-Vul'mstorf,Vosshusen,xin wu er mu si tuo fu,Lower Saxony,DE
+Neu Wulmstorf,Neu Wulmstorf,Neu Wulmstorf,Neu-Wulmstorf,Noj Vulmstorf,Noj-Vul'mstorf,Lower Saxony,DE
 Neuwied,Neuwied,Langendorf,Neuweid,Neuwied,Nojvid,Rheinland-Pfalz,DE
 Neu-Ulm,Neu-Ulm,Nei-Ulm,Neu Ulm,Neu-Ulm,Noea Ulma,Bavaria,DE
 Neustrelitz,Neustrelitz,Neistrelica,Neištrēlica,Neustrelitz,Nieg Strelitz,Mecklenburg-Vorpommern,DE
 Neustadt in Holstein,Neustadt in Holstein,Neustadt,Neustadt en Holstein,Niestadt in Holsteen,Nojshtadt,Schleswig-Holstein,DE
-Neustadt bei Coburg,Neustadt bei Coburg,Neustadt,Neustadt b.Coburg,Neustadt bei Coburg,Nojshtadt-Koburg,Bavaria,DE
 Neustadt an der Weinstraße,Neustadt an der Weinstrasse,Neustadt,Neustadt an der Haardt,Neustadt an der Weinstrasse,Neustadt an der Weinstraße,Rheinland-Pfalz,DE
 Neustadt am Rübenberge,Neustadt am Ruebenberge,Neustadt,Neustadt am Rbge,Neustadt am Rubenberge,Neustadt am Ruebenberge,Lower Saxony,DE
 Neue Neustadt,Neue Neustadt,Hieronymusstadt,Magdeburg-Neustadt,Neue Neustadt,Nojshtadt,Saxony-Anhalt,DE
@@ -8327,7 +8367,7 @@ Neumünster,Neumuenster,EUM,Naimuenster,Naimünster,Neumuenster,Schleswig-Holste
 Neumarkt in der Oberpfalz,Neumarkt in der Oberpfalz,Aukstutinio Pfalco Noimarktas,Aukštutinio Pfalco Noimarktas,Neumarkt,Neumarkt i.d.OPf.,Bavaria,DE
 Neukölln,Neukoelln,Berlin-Neukoelln,Berlin-Neukölln,Neukoelln,Neukölln,State of Berlin,DE
 Neu-Isenburg,Neu-Isenburg,Neu Isenburg,Neu-Isenburg,Neulsenburg,Noj-Izenburg,Hesse,DE
-Neugraben-Fischbek,Neugraben-Fischbek,Hamburg-Neugraben-Fischbek,Nojgraben-Fishbek,Нојграбен-Фишбек,,Free and Hanseatic City of Hamburg,DE
+Neugraben-Fischbek,Neugraben-Fischbek,Hamburg-Neugraben-Fischbek,Nojgraben-Fishbek,Нојграбен-Фишбек,,Hamburg,DE
 Neufahrn bei Freising,Neufahrn bei Freising,Neufahrn,Neufahrn apud Freising,Neufahrn bei Freising,Nojfarn baj Frajsinga,Bavaria,DE
 Neuenhagen,Neuenhagen,,,,,Brandenburg,DE
 Neuburg an der Donau,Neuburg an der Donau,Danubi Noyburg,Neiburg an da Donau,Neubourg-sur-le-Danube,Neuburg,Bavaria,DE
@@ -8351,7 +8391,7 @@ Mühlheim am Main,Muehlheim am Main,Milkhajm na Majni,Mjul'gajm-am-Majn,Mjul'kha
 Stuttgart Mühlhausen,Stuttgart Muehlhausen,Muehlhausen,Mühlhausen,,,Baden-Wurttemberg,DE
 Mühlhausen,Muehlhausen,Milkhauzen,Mjul'khauzen,Mjulkhauzen,Muehlhausen,Thuringia,DE
 Mühldorf,Muehldorf,Muehldorf,Muhldorf,Muhldorf am Inn,Mühldorf,Bavaria,DE
-Mühlacker,Muhlacker,Milaker,Mjulakker,Muehlacker,Muhlacker,Baden-Wurttemberg,DE
+Mühlacker,Muehlacker,Milaker,Mjulakker,Muehlacker,Muhlacker,Baden-Wurttemberg,DE
 Much,Much,Much,,,,North Rhine-Westphalia,DE
 Mössingen,Mossingen,Mesingen,Messingen,Mjosingen,Mjossingen,Baden-Wurttemberg,DE
 Mosbach,Mosbach,Mosbach,Mosbach in Baden,Mosbakh,Mossbach,Baden-Wurttemberg,DE
@@ -8402,7 +8442,7 @@ Mahlsdorf,Mahlsdorf,Berlin-Mahlsdorf,,,,State of Berlin,DE
 Magdeburg,Magdeburg,CSO,Dzewin,Dźěwin,Maagdenburg,Saxony-Anhalt,DE
 Lütgendortmund,Luetgendortmund,,,,,North Rhine-Westphalia,DE
 Lusan,Lusan,,,,,Thuringia,DE
-Lurup,Lurup,Hamburg-Lurup,,,,Free and Hanseatic City of Hamburg,DE
+Lurup,Lurup,Hamburg-Lurup,,,,Hamburg,DE
 Lünen,Luenen,Hliunon,Linen,Ljunen,Luenen,North Rhine-Westphalia,DE
 Lüneburg,Lueneburg,Glain,Lineburg,Ljuneburg,Luemborg,Lower Saxony,DE
 Ludwigshafen am Rhein,Ludwigshafen am Rhein,Liudvigshafenas prie Reino,Ljudvigsgafen-na-Rejni,Ljudvigskhafen-na-Rejne,Lountvichschafen,Rheinland-Pfalz,DE
@@ -8425,7 +8465,7 @@ Lohmar,Lohmar,Lohmar,Lomar,Luhme,lmar,North Rhine-Westphalia,DE
 Löbtau,Loebtau,Lobtau,Löbtau,,,Saxony,DE
 Löbau,Loebau,L'obau,Lebau,Lebava,Ljobau,Saxony,DE
 Lippstadt,Lippstadt,Lip'stant,Lippshtadt,Lippshtadte,Lippstadt,North Rhine-Westphalia,DE
-Lingen,Lingen,Lingen,lin gen,lynghn,lyngn,Lower Saxony,DE
+Lingen,Lingen,Lingen,Lingen (Ems),lin gen,lynghn,Lower Saxony,DE
 Lindlar,Lindlar,Lenkeln,Lindlar,lin de la er,Линдлар,North Rhine-Westphalia,DE
 Linden-Nord,Linden-Nord,,,,,Lower Saxony,DE
 Linden,Linden,,,,,Lower Saxony,DE
@@ -8478,7 +8518,6 @@ Kronberg,Kronberg,Cronberg in Taunus,Kronberg im Taunus,,,Hesse,DE
 Kronach,Kronach,Crana,Kronakh,Kronax,kironac,Bavaria,DE
 Kreuztal,Kreuztal,Kreuztal,Kreuzthal,Krojctal,Krojctal',North Rhine-Westphalia,DE
 Kreuzberg,Kreuzberg,Berlin-Kreuzberg,Kreizberg,Kreuzberg,Krojcberg,State of Berlin,DE
-Kreuzau,Kreuzau,Kreuzau,Kreuzau uber Duren,Kreuzau über Düren,Krojcau,North Rhine-Westphalia,DE
 Krefeld,Krefeld,Crefeld,Krefel'd,Krefeld,Krefeld-Uerdingen,North Rhine-Westphalia,DE
 Köthen,Koethen,Cothen,Cothena,Cöthen,K'oten,Saxony-Anhalt,DE
 Korschenbroich,Korschenbroich,Korshenbroikh,Korshenbrojkh,Korsjebrooch,ke er shen bu luo yi xi,North Rhine-Westphalia,DE
@@ -8493,7 +8532,7 @@ Königs Wusterhausen,Koenigs Wusterhausen,Kenigs Vusterkhauzen,Kenigs-Vusterkhau
 Königswinter,Koenigswinter,K'onigsvinter,Kenigsvinter,Kjonigsvinter,Koenigsvinter,North Rhine-Westphalia,DE
 Königstein im Taunus,Koenigstein im Taunus,Kenigshtajn na Taunusu,Kenigshtajn-im-Taunus,Kjonigshtajn,Koenigstein im Taunus,Hesse,DE
 Königslutter am Elm,Koenigslutter am Elm,Kenigsluter am Elm,Kjonigslutehr-na-Ehl'me,Kjonigslutter-am-Ehl'm,Koenigslutter am Elm,Lower Saxony,DE
-Königsbrunn,Konigsbrunn,Kenigsbrun,Kenigsbrunn,Kjonigsbrunn,Konigsbrunn,Bavaria,DE
+Königsbrunn,Koenigsbrunn,Kenigsbrun,Kenigsbrunn,Kjonigsbrunn,Konigsbrunn,Bavaria,DE
 Köln,Koeln,Augusta Ubiorum,CGN,Cologna,Cologne,North Rhine-Westphalia,DE
 Kolbermoor,Kolbermoor,Koiwamoor,Kol'bermor,Kolbermoor,Kolbermor,Bavaria,DE
 Koblenz,Koblenz,Coblenca,Coblence,Coblentz,Coblenz,Rheinland-Pfalz,DE
@@ -8524,6 +8563,7 @@ Karlsruhe,Karlsruhe,Carlsruhe,Carolsruha,FKB,Kallsruh,Baden-Wurttemberg,DE
 Karlshorst,Karlshorst,Berlin-Karlshorst,Karlskhorst,Карлсхорст,კარლსჰორსტი,State of Berlin,DE
 Karlsfeld,Karlsfeld,Karlsfejd,Karlsfel'd,Karlsfeld,ka er si fei er de,Bavaria,DE
 Karben,Karben,Karben,ka er ben,karbn,karuben,Hesse,DE
+Kapellen,Kapellen,Kapellen,gldrn-kapln,Капеллен,گلدرن-کاپلن,North Rhine-Westphalia,DE
 Kamp-Lintfort,Kamp-Lintfort,Kamp-Lintfort,Lapangan Terbang Kamp-Lintfort,kamb-lyntfwrt,kan pu-lin te fu er te,North Rhine-Westphalia,DE
 Kamenz,Kamenz,Camentia,Kamenc,Kamenca,Kamenec,Saxony,DE
 Kamen,Kamen,Kamen,Kameno,ka men,kamen,North Rhine-Westphalia,DE
@@ -8548,7 +8588,7 @@ Ibbenbueren,Ibbenbueren,Ibbenbjuren,Ibbenbueren,Ibbenbüren,Ibenbiren,North Rhin
 Husum,Husum,Guzum,Huesem,Husum,Hüsem,Schleswig-Holstein,DE
 Hürth,Huerth,Gjurt,Hiurtas,Huerth,Hürth,North Rhine-Westphalia,DE
 Hünfeld,Huenfeld,Gjunfel'd,Huenfeld,Hünfeld,Khinfeld,Hesse,DE
-Hummelsbüttel,Hummelsbuettel,,,,,Free and Hanseatic City of Hamburg,DE
+Hummelsbüttel,Hummelsbuettel,,,,,Hamburg,DE
 Humboldtkolonie,Humboldtkolonie,Humboldt/Gremberg,,,,North Rhine-Westphalia,DE
 Hude,Hude,Hude,Hude (Oldenburg),Khude,Худе,Lower Saxony,DE
 Hückeswagen,Hueckeswagen,Gjukkesvagen,Huckeswagen,Hueckeswagen,Hückeswagen,North Rhine-Westphalia,DE
@@ -8558,7 +8598,7 @@ Hoyerswerda,Hoyerswerda,Goersverda,Hojerice,Hojersverda,Hojeřice,Saxony,DE
 Höxter,Hoexter,Hoexter,Hoxaria,Huscaria,Huxaria,North Rhine-Westphalia,DE
 Hövelhof,Hovelhof,Gefel'gof,Hoevelhof,Hovelhof,Hövelhof,North Rhine-Westphalia,DE
 Hörstel,Hoerstel,Gerstel',Hoerstel,Horstel,Hörstel,North Rhine-Westphalia,DE
-Horn,Horn,Hamburg-Horn,Khorn,Хорн,,Free and Hanseatic City of Hamburg,DE
+Horn,Horn,Hamburg-Horn,Khorn,Хорн,,Hamburg,DE
 Hörde,Hoerde,Dortmund-Hoerde,Dortmund-Hörde,Hoerde,,North Rhine-Westphalia,DE
 Horb am Neckar,Horb am Neckar,Gorb-am-Nekkar,Horb,Khorb am Nekar,Khorb-am-Nekkar,Baden-Wurttemberg,DE
 Homburg,Homburg,Homburg,,,,Saarland,DE
@@ -8608,28 +8648,28 @@ Heidenau,Heidenau,Khajdenau,hai de nao,haydhnaw,haydnaw,Saxony,DE
 Heidelberg,Heidelberg,Chaidelvergi,Edelberga,Gajdel'berg,Gejdehl'berg,Baden-Wurttemberg,DE
 Heide,Heide,HEI,Heid,Heide,Khajde,Schleswig-Holstein,DE
 Hechingen,Hechingen,Gekhingen,Khekhingen,hei xin gen,hkyngn,Baden-Wurttemberg,DE
-Hausbruch,Hausbruch,,,,,Free and Hanseatic City of Hamburg,DE
+Hausbruch,Hausbruch,,,,,Hamburg,DE
 Hattingen,Hattingen,Chatin'nken,Hattingen,Khatingen,Khattingen,North Rhine-Westphalia,DE
 Hattersheim,Hattersheim,Hattersheim,,,,Hesse,DE
 Haßloch,Hassloch,Hafsloch,Hassloch,Haßloch,Khaslokh,Rheinland-Pfalz,DE
 Haselhorst,Haselhorst,Berlin-Haselhorst,Haselhorst,,,State of Berlin,DE
-Harvestehude,Harvestehude,Harvestehude,,,,Free and Hanseatic City of Hamburg,DE
+Harvestehude,Harvestehude,Harvestehude,,,,Hamburg,DE
 Harsewinkel,Harsewinkel,Garzevinkel',Harsewinkel,Haswinkil,Hoswinkil,North Rhine-Westphalia,DE
 Harpen,Harpen,Harpena,Harpunni,,,North Rhine-Westphalia,DE
 Haren,Haren,Haren,Haren (Ems),,,Lower Saxony,DE
-Harburg,Harburg,Bezirk Harburg,Bezirk Horborg,Distretto di Harburg,Districte dHarburg,Free and Hanseatic City of Hamburg,DE
+Harburg,Harburg,Bezirk Harburg,Bezirk Horborg,Distretto di Harburg,Districte dHarburg,Hamburg,DE
 Hannover,Hannover,Annobero,Gannovehr,Gannover,Ganover,Lower Saxony,DE
 Hanau am Main,Hanau am Main,Chanaou,Hanau,Hanau am Main,Khanau,Hesse,DE
 Hamminkeln,Hamminkeln,Gamminkel'n,Hamminkeln,Khaminkeln,Khamminkel'n,North Rhine-Westphalia,DE
-Hamm,Hamm,,,,,Free and Hanseatic City of Hamburg,DE
+Hamm,Hamm,,,,,Hamburg,DE
 Hamm,Hamm,Gamm,Hamas,Hamm,Hammona,North Rhine-Westphalia,DE
 Hameln,Hameln,Gamel'n,Hamala,Hamelen,Hamelin,Lower Saxony,DE
-Wandsbek,Wandsbek,Hamburg-Wandsbek,Vandsbek,Wandsbek,Вандсбек,Free and Hanseatic City of Hamburg,DE
-Marienthal,Marienthal,Hamburg-Marienthal,,,,Free and Hanseatic City of Hamburg,DE
-Hamburg-Mitte,Hamburg-Mitte,Arrondissement de Hambourg-Mitte,Bezirk Hamburg-Mitte,Distretto di Hamburg-Mitte,Hamborg-Mitt,Free and Hanseatic City of Hamburg,DE
-Eimsbüttel,Eimsbuettel,Ajmsbitel,Ajmsbjuttel',Bezirk Eimsbuettel,Bezirk Eimsbüttel,Free and Hanseatic City of Hamburg,DE
-Altona,Altona,Al'tona,Altno,Altona,Arrondissement dAltona,Free and Hanseatic City of Hamburg,DE
-Hamburg,Hamburg,Amborg,Ambourgo,Amburgo,Amburgu,Free and Hanseatic City of Hamburg,DE
+Wandsbek,Wandsbek,Hamburg-Wandsbek,Vandsbek,Wandsbek,Вандсбек,Hamburg,DE
+Marienthal,Marienthal,Hamburg-Marienthal,,,,Hamburg,DE
+Hamburg-Mitte,Hamburg-Mitte,Arrondissement de Hambourg-Mitte,Bezirk Hamburg-Mitte,Distretto di Hamburg-Mitte,Hamborg-Mitt,Hamburg,DE
+Eimsbüttel,Eimsbuettel,Ajmsbitel,Ajmsbjuttel',Bezirk Eimsbuettel,Bezirk Eimsbüttel,Hamburg,DE
+Altona,Altona,Al'tona,Altno,Altona,Arrondissement dAltona,Hamburg,DE
+Hamburg,Hamburg,Amborg,Ambourgo,Amburgo,Amburgu,Hamburg,DE
 Halver,Halver,Gal'fer,Halvara,Halver,Khal'fer,North Rhine-Westphalia,DE
 Haltern am See,Haltern am See,Halahtron,Halostrun,Haltern,Haltern in Westfalen,North Rhine-Westphalia,DE
 Halstenbek,Halstenbek,Halstenbek,Khal'stenbek,Khalstenbek,ha er si teng bei ke,Schleswig-Holstein,DE
@@ -8702,7 +8742,7 @@ Garbsen,Garbsen,Garbsen,Garbseno,Garbzen,Gerbernessen [a. 1286],Lower Saxony,DE
 Ganderkesee,Ganderkesee,Ganderkesee,Ganderkeze,gan de er ke sai,Гандеркезе,Lower Saxony,DE
 Gaggenau,Gaggenau,Gagenau,Gaggenau,gagnaw,ghaghnaw,Baden-Wurttemberg,DE
 Füssen,Fuessen,Abdiacum,Fiassa,Fisen,Fiusenas,Bavaria,DE
-Fürth,Furth,Firt,Fiurtas,Fjurt,Fuerth,Bavaria,DE
+Fürth,Fuerth,Firt,Fiurtas,Fjurt,Fuerth,Bavaria,DE
 Fürstenwalde,Fuerstenwalde,Firstenvalde,Fjurstenval'de,Fuerstenwalde,Fuerstenwalde/Spree,Brandenburg,DE
 Fürstenfeldbruck,Fuerstenfeldbruck,Bruck,FEL,Firstenfeldbruk,Fiurstenfeldbrukas,Bavaria,DE
 Fulda,Fulda,Foulnta,Ful'da,Fulda,ZEE,Hesse,DE
@@ -8730,7 +8770,6 @@ Frankfurt am Main,Frankfurt am Main,FFM,FRA,Francfort,Francfort - Frankfurt am M
 Frankfurt (Oder),Frankfurt (Oder),Francfort,Francfort del Oder,Francfort del Odra,Francfort-sur-l'Oder,Brandenburg,DE
 Frankenthal,Frankenthal,Frankental,Frankental',Frankenthal,Frongedahl,Rheinland-Pfalz,DE
 Frankenberg,Frankenberg,Frankenberg,franknbrg,franknbrgh,fu lan ken bei ge,Hesse,DE
-Frankenberg,Frankenberg,Frankenberg,Frankenberg/Sa.,Frankenberga/Sa.,Frankenburg,Saxony,DE
 Forst,Forst,Barsac,Barsc,Barsc (Luzyca),Baršć,Brandenburg,DE
 Forchheim,Forchheim,Forchheim,Forchheim / Bayern,Forchheimas,Forkhgajm,Bavaria,DE
 Flörsheim,Floersheim,Floersheim am Main,Florsheim,Florsheim am Main,Flörsheim,Hesse,DE
@@ -8758,7 +8797,7 @@ Erfurt,Erfurt,ERF,Ehrfurt,Erfesfurt [a. 1144],Erfordia,Thuringia,DE
 Erftstadt,Erftstadt,Ehrftshtadt,Erftshtadt,Erftshtat,Erftstadt,North Rhine-Westphalia,DE
 Erding,Erding,Aerding,Arrdeng,Ehrding,Erding,Bavaria,DE
 Eppingen,Eppingen,Ehppingen,Epingen,Epingenas,Eppingen,Baden-Wurttemberg,DE
-Eppendorf,Eppendorf,,,,,Free and Hanseatic City of Hamburg,DE
+Eppendorf,Eppendorf,,,,,Hamburg,DE
 Eppelborn,Eppelborn,Ehppel'born,Epelborn,Eppel'born,Eppelborn,Saarland,DE
 Ennigerloh,Ennigerloh,Aningeroloh,Aningerolôh,Ehnnigerlo,Enigerlokh,North Rhine-Westphalia,DE
 Ennepetal,Ennepetal,Ehnnepetal',Enepetal,Iaempedal,Iämpedal,North Rhine-Westphalia,DE
@@ -8774,13 +8813,13 @@ Elmshorn,Elmshorn,Ehl'mskhorn,Elmshorn,Elmshornas,Elmskhorn,Schleswig-Holstein,D
 Elmschenhagen,Elmschenhagen,Elmschenhagen,,,,Schleswig-Holstein,DE
 Ellwangen,Ellwangen,Ehl'vangen,Ell'vangen,Ellwanga,Elvangen,Baden-Wurttemberg,DE
 Eitorf,Eitorf,Aitorf,Ajtorf,Eitdorf,Eitorf,North Rhine-Westphalia,DE
-Eißendorf,Eissendorf,Eissendorf,Eißendorf,,,Free and Hanseatic City of Hamburg,DE
+Eißendorf,Eissendorf,Eissendorf,Eißendorf,,,Hamburg,DE
 Eislingen,Eislingen,Ajslingen,Ajzlingen,Eislingen-Fils,Eislingen/Fils,Baden-Wurttemberg,DE
 Eisenhüttenstadt,Eisenhuettenstadt,Ajzenkhitenshtat,Ajzenkhjutenshhat,Ajzenkhjuttenshtadt,Eisenhuettenstadt,Brandenburg,DE
 Eisenach,Eisenach,Aizenach,Ajzenakh,EIB,Eisenach,Thuringia,DE
 Einbeck,Einbeck,Aimbeck,Ainmpek,Ajnbek,Einbeck,Lower Saxony,DE
 Eilenburg,Eilenburg,Ajlenburg,Eilenburg,Eilenburga,Eilenburgum,Saxony,DE
-Eilbek,Eilbek,Ajlbek,Eilbeck,Eilbek,Hamburg-Eilbek,Free and Hanseatic City of Hamburg,DE
+Eilbek,Eilbek,Ajlbek,Eilbeck,Eilbek,Hamburg-Eilbek,Hamburg,DE
 Ehingen,Ehingen,Egingen,Ehingen,Ehingen Donau,Ehingen an der Donau,Baden-Wurttemberg,DE
 Eggenstein-Leopoldshafen,Eggenstein-Leopoldshafen,Egenshtajn-Leopoldskhafen,Eggenshtajn-Leopol'dsgafen,Eggenstein-Leopoldshafen,Ehggenshtajn-Leopol'dskhafen,Baden-Wurttemberg,DE
 Edewecht,Edewecht,Edevekht,Edewecht,Ehdevekht,Erwech,Lower Saxony,DE
@@ -8849,7 +8888,7 @@ Burgdorf,Burgdorf,Borchdoerp,Borchdörp,Borgtorff [a. 1654],Bortaerpe,Lower Saxo
 Burg bei Magdeburg,Burg bei Magdeburg,Burg,Stadt Burg bei Magdeburg,,,Saxony-Anhalt,DE
 Büren,Bueren,Biren,Bjuren,Bueren,Buren,North Rhine-Westphalia,DE
 Bünde,Buende,Binde,Bjunde,Buende,Buginithi,North Rhine-Westphalia,DE
-Bühl,Buhl,Bil,Bjul',Buehl,Buhl,Baden-Wurttemberg,DE
+Bühl,Buehl,Bil,Bjul',Buehl,Buhl,Baden-Wurttemberg,DE
 Buer,Buer,Buer,,,,North Rhine-Westphalia,DE
 Büdingen,Buedingen,Bidingen,Bjudingehn,Bjudingen,Buedingen,Hesse,DE
 Buckow,Buckow,Berlin-Buckow,,,,State of Berlin,DE
@@ -8866,8 +8905,8 @@ Britz,Britz,Berlin-Britz,beulicheu,bu li ci,布里茨,State of Berlin,DE
 Brilon,Brilon,Brailen,Brilon,bryln,brylwn,North Rhine-Westphalia,DE
 Bretten,Bretten,Breten,Bretten,brtn,brytn,Baden-Wurttemberg,DE
 Bremervörde,Bremervoerde,Bremerf'orde,Bremerfjorde,Bremerverde,Bremervoerde,Lower Saxony,DE
-Bremerhaven,Bremerhaven,BRV,Bremergafen,Bremerhafenas,Bremerhafene,Free Hanseatic City of Bremen,DE
-Bremen,Bremen,BRE,Brehmehn,Brehmen,Brema,Free Hanseatic City of Bremen,DE
+Bremerhaven,Bremerhaven,BRV,Bremergafen,Bremerhafenas,Bremerhafene,Bremen,DE
+Bremen,Bremen,BRE,Brehmehn,Brehmen,Brema,Bremen,DE
 Braunschweig,Braunschweig,BWE,Braounsvaich,Braunschweig,Braunshvajg,Lower Saxony,DE
 Brandenburg an der Havel,Brandenburg an der Havel,Brandebourg-sur-la-Havel,Brandeburgas,Brandeburgo sulla Havel,Brandenburg,Brandenburg,DE
 Bramsche,Bramsche,Bramsche,Bramshe,bramshh,bu la mu she,Lower Saxony,DE
@@ -8895,7 +8934,7 @@ Blasewitz,Blasewitz,,,,,Saxony,DE
 Blankenburg,Blankenburg,Blankenburg,Blankenburg am Harz,blanknbwrgh,blnknbwrg,Saxony-Anhalt,DE
 Bitterfeld-Wolfen,Bitterfeld-Wolfen,Biterfeld,Bitterfel'd,Bitterfeld,Bitterfeld-Wolfen,Saxony-Anhalt,DE
 Bingen am Rhein,Bingen am Rhein,Bingen,Bingen am Rejn,Bingen am Rhein,Bingen na Rajni,Rheinland-Pfalz,DE
-Billstedt,Billstedt,Bilshtet,Hamburg-Billstedt,Билштет,,Free and Hanseatic City of Hamburg,DE
+Billstedt,Billstedt,Bilshtet,Hamburg-Billstedt,Билштет,,Hamburg,DE
 Bietigheim-Bissingen,Bietigheim-Bissingen,Bietigheim-Bissingen,Bitigajm-Bissingen,Bitigkhajm-Bisingen,Bitigkhajm-Bissingen,Baden-Wurttemberg,DE
 Biesdorf,Biesdorf,Berlin-Biesdorf,,,,State of Berlin,DE
 Bielefeld,Bielefeld,BFE,Bielefeld,Bilefel'd,Bilefeld,North Rhine-Westphalia,DE
@@ -8944,7 +8983,6 @@ Bad Oeynhausen,Bad Oeynhausen,Bad Oajnkhauzen,Bad Oeyhausen,Bad Oeynhausen,Bad-E
 Bad Neustadt an der Saale,Bad Neustadt an der Saale,Bad Neustadt,Bad Neustadt a.d.Saale,Bad Neustadt an der Saale,Bad Nojshtat an der Zale,Bavaria,DE
 Bad Neuenahr-Ahrweiler,Bad Neuenahr-Ahrweiler,Bad Neuenahr-Ahrweiler,Bad Nojenar-Arvajler,Bad-Nojenar-Arvajler,Stadt Bad Neuenahr-Ahrweiler,Rheinland-Pfalz,DE
 Bad Nauheim,Bad Nauheim,Bad Naukhajm,Bad-Naukhajm,Stadt Bad Nauheim,ba de nao hai mu,Hesse,DE
-Bad Münstereifel,Bad Muenstereifel,Bad Minsterajfel,Bad Muenstereifel,Bad Munstereifel,Bad Münstereifel,North Rhine-Westphalia,DE
 Bad Münder am Deister,Bad Muender am Deister,Bad Minder am Dajster,Bad Muender,Bad Munder,Bad Munder am Deister,Lower Saxony,DE
 Bad Mergentheim,Bad Mergentheim,Bad Mergentheim,Bad Mergentheimas,Bad Mergentkhajm,Bad-Mergentgajm,Baden-Wurttemberg,DE
 Bad Lippspringe,Bad Lippspringe,Bad Lippspringe,Bad Lipspringe,Bad-Lippshpringe,Bad-Lipshpringe,North Rhine-Westphalia,DE
@@ -8989,7 +9027,7 @@ Altglienicke,Altglienicke,Al'tglinike,Berlin-Altglienicke,altglynyk,Альтгл
 Altenburg,Altenburg,AOC,Al'tenburg,Altemburgo,Altenbourg,Thuringia,DE
 Altena,Altena,Al'tehna,Al'tena,Altena,Altenoa,North Rhine-Westphalia,DE
 Altdorf bei Nürnberg,Altdorf bei Nuernberg,Altdorf,Altdorf bei Nuernberg,Altdorf bei Nürnberg,,Bavaria,DE
-Alsterdorf,Alsterdorf,Alsterdorf,Hamburg-Alsterdorf,alstrdraf,Алстердорф,Free and Hanseatic City of Hamburg,DE
+Alsterdorf,Alsterdorf,Alsterdorf,Hamburg-Alsterdorf,alstrdraf,Алстердорф,Hamburg,DE
 Alsfeld,Alsfeld,Al'sfel'd,Alsfeld,Alsfelt,a er si fei er de,Hesse,DE
 Alsdorf,Alsdorf,Al'sdorf,Alsdorf,Elsdoerp,Elsdörp,North Rhine-Westphalia,DE
 Alfter,Alfter,Al'fter,Alefte,Alfter,a er fu te,North Rhine-Westphalia,DE
@@ -9024,26 +9062,26 @@ Altstadt Nord,Altstadt Nord,,,,,North Rhine-Westphalia,DE
 Neuehrenfeld,Neuehrenfeld,,,,,North Rhine-Westphalia,DE
 Bilderstöckchen,Bilderstoeckchen,Bilderstoeckchen,Bilderstöckchen,,,North Rhine-Westphalia,DE
 Stuttgart-Ost,Stuttgart-Ost,S-Ost,Stgt-Ost,,,Baden-Wurttemberg,DE
-St. Pauli,St. Pauli,Sankt-Pauli,Санкт-Паули,,,Free and Hanseatic City of Hamburg,DE
+St. Pauli,St. Pauli,Sankt-Pauli,Санкт-Паули,,,Hamburg,DE
 Gallus,Gallus,Frankfurt-Gallus,Gallusviertel,,,Hesse,DE
-Eidelstedt,Eidelstedt,Eidelstedt,Hamburg-Eidelstedt,,,Free and Hanseatic City of Hamburg,DE
+Eidelstedt,Eidelstedt,Eidelstedt,Hamburg-Eidelstedt,,,Hamburg,DE
 Eisleben Lutherstadt,Eisleben Lutherstadt,Ajsleben,Eisleben,Eissleben [a. 1650],Eißleben [a. 1650],Saxony-Anhalt,DE
 Halle-Neustadt,Halle-Neustadt,Galle-Nojshtadt,Hale Noystadt,Halle Neustadt,Halle-Neustadt,Saxony-Anhalt,DE
-Bergedorf,Bergedorf,Bardoerp,Bardörp,Bergedorf,Bezirk Bergedorf,Free and Hanseatic City of Hamburg,DE
+Bergedorf,Bergedorf,Bardoerp,Bardörp,Bergedorf,Bezirk Bergedorf,Hamburg,DE
 Spandau,Spandau,Spandau,Spandava,Špandava,שפנדאו,State of Berlin,DE
 Treptow,Treptow,Treptow,,,,State of Berlin,DE
 Niederrad,Niederrad,Frankfurt Niederrad,Frankfurt-Niederrad,Niederrad,,Hesse,DE
 Wittenberg,Wittenberg,Lutherstadt Wittenberg,,,,Saxony-Anhalt,DE
 Äußere Neustadt,AEussere Neustadt,,,,,Saxony,DE
-Barmbek-Nord,Barmbek-Nord,,,,,Free and Hanseatic City of Hamburg,DE
-Barmbek-Süd,Barmbek-Sued,,,,,Free and Hanseatic City of Hamburg,DE
-Farmsen-Berne,Farmsen-Berne,,,,,Free and Hanseatic City of Hamburg,DE
+Barmbek-Nord,Barmbek-Nord,,,,,Hamburg,DE
+Barmbek-Süd,Barmbek-Sued,,,,,Hamburg,DE
+Farmsen-Berne,Farmsen-Berne,,,,,Hamburg,DE
 Zeulenroda-Triebes,Zeulenroda-Triebes,Cojlenroda-Tribes,cuo yi lun luo da-te li bei si,Цойленрода-Трибес,Цојленрода-Трибес,Thuringia,DE
 Falkenhagener Feld,Falkenhagener Feld,Berlin-Falkenhagener Feld,فالکینہاگینیر فیلڈ,,,State of Berlin,DE
 Neu-Hohenschönhausen,Neu-Hohenschoenhausen,Berlin-Neu-Hohenschoenhausen,Berlin-Neu-Hohenschönhausen,,,State of Berlin,DE
 Alt-Hohenschönhausen,Alt-Hohenschoenhausen,Berlin-Alt-Hohenschoenhausen,Berlin-Alt-Hohenschönhausen,Wilhelmsberg,alt-shwhynzn,State of Berlin,DE
 Fennpfuhl,Fennpfuhl,Berlin-Fennpfuhl,,,,State of Berlin,DE
-Hamburg-Nord,Hamburg-Nord,Arrondissement de Hambourg-Nord,Bezirk Hamburg-Nord,Distretto di Hamburg-Nord,Hamborg-Noord,Free and Hanseatic City of Hamburg,DE
+Hamburg-Nord,Hamburg-Nord,Arrondissement de Hambourg-Nord,Bezirk Hamburg-Nord,Distretto di Hamburg-Nord,Hamborg-Noord,Hamburg,DE
 Neustadt/Nord,Neustadt/Nord,,,,,North Rhine-Westphalia,DE
 Neustadt/Süd,Neustadt/Sued,,,,,North Rhine-Westphalia,DE
 Kalk,Kalk,,,,,North Rhine-Westphalia,DE
@@ -9051,13 +9089,13 @@ Rodenkirchen,Rodenkirchen,,,,,North Rhine-Westphalia,DE
 Gartenstadt,Gartenstadt,,,,,Rheinland-Pfalz,DE
 Kröpeliner-Tor-Vorstadt,Kroepeliner-Tor-Vorstadt,KTV,,,,Mecklenburg-Vorpommern,DE
 Düsseldorf-Pempelfort,Duesseldorf-Pempelfort,Pempelfort,,,,North Rhine-Westphalia,DE
-Burglesum,Burglesum,,,,,Free Hanseatic City of Bremen,DE
+Burglesum,Burglesum,,,,,Bremen,DE
 Nordstadt,Nordstadt,,,,,Lower Saxony,DE
 Eselsberg,Eselsberg,,,,,Baden-Wurttemberg,DE
-Altona-Altstadt,Altona-Altstadt,,,,,Free and Hanseatic City of Hamburg,DE
-Altona-Nord,Altona-Nord,,,,,Free and Hanseatic City of Hamburg,DE
-Dulsberg,Dulsberg,,,,,Free and Hanseatic City of Hamburg,DE
-Hoheluft-Ost,Hoheluft-Ost,Hoheluft,,,,Free and Hanseatic City of Hamburg,DE
+Altona-Altstadt,Altona-Altstadt,,,,,Hamburg,DE
+Altona-Nord,Altona-Nord,,,,,Hamburg,DE
+Dulsberg,Dulsberg,,,,,Hamburg,DE
+Hoheluft-Ost,Hoheluft-Ost,Hoheluft,,,,Hamburg,DE
 Misburg-Nord,Misburg-Nord,,,,,Lower Saxony,DE
 Sachsenheim,Sachsenheim,,,,,Baden-Wurttemberg,DE
 Petershausen-West,Petershausen-West,,,,,Baden-Wurttemberg,DE
@@ -9758,6 +9796,7 @@ Abū Ţisht,Abu Tisht,Abu Tisht,Abū Tisht,Abū Ţisht,abw tsht,Qena,EG
 Abū Tīj,Abu Tij,Abu Tig,Abu Tij,Abu Tik,Abu Tîg,Asyut,EG
 Abu Suweir-el-Mahatta,Abu Suweir-el-Mahatta,Abu Suwayr,Abu Suwayr al Mahattah,Abu Suweir,Abu Suweir-el-Mahatta,Sharqia,EG
 Abū Qurqāş,Abu Qurqas,ABU QURQAS,ABŪ QURQĀS,Abu Gurgas,Abu Kerkae,Minya,EG
+Abū Qīr,Abu Qir,Abokir,Abou Kir,Aboukir,Abu Kir,Alexandria,EG
 Abū Kabīr,Abu Kabir,Abu Kabir,Abu Kebir,Abu Kebîr,Abu Kibir,Sharqia,EG
 Abū Ḩummuş,Abu Hummus,Abou Hommos,Abu Huminus,Abu Hummus,Abu Humus,Beheira,EG
 Abū Ḩammād,Abu Hammad,Abu Hammad,Abu Hammad al Mahattah,Abu Hammad el Mahatta,Abū Ḩammād,Sharqia,EG
@@ -11251,6 +11290,7 @@ La Courneuve,La Courneuve,La Courneuve,La Kurnev,La-Kurnev,La-Kurnjov,Ile-de-Fra
 La Ciotat,La Ciotat,Cytharista parrochia,La Ciotat,La Ciutat,La Sjota,Provence-Alpes-Cote d'Azur,FR
 La Chapelle-sur-Erdre,La Chapelle-sur-Erdre,Chapel-Erzh,Chapelle-sur-Erdre,La Chapelle-sur-Erdre,La-Shapel'-sjur-Erdr,Pays de la Loire,FR
 La Celle-Saint-Cloud,La Celle-Saint-Cloud,La Celle,La Celle Saint-Cloud,La Celle-Saint-Cloud,La Celle-les-Bruyeres,Ile-de-France,FR
+Juan-les-Pins,Juan-les-Pins,Antibes Juan-les-Pins,JLP,Joan dei Pins,Juan,Provence-Alpes-Cote d'Azur,FR
 Jouy-le-Moutier,Jouy-le-Moutier,Jouy,Jouy-le-Moutier,Zhui-le-Mut'e,ru yi lei mu di ye,Ile-de-France,FR
 Joué-lès-Tours,Joue-les-Tours,Joue,Joue-les-Tours,Joué,Joué-lès-Tours,Centre-Val de Loire,FR
 Joinville-le-Pont,Joinville-le-Pont,Joinville,Joinville-le-Pont,La Branche-du-Pont-de-Saint-Maur,Zhoanvil l'o Pon,Ile-de-France,FR
@@ -11332,7 +11372,7 @@ Elbeuf,Elbeuf,Ehl'bjof,El'bef,Elbeuf,Elbovium,Normandy,FR
 Écully,Ecully,Ecully,Écully,,,Rhone-Alpes,FR
 Échirolles,Echirolles,Echirolles,Ehshirol',Eshirol,Eshirol',Rhone-Alpes,FR
 Eaubonne,Eaubonne,Eaubonne,Obon,Obonn,ao bo ne,Ile-de-France,FR
-Dunkerque,Dunkerque,CQF,Denkerk,Denkerka,Diunkerkas,Hauts-de-France,FR
+Dunkirk,Dunkirk,CQF,Denkerk,Denkerka,Diunkerkas,Hauts-de-France,FR
 Dreux,Dreux,Dre,Dreux,Drjo,Drocae,Centre-Val de Loire,FR
 Draveil,Draveil,Draveil,Dravej,de la wei yi,deulabei,Ile-de-France,FR
 Drancy,Drancy,Drancy,Dransi,de lang xi,deulangsi,Ile-de-France,FR
@@ -11519,32 +11559,32 @@ Achères,Acheres,Acheres,Achères,,,Ile-de-France,FR
 Abbeville,Abbeville,Abbatis Villa,Abbevil',Abbeville,Abbéville,Hauts-de-France,FR
 Paris 01 Louvre,Paris 01 Louvre,1er Arr,1er arrondissement,Arrondissement du Louvre,Ier,Ile-de-France,FR
 Villeneuve-d'Ascq,Villeneuve-d'Ascq,Neuvile-Ask,Vil'nev-d'Ask,Vil'njov-d'Ask,Villeneuve d'Ascq,Hauts-de-France,FR
-Lyon 02,Lyon 02,2eme,2ème,,,Rhone-Alpes,FR
-Lyon 03,Lyon 03,3eme,3ème,,,Rhone-Alpes,FR
-Lyon 04,Lyon 04,,,,,Rhone-Alpes,FR
-Lyon 05,Lyon 05,5eme,5ème,,,Rhone-Alpes,FR
-Lyon 06,Lyon 06,6eme,6ème,,,Rhone-Alpes,FR
-Lyon 07,Lyon 07,,,,,Rhone-Alpes,FR
-Lyon 08,Lyon 08,8eme,8ème,,,Rhone-Alpes,FR
-Lyon 09,Lyon 09,9eme,9ème,,,Rhone-Alpes,FR
+Lyon 02,Lyon 02,2eme,2ème,Lyon 2,Lyon 2e,Rhone-Alpes,FR
+Lyon 03,Lyon 03,3eme,3ème,Lyon 3,Lyon 3e,Rhone-Alpes,FR
+Lyon 04,Lyon 04,Lyon 4,Lyon 4e,Lyon 4eme,Lyon 4ème,Rhone-Alpes,FR
+Lyon 05,Lyon 05,5eme,5ème,Lyon 5,Lyon 5e,Rhone-Alpes,FR
+Lyon 06,Lyon 06,6eme,6ème,Lyon 6,Lyon 6e,Rhone-Alpes,FR
+Lyon 07,Lyon 07,Lyon 7,Lyon 7e,Lyon 7eme,Lyon 7ème,Rhone-Alpes,FR
+Lyon 08,Lyon 08,8eme,8ème,Lyon 8,Lyon 8e,Rhone-Alpes,FR
+Lyon 09,Lyon 09,9eme,9ème,Lyon 9,Lyon 9e,Rhone-Alpes,FR
 Les Ulis,Les Ulis,Lez Ili,Lez-Julis,le suw lis,lewilliseu,Ile-de-France,FR
-Lyon 01,Lyon 01,,,,,Rhone-Alpes,FR
-Marseille 01,Marseille 01,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 02,Marseille 02,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 03,Marseille 03,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 04,Marseille 04,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 05,Marseille 05,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 06,Marseille 06,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 07,Marseille 07,Marseille 07,Marseille 7e arrondissement,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 08,Marseille 08,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 10,Marseille 10,Marseille 10,Marseille 10e arrondissement,Masalia,Massalia,Provence-Alpes-Cote d'Azur,FR
-Marseille 09,Marseille 09,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 11,Marseille 11,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 12,Marseille 12,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 13,Marseille 13,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 14,Marseille 14,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 15,Marseille 15,,,,,Provence-Alpes-Cote d'Azur,FR
-Marseille 16,Marseille 16,,,,,Provence-Alpes-Cote d'Azur,FR
+Lyon 01,Lyon 01,Lyon 1,Lyon 1er,,,Rhone-Alpes,FR
+Marseille 01,Marseille 01,Marseille 1,Marseille 1er,,,Provence-Alpes-Cote d'Azur,FR
+Marseille 02,Marseille 02,Marseille 2,Marseille 2e,Marseille 2eme,Marseille 2ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 03,Marseille 03,Marseille 3,Marseille 3e,Marseille 3eme,Marseille 3ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 04,Marseille 04,Marseille 4,Marseille 4e,Marseille 4eme,Marseille 4ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 05,Marseille 05,Marseille 5,Marseille 5e,Marseille 5eme,Marseille 5ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 06,Marseille 06,Marseille 6,Marseille 6e,Marseille 6eme,Marseille 6ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 07,Marseille 07,Marseille 07,Marseille 7,Marseille 7e,Marseille 7e arrondissement,Provence-Alpes-Cote d'Azur,FR
+Marseille 08,Marseille 08,Marseille 8,Marseille 8e,Marseille 8eme,Marseille 8ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 10,Marseille 10,Marseille 10e,Marseille 10e arrondissement,Marseille 10eme,Marseille 10ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 09,Marseille 09,Marseille 9,Marseille 9e,Marseille 9eme,Marseille 9ème,Provence-Alpes-Cote d'Azur,FR
+Marseille 11,Marseille 11,Marseille 11e,Marseille 11eme,Marseille 11ème,,Provence-Alpes-Cote d'Azur,FR
+Marseille 12,Marseille 12,Marseille 12e,Marseille 12eme,Marseille 12ème,,Provence-Alpes-Cote d'Azur,FR
+Marseille 13,Marseille 13,Marseille 13e,Marseille 13eme,Marseille 13ème,,Provence-Alpes-Cote d'Azur,FR
+Marseille 14,Marseille 14,Marseille 14e,Marseille 14eme,Marseille 14ème,,Provence-Alpes-Cote d'Azur,FR
+Marseille 15,Marseille 15,Marseille 15e,Marseille 15eme,Marseille 15ème,,Provence-Alpes-Cote d'Azur,FR
+Marseille 16,Marseille 16,Marseille 16e,Marseille 16eme,Marseille 16ème,,Provence-Alpes-Cote d'Azur,FR
 La Defense,La Defense,La Defense,La Défense,Lja Defans,Paris La Defense,Ile-de-France,FR
 Saint-Quentin-en-Yvelines,Saint-Quentin-en-Yvelines,Communaute d'agglomeration de Saint-Quentin-en-Yvelines,Communauté d’agglomération de Saint-Quentin-en-Yvelines,Saint-Quentin-en-Yvelines,,Ile-de-France,FR
 Cergy-Pontoise,Cergy-Pontoise,Cergy-Pontoise,,,,Ile-de-France,FR
@@ -11921,6 +11961,7 @@ Macclesfield,Macclesfield,Maklesfildo,Maklsfild,Maklsfildas,Makulsfijld,England,
 Luton,Luton,Luton,Lutonas,Lutono,Lutun,England,GB
 Lowestoft,Lowestoft,Loustoft,Lowestoft,loseutopeuteu,luo si tuo fu te,England,GB
 Louth,Louth,Laut,Louth,Louth i Lincolnshire,Лаут,England,GB
+Loughton,Loughton,Loughton,,,,England,GB
 Loughborough,Loughborough,Lafboro,Loughborough,Lufburou,la fu bao,England,GB
 Longton,Longton,Longton,,,,England,GB
 Longfield,Longfield,,,,,England,GB
@@ -12108,6 +12149,7 @@ Enfield Town,Enfield Town,Enfield,,,,England,GB
 Emsworth,Emsworth,amswwrth,امسوورث,,,England,GB
 Ely,Ely,Elig,Ely,Ili,Ilis,England,GB
 Eltham,Eltham,Eltham,ai er se mu,埃爾瑟姆,,England,GB
+Ellesmere Port Town,Ellesmere Port Town,Ellesmere Port,Elsmir Port,ai er si mi er gang,alzmr pwrt,England,GB
 Elland,Elland,aylnd  ywrkshr ghrby,ایلند، یورکشر غربی,,,England,GB
 Elgin,Elgin,Ehlgin,Eilginn,Elgin,Elqin,Scotland,GB
 Egham,Egham,Egham,Ehgkhem,Эгхем,,England,GB
@@ -12725,6 +12767,7 @@ Irákleion,Irakleion,Candia,Candie,Càndia,Erakleion,Crete,GR
 Ioánnina,Ioannina,Giannena,Giannina,IOA,Ioaa,Epirus,GR
 Glyfáda,Glyfada,Aixone,Glifadha,Glifádha,Glyfada,Attica,GR
 Galátsi,Galatsi,Galatsi,Galatsion,Galátsi,Galátsion,Attica,GR
+Fylí,Fyli,Fili,Filí,Fyli,Fylí,Attica,GR
 Ellinikó,Elliniko,Elliniko,Ellinikon,Ellinikó,Ellinikón,Attica,GR
 Elefsína,Elefsina,Elefis,Elefsina,Elefsis,Elefsína,Attica,GR
 Dhafní,Dhafni,Dafni,Daphne,Daphni,Dhafni,Attica,GR
@@ -12759,7 +12802,6 @@ Panórama,Panorama,Arsakli,Arsaklí,Panorama,Panórama,Central Macedonia,GR
 Orestiáda,Orestiada,Nea Orestias,Néa Orestiás,Orestiada,Orestias,East Macedonia and Thrace,GR
 Oraiókastro,Oraiokastro,Dautbal,Dautbali,Daütbalí,Oraiokastro,Central Macedonia,GR
 Náousa,Naousa,Naousa,Negush,Náousa,Νάουσα,Central Macedonia,GR
-Meneméni,Menemeni,Menemeni,Nea Mainemeni,Nea Menemeni,Μενεμένη,Central Macedonia,GR
 Kozáni,Kozani,KZI,Kozane,Kozani,Kozhani,West Macedonia,GR
 Komotiní,Komotini,Gjumjurdzhina,Guemuelcine,Gumulcine,Gumuljina,East Macedonia and Thrace,GR
 Kilkís,Kilkis,Kilkis,Kilkís,Kukus,Kukush,Central Macedonia,GR
@@ -12768,10 +12810,10 @@ Kateríni,Katerini,Aikaterini,Aikateríni,Katerina,Katerini,Central Macedonia,GR
 Kalamariá,Kalamaria,Kalamaria,Kalamarija,Kalamariá,Kalamarya,Central Macedonia,GR
 Flórina,Florina,Florina,Follorina,Lerin,Plorina,West Macedonia,GR
 Évosmos,Evosmos,Charman'kioi,Evosmo,Evosmon,Evosmos,Central Macedonia,GR
+Efkarpía,Efkarpia,Efkarpia,Efkarpía,Evkarpia,Evkarpía,Central Macedonia,GR
 Elefthério - Kordelió,Eleftherio - Kordelio,Eleftheria,Eleftherio,Eleftherio - Kordelio,Eleftherio-Kordelio,Central Macedonia,GR
 Édessa,Edessa,Edessa,Edhessa,Voden,Vodena,Central Macedonia,GR
 Dráma,Drama,Dhrama,Dhráma,Drama,Dráma,East Macedonia and Thrace,GR
-Ágios Athanásios,Agios Athanasios,Agios Athanasios,Ayios Athanasios,Kavakli,Kavaklievo,Central Macedonia,GR
 Alexandroupoli,Alexandroupoli,AXD,Alejandropolis,Alejandrópolis,Aleksandrupolis,East Macedonia and Thrace,GR
 Corfu,Corfu,CFU,Corcyra,Corfou,Corfu,Ionian Islands,GR
 Vrilissia,Vrilissia,Vrilissia,Βριλήσσια,,,Attica,GR
@@ -12960,6 +13002,7 @@ Kwai Chung,Kwai Chung,Chung Kwai Chung,Kuichong,Kwai Chung,kui yong,Kwai Tsing D
 Kowloon Tong,Kowloon Tong,Jiulongtang,Kau Lung Tong,Kowloon Tong,jiu long tang,Kowloon City,HK
 Kowloon City,Kowloon City,Chiu-lung-ku-ch'eng,Chiu-lung-ku-ch’eng,Jiulongcheng,Kau Lung Sheng,Kowloon City,HK
 Kowloon,Kowloon,Chiu-lung,Czjulun,Kaulunas,Koulun,,HK
+Kennedy Town,Kennedy Town,Jiannidecheng,Kennedy Town,XKT,jian ni de cheng,Central and Western,HK
 Kam Tin,Kam Tin,Jitianshi,Kam Tin,Kam Tin Hui,Kamtinhu,Yuen Long,HK
 Hong Lok Yuen,Hong Lok Yuen,kang le yuan,康樂園,,,Tai Po,HK
 Hong Kong,Hong Kong,Chon'nk Kon'nk,Gankong,Gon Kong,Gonkong,,HK
@@ -13116,10 +13159,10 @@ Désarmes,Desarmes,Desarmes,Désarmes,,,Artibonite,HT
 Delmas,Delmas,Delma,Delmas,Dèlma,,Ouest,HT
 Croix-des-Bouquets,Croix-des-Bouquets,Croix-des-Bouquets,Kwadebouke,Kwadèbouke,,Ouest,HT
 Les Cayes,Les Cayes,Aux Cayes,CYA,Cayes,Le Kajus,Sud,HT
-Carrefour,Carrefour,Kafou,,,,Ouest,HT
 Cap-Haïtien,Cap-Haitien,CAP,Cabo Haitiano,Cap Haitien,Cap-Francais,Nord,HT
 Arcahaie,Arcahaie,Akaye,Akayè,Arcahaie,Archaie,Ouest,HT
 Ti Port-de-Paix,Ti Port-de-Paix,,,,,Nord-Ouest,HT
+Carrefour,Carrefour,Carrefour,Kafou,,,Ouest,HT
 Újszeged,Ujszeged,Ujseged,Ujszeged,uzegedo,Уйсегед,,HU
 Törökszentmiklós,Torokszentmiklos,Toroksentmiklosh,Torokszenimiklos,Torokszentmiklos,Törökszenimiklós,Jasz-Nagykun-Szolnok,HU
 Tiszaújváros,Tiszaujvaros,Leninvaros,Leninváros,Tiszaszederken,Tiszaszederkeny,Borsod-Abauj-Zemplen,HU
@@ -13258,6 +13301,7 @@ Csepel-Csillagtelep,Csepel-Csillagtelep,Csillagtelep,,,,Budapest,HU
 Középső-Ferencváros,Koezepso-Ferencvaros,,,,,Budapest,HU
 Óhegy,Ohegy,,,,,Budapest,HU
 Újlipótváros,Ujlipotvaros,,,,,Budapest,HU
+Alsórákos,Alsorakos,,,,,Budapest,HU
 Tongging,Tongging,Tongging,Tonging,Тонгинг,,North Sumatra,ID
 Teluk Nibung,Teluk Nibung,Teloekniboeng,Teluk Nibung,,,North Sumatra,ID
 Teluk Dalam,Teluk Dalam,Teloekdalam,Teloekdalem,Telok Dalam,Telokdalem,North Sumatra,ID
@@ -13633,6 +13677,7 @@ Bintuni,Bintuni,Bintuni,Masoe,Masu,NTI,West Papua,ID
 Bima,Bima,BMU,Bim,Bima,Бим,West Nusa Tenggara,ID
 Biak,Biak,BIK,Biak,Biak Kota,Biak-Stad,Papua,ID
 Besuki,Besuki,Besoeki,,,,East Java,ID
+Benoa,Benoa,Benoa,Tanjung Benoa,Tanjungbenoa,Tanzhung Benoa,Bali,ID
 Bengkulu,Bengkulu,BKS,Bangkahulu,Bengkoeloe,Bengkulu,Bengkulu,ID
 Bengkayang,Bengkayang,Bengkajang,Bengkayang,Benkajang,Benkayan,West Kalimantan,ID
 Bekasi,Bekasi,Bekasi,Bekasis,Bekaso,Kota Bekasi,West Java,ID
@@ -13691,11 +13736,14 @@ Seririt,Seririt,Seririt,Серирит,,,Bali,ID
 Bedugul,Bedugul,Bedugul,Бедугул,,,Bali,ID
 Sukawati,Sukawati,Sukawati,,,,Bali,ID
 Tambolaka,Tambolaka,TMC,Tambolaka,,,East Nusa Tenggara,ID
+Tuban,Tuban,Tubangerya,,,,Bali,ID
+Batubulan,Batubulan,,,,,Bali,ID
 Pekan Bahapal,Pekan Bahapal,,,,,North Sumatra,ID
 South Tangerang,South Tangerang,South Tangerang,South Tangerang City,Tangerang Selatan,,Banten,ID
 Masohi,Masohi,Masohi,,,,Maluku,ID
 Amlapura city,Amlapura city,Amlapura,Karangasem,Амлапура,,Bali,ID
 Kota Sambas,Kota Sambas,,,,,West Kalimantan,ID
+Dalung,Dalung,,,,,Bali,ID
 Wexford,Wexford,Loch Garman,Wexford,,,Leinster,IE
 Waterford,Waterford,Port Lairge,Port Làirge,Port Láirge,Purt Largey,Munster,IE
 Tralee,Tralee,Tra Li,Traie Lee,Tralee,Trali,Munster,IE
@@ -15734,7 +15782,7 @@ Ghoti Budrukh,Ghoti Budrukh,Ghoti,Ghoti Budrukh,,,Maharashtra,IN
 Ghosī,Ghosi,Ghosi,Ghosī,Gkhosi,ge xi,Uttar Pradesh,IN
 Ghogardīha,Ghogardiha,,,,,Bihar,IN
 Ghazīpur,Ghazipur,Ghazipur,Ghazīpur,Ghāzīpur,,Uttar Pradesh,IN
-Ghāziābād,Ghaziabad,Gaziabad,Ghaziabad,Ghazibad,Ghāziābād,Uttar Pradesh,IN
+Ghāziābād,Ghaziabad,Gaziabad,Gaziabade,Gaziabatʻ,Gazijabad,Uttar Pradesh,IN
 Ghātsīla,Ghatsila,Ghatshila,Ghatsila,Ghātsīla,,Jharkhand,IN
 Ghātanji,Ghatanji,Ghatanji,Ghātanji,,,Maharashtra,IN
 Ghātampur,Ghatampur,Ghatampur,Ghātampur,,,Uttar Pradesh,IN
@@ -16480,7 +16528,7 @@ Amroli,Amroli,Amroli,,,,Gujarat,IN
 Amroha,Amroha,Amroha,,,,Uttar Pradesh,IN
 Amritsar,Amritsar,ATQ,Amricar,Amritsar,Amritsara,Punjab,IN
 Amreli,Amreli,Amreli,Amrelis,amareli,amreli,Gujarat,IN
-Amravati,Amravati,Amravati,amaravati,अमरावती,,Maharashtra,IN
+Amravati,Amravati,AVR,Amravati,amaravati,अमरावती,Maharashtra,IN
 Amod,Amod,Amod,Broach,,,Gujarat,IN
 Āmli,Amli,Amli,Āmli,,,Dadra and Nagar Haveli and Daman and Diu,IN
 Āmlāgora,Amlagora,Amlagora,Āmlāgora,,,West Bengal,IN
@@ -17608,6 +17656,8 @@ Rānyah,Ranyah,Rania,Raniya,Raniyah,Raniye,Sulaymaniyah,IQ
 Al Qā’im,Al Qa'im,Al Kaim,Al Qa'im,Al Qā’im,Al-Kaim,Anbar,IQ
 Al-Hamdaniya,Al-Hamdaniya,Al Hamdaniya,Al Hamdaniyah,Al-Hamdaniya District,Qada' al Hamdaniyah,Nineveh,IQ
 Qal‘at Sukkar,Qal'at Sukkar,Qal`a Sikar,Qal`at Sikar,Qal`at Sukkar,Qal`at es Sikkar,Dhi Qar,IQ
+Qal‘at Şāliḩ,Qal'at Salih,Kala Salih,Kalaat Saleh,Kale Sale,Qal`at Salih,Maysan,IQ
+Qeładizê,Qeladize,Dizah,Qal`at Dizah,Qala Diza,Qala Dizeh,Sulaymaniyah,IQ
 Mandalī,Mandali,Mandali,Mandalī,Mendali,Mendeli,Diyala,IQ
 Koysinceq,Koysinceq,Kawiyah,Kawīyah,Koi Sanjaq,Koisnjaq,Erbil,IQ
 Kifrī,Kifri,Kiffri,Kiffrī,Kifri,Kifrî,Diyala,IQ
@@ -17698,20 +17748,27 @@ Qarchak,Qarchak,Qarchak,qrchk,قرچك,,Tehran,IR
 Ṣāleḥīeh,Salehieh,Shahrak-e Salehabad,Shahrak-e Şāleḩābād,shhrk salh abad,شهرک صالح آباد,Tehran,IR
 Golestān,Golestan,Golestan,Golestān,Shahrak-e Golestan,Shahrak-e Golestān,Tehran,IR
 Shahre Jadide Andisheh,Shahre Jadide Andisheh,Shahrak-e Andisheh,Shahrak-e Andīsheh,shhr jdyd andyshh,شهر جدید اندیشه,Tehran,IR
+Morteẕá Gerd,Morteza Gerd,Morteza Gerd,Morteẕá Gerd,mrtdy grd,مرتضی گرد,Tehran,IR
 Ferdowsīyeh,Ferdowsiyeh,Baratabad,Barātābād,Ferdows,Ferdowsiyeh,Tehran,IR
-Dezfūl,Dezful,Dezful,Dezfūl,,,Khuzestan,IR
+Hādīshahr,Hadishahr,Alamdal,Alamdam,Alamdar,Aledar,East Azerbaijan,IR
+Gomīshān,Gomishan,Gish Dafeh,Gomesh Tappeh,Gomish Tappeh,Gomish Tappeh Jik,Golestan,IR
 Khorramdarreh,Khorramdarreh,Khorramdareh,Khorramdarreh,Khurramdarreh,Khurramdarrekh,Zanjan,IR
 Pādegān-e Manjīl,Padegan-e Manjil,Ordugah-e Nezami Manjil,Ordūgāh-e Nez̧āmī Manjīl,Padegan-e Manjil,Pādegān-e Manjīl,Gilan Province,IR
 Kamālshahr,Kamalshahr,Kamal Shahr,Kamalabad,Kamalshahr,Kamāl Shahr,Alborz Province,IR
 Shahrak-e Mohandesī-ye Zerā‘ī,Shahrak-e Mohandesi-ye Zera'i,Agricultural Engineering Town,Shahrak-e Mohandesi-ye Zera`i,Shahrak-e Mohandesī-ye Zerā‘ī,شهرک مهندسی زِراعی,Alborz Province,IR
+‘Eyn-e Do,'Eyn-e Do,Seyyed Karim,Seyyed Karīm,`Eyn-e Do,syd krym,Khuzestan,IR
+Āb Pakhsh,Ab Pakhsh,Ab Pakhsh,ab pkhsh,Āb Pakhsh,آب پخش,Bushehr,IR
 Kavār,Kavar,Kaval,Kavar,Kavār,kwar,Fars,IR
 Shahrak-e Ţāleqānī,Shahrak-e Taleqani,Shahrak-e Taleqani,Shahrak-e Ţāleqānī,shhrk talqany,شهرک طالقانی,Khuzestan,IR
 Ābādeh,Abadeh,Abadeh,abadh,Ābādeh,آباده,Fars,IR
 Yasuj,Yasuj,Jasudz,Jasudzh,Jasudż,Jasudž,Kohgiluyeh and Boyer-Ahmad,IR
+Ashkez̄ar,Ashkezar,Ash Kuzar,Ashk Dez,Ashkakzar,Ashkazar,Yazd Province,IR
 Āzādshahr,Azadshahr,Azadshahr,Shah Pasand,Shāh Pasand,azad shhr,Golestan,IR
+Zarqān,Zarqan,Zargan,Zarghanak,Zargān,Zarqan,Fars,IR
 Zarand,Zarand,Zarand,zrnd,زرند,,Kerman,IR
 Zanjan,Zanjan,JWN,Zandschan,Zandzan,Zandžan,Zanjan,IR
-Yazd,Yazd,AZD,Dakbayan sa Yazd,Giaznt,Jasd,Yazd Province,IR
+Yazd,Yazd,AZD,Dakbayan sa Yazd,Giaznt,Isatis,Yazd Province,IR
+Veys,Veys,Vais,Veys,Wais,wys,Khuzestan,IR
 Varāmīn,Varamin,Esfandabad,Esfandābād,Varamin,Varāmīn,Tehran,IR
 Tūyserkān,Tuyserkan,Tooyserkan,Tuisarkan,Tuysarkan,Tuyserkan,Hamadan Province,IR
 Torbat-e Ḩeydarīyeh,Torbat-e Heydariyeh,Torbat-e Heydariyeh,Torbat-e Ḩeydarīyeh,Torbat-e-Heydari,Turbat-i-Haidari,Razavi Khorasan,IR
@@ -17741,9 +17798,12 @@ Shāl,Shal,Chal,Chāl,Shahr-e Shal,Shahr-e Shāl,Qazvin Province,IR
 Shahr-e Kord,Shahr-e Kord,CQD,QHK,Shahr Kord,Shahr Kurd,Chaharmahal and Bakhtiari,IR
 Shahr-e Bābak,Shahr-e Babak,Shahr Babak,Shahr Bābak,Shahr-e Babak,Shahr-e Bābak,Kerman,IR
 Shādegān,Shadegan,Fallabiyeh,Fallahiyeh,Fallehiyeh,Fallābīyeh,Khuzestan,IR
+Shabestar,Shabestar,Chabiastar,Shabestar,Shabiastar,Shabistar,East Azerbaijan,IR
+Seyah Cheshmeh,Seyah Cheshmeh,Kara Aineh,Qareh Eyni,Qareh Eynī,Seyah Cheshmeh,West Azerbaijan,IR
 Semnan,Semnan,SNX,Semnan,Semnān,smnan,Semnan,IR
 Semīrom,Semirom,Samirum,Semirom,Semīrom,Simrom,Isfahan,IR
 Sāveh,Saveh,Sava,Saveh,Sāveh,sawh,Markazi,IR
+Sarvestān,Sarvestan,Sarvestan,Sarvestān,Sarvistan,Sarvistān,Fars,IR
 Sari,Sari,SRY,Sari,Sari i Iran,Saris,Mazandaran,IR
 Sardrūd,Sardrud,Sard Rood,Sardari,Sardarud,Sardrud,East Azerbaijan,IR
 Sardasht,Sardasht,Sardasht,srdsht,سردشت,,West Azerbaijan,IR
@@ -17753,6 +17813,7 @@ Sanandaj,Sanandaj,SDG,Sanandadsch,Sanandadz,Sanandadż,Kurdistan Province,IR
 Salmās,Salmas,Dilmagan,Dilman,Dīlmagān,Dīlman,West Azerbaijan,IR
 Rāmsar,Ramsar,RZR,Ramsar,Ransar,Rāmsar,Mazandaran,IR
 Shāhīn Dezh,Shahin Dezh,Sa'in Dezh,Sa'in Qal`eh,Sahin Dazh,Sain Kaleh,West Azerbaijan,IR
+Sa‘īdābād,Sa'idabad,Sa`idabad,Sa‘īdābād,سعيد آباد,,Tehran,IR
 Şaḩneh,Sahneh,Sahna,Sahneh,Sehneh,shnh,Kermanshah Province,IR
 Katālem va Sādāt Shahr,Katalem va Sadat Shahr,Sadat Mahalleh,Sadat Mahalleh-ye Sakht Sar,Sadat Shahr,Sādāt Maḩalleh,Mazandaran,IR
 Sabzevar,Sabzevar,AFZ,Sabzawar,Sabzawār,Sabzevar,Razavi Khorasan,IR
@@ -17775,7 +17836,8 @@ Qīdar,Qidar,Geydar Palnamnar,Geydār Palnamnār,Ghaidar Paighambar,Keydar-Peyga
 Qeshm,Qeshm,Bandar-e Qeshm,Gheshm,Keshm,Qeshm,Hormozgan,IR
 Qazvin,Qazvin,Dakbayan sa Qazvin,GZW,Gazvin,Kazvin,Qazvin Province,IR
 Qarah Ẕīā’ od Dīn,Qarah Zia' od Din,Ghareh Ziya' Oddin,Ghareh Ziya’ Oddin,Qara Zia ud Din,Qara Zīa ud Dīn,West Azerbaijan,IR
-Shahr-e Qods,Shahr-e Qods,Karaj,Qal`eh Hasan,Qal`eh-ye Hasan Khan,Qal‘eh Hasan,Tehran,IR
+Qods,Qods,Karaj,Qal'eh Hasan,Qal'eh-ye Hasan Khan,Qal‘eh Hasan,Tehran,IR
+Rūdān,Rudan,Bala Shahr,Bala Shahr-e Deh Barez,Bālā Shahr,Bālā Shahr-e Deh Bārez,Hormozgan,IR
 Farrokh Shahr,Farrokh Shahr,Farrokh Shahr,Qahferokh,Qahofrokh,Qatarokh,Chaharmahal and Bakhtiari,IR
 Qā’en,Qa'en,Qa'en,Qain,Qayen,Qaīn,South Khorasan Province,IR
 Qā’em Shahr,Qa'em Shahr,Qa'em Shahr,Qā’em Shahr,Shahabad,Shahi,Mazandaran,IR
@@ -17798,6 +17860,7 @@ Nekā,Neka,Naranj Bagh,Neka,Neka',Nekā,Mazandaran,IR
 Naz̧arābād,Nazarabad,Nazarabad,Nazarabad-e Bozorg,Naz̧arābād,Naz̧arābād-e Bozorg,Alborz Province,IR
 Naţanz,Natanz,Natanz,Naţanz,ntnz,نطنز,Isfahan,IR
 Naqadeh,Naqadeh,Nagadeh,Naghadeh,Naghdeh,Nakhuda,West Azerbaijan,IR
+Najafshahr,Najafshahr,Najafabad,Najafābād,Nejafabad,Nejafābād,Kerman,IR
 Nā’īn,Na'in,Na'in,Naeyn,Nāeyn,Nā’īn,Isfahan,IR
 Nahāvand,Nahavand,Nachavant,Nagavande,Nahavand,Nahāvand,Hamadan Province,IR
 Meshkīn Dasht,Meshkin Dasht,Meshginabad,Meshgīnābād,Meshkin Dasht,Meshkinabad,Tehran,IR
@@ -17817,12 +17880,15 @@ Māhdāsht,Mahdasht,Mahdasht,Mardabad,Mardābād,Māhdāsht,Tehran,IR
 Marand,Marand,Marand,Morand,mrnd,Маранд,East Azerbaijan,IR
 Marāgheh,Maragheh,ACP,Maragheh,Maraghen,Marāgheh,East Azerbaijan,IR
 Marāgheh,Maragheh,Maragheb,Maragheh,Marāgheh,mraghh,Razavi Khorasan,IR
+Manūjān,Manujan,Jarian,Jārīān,Manujan,Manūjān,Kerman,IR
 Manjīl,Manjil,Manjil,Manjīl,Menjil,Menjīl,Gilan Province,IR
 Malekān,Malekan,Malek Kandi,Malek Kandī,Malekan,Malekān,East Azerbaijan,IR
 Malāyer,Malayer,Daulatabad,Daūlatābād,Dowlatabad,Dowlatābād,Hamadan Province,IR
 Malārd,Malard,Malar,Malard,Malār,Malārd,Tehran,IR
+Maku,Maku,IMQ,Maku,Mākū,ma ku,West Azerbaijan,IR
 Makū,Maku,Mahkuh,Makku,Makon,Maku,Bushehr,IR
 Maḩmūdābād,Mahmudabad,Mahmudabad,Maḩmūdābād,mhmwd abad,محمود آباد,Mazandaran,IR
+Māhān,Mahan,Mahan,Mahun,Māhān,Māhūn,Kerman,IR
 Maḩallāt,Mahallat,Mahallat,Mahallat Bala,Mahallat-e Bala,Mahallāt Bāla,Markazi,IR
 Mahābād,Mahabad,Mahabad,Mahābād,Makhabad,Mehabad,West Azerbaijan,IR
 Lordegān,Lordegan,Lord Jan,Lordagan,Lordagān,Lordajan,Chaharmahal and Bakhtiari,IR
@@ -17830,18 +17896,22 @@ Līkak,Likak,Lak Lak,Lakak,Likak,Likak-e Bahmani,Kohgiluyeh and Boyer-Ahmad,IR
 Lār,Lar,LRR,Lar,Larestan,Lār,Fars,IR
 Langarūd,Langarud,Langarood,Langarud,Langarūd,Langerud,Gilan Province,IR
 Lamerd,Lamerd,LFM,Lamard,Lamerd,Lāmard,Fars,IR
+Lālī,Lali,Dasht-e Lali,Dasht-e Lati,Dasht-e Lālī,Lali,Khuzestan,IR
 Lāhījān,Lahijan,Lahijan,Lāhījān,lahyjan,لاهیجان,Gilan Province,IR
 Kūt-e ‘Abdollāh,Kut-e 'Abdollah,Kut Abdullah,Kut `Abdollah,Kut-e `Abdollah,Kut-e-Abdollah,Khuzestan,IR
 Kūhdasht,Kuhdasht,Kuh-i-Dasht,Kuhdasht,Kūh-ī-Dasht,Kūhdasht,Lorestan Province,IR
 Kord Kūy,Kord Kuy,Kord Ku,Kord Kuy,Kord Kū,Kord Kūy,Golestan,IR
 Kīsh,Kish,KIH,Kish,Kīsh,kysh,Hormozgan,IR
 Khowy,Khowy,KHY,Khoi,Khowy,Khoy,West Azerbaijan,IR
+Khūrmūj,Khurmuj,Khormoj,Khormuj,Khormūj,Khowr Muj,Bushehr,IR
 Khvānsār,Khvansar,Khansar,Khavansar,Khonsar,Khunsar,Isfahan,IR
 Khosrowshahr,Khosrowshahr,Khosrow Shah,Khosrow Shāh,Khosrowshahr,Khusraushah,East Azerbaijan,IR
 Khorramshahr,Khorramshahr,Al-Muhammarah,Choremsehras,Choremšehras,Chorramsahr,Khuzestan,IR
 Khorramabad,Khorramabad,KHD,Khorramabad,Khorramābād,Khur Ramabad,Lorestan Province,IR
+Khonj,Khonj,Khonj,Khunj,Khunji,khnj,Fars,IR
 Khomeyn,Khomeyn,Khomein,Khomeyn,Khomeīn,Khowmeyn,Markazi,IR
 Khomām,Khomam,Bazar Khomam,Bazar-i-Khuman,Bāzār Khomām,Bāzār-i-Khuman,Gilan Province,IR
+Bandar-e Khamīr,Bandar-e Khamir,Bandar-e Khamir,Bandar-e Khamīr,Khamir,Khamīr,Hormozgan,IR
 Khalkhāl,Khalkhal,Harau,Harowabad,Herau,Herauabad,Ardabil Province,IR
 Kermanshah,Kermanshah,Bahtaran,Bakhtaran,Bākhtarān,KSH,Kermanshah Province,IR
 Kerman,Kerman,Carmana,Dakbayan sa Kerman,Dakbayan sa Kermān,KER,Kerman,IR
@@ -17853,15 +17923,23 @@ Kangāvar,Kangavar,Kangavar,Kangāvar,kngawr,کنگاور,Kermanshah Province,IR
 Bandar-e Kangān,Bandar-e Kangan,Bandar-e Kangan,Bandar-e Kangān,KNR,Kangan,Bushehr,IR
 Kāmyārān,Kamyaran,Kamyaran,Kāmyārān,kamyaran,کامیاران,Kurdistan Province,IR
 Kalāleh,Kalaleh,KLM,Kalalah,Kalaleh,Kalālah,Golestan,IR
+Kahrīzak,Kahrizak,Kahrizak,Kahrizak-e Mandekan,Kahrīzak,Kahrīzak-e Mandekān,Tehran,IR
 Kabūdarāhang,Kabudarahang,Kaboodrahang,Kabud Rahang,Kabudarahang,Kabutarahang,Hamadan Province,IR
+Eyvān,Eyvan,Aiwan,Aīwān,Bagh-e Shah,Bagh-i-Shah,Ilam Province,IR
 Jūybār,Juybar,Baghlu,Bāghlū,Juybar,Jūybār,Mazandaran,IR
+Jask,Jask,Bandar-e Jask,Bandar-e Jāsk,JSK,Jask,Hormozgan,IR
 Jam,Jam,Jam,Jam-e Jam,Jamm,Jām-e Jam,Bushehr,IR
+Jājarm,Jajarm,Jajarm,Jājarm,jajrm,جاجرم,North Khorasan,IR
 Jahrom,Jahrom,Do,JAR,Jahrom,Jahrum,Fars,IR
 Īz̄eh,Izeh,Izeh,Malamir,Malāmir,aydhh,Khuzestan,IR
 Īlām,Ilam,Elam,Elām,IIL,Ilam,Ilam Province,IR
+Hoveyzeh,Hoveyzeh,Havizeh,Hawiza,Hawizeh,Hawīzeh,Khuzestan,IR
+Hendījān,Hendijan,Hendeyan,Hendeyān,Hendian,Hendijan,Khuzestan,IR
 Hashtgerd,Hashtgerd,Ashjird,Hashtgerd,Hashtjerd,Hashtjird,Alborz Province,IR
 Harsīn,Harsin,Harsin,Harsīn,hrsyn,هرسین,Kermanshah Province,IR
+Ḥamīdiyeh,Hamidiyeh,Allah,Allāh,Hamidiya,Hamidiyeh,Khuzestan,IR
 Hamadān,Hamadan,Ecbatana,HDM,Hamadan,Hamadān,Hamadan Province,IR
+Ḩājjīābād,Hajjiabad,Hajiabad,Hajjiabad,Hājīābād,hajy abad,Fars,IR
 Ḩājjīābād,Hajjiabad,Hajjiabad,hajy abad,حاجی آباد,Ḩājjīābād,Hormozgan,IR
 Haftkel,Haftkel,Haftgel,Haftkel,hftgl,hftkl,Khuzestan,IR
 Hafshejān,Hafshejan,Hafeshjan,Hafeshjān,Hafshejan,Hafshejān,Chaharmahal and Bakhtiari,IR
@@ -17871,13 +17949,18 @@ Gonābād,Gonabad,Gonabad,Gonābād,Gunabad,Gūnābād,Razavi Khorasan,IR
 Golpāyegān,Golpayegan,Golpayagan,Golpayegan,Golpāyagān,Golpāyegān,Isfahan,IR
 Gerāsh,Gerash,Gerash,Gerāsh,Girash,Girāsh,Fars,IR
 Pārsiān,Parsian,Gabandi,Gavbandi,Gāvbandī,gawbndy,Hormozgan,IR
+Gotvand,Gotvand,Gatvand,Gotvand,Gutwand,Gūtwand,Khuzestan,IR
+Garmsār,Garmsar,Garmsar,Garmsār,Qeshlaq,Qeshlāq,Semnan,IR
 Germī,Germi,Garmi,Garmi Ejarood,Garmī,Germi,Ardabil Province,IR
 Bandar-e Genāveh,Bandar-e Genaveh,Bandar Ganaveh,Bandar Ganāveh,Bandar-e Ganaveh,Bandar-e Ganāveh,Bushehr,IR
 Galūgāh,Galugah,Galugah,Galūgāh,glwgah,گلوگاه,Mazandaran,IR
 Gālīkesh,Galikesh,Galikash,Galikesh,Galīkesh,Gālīkash,Golestan,IR
 Fūman,Fuman,Fowman,Fowmen,Fuman,Fumen,Gilan Province,IR
+Fīrūzkūh,Firuzkuh,Firuzkuh,Fīrūzkūh,Qasabeh-ye Firuz Kuh,Qaşabeh-ye Fīrūz Kūh,Tehran,IR
 Fīrūzābād,Firuzabad,Firuzabad,Fīrūzābād,fyrwz abad,فیروز آباد,Fars,IR
+Ferūnābād,Ferunabad,Farenabad,Farenābād,Farnabad,Farnābād,Tehran,IR
 Fereydūn Kenār,Fereydun Kenar,Faridun Kinar,Fereidun Kenar,Fereydun Kenar,Fereydunkenar,Mazandaran,IR
+Ferdows,Ferdows,Ferdous,Ferdows,Firdaus,Firdavs,South Khorasan Province,IR
 Fāẕelābād,Fazelabad,Fazelabad,Feyzabad,Feyzābād,Fāẕelābād,Golestan,IR
 Fasā,Fasa,FAZ,Fasa,Fassa,Fasā,Fars,IR
 Fārsān,Farsan,Farsa,Farsan,Farsian,Farsun,Chaharmahal and Bakhtiari,IR
@@ -17887,22 +17970,30 @@ Estahbān,Estahban,Estahban,Estahbanat,Estahbān,Estehbanat,Fars,IR
 Eslāmābād-e Gharb,Eslamabad-e Gharb,Eslamabad,Eslamabad-e Gharb,Eslāmābād,Eslāmābād-e Gharb,Kermanshah Province,IR
 Eshtehārd,Eshtehard,Eshtehard,Eshtehārd,Ishtahabad,Ishtahard,Alborz Province,IR
 Esfarāyen,Esfarayen,Esfarayen,Esfarāyen,Meyanabad,Meyanābād,North Khorasan,IR
+Eqlīd,Eqlid,Eklid,Eklīd,Eqlid,Eqlīd,Fars,IR
 Shahrud,Shahrud,Emamshahr,Emāmshahr,RUD,Shahrud,Semnan,IR
 Dorūd,Dorud,Dorood Garan,Dorud,Dorūd,Dow Rud,Lorestan Province,IR
 Dogonbadan,Dogonbadan,Do Gonbadan,Do Gonbadān,Dogonbadan,Dow Gonbadan,Kohgiluyeh and Boyer-Ahmad,IR
 Dīvāndarreh,Divandarreh,Divan Darra,Divandarreh,Diwan Darreh,Dīvan Darra,Kurdistan Province,IR
+Dezful,Dezful,DEF,Dezfoul,Dezful,Dezfūl,Khuzestan,IR
+Bandar-e Deyr,Bandar-e Deyr,Bandar-e Deyyer,Daiyir,Dayer,Dayir,Bushehr,IR
 Delījān,Delijan,Dalijan,Dalijān,Delijan,Delījān,Markazi,IR
 Dehlorān,Dehloran,Deh Lovan,Deh Lovān,Deh Luran,Deh Lūrān,Ilam Province,IR
 Dehdasht,Dehdasht,Dehdasht,Dehdast,Kuhgiluyeh,dhdsht,Kohgiluyeh and Boyer-Ahmad,IR
+Şafāshahr,Safashahr,Deh Bid,Deh Bīd,Safashahr,dh byd,Fars,IR
+Dehāqān,Dehaqan,Dehaqan,Dehāqān,dhaqan,دهاقان,Isfahan,IR
 Sūsangerd,Susangerd,Dasht-e Azadegan,Dasht-e Āzādegān,Dasht-i-Mishan,Dasht-i-Mishān,Khuzestan,IR
 Darreh Shahr,Darreh Shahr,Dareh sahr,Darre Szahr,Darreh Shahr,Darreh-ye Shahr,Ilam Province,IR
+Dargaz,Dargaz,Dargaz,Darreh Gaz,Mohammadabad,Mohammadabad Arbab,Razavi Khorasan,IR
 Dārān,Daran,Daran,Darun,Dārān,Dārūn,Isfahan,IR
-Dārāb,Darab,Darab,Darab-e Do,Dārāb,Dārāb-e Do,Fars,IR
+Dārāb,Darab,City of Darius,Darab,Darab-e Do,Darabgerd,Fars,IR
 Dāmghān,Damghan,Damghan,Dāmghān,damghan,دامغان,Semnan,IR
 Damāvand,Damavand,Damavand,Damāvand,Demavend,Demāvend,Tehran,IR
+Choghādak,Choghadak,Chagbadak,Chaghadak,Chaghādak,Choghadak,Bushehr,IR
 Chenārān,Chenaran,Chanaran,Chanārān,Chenaran,Chenārān,Razavi Khorasan,IR
 Charām,Charam,Charam,Charām,Cherum,Tal Gard,Kohgiluyeh and Boyer-Ahmad,IR
 Chālūs,Chalus,Chalus,Chālūs,chalws,Чалус,Mazandaran,IR
+Chahār Dangeh,Chahar Dangeh,Chahar Dangeh,Chahār Dangeh,Chahār Dāngeh,chahar dangih,Tehran,IR
 Bushehr,Bushehr,Abu Shahr,Abu Shehr,Abuschehr,BUZ,Bushehr,IR
 Būmahen,Bumahen,Bum Hend,Bum-e Hen,Bumahen,Bumahind,Tehran,IR
 Būkān,Bukan,Bokan,Bowkan,Bowkān,Bukan,West Azerbaijan,IR
@@ -17922,6 +18013,7 @@ Bāneh,Baneh,Bane,Baneh,Bani,Bāneh,Kurdistan Province,IR
 Bandar-e Torkaman,Bandar-e Torkaman,Bandar Shah,Bandar Shāh,Bandar-e Shah,Bandar-e Shāh,Golestan,IR
 Bandar-e Māhshahr,Bandar-e Mahshahr,Bandar Ma`sbur,Bandar Ma`shur,Bandar Mah Shahr Terminal,Bandar Mah Sharh,Khuzestan,IR
 Bandar-e Lengeh,Bandar-e Lengeh,BDH,Bandar Langeh,Bandar-e Lengeh,Bandar-e-Langeh,Hormozgan,IR
+Bandar-e Kong,Bandar-e Kong,Bandar-e Gong,Bandar-e Kong,Kong,Kung,Hormozgan,IR
 Bandar-e Gaz,Bandar-e Gaz,Bandar Gaz,Bandar-e Gaz,Bandar-i-Gaz,Bandar-i-Jaz,Golestan,IR
 Bandar-e Deylam,Bandar-e Deylam,Bandar Deilam,Bandar Deylam,Bandar Dilam,Bandar Dīlam,Bushehr,IR
 Bandar-e Anzalī,Bandar-e Anzali,Bandar Anzali,Bandar Pahlavi,Bandar Pahlevi,Bandar-e Anzali,Gilan Province,IR
@@ -17938,6 +18030,7 @@ Hashtrūd,Hashtrud,Azaran,Hashtrud,Hashtrūd,Sar Eskand,East Azerbaijan,IR
 Shāzand,Shazand,Azadshahr,Shah Zand,Shazand,Shāzand,Markazi,IR
 Āstārā,Astara,Astara,astara,Āstārā,Астара,Gilan Province,IR
 Āstāneh-ye Ashrafīyeh,Astaneh-ye Ashrafiyeh,Astane,Astaneh,Astaneh-ye Ashrafiyeh,astanh ashrfyh,Gilan Province,IR
+Āshkhāneh,Ashkhaneh,Ashkhaneh,ashkhanh,Āshkhāneh,آشخانه,North Khorasan,IR
 Asadābād,Asadabad,Asadabad,Asadabada,Asadābād,asd abad,Hamadan Province,IR
 Arsanjān,Arsanjan,Arsanjan,Arsanjān,Arsenjan,Arsenjān,Fars,IR
 Ardestān,Ardestan,Ardestan,Ardestān,Ardistan,Ardistān,Isfahan,IR
@@ -17957,26 +18050,32 @@ Alīgūdarz,Aligudarz,Aligoodarz,Aligudarz,Alīgūdarz,`Ali Gudar,Lorestan Provi
 Aleshtar,Aleshtar,Alashtar,Aleshtar,Alishtar,Alishtār,Lorestan Province,IR
 Ajab Shīr,Ajab Shir,Ajabshahr,`Ajab Shir,aajabshahr,اَجَبشَهر,East Azerbaijan,IR
 Ahvaz,Ahvaz,AWZ,Ahvaz,Ahvaz - ahwaz,Ahvaza,Khuzestan,IR
+Ahram,Ahram,Ahram,Ahrom,ahrm,اهرم,Bushehr,IR
 Ahar,Ahar,Ahar,Aher,Akhar,Eher,East Azerbaijan,IR
 Aghajari,Aghajari,AKW,Agha Jari,Aghajari,Aqa Jari,Khuzestan,IR
 Ābyek,Abyek,Abiak,abyik,آبيِك,,Markazi,IR
 Ābyek,Abyek,Abiak,Abiak Sarai,Abiak Sarāi,Abyek,Qazvin Province,IR
 Abhar,Abhar,Abhar,Abkhar,abhr,Абхар,Zanjan,IR
 Ābdānān,Abdanan,Abdanan,Awdanan,Qal`a Ab-i-Danan,Qal`eh Ab-i-Danan,Ilam Province,IR
+Abarkūh,Abarkuh,Abar Qu,Abar Qū,Abarghoo,Abarku,Yazd Province,IR
 Abadeh,Abadeh,Abade,Abadeh,abadh,Ābādeh,Fars,IR
 Abadan,Abadan,ABD,Abadan,Abadana,Abadanas,Khuzestan,IR
 Moḩammad Shahr,Mohammad Shahr,Mohammad Shahr,Mohammadabad,Moḩammad Shahr,Moḩammadābād,Alborz Province,IR
+Garmdarreh,Garmdarreh,Garm Darreh,Garmdarreh,Garmdarreh-ye Pa'in,Garmdarreh-ye Pā’īn,Alborz Province,IR
 Bāqershahr,Baqershahr,Baqerabad,Baqerabad-e Baqerof,Baqershahr,Bāqershahr,Tehran,IR
-Shahrak-e Qīāmdasht,Shahrak-e Qiamdasht,Qiam Dasht,Qīām Dasht,Shahin Dasht,Shahin Shahr,Tehran,IR
+Qīāmdasht,Qiamdasht,Qiam Dasht,Qīām Dasht,Shahin Dasht,Shahin Shahr,Tehran,IR
 Showţ,Showt,Shot,Showt,Showţ,Shoţ,West Azerbaijan,IR
 Pāsārgād,Pasargad,Pasargad,Pāsārgād,,,Fars,IR
+Vaḩīdīyeh,Vahidiyeh,Dusha,Dūshā,Vahidieh,Vahidiyeh,Tehran,IR
 Naz̧arābād,Nazarabad,Nasirabad,Nasirabad-e Bader,Naşīrābād,Naşīrābād-e Bader,Tehran,IR
 Shāhedshahr,Shahedshahr,Shahedshahr,Shāhedshahr,`Aliabad,`Aliabad-e Derazeh,Tehran,IR
+Ovrīn,Ovrin,Avarin,Avarīn,Orin,Orīn,Tehran,IR
 Eqbālīyeh,Eqbaliyeh,Eqbaliyeh,Eqbālīyeh,aqbalyh,اقباليّه,Tehran,IR
 Shāhīn Shahr,Shahin Shahr,Shahin Shahr,Shāhīn Shahr,shahyn shhr,شاهین شهر,Isfahan,IR
 Zarrīn Shahr,Zarrin Shahr,Qal`eh Riz,Qal‘eh Rīz,Riz,Riz-e Lanjan,Isfahan,IR
 Varnāmkhvāst,Varnamkhvast,Varnam Khavast,Varnamkhast,Varnamkhvast,Varnām Khavāst,Isfahan,IR
 Tīrān,Tiran,Tehran,Tehrān,Tihran,Tihrān,Isfahan,IR
+Sedeh Lanjān,Sedeh Lanjan,Sedeh,Sedeh Lanjan,Sedeh Lanjān,sdh,Isfahan,IR
 Rehnān,Rehnan,Rahnan,Rehnan,Rehnān,Renan,Isfahan,IR
 Shahreẕā,Shahreza,Qomisheh,Qomsheh,Qomīsheh,Qowmsheh,Isfahan,IR
 Goldasht,Goldasht,Goldasht,Qal`eh Shah,Qal`eh-ye Shah,Qal‘eh Shāh,Isfahan,IR
@@ -18005,16 +18104,18 @@ Tāybād,Taybad,Taiabad,Taybad,Tayebad,Tayebat,Razavi Khorasan,IR
 Sarāvān,Saravan,Saravan,Sarāvān,srawan,سراوان,Sistan and Baluchestan,IR
 Sarakhs,Sarakhs,CKT,Sarahs,Sarakhs,Serakhs,Razavi Khorasan,IR
 Qaşr-e Qand,Qasr-e Qand,Barqan,Barqān,Borgan,Qasr Qand,Sistan and Baluchestan,IR
+Pīshīn,Pishin,Pishin,Pīshīn,pyshyn,پیشین,Sistan and Baluchestan,IR
 Nīkshahr,Nikshahr,Geh,Keh,Nik,Nikshahr,Sistan and Baluchestan,IR
 Nehbandān,Nehbandan,Nah,Neh,Nehbandan,Nehbandān,South Khorasan Province,IR
 Konārak,Konarak,Kenarak,Kenārak,Konarak,Konārak,Sistan and Baluchestan,IR
 Khvāf,Khvaf,Khaf,Khvaf,Khvāf,Khāf,Razavi Khorasan,IR
 Khāsh,Khash,Kavash,Khash,Khāsh,Kwash,Sistan and Baluchestan,IR
-Jālq,Jalq,Jalaq,Jalk,Jalq,Jālaq,Sistan and Baluchestan,IR
+Jālq,Jalq,Jalaq,Jaleq,Jalk,Jalq,Sistan and Baluchestan,IR
 Iranshahr,Iranshahr,Fahrej,Fehruj,IHR,Iranshahr,Sistan and Baluchestan,IR
 Chabahar,Chabahar,Cabahar,Cahbahar,Chabahar,Chabakhar,Sistan and Baluchestan,IR
 Chamrān,Chamran,Chamran,Shahrak-e Shahid Chamran,Shahrak-e Shahīd Chamrān,shhrk shhyd chmran,Khuzestan,IR
 Sheybān,Sheyban,Sheyban,Sheybān,shyban,شیبان,Khuzestan,IR
+Shahr-e Ṣadrā,Shahr-e Sadra,Sadra,Shahre Jadide Sadra,Shahre sadra,sdra shyraz,Fars,IR
 Fardīs,Fardis,frdys,فردیس,,,Tehran,IR
 Māmūnīyeh,Mamuniyeh,Mamuniyeh,Māmūnīyeh,mamwnyh,مامونیه,Markazi,IR
 Parand,Parand,Mahal-e Ehdas-e Shahrak-e Maskuni-ye Parand,Maḩal-e Eḩdās̄-e Shahrak-e Maskūnī-ye Parand,Shahr-e Jadid-e Parand,Shahr-e Jadīd-e Parand,Tehran,IR
@@ -18024,19 +18125,26 @@ Moḩammadīyeh,Mohammadiyeh,Mohammadiyeh,Moḩammadīyeh,Shahrak-e Mohammadiyeh
 Nasīm Shahr,Nasim Shahr,Akbarabad,Akbarābād,Nasim Shahr,Nasīm Shahr,Tehran,IR
 Pardīs,Pardis,Jadid Pardis,Jadīd Pardīs,Pardis,Pardīs,Tehran,IR
 Īlkhchī,Ilkhchi,Ilkhchi,aylkhchy,Īlkhchī,ایلخچی,East Azerbaijan,IR
+Āz̄arshahr,Azarshahr,Azarshahr,Dehkhvareqan,Dehkhvāreqān,adhrshhr,East Azerbaijan,IR
 Mahājerān,Mahajeran,Mahajeran,Mahdudeh-ye Shahr-e Jadid-e Mahajeran,Mahājerān,Maḩdūdeh-ye Shahr-e Jadīd-e Mahājerān,Markazi,IR
 Jīroft,Jiroft,JYR,Jiroft,Jīroft,Sabzawaran,Kerman,IR
+Kahnūj,Kahnuj,Kahnuj,Kahnūj,khnwj,کهنوج,Kerman,IR
 Golbahār,Golbahar,Sayeban Goli,Shahrak-e Golbahar,Shahrak-e Golbahār,Sāyebān Golī,Razavi Khorasan,IR
 Mahdishahr,Mahdishahr,Mahdishahr,Sangsar,mhdyshhr,sngsr,Semnan,IR
 Āq Qalā,Aq Qala,Aq Qal`eh,Aq Qala,Pahlavi Dezh,Pahlavi-dej,Golestan,IR
+Qā’emīyeh,Qa'emiyeh,Chenar Shahijan,Chenār Shāhījān,Qa'emiyeh,Qā’emīyeh,Fars,IR
+Mojtame‘-e Maskūnī-ye Nāmjū,Mojtame'-e Maskuni-ye Namju,Mojtame`-e Maskuni-ye Namju,Mojtame‘-e Maskūnī-ye Nāmjū,مجتمع مسکونی نامجو,,Tehran,IR
+Shahrak-e ‘Alā’īn,Shahrak-e 'Ala'in,Shahrak-e `Ala'in,Shahrak-e ‘Alā’īn,`Ala'in,شهرک علائين,Tehran,IR
+Khabarābād,Khabarabad,Khabarabad,Khabarābād,Kheyrabad,Kheyrābād,Tehran,IR
 Bandar-e Emam Khomeyni,Bandar-e Emam Khomeyni,Bandar Imam,Bandar Imam Khomeini,Bandar Jomeiny,Bandar Sahpur,Khuzestan,IR
+‘Ālī Shahr,'Ali Shahr,`Ali Shahr,ʿaly shhr,عالی شهر,‘Ālī Shahr,Bushehr,IR
 Shahr-e Jadīd-e Mehestan,Shahr-e Jadid-e Mehestan,Shahr-e Jadid-e Mehestan,shhr jdyd mhstan,شهر جدید مهستان,,Alborz Province,IR
 Pākdasht,Pakdasht,Mamazan,Māmāzān,Pakdasht,Pākdasht,Tehran,IR
 Boshrūyeh,Boshruyeh,Bocruye,Boshruiyeh,Boshruyeh,Boshrūyeh,South Khorasan Province,IR
 Andīsheh,Andisheh,Andisheh,Andisheh-ye Shomali,Andīsheh,Andīsheh-ye Shomālī,Tehran,IR
 Nasimshahr,Nasimshahr,,,,,Tehran,IR
 Bāghestān,Baghestan,,,,,Tehran,IR
-Sahand,Sahand,,,,,East Azerbaijan,IR
+Sahand,Sahand,shnd,سهند,,,East Azerbaijan,IR
 Akureyri,Akureyri,AEY,Agireiri,Akirejri,Akjurehjry,Northeast,IS
 Reykjavík,Reykjavik,REK,Recwic,Refkiavik,Rehjkjavik,Capital Region,IS
 Kópavogur,Kopavogur,Kopavog,Kopavogi,Kopavogs,Kopavogsbaer,Capital Region,IS
@@ -18388,13 +18496,14 @@ Manduria,Manduria,Manduria,Mandurija,Мандурия,,Apulia,IT
 Malnate,Malnate,Malnate,marunate,マルナーテ,,Lombardy,IT
 Magenta,Magenta,Castra Maxentia,Magenta,ma zhen ta,majenta,Lombardy,IT
 Maddaloni,Maddaloni,Maddaloni,Маддалони,,,Campania,IT
-Macerata,Macerata,Macerata,Macherata,macherata,mz'rth,The Marches,IT
+Macerata,Macerata,Macerata,Macherata,Province de Macerata,Province of Macerata,The Marches,IT
 Lugo,Lugo,Lugo,rugo,Луго,ルーゴ,Emilia-Romagna,IT
 Lucera,Lucera,Lucera,Luchera,lutseriumi,Лучера,Apulia,IT
 Lucca,Lucca,LCV,Locca,Luca,Lucca,Tuscany,IT
 Lodi,Lodi,Laus Pompeia,Lod,Lodi,Lòd,Lombardy,IT
 Livorno,Livorno,Labro,Leghorn,Levuorno,Liborno,Tuscany,IT
 Lissone,Lissone,Lissone,Lissun,Lissún,rissone,Lombardy,IT
+Lingotto,Lingotto,Lingot,Lingòt,,,Piedmont,IT
 Limbiate,Limbiate,Limb'jate,Limbiate,rinbiate,Лимбьяте,Lombardy,IT
 Lido di Ostia,Lido di Ostia,Lido di Ostia,Lido di Roma,Lido-di-Ostija,Lido-di-Roma,Lazio,IT
 Lido,Lido,Bagni del Lido,Lido di Venezia,,,Veneto,IT
@@ -18664,6 +18773,7 @@ Barriera di Milano,Barriera di Milano,,,,,Piedmont,IT
 Aurora,Aurora,,,,,Piedmont,IT
 San Salvario,San Salvario,,,,,Piedmont,IT
 Mirafiori Nord,Mirafiori Nord,Mirafiori North,,,,Piedmont,IT
+Filadelfia,Filadelfia,Filadelfia - Mercati Generali,Mercati Generali,,,Piedmont,IT
 Brera,Brera,,,,,Lombardy,IT
 Adriano,Adriano,,,,,Lombardy,IT
 Chinatown,Chinatown,,,,,Lombardy,IT
@@ -20429,7 +20539,7 @@ Incheon,Incheon,Chemulpo,Incchon,Inch'on,Inch'ŏn,Incheon,KR
 Imsil,Imsil,Imsil,Ninjitsu,imsil,imsilgun,Jeollabuk-do,KR
 Icheon-si,Icheon-si,Icheon,Icheon-si,icheon,icheonsi,Gyeonggi-do,KR
 Hwasun,Hwasun,Hwansun,Hwason,Hwasun,Khvasun,Jeollanam-do,KR
-Hwaseong-si,Hwaseong-si,Hwaseong,Hwaseong-si,hwaseong,hwaseongsi,Gyeonggi-do,KR
+Hwaseong-si,Hwaseong-si,Hwaseong,Hwaseong-si,Khvason,hua cheng shi,Gyeonggi-do,KR
 Hwacheon,Hwacheon,Huachon,Hwach'on,Hwach'ŏn,Hwacheon,Gangwon-do,KR
 Hongseong,Hongseong,CaminodeFloresta,Hongseong,Hongsong,Hongsung,Chungcheongnam-do,KR
 Hongch’ŏn,Hongch'on,Hongch'on,Hongch’ŏn,Kosen,Kōsen,Gangwon-do,KR
@@ -20533,7 +20643,7 @@ Zaysan,Zaysan,SZI,Saissan,Zaisan,Zaisanas,East Kazakhstan,KZ
 Zhangaqorghan,Zhangaqorghan,Janykurgan,Yani-Kurgan,Yany-Kurian,Yanykurgan,Kyzylorda,KZ
 Turar Ryskulov,Turar Ryskulov,Turar Ryskulov,Turar Rysqulov,Turara Ryskulova,Vannovka,Turkistan,KZ
 Ushtobe,Ushtobe,Ush-Tyube,Ushtobe,Üshtöbe,Уштобе,Zhetysu Region,KZ
-Turkestan,Turkestan,Tuerkistan,Turkestan,Turkestán,Turkistan,Turkistan,KZ
+Turkistan,Turkistan,Tuerkistan,Turkestan,Turkestán,Turkistan,Turkistan,KZ
 Temirtau,Temirtau,Samarand,Samarka,Samarkand,Samarkandskoye,Karaganda,KZ
 Tekeli,Tekeli,Tekeli,Tekely,Текели,,Zhetysu Region,KZ
 Tasbuget,Tasbuget,Tasboget,Tasbuget,Tasböget,Тасбогет,Kyzylorda,KZ
@@ -20594,7 +20704,6 @@ Vientiane,Vientiane,Bientian,Fanhyiengh,Nakhon Viangchan,V'ent'jan,Vientiane Pre
 Xam Nua,Xam Nua,Muang Sam,Muang Xam Nua,NEU,Sam Neua,Houaphan,LA
 Savannakhet,Savannakhet,Kaysone Phomvihane,Khwaeng Savannakhet,Khwaeng_Savannakhet,Muang Kaysone Phomvihane,Savannakhet Province,LA
 Pakse,Pakse,PKZ,Pakse,Paksé,Paksė,Champasak Province,LA
-Ban Xèpôn,Ban Xepon,Ban Xepon,Ban Xèpôn,Ban Xépôn,Chepon,Savannakhet Province,LA
 Muang Xay,Muang Xay,Mouang Sai,Muang Saj,Muang Xai,Muang Xay,Oudomxai,LA
 Vang Vieng,Vang Vieng,Muang Vangviang,Vang V'eng,Vang Vieng,Vangviang,Vientiane,LA
 Muang Sing,Muang Sing,Ban Muangsing,Muang Sing,Muong Sen,Muong Seng,Loungnamtha,LA
@@ -20604,9 +20713,8 @@ Thakhèk,Thakhek,Khammouane,Muang Khammouan,Muang Thakek,Takkhek,Khammouane Prov
 Luang Prabang,Luang Prabang,LPQ,Louang Prabang,Louangphabang,Louangphrabang,Luang Prabang Province,LA
 Borikhan,Borikhan,Berikhane,Bolikanh,Bolikhan,Borikane,Bolikhamsai,LA
 Ban Xénô,Ban Xeno,Ban Xeno,Ban Xénô,Nong Seno,Seno,Savannakhet Province,LA
-Ban Napè,Ban Nape,Ban Nape,Ban Napè,,,Bolikhamsai,LA
-Ban Nambak,Ban Nambak,Ban Nam Bac,Ban Nambak,Muang Namba,Muang Nambak,Luang Prabang Province,LA
 Ban Laongam,Ban Laongam,Ban Laongam,Lao Ngam,,,Salavan Province,LA
+Ban Kèngkok,Ban Kengkok,Ban Kengkok,Ban Kèngkok,Keng Kok,Muang Champhon,Savannakhet Province,LA
 Ban Houakhoua,Ban Houakhoua,Ban  Khojjaksjau,Ban Houakhoua,Ban Houayxay,Бан  Хойяксяу,Bokeo,LA
 Sekong,Sekong,Sekong,Xekong,sekam,sekon,Xekong,LA
 Ban Khoan,Ban Khoan,Ban Khoan,Ban Kwan,Golden Triangle,Zloty Trojkat,Bokeo,LA
@@ -21150,6 +21258,7 @@ Ambanja,Ambanja,Ambanja,IVA,,,Diana,MG
 Ambalavao,Ambalavao,Ambalava,Ambalavao,,,Upper Matsiatra,MG
 Alarobia,Alarobia,Alarobi,Alarobia,alarwbya,Аларобиа,Analamanga,MG
 Majuro,Majuro,MAJ,Madzhuro,Majur,Majuro,Majuro Atoll,MH
+Dalap-Uliga-Dorrit,Dalap-Uliga-Dorrit,Delap-Uliga-Djarrit,,,,,MH
 Zelino,Zelino,Zelino,Zeljino,Zheline,Zhelino,Zhelino,MK
 Vinica,Vinica,Vinica,bhinika,fynytsa,vinika,Vinica,MK
 Veles,Veles,Koprulu,Köprülü,Titov Veles,Veles,Veles,MK
@@ -21243,6 +21352,7 @@ Banamba,Banamba,Banamba,Bananba,,,Koulikoro,ML
 Bamba,Bamba,Bamba,Banba,,,Gao,ML
 Bamako,Bamako,BKO,Bamaco,Bamaco - Bamako,Bamakas,Bamako,ML
 Bafoulabé,Bafoulabe,Bafilabɛn,Bafoulabe,Bafoulabé,Bafulabe,Kayes,ML
+Andéranboukan,Anderanboukan,Amderamboukan,Amderamboukane,Amdéramboukane,Anderabukani,Menaka,ML
 Dialakorodji,Dialakorodji,Dialakorodji,Dialakoroji,Jalakɔrɔji,,Koulikoro,ML
 I-n-Tillit,I-n-Tillit,I-n-Tillit,,,,Gao,ML
 Massiogo,Massiogo,,,,,Sikasso,ML
@@ -21880,7 +21990,7 @@ Gabriel Leyva Solano,Gabriel Leyva Solano,Benito Juarez,Benito Juárez,Gabriel L
 Cihuatlán,Cihuatlan,,,,,Jalisco,MX
 Lázaro Cárdenas,Lazaro Cardenas,Lazaro Cardenas,Lázaro Cárdenas,,,Baja California,MX
 Santa Isabel,Santa Isabel,Santa Isabel,,,,Baja California,MX
-Guadalupe Victoria,Guadalupe Victoria,Ciudad Guadalupe Victoria (Kilometro Cuarenta y Tres),Ciudad Guadalupe Victoria (Kilómetro Cuarenta y Tres),Guadalupe Victoria,,Baja California,MX
+Ciudad Guadalupe Victoria,Ciudad Guadalupe Victoria,Ciudad Guadalupe Victoria,Ciudad Guadalupe Victoria (Kilometro Cuarenta y Tres),Ciudad Guadalupe Victoria (Kilómetro Cuarenta y Tres),Guadalupe Victoria,Baja California,MX
 Zinapécuaro de Figueroa,Zinapecuaro de Figueroa,Zinapecuaro,Zinapecuaro de Figueroa,Zinapécuaro,Zinapécuaro de Figueroa,Michoacan,MX
 Ixtapa-Zihuatanejo,Ixtapa-Zihuatanejo,Ixtapa Zihuatanejo,Ixtapa-Zihuatanejo,Jose Azueta,José Azueta,Guerrero,MX
 Zapotlanejo,Zapotlanejo,Zapotlanejo,,,,Jalisco,MX
@@ -21926,7 +22036,7 @@ Tala,Tala,Opstina Tala,Opština Tala,Tala,,Jalisco,MX
 Tacámbaro de Codallos,Tacambaro de Codallos,Tacambaro,Tacambaro de Codallos,Tacambaro de Collados,Tacámbaro de Codallos,Michoacan,MX
 Sombrerete,Sombrerete,Sombrerete,,,,Zacatecas,MX
 Soledad de Graciano Sánchez,Soledad de Graciano Sanchez,Diaz Gutierrez,Diez Gutierrez,Diez Gutiérrez,Díaz Gutiérrez,San Luis Potosi,MX
-Silao,Silao,Silao,Silao de la Victoria,,,Guanajuato,MX
+Silao de la Victoria,Silao de la Victoria,Silao,Silao de la Victoria,,,Guanajuato,MX
 Sayula,Sayula,Sayula,,,,Jalisco,MX
 Santiago Papasquiaro,Santiago Papasquiaro,Sant'jago-Papask'jaro,Santiago Papaskiaro,Santiago Papasquiaro,Santijago Papaskijaro,Durango,MX
 Santiago Ixcuintla,Santiago Ixcuintla,Santiago,Santiago Ixcuintla,,,Nayarit,MX
@@ -23123,6 +23233,7 @@ Gouda,Gouda,Chaounta,Gauda,Gaudanum,Gouda,South Holland,NL
 Gorinchem,Gorinchem,Chorin'chem,Garkum,Gorcum,Goricum,South Holland,NL
 Goirle,Goirle,Goirl,Goirle,Goorle,Gorle,North Brabant,NL
 Goes,Goes,Chous,Goes,Gus,Gusas,Zeeland,NL
+Glanerbrug,Glanerbrug,,,,,Overijssel,NL
 Gennep,Gennep,Asnapium,Gennep,Gennep an der Maas,,Limburg,NL
 Gemert,Gemert,khymyrt,خيميرت,,,North Brabant,NL
 Geleen,Geleen,Gelaen,Gelen,Gelenas,he lun,Limburg,NL
@@ -23181,6 +23292,7 @@ Benthuizen,Benthuizen,,,,,South Holland,NL
 Bennekom,Bennekom,Bennekom,Беннеком,,,Gelderland,NL
 Barneveld,Barneveld,Barneveld,Барневелд,,,Gelderland,NL
 Barendrecht,Barendrecht,Barendrekht,Barendrext,ba lun de lei he te,baryndrykht,South Holland,NL
+Badhoevedorp,Badhoevedorp,,,,,North Holland,NL
 Baarn,Baarn,Baan,Baarn,Barn,baleun,Utrecht,NL
 Assendelft,Assendelft,,,,,North Holland,NL
 Assen,Assen,Asen,Asenas,Asningseli,Asningsėli,Drenthe,NL
@@ -23209,6 +23321,7 @@ Tønsberg,Tonsberg,Cjonsberg,Kommun Tonsberg,Kommun Tønsberg,T'onsberg,Vestfold
 Time,Time,Gmina Time,Kommun Time,Time,Time kommun,Rogaland,NO
 Stjørdalshalsen,Stjordalshalsen,Schjordalshalsenas,Skh'jordalskhalsen,St'ordalskhalsen,Stjerdalkhalsen,Trondelag,NO
 Stavanger,Stavanger,SVG,Stafangur,Stavanger,Stavangera,Rogaland,NO
+Sola,Sola,Haaland,Haland,Håland,Kommun Sola,Rogaland,NO
 Skien,Skien,Kommun Skien,SKE,Seins,Shien,Telemark,NO
 Sarpsborg,Sarpsborg,Kommun Sarpsborg,Sarpsborg,Sarpsborgas,Sarpsborgs kommun,Ostfold,NO
 Sandnes,Sandnes,Sandnes,Sandnes kommun,,,Rogaland,NO
@@ -23384,7 +23497,7 @@ Penonomé,Penonome,Penonome,Penonomé,bynwnwmy,penonome,Cocle,PA
 Pedregal,Pedregal,Pedregal,,,,Panama,PA
 Pedregal,Pedregal,Pedregal,Puerto Pedregal,,,Chiriqui Province,PA
 Parque Lefevre,Parque Lefevre,Parque Lefevre,Parque Lefrevre,,,Panama,PA
-Panamá,Panama,Ciudad de Panama,Ciudad de Panamá,Ciutat de Panama,Ciutat de Panamà,Panama,PA
+Panama City,Panama City,Ciudad de Panama,Ciudad de Panamá,Ciutat de Panama,Ciutat de Panamà,Panama,PA
 Las Cumbres,Las Cumbres,Las Cumbres,,,,Panama,PA
 La Concepción,La Concepcion,Concepcion,Concepción,La Concepcion,La Concepción,Chiriqui Province,PA
 La Chorrera,La Chorrera,Chorrera,La Chorrera,La-Chorrera,la chwryra,Panama Oeste Province,PA
@@ -23689,6 +23802,7 @@ Quiapo,Quiapo,Kiyabo,Quiapo,Quiapo District,kui a po qu,National Capital Region,
 Quezon City,Quezon City,Ciudad Quezon,Keson-Siti,Kezon Siti,Kezonurbo,National Capital Region,PH
 Quezon,Quezon,Keson-Siti,Quezon,Кесон-Сити,,Central Luzon,PH
 Quezon,Quezon,Keson,Kiokong,Quezon,Кесон,Northern Mindanao,PH
+Putatan,Putatan,,,,,National Capital Region,PH
 Pulupandan,Pulupandan,Palupandan,Puhipandan,Pulupandan,,Western Visayas,PH
 Pulong Santa Cruz,Pulong Santa Cruz,Pulong Santa Cruz,Pulong Santa Rosa,Santa Cruz,,Calabarzon,PH
 Pulilan,Pulilan,Pulilan,,,,Central Luzon,PH
@@ -23755,6 +23869,7 @@ Nabunturan,Nabunturan,nabwntwran  wady kwmpwstyla,نابونتوران، واد�
 Nabua,Nabua,Nabua,,,,Bicol Region,PH
 Muricay,Muricay,Muricay,,,,Zamboanga Peninsula,PH
 Murcia,Murcia,Murcia,,,,Western Visayas,PH
+Muntinlupa,Muntinlupa,City of Muntinlupa,Muntinlupa,Muntinlupa City,,Calabarzon,PH
 Muñoz,Munoz,,,,,Central Luzon,PH
 Morong,Morong,Moron,Morong,Моронг,,Central Luzon,PH
 Morong,Morong,Morong,Моронг,,,Calabarzon,PH
@@ -23925,6 +24040,7 @@ Danao,Danao,Danao,Danao City,Idanao,,Central Visayas,PH
 Dagupan,Dagupan,Dagupan,Dagupan City,Dagupan Lakanbalen,Dagupanas,Ilocos,PH
 Daet,Daet,DTE,Daet,dayt  kamarynz shmaly,Дает,Bicol Region,PH
 Daanbantayan,Daanbantayan,Candaya,Daanbantayan,,,Central Visayas,PH
+Cupang,Cupang,,,,,National Capital Region,PH
 Culion,Culion,CUJ,Culion,Culion Leper Colony,Culion Reservation,Mimaropa,PH
 Cuenca,Cuenca,Cuenca,Kuehnka,Куэнка,,Calabarzon,PH
 Cotabato,Cotabato,CBO,Catabate,Catabato,Cotabato,Autonomous Region in Muslim Mindanao,PH
@@ -24008,6 +24124,7 @@ Bayugan,Bayugan,Bayugan,City of Bayugan,Dakbayan sa Bayugan,Lungsod ng Bayugan,C
 Bayombong,Bayombong,Bayombong,baywmbwng,بائومبونگ,,Cagayan Valley,PH
 Baybay,Baybay,Baybay,Baybay City,Kota Baybay,بےبے,Eastern Visayas,PH
 Bayawan,Bayawan,Bagiavan,Bajavan,Bajavana,Bajavanas,Central Visayas,PH
+Bayanan,Bayanan,,,,,National Capital Region,PH
 Bayambang,Bayambang,Bayambang,Bayembang,,,Ilocos,PH
 Bay,Bay,Bay,Bej,Бей,,Calabarzon,PH
 Bauang,Bauang,,,,,Ilocos,PH
@@ -24024,6 +24141,7 @@ Bañga,Banga,Banga,Bañga,,,Soccsksargen,PH
 Banga,Banga,Banga,Bañga,,,Soccsksargen,PH
 Bambang,Bambang,Bambang,banban,バンバン,,Cagayan Valley,PH
 Bamban,Bamban,Bamban,,,,Central Luzon,PH
+Balulang,Balulang,Block 9  Lot 10  gold city village,,,,Northern Mindanao,PH
 Baliuag,Baliuag,Baliuag,Baliwag,Balíuag,,Central Luzon,PH
 Balayan,Balayan,Balajan,Balayan,Балаян,,Calabarzon,PH
 Balanga,Balanga,Balanga City,Kota Balanga,Syudad Balanga,balanga siti,Central Luzon,PH
@@ -24065,6 +24183,7 @@ Jose Rizal,Jose Rizal,Bayan ng Rizal,Jose P. Rizal,Jose Rizal,Rizal,Mimaropa,PH
 Commonwealth,Commonwealth,Commonwealth,,,,National Capital Region,PH
 Bagong Silangan,Bagong Silangan,Bagong Silangan,,,,National Capital Region,PH
 Pasig City,Pasig City,Pasig,,,,National Capital Region,PH
+Poblacion,Poblacion,Poblacion,,,,National Capital Region,PH
 Pandan,Pandan,Banwa it Pandan,Banwa kang Pandan,Banwa sang Pandan,Bayan ng Pandan,Western Visayas,PH
 Ayala Alabang,Ayala Alabang,,,,,National Capital Region,PH
 Banco Filipino Homes,Banco Filipino Homes,BF Homes,Banco Filipino Homes,,,National Capital Region,PH
@@ -24299,6 +24418,7 @@ Jauharabad,Jauharabad,Jauharabad,Joharabad,,,Punjab,PK
 Jatoi Shimali,Jatoi Shimali,Jatoi Shimali,Jatoi Shumali,,,Punjab,PK
 Jaranwala,Jaranwala,Dzaranvala,Dzharanvala,Džaranvala,Garanvala,Punjab,PK
 Jand,Jand,Jand,Jand Ja,,,Punjab,PK
+Jamrud,Jamrud,Dzamrud,Dzhamrud,Dżamrud,Džamrúd,Khyber Pakhtunkhwa,PK
 Jampur,Jampur,Jampur,Jāmpur,,,Punjab,PK
 Jalalpur Pirwala,Jalalpur Pirwala,Dzalalpur Pirwala,Dźalalpur Pirwala,Jalalpur,Jalalpur Pirwala,Punjab,PK
 Jalalpur Jattan,Jalalpur Jattan,Jalalpur,Jalalpur Jattan,Jalālpur,,Punjab,PK
@@ -24426,10 +24546,12 @@ Dayal,Dayal,Dadial,,,,Azad Kashmir,PK
 Dhirkot,Dhirkot,,,,,Azad Kashmir,PK
 Taftan,Taftan,,,,,Balochistan,PK
 Nowshera Kalan,Nowshera Kalan,,,,,Khyber Pakhtunkhwa,PK
+Daharki,Daharki,Daharki,,,,Sindh,PK
 Arif Wala,Arif Wala,,,,,Balochistan,PK
 Chaksawari,Chaksawari,,,,,Azad Kashmir,PK
 Alahabad,Alahabad,Elah Abad,Thing Mor,,,Punjab,PK
 Wah Cantt,Wah Cantt,Wah,Wah Cantonment,Wah Cantt,,Punjab,PK
+Hub,Hub,,,,,Balochistan,PK
 Żyrardów,Zyrardow,Zhirardov,Zhirarduv,Zirardova,Zyrardow,Mazovia,PL
 Żoliborz,Zoliborz,Zalborz,Zalbórz,Zholibozh,Zoliborz,Mazovia,PL
 Zielonka,Zielonka,Zel'onka,Zelenka,Zeljonka,Zelonka,Mazovia,PL
@@ -24832,6 +24954,7 @@ Yaţţā,Yatta,Jatta,Yatta,Yattah,Yaţţah,West Bank,PS
 Ţūbās,Tubas,Tubas,twbas,Ţūbās,طوباس,West Bank,PS
 Surif City,Surif City,Surif,Súríf,swryf,zwryp,West Bank,PS
 Sa‘īr,Sa'ir,Sa`ir,Sa‘īr,Si`ir,Si‘īr,West Bank,PS
+Shu‘fāţ,Shu'fat,Shu`fat,Shu‘fāţ,,,West Bank,PS
 Ramallah,Ramallah,Rahm Alla,Ram Allah,Ramala,Ramalah,West Bank,PS
 Qalqīlyah,Qalqilyah,Kal Kiliya,Kal'kilija,Kalkilieh,Kfar Saba,West Bank,PS
 Qabāţīyah,Qabatiyah,Kubatie,Kubatiya,Qabatiya,Qabatiyah,West Bank,PS
@@ -25051,6 +25174,7 @@ Presidente Franco,Presidente Franco,Presidente Franco,Puerto Presidente Franco,,
 Pilar,Pilar,PIL,Pilar,Pilaras,Villa Pilar,Neembucu Department,PY
 Pedro Juan Caballero,Pedro Juan Caballero,PJC,Pedro Chuan Kabaljeras,Pedro Huan Kabaljero,Pedro Juan Caballero,Amambay Department,PY
 Nemby,Nemby,Nemby,San Lorenzo de la Frontera,,,Central Department,PY
+Loma Plata,Loma Plata,Aldea Loma Plata,Loma Plata,,,Boqueron Department,PY
 Limpio,Limpio,Limpio,Tapua,,,Central Department,PY
 Lambaré,Lambare,Lambare,Lambaré,Lambarė,lambale,Central Department,PY
 Itauguá,Itaugua,Itaugua,Itauguá,Itaugva,Ytaygua,Central Department,PY
@@ -25548,7 +25672,7 @@ Roshal’,Roshal',Krestov Brod,Roshal',Roshal’,Rosjal,Moscow Oblast,RU
 Rodniki,Rodniki,Radniki,Rodniki,Rodnikí,luo de ni ji,Ivanovo Oblast,RU
 Revda,Revda,Rehuda,Revda,Revda i Sverdlovsk oblast,Revnta,Sverdlovsk Oblast,RU
 Reutov,Reutov,Reoutov,Reutov,Reutova,Reutovas,Moscow Oblast,RU
-Razumnoye,Razumnoye,Razumnoe,Razumnoje,Razumnoye,Rozumnoye,Belgorod Oblast,RU
+Razumnoye,Razumnoye,Razumnoe,Razumnoje,Razumnoye,Rozumne,Belgorod Oblast,RU
 Rayevskiy,Rayevskiy,Al'sheevo,Raevka,Raevskij,Rajevskij,Bashkortostan Republic,RU
 Rasskazovo,Rasskazovo,Raskazava,Raskazovo,Rasskasowo,Rasskazovo,Tambov Oblast,RU
 Ramenskoye,Ramenskoye,Ramenska,Ramenskae,Ramenskoe,Ramenskoie,Moscow Oblast,RU
@@ -25934,7 +26058,7 @@ Fryazevo,Fryazevo,Frjazevo,Fryazevo,Фрязево,,Moscow Oblast,RU
 Frolovo,Frolovo,Frolava,Frolovo,Frolowo,Frołowo,Volgograd Oblast,RU
 Fili,Fili,Fili,Фили,,,Moscow Oblast,RU
 Ezhva,Ezhva,Ehzhva,Ezhva,Ezjva,Sloboda,Komi,RU
-Engels,Engels,Ehngel's,Engel's,Engeljs,Engels,Saratov Oblast,RU
+Engels,Engels,Ehngel's,Enehl's,Engel's,Engeljs,Saratov Oblast,RU
 Enem,Enem,Ehnem,Enem,Enem Pervyy,Энем,Adygeya Republic,RU
 Elista,Elista,ESL,Ehlista,Ehlst,Elist,Kalmykiya Republic,RU
 Elektrougli,Elektrougli,Ehlektravugli,Ehlektrougli,Elektroiugli,Elektroougli,Moscow Oblast,RU
@@ -26282,7 +26406,7 @@ Zeya,Zeya,EYA,Seja,Zeja,Zeya,Amur Oblast,RU
 Yakutsk,Yakutsk,D'okuuskaj,Iakoutsk,Jakutsk,YKS,Sakha,RU
 Vyazemskiy,Vyazemskiy,Vjazemskij,Vyazemskaya,Vyazemskiy,Vyazemskoye,Khabarovsk,RU
 Vrangel’,Vrangel',Vrangel,Vrangel',Vrangel’,Wrangel,Primorye,RU
-Vladivostok,Vladivostok,Bladibostok,Uladzivastok,VVO,Vladik,Primorye,RU
+Vladivostok,Vladivostok,Bladibostok,Hai-Shen-Wai,Uladzivastok,Uładzivastok,Primorye,RU
 Vikhorevka,Vikhorevka,Vikhorevka,Вихоревка,,,Irkutsk Oblast,RU
 Ust’-Kut,Ust'-Kut,UKX,Ust Kutsk,Ust'-Kut,Ust-Kut,Irkutsk Oblast,RU
 Ust’-Ilimsk,Ust'-Ilimsk,UIK,Ust'-Ilimsk,Ust-Ilimsk,Ust-Iljimsk,Irkutsk Oblast,RU
@@ -26393,6 +26517,8 @@ Fedorovskiy,Fedorovskiy,Fedorovskij,Федоровский,,,Khanty-Mansia,RU
 Mezgor'e,Mezgor'e,Mezhgor'e,Межгорье,,,Bashkortostan Republic,RU
 Semender,Semender,Semender,Семендер,,,Dagestan,RU
 Kisilevsk,Kisilevsk,,,,,Kuzbass,RU
+gorod Solnetchnogorsk,gorod Solnetchnogorsk,g. Solnechnogorsk,г. Солнечногорск,,,Moscow Oblast,RU
+Narian-Mar,Narian-Mar,,,,,Nenets,RU
 Rwamagana,Rwamagana,Rouamankana,Rvamagana,Rwamagana,Rwanagana,Eastern Province,RW
 Musanze,Musanze,Musanze,RHG,Ruhengeri,Ruhengeris,Northern Province,RW
 Ruhango,Ruhango,Ruhango,,,,Southern Province,RW
@@ -26474,9 +26600,11 @@ Ha'il,Ha'il,HAS,Ha'il,Hael,Hail,Ha'il Region,SA
 Hafar Al-Batin,Hafar Al-Batin,Al Hafar,Hafar,Hafar al Batin,Haffar El Batin,Eastern Province,SA
 Fayfā’,Fayfa',Faifa,Fayfa',Fayfā’,Suq al Ithnayn,Jazan Region,SA
 Duba,Duba,Daba,Dhaba,Diba,Duba,Tabuk Region,SA
+Ḑamad,Damad,Damad,dmd,ضمد,Ḑamad,Jazan Region,SA
 Buraydah,Buraydah,Buraeydae,Buraida,Buraidah,Burajda,Al-Qassim Region,SA
 Abqaiq,Abqaiq,Abaqaiq,Abkaik,Abkaikas,Abkajk,Eastern Province,SA
 Baq‘ā’,Baq'a',Baq`a',Baqa'a,Baqa’a,Baq‘ā’,Ha'il Region,SA
+Baljurashi,Baljurashi,Baljarshi,Baljarshī,Baljurashi,Baljurshi,Al Bahah Region,SA
 Badr Ḩunayn,Badr Hunayn,Badr,Badr Hunain,Badr Hunayn,Badr Ḩunayn,Medina Region,SA
 Az Zulfī,Az Zulfi,Az Zilfi,Az Zilfī,Az Zulfi,Az Zulfī,Riyadh Region,SA
 Dhahran,Dhahran,DHA,Dahahron,Dahran,Dahrán,Eastern Province,SA
@@ -26518,7 +26646,7 @@ Ad Dir‘īyah,Ad Dir'iyah,Ad Dir'iyah,Ad Dir`iyah,Ad Dir‘īyah,Ad Dir’iyah,
 Ad Dilam,Ad Dilam,Ad Dilam,Dilam,aldlm,الدلم,Riyadh Region,SA
 Ad Dawādimī,Ad Dawadimi,Ad Dawadami,Ad Dawadimi,Ad Dawādamī,Ad Dawādimī,Riyadh Region,SA
 Dammam,Dammam,Ad Dammam,Ad Dammām,Ad-Dammam,Ad-Damman,Eastern Province,SA
-Abū ‘Arīsh,Abu `Arish,Abi `Arish,Abu `Arish,Abu al `Arish,Abu al ‘Arish,Jazan Region,SA
+Abū ‘Arīsh,Abu 'Arish,Abi `Arish,Abu `Arish,Abu al `Arish,Abu al ‘Arish,Jazan Region,SA
 Abha,Abha,AEbha,AHB,Abga,Abh,'Asir Region,SA
 Turubah,Turubah,Turubah,trbt,تربة,,Ha'il Region,SA
 Al Badā’i‘ al Wusţá,Al Bada'i' al Wusta,Al Bada'i`,Al Bada'i` al Wusta,Al Badaeya,Al Badā’i‘,Al-Qassim Region,SA
@@ -26528,6 +26656,7 @@ Sabt Alalayah,Sabt Alalayah,Sabt Al Alaya,sbt alʿlaya,سبت العلايا,,'A
 Riyāḑ al Khabrā’,Riyad al Khabra',Al-Khabra,Riyad al Khabra',Riyāḑ al Khabrā’,رِياض الخَبراء,Al-Qassim Region,SA
 Bariq,Bariq,,,,,'Asir Region,SA
 Sarāt ‘Abīdah,Sarat 'Abidah,Sarat`Abidah,Sarāt ‘Abīdah,سراة عبيدة,,'Asir Region,SA
+Al Mash‘ilīyah,Al Mash'iliyah,Al Mash‘ilīyah,Al-Mish'aliah,Al-Mish'alīah,AlMash`iliyah,Najran Region,SA
 Ranyah,Ranyah,Ranyah,rnyt,رنية,,'Asir Region,SA
 Ḥawṭah Banī Tamīm,Hawtah Bani Tamim,,,,,Riyadh Region,SA
 Panatina,Panatina,Panatina,,,,Honiara,SB
@@ -26701,7 +26830,7 @@ Härnösand,Haernoesand,Haernoesand,Herniosandas,Hernosandia,Hernusando,Vaestern
 Haninge,Haninge,,,,,Stockholm,SE
 Halmstad,Halmstad,Gal'mstad,HAD,Halmostadium,Halmstad,Halland,SE
 Gustavsberg,Gustavsberg,Gustarsberg,Gustavsberg,Gustavsberi,gwstawzby  wrmdw,Stockholm,SE
-Göteborg,Goeteborg,G'oteborg,GOT,Gautaborg,Geteborg,Vaestra Goetaland,SE
+Gothenburg,Gothenburg,G'oteborg,GOT,Gautaborg,Geteborg,Vaestra Goetaland,SE
 Gävle,Gaevle,Eule,Evle,GVX,Gaefle,Gaevleborg,SE
 Gamla Uppsala,Gamla Uppsala,Alt-Uppsala,Gamla Uppsala,Gamle Uppsala,Staraja Uppsala,Uppsala,SE
 Falun,Falun,BLE,Fahlun,Faliunas,Falun,Dalarna,SE
@@ -27065,6 +27194,7 @@ Shaykh Miskīn,Shaykh Miskin,Ash Shaykh Maskin,Ash Shaykh Maskīn,Ash Shaykh Mis
 Saraqib,Saraqib,Sarakeb,Saraqeb,Saraqib,Saraquib,Idlib,SY
 Salqīn,Salqin,Salkine,Salkîne,Salqin,Salqine,Idlib,SY
 As Salamīyah,As Salamiyah,As Salamiyah,As Salamīyah,Salamias,Salamiyah,Hama,SY
+Şaḩnāyā,Sahnaya,Sahnaiya,Sahnaya,shnaya,Şaḩnāyā,Rif-dimashq,SY
 Şāfītā,Safita,Borj Safita,Borj Sâfîta,Burj Safita,Burj Şāfītā,Tartus,SY
 Qaţanā,Qatana,Katana,Qatana,Qatanah,Qaţanah,Rif-dimashq,SY
 Jāsim,Jasim,Dzhasim,Jacem,Jasem,Jasim,Daraa,SY
@@ -27072,6 +27202,7 @@ Qārah,Qarah,Kara,Karra,Qara,Qarah,Rif-dimashq,SY
 Kabbasin,Kabbasin,Koulessine,Koulissine,Koulissîne,Qabbasin,Aleppo,SY
 Nubl,Nubl,Noubbel,Noubbol,Nubl,nbl,Aleppo,SY
 Nawá,Nawa,Naoua,Nava,Nawa,Nawá,Daraa,SY
+al-Yarmūk,al-Yarmuk,Al Yarmuk,Al Yarmūk,Jarmuk,Jarmúk,Damascus Governorate,SY
 Maharda,Maharda,Al Karmah,Maharada,Maharda,Mahardah,Hama,SY
 Maşyāf,Masyaf,Imranie,Massiaf,Massiyaf,Massiâf,Hama,SY
 Manbij,Manbij,Bambyce,Giyerapol,Hierapolis,Manbej,Aleppo,SY
@@ -27083,6 +27214,7 @@ Kafranbel,Kafranbel,Kafr Anbel,Kafr Nabl,Kafr Nubl,Kafr Nubul,Idlib,SY
 Kafr Lāhā,Kafr Laha,Houla,Hula,Kafer Laha,Kafer Lâha,Homs,SY
 Jisr ash Shughūr,Jisr ash Shughur,Djisr el Choghour,Jisr Al-Shughour,Jisr Shagour,Jisr ash Shaghur,Idlib,SY
 Jayrūd,Jayrud,Djeroud,Djerud,Djéroud,Jairoud,Rif-dimashq,SY
+Jaramānā,Jaramana,Ceramana,Djaramana,Djaramānā,Dscharamana,Rif-dimashq,SY
 Jarābulus,Jarabulus,Carablus,Djarablous,Djerablous,Djérâbloûs,Aleppo,SY
 Jablah,Jablah,Ceble,Ceblê,Djeble,Djéblé,Latakia,SY
 ‘Irbīn,`Irbin,Aarbil,Aarbîl,Arbine,Irbin,Rif-dimashq,SY
@@ -27105,6 +27237,7 @@ Burj Islām,Burj Islam,Borj Islam,Borj Islâm,Bourj Islam,Burdz Islam,Latakia,SY
 Binnish,Binnish,Binnesh,Binnich,Binnish,bnsh,Idlib,SY
 Batabo,Batabo,Batabo,batbw,btbw,باتبو,Aleppo,SY
 Bāniyās,Baniyas,Banias,Banigias,Banijas,Baniyas,Tartus,SY
+Babīlā,Babila,Bab Bila,Babila,Babīlā,Bāb Bīlā,Rif-dimashq,SY
 Az Zabadānī,Az Zabadani,Az Zabadani,Az Zabadānī,Zabadani,Zabadany,Rif-dimashq,SY
 I‘zāz,I`zaz,A`zaz,Aazaz,Aazâz,Azaz,Aleppo,SY
 ‘Ayn al ‘Arab,'Ayn al 'Arab,Aarab Peunar,Aarab Peunâr,Ain el Aarab,Ajn-ehl'-Arab,Aleppo,SY
@@ -27569,6 +27702,7 @@ Maliana,Maliana,MPT,Maliana,ma li ya na,mali'ana,Bobonaro,TL
 Likisá,Likisa,Likisa,Likisia,Likisá,Liquica,Liquica,TL
 Dili,Dili,DIL,Delhi,Dilhi,Dili,Dili Municipality,TL
 Baukau,Baukau,BCH,Bacau,Baucau,Baukau,Baucau,TL
+Atsabe,Atsabe,Atsabe,Batuane,Nova Ourem,Nova Ourém,Ermera,TL
 Aileu,Aileu,Aileou,Aileu,Ajleu,Vila General Camona,Aileu,TL
 Lospalos,Lospalos,Los Palos,Lospalos,Lospalus,lasapalosa,Lautem,TL
 Venilale,Venilale,Venilale,Vila Vicosa,Vila Viçosa,,Baucau,TL
@@ -27954,7 +28088,7 @@ Balatçık,Balatcik,Balatcik,Balatcık,Balatçık,,Izmir Province,TR
 Ayvalık,Ayvalik,Aivali,Ajvalyk,Ayvalik,Ayvalık,Balikesir,TR
 Aydın,Aydin,Aidin,Aidinas,Aidinio,Aidinion,Aydin,TR
 Aşkale,Askale,Agacgale,Asgala,Askale,Aşkale,Erzurum,TR
-Antalya,Antalya,AYT,Adalia,Antal'ja,Antalia,Antalya,TR
+Antalya,Antalya,AYT,Adalia,Andalia,Antal'ja,Antalya,TR
 Antakya,Antakya,Antak'ja,Antakija,Antakiya,Antakiyah,Hatay,TR
 Ankara,Ankara,ANK,Anakara,Ancara,Ancyra,Ankara,TR
 Anamur,Anamur,Anamur,Anemur,Anemurium,a na mu er,Mersin,TR
@@ -27971,7 +28105,7 @@ Ahlat,Ahlat,Ahlat,Akhlat,Erkizan,Khlat,Bitlis,TR
 Afyonkarahisar,Afyonkarahisar,AFY,Acroenus,Acroënus,Af'on-Karakhisar,Afyonkarahisar Province,TR
 Afşin,Afsin,Afsin,Afşin,Efsus,Yarpus,Kahramanmaras,TR
 Adıyaman,Adiyaman,ADF,Adiaman,Adijaman,Adijamanas,Adiyaman Province,TR
-Adilcevaz,Adilcevaz,Adeljivaz,Adilcevaz,Adildzhevaz,Адилджеваз,Bitlis,TR
+Adilcevaz,Adilcevaz,Adeljivaz,Adilcevaz,Adildzhevaz,Alcawaz,Bitlis,TR
 Adana,Adana,ADA,Adana,Adane,Adano,Adana,TR
 Narlıca,Narlica,Narlica,Narlıca,Senpiyer,,Hatay,TR
 Denizciler,Denizciler,Denizciler,Denizdzhiler,de ni ci ji lai er,de ni zi ji lai er,Hatay,TR
@@ -28114,7 +28248,7 @@ Bandırma,Bandirma,BDM,Banderma,Bandirma,Bandurma,Balikesir,TR
 Bağcılar,Bagcilar,Badzilaras rajons,Bagdzhylar,Bādžilaras rajons,Cifitburgaz,Istanbul,TR
 Bafra,Bafra,Bafra,Paura,Бафра,,Samsun,TR
 Babaeski,Babaeski,Babaatik,Babaeski,Babaiatik,,Kirklareli,TR
-Artvin,Artvin,Ardvin,Artivin,Artvin,Artwin,Artvin,TR
+Artvin,Artvin,Arduin,Ardvin,Artivin,Artvin,Artvin,TR
 Arsin,Arsin,Arseni Zir,Arsin,Asagi Arsin,Aşağı Arsin,Trabzon,TR
 Arnavutköy,Arnavutkoey,Arnavutkoy,Arnavutköy,,,Istanbul,TR
 Arhavi,Arhavi,Arhavi,Musazade,Мусазаде,,Artvin,TR
@@ -28154,6 +28288,7 @@ Muratpaşa,Muratpasa,Muratpasa,Muratpaşa,,,Antalya,TR
 Ataşehir,Atasehir,Atasehir,Ataşehir,Istasyonalti,İstasyonaltı,Izmir Province,TR
 Bostanlı,Bostanli,Bostanli,Bostanlı,,,Izmir Province,TR
 Şemikler,Semikler,Semikler,Şemikler,,,Izmir Province,TR
+Nilüfer,Niluefer,Niluefer,Nilufer,Nilüfer,,Bursa Province,TR
 Merkezefendi,Merkezefendi,,,,,Denizli,TR
 Altınşehir,Altinsehir,,,,,Adiyaman Province,TR
 Tunapuna,Tunapuna,Tunapuna,Tunapuna Village,tounapuna,tunapuna,Tunapuna/Piarco,TT
@@ -28184,7 +28319,6 @@ Caotun,Caotun,Caotun,Ts'ao-t'un,Ts'ao-t'un-chuang,Ts’ao-t’un,Taiwan,TW
 Toufen,Toufen,T'ou-fen,T'ou-fen-chen,T'ou-fen-chuang,Toufen,Taiwan,TW
 Tianwei,Tianwei,T'ien-wei,T'ien-wei-ts'un,Tianwei,Ting-t'ien-wei,Taiwan,TW
 Tianzhong,Tianzhong,T'ien-chung,T'ien-chung-chuang,Tianjhong,Tianzhong,Taiwan,TW
-Taoyuan,Taoyuan,Comte de Taoyuan,Comté de Taoyuan,Hsin-chu,Hsin-chu-hsien,Taiwan,TW
 Danshui,Danshui,Danshuei,Danshui,Tamsui,Tan-shui,Taipei,TW
 Taitung,Taitung,GJai GJong,Pinamu,T'ai-tung,T'ai-tung Shih,Taiwan,TW
 Taipei,Taipei,GJai Bac,Kota Taipei,Pan Kiao,Pan-ch'iao,Taiwan,TW
@@ -28235,7 +28369,7 @@ Chiayi City,Chiayi City,Chia-i,Chia-i-hsien,Chia-i-shih,Chiayi,Taiwan,TW
 Chaozhou,Chaozhou,Ch'ao-chou,Ch'ao-chou-chang,Chaochou,Chaojhou,Taiwan,TW
 Chang-hua,Chang-hua,Chang Hwa,Chang-hua Nan-pu,Chang-hua North,Chang-hua Pei-pu,Taiwan,TW
 Changhua,Changhua,Bamboo Town,Chiang-hoa,Chiang-hòa,Chiong-hoa,Taiwan,TW
-Taoyuan City,Taoyuan City,Tao-Yung,Taojuan',Taoyuan,Taoyuan County,Taiwan,TW
+Taoyuan,Taoyuan,GJao Vien,Taojuan,Taojuan',Taoyuan,Taiwan,TW
 Zhongxing New Village,Zhongxing New Village,Aldea Nueva Zhongxing,Chung Hsing New Village,Chung-hsing-hsin-tsun,Chzhunsin Jaңa avyly,Taiwan,TW
 New Taipei City,New Taipei City,Nea Taipei,Neu-Taipeh,New Taipei,New Taipei City,Taipei,TW
 Zanzibar,Zanzibar,Ilu Zanzibar,Poli tis Zanzivaris,Sansibar,Sansibar-Stadt,Zanzibar Urban/West,TZ
@@ -28468,10 +28602,10 @@ Zuhres,Zuhres,Suhres,Zouhres,Zugrehs,Zugres,Donetsk,UA
 Zolotonosha,Zolotonosha,Solotonoscha,Zolotonocha,Zolotonosa,Zolotonosha,Cherkasy,UA
 Zolochiv,Zolochiv,Solotschiw,Zlochev,Zlochuv,Zloczow,Lviv,UA
 Znamyanka,Znamyanka,Snamjanka,Znam'janka,Znamenka,Znamianka,Kirovohrad,UA
-Zhytomyr,Zhytomyr,Jitomir,Jytomyr,Jytómyr,Jîtomîr,Zhytomyr,UA
+Zhytomyr,Zhytomyr,Jitomir,Jytomyr,Jytómyr,Jîtomîr,Zhytomyr Oblast,UA
 Zhmerynka,Zhmerynka,Jmerynka,Jmérynka,Schmerynka,Smerinca,Vinnytsia,UA
 Zhovti Vody,Zhovti Vody,Geltonieji Vandenys,Jovti Vodi,Jovti Vody,Jovti Vodî,Dnipropetrovsk,UA
-Zdolbuniv,Zdolbuniv,Sdolbuniw,Zdalbuniu,Zdolbuniv,Zdolbunov,Rivne,UA
+Zdolbuniv,Zdolbuniv,Sdolbuniw,Zdalbuniu,Zdolbuniv,Zdolbunov,Rivne Oblast,UA
 Zaporizhzhya,Zaporizhzhya,Aleksandrovsk,Alessandrovia,Alexandrovsk,OZH,Zaporizhzhia,UA
 Pivdenne,Pivdenne,Juschne,Juzhne,Juzhnoe,Juzne,Odesa,UA
 Katerynivka,Katerynivka,Juvilejne,Katerinivka,Katerynivka,Yubileynoye,Luhansk,UA
@@ -28479,27 +28613,27 @@ Yevpatoriya,Yevpatoriya,Eupatoria,Eupatorio,Evpatorija,Evpatorya,Crimea,UA
 Yenakiyeve,Yenakiyeve,Enakieve,Enakievo,Jenakijeve,Jenakijevo,Donetsk,UA
 Yasynuvata,Yasynuvata,IAsinovataia,Iasinovataia,Iasinovàtaia,Iasinuvata,Donetsk,UA
 Yalta,Yalta,Ialta,Jalta,Jalto,Jałta,Crimea,UA
-Yahotyn,Yahotyn,Jagotin,Yagotin,Yahotyn,Яготин,Kyiv,UA
-Vyshhorod,Vyshhorod,Vishgorod,Vishorod,Višhorod,Vychhorod,Kyiv,UA
+Yahotyn,Yahotyn,Jagotin,Yagotin,Yahotyn,Яготин,Kyiv Oblast,UA
+Vyshhorod,Vyshhorod,Vishgorod,Vishorod,Višhorod,Vychhorod,Kyiv Oblast,UA
 Vynohradiv,Vynohradiv,Nagyszolos,Nagyszőlős,Seleusu Mare,Seleușu Mare,Zakarpattia,UA
 Vyhurivshchyna-Troyeshchyna,Vyhurivshchyna-Troyeshchyna,Troeshhina,Troieshchyna,Vigurivshhina-Troeshhina,Vigurovshhina-Troeshhina,Kyiv City,UA
 Voznesensk,Voznesensk,Voznesens'k,Voznesensk,Voznesenska,Voznesenskas,Mykolaiv,UA
 Volochysk,Volochysk,Valachysk,Volochis'k,Volochisk,Volocisk,Khmelnytskyi,UA
 Volnovakha,Volnovakha,Volnovacha,Volnovaha,Volnovahha,Volnovaja,Donetsk,UA
 Vilnohirsk,Vilnohirsk,Vil'nogirs'k,Vilnohirsk,Vol'nogorsk,Вольногорск,Dnipropetrovsk,UA
-Vovchansk,Vovchansk,Volchansk,Vovcansk,Vovchans'k,Vovchansk,Kharkivs'ka Oblast',UA
+Vovchansk,Vovchansk,Volchansk,Vovcansk,Vovchans'k,Vovchansk,Kharkiv,UA
 Volodymyr-Volynskyi,Volodymyr-Volynskyi,Lodomeria,Vladimir,Vladimir-Volynsk,Vladimir-Volynskij,Volyn,UA
-Vyshneve,Vyshneve,Vishneve,Vishnevoe,Vishnevoye,Vishnjovoe,Kyiv,UA
+Vyshneve,Vyshneve,Vishneve,Vishnevoe,Vishnevoye,Vishnjovoe,Kyiv Oblast,UA
 Vinnytsya,Vinnytsya,VIN,Vinica,Vinicja,Vinitsa,Vinnytsia,UA
 Vynnyky,Vynnyky,Vinniki,Winniki,Винники,Вінники,Lviv,UA
 Vilnyansk,Vilnyansk,Chervonoarmijs'ke,Chervonoarmiyske,Krasnoarmijs'ke,Krasnoarmiyske,Zaporizhzhia,UA
 Verkhnodniprovsk,Verkhnodniprovsk,Verkhn'odniprovs'k,Verkhnedneprovsk,Verkhniodniprovsk,Verkhnodniprovsk,Dnipropetrovsk,UA
 Velyka Kokhnivka,Velyka Kokhnivka,Bol'shaja Kokhnovka,Bol'shaya Kokhnovka,Bol’shaya Kokhnovka,Velika Kokhnivka,Poltava,UA
 Bahacheve,Bahacheve,Bagaceve,Bagachehveh,Bagacheve,Bagachevo,Cherkasy,UA
-Vasylkiv,Vasylkiv,Vasil'kiv,Vasil'kov,Vasilikov,Vasiljkiv,Kyiv,UA
+Vasylkiv,Vasylkiv,Vasil'kiv,Vasil'kov,Vasilikov,Vasiljkiv,Kyiv Oblast,UA
 Uzhhorod,Uzhhorod,Oezjhorod,Oujhorod,UDJ,Ujgorod,Zakarpattia,UA
-Uman,Uman,Human,Humań,Ouman,Uman,Cherkasy,UA
-Tulchyn,Tulchyn,Toultchyn,Tul'chin,Tulchyn,Tulczyn,Vinnytsia,UA
+Uman,Uman,Human,Humań,Kalingorod,Kalinvar,Cherkasy,UA
+Tulchyn,Tulchyn,Nestervar,Nesterwar,Nesztervar,Nesztervár,Vinnytsia,UA
 Oleshky,Oleshky,Aleshki,Aljoshki,Cjurupins'k,Cjurupinsk,Kherson,UA
 Truskavets,Truskavets,Trouskavets,Truskavec,Truskavec',Truskaveca,Lviv,UA
 Trostyanets,Trostyanets,Trostianets,Trostjanec,Trostjanec',Trostjanez,Sumy,UA
@@ -28508,6 +28642,7 @@ Tokmak,Tokmak,Tokmak,Tokmak i Ukraina,Tokmaka,Velikij Tokmak,Zaporizhzhia,UA
 Terny,Terny,Terni,Terny,Tyerny,Tërny,Dnipropetrovsk,UA
 Ternivka,Ternivka,Ternivka,Terniwka,Ternovka,Терновка,Dnipropetrovsk,UA
 Ternopil,Ternopil,TNL,Tarnopol,Tarnopoli,Tarnopolis,Ternopil,UA
+Telychka,Telychka,Prigorod Telichka,Telichka,Telychka,Verkhnyaya Telichka,Kyiv City,UA
 Siverskodonetsk,Siverskodonetsk,SEV,Severodonec'k,Severodoneck,Severodonetsk,Luhansk,UA
 Svitlovodsk,Svitlovodsk,Khrushhov,Kremges,Svetlovodsk,Svitlovods'k,Kirovohrad,UA
 Dovzhansk,Dovzhansk,Dovzhans'k,Dovzhansk,Imeni Sverdlova,Selo Imeni Sverdlova,Luhansk,UA
@@ -28528,7 +28663,7 @@ Snizhne,Snizhne,Shezhnoye,Snezhnoe,Snezhnoye,Snizhne,Donetsk,UA
 Smila,Smila,Smela,Smila,Smiła,asmyla  awkrayn,Cherkasy,UA
 Slovyansk,Slovyansk,Slaviansk,Slavjansk,Slavyansk,Slawjansk,Donetsk,UA
 Slavuta,Slavuta,Slavouta,Slavuta,Slawuta,Szlavuta,Khmelnytskyi,UA
-Skvyra,Skvyra,Skvira,Skvyra,Skvîra,Skvıra,Kyiv,UA
+Skvyra,Skvyra,Skvira,Skvyra,Skvîra,Skvıra,Kyiv Oblast,UA
 Skadovsk,Skadovsk,Ali-Agok,Skadivs'ke,Skadovs'k,Skadovsk,Kherson,UA
 Synelnykove,Synelnykove,Sinel'nikove,Sinel'nikovo,Sineljnikove,Synelnykove,Dnipropetrovsk,UA
 Simferopol,Simferopol,Akmescit,Akməsҗit,Aq Mecit,Aq Mečit,Crimea,UA
@@ -28539,7 +28674,7 @@ Shepetivka,Shepetivka,Chepetivka,Chépétivka,Schepetiwka,Sepetivka,Khmelnytskyi
 Shakhtarsk,Shakhtarsk,Katyk,Shakhtars'k,Shakhtarsk,Shakhtars’k,Donetsk,UA
 Sevastopol,Sevastopol,Akhiar,Akhtyar,Akujar,Akyar,Sevastopol City,UA
 Selydove,Selydove,Selidove,Selidovka,Selidovo,Selydove,Donetsk,UA
-Sarny,Sarny,Sarni,Sarnv,Sarny,Sarnî,Rivne,UA
+Sarny,Sarny,Sarni,Sarnv,Sarny,Sarnî,Rivne Oblast,UA
 Sambir,Sambir,Novij Sambir,Novyi Sambir,Novyy Sambir,Nowy Sambor,Lviv,UA
 Saki,Saki,Sakai,Saki,Sako,Saky,Crimea,UA
 Rubizhne,Rubizhne,Rubezhnaya,Rubezhnoe,Rubezhnoye,Rubischne,Luhansk,UA
@@ -28547,43 +28682,43 @@ Rozdilna,Rozdilna,Raz'dzel'naja,Razdel'naja,Razdel'naya,Razdel’naya,Odesa,UA
 Kurakhove,Kurakhove,Kourakhove,Kurachove,Kurachowe,Kurahove,Donetsk,UA
 Rovenky,Rovenky,Roven'ki,Roven'ky,Rovenjki,Rovenky,Luhansk,UA
 Romny,Romny,Rommy,Romnai,Romni,Romny,Sumy,UA
-Rivne,Rivne,Eractum,RWN,Rivne,Rivno,Rivne,UA
+Rivne,Rivne,Eractum,RWN,Rivne,Rivno,Rivne Oblast,UA
 Rakhiv,Rakhiv,Rachiw,Rahau,Rahiv,Rahău,Zakarpattia,UA
-Radomyshl,Radomyshl,Radomishl,Radomishl',Radomyshl,Radomyshl',Zhytomyr,UA
+Radomyshl,Radomyshl,Radomishl,Radomishl',Radomyshl,Radomyshl',Zhytomyr Oblast,UA
 Pyatykhatky,Pyatykhatky,Peatihatki,Peatîhatkî,Piatyjatky,Piatykhatky,Dnipropetrovsk,UA
-Pryluky,Pryluky,Priluki,Pryluki,Pryluky,Pryłuki,Chernihiv,UA
+Pryluky,Pryluky,Priluki,Pryluki,Pryluky,Pryłuki,Chernihiv Oblast,UA
 Popasna,Popasna,Imeni Kaganovicha,Imeni L.M. Kaganovicha,Kaganovich,Kaganowitsch,Luhansk,UA
 Poltava,Poltava,Ltava,PLV,Paltava,Pol'tova,Poltava,UA
 Polonne,Polonne,Polonne,Polonnoe,Polonné,Полонне,Khmelnytskyi,UA
 Polohy,Polohy,Pologi,Pologı,Polohi,Polohy,Zaporizhzhia,UA
 Podil,Podil,Padol,Padół,Podil,Podil's'kij rajon,Kyiv City,UA
-Pidhorodne,Pidhorodne,Pidgorodne,Pidhorodne,Pidhorodné,Podgorodnoe,Dnipropetrovsk,UA
+Pidhorodnye,Pidhorodnye,Pidgorodne,Pidhorodne,Pidhorodnie,Pidhorodnye,Dnipropetrovsk,UA
 Voznesenskyi,Voznesenskyi,Petrovs'kij,Petrovs'kij rajon,Petrovskiy,Petrovskoye,Donetsk,UA
-Pisochyn,Pisochyn,Pesochin,Pisochin,Pisochyn,Песочин,Kharkivs'ka Oblast',UA
-Zlatopil,Zlatopil,Lichatschewo,Likacheve,Likhacheve,Likhachjovo,Kharkivs'ka Oblast',UA
+Pisochyn,Pisochyn,Pesochin,Pisochin,Pisochyn,Песочин,Kharkiv,UA
+Zlatopil,Zlatopil,Lichatschewo,Likacheve,Likhacheve,Likhachjovo,Kharkiv,UA
 Sokolohirsk,Sokolohirsk,Pervomaika,Pervomaisk,Pervomajs'k,Pervomajsk,Luhansk,UA
 Pervomaysk,Pervomaysk,Ol'viopol',Olwiopol,Ol’viopol’,Pervomaisk,Mykolaiv,UA
 Shakhtarske,Shakhtarske,Chakhtarske,Perchotravensk,Perschotravensk,Perschotrawensk,Dnipropetrovsk,UA
-Pereiaslav,Pereiaslav,Pereiaslav,Perejaslav,Perejaslavl',Perejaslaw,Kyiv,UA
+Pereiaslav,Pereiaslav,Pereiaslav,Perejaslav,Perejaslavl',Perejaslaw,Kyiv Oblast,UA
 Perevalsk,Perevalsk,Pereval's'k,Pereval'sk,Perevaljsk,Perevalsk,Luhansk,UA
 Pelahiivka,Pelahiivka,Pelageevka,Pelageevski,Pelageyevka,Pelageyevskiy,Donetsk,UA
 Pavlohrad,Pavlohrad,Paulagrad,Pavlograd,Pavlohrad,Pavlohrada,Dnipropetrovsk,UA
-Ovruch,Ovruch,Ouruch,Ovroutch,Ovruc,Ovruch,Zhytomyr,UA
+Ovruch,Ovruch,Auruc,Auruch,Aŭruč,Beruchij,Zhytomyr Oblast,UA
 Pokrov,Pokrov,Ordzhonikidze,Pokrov,Pokrow,Орджонікідзе,Dnipropetrovsk,UA
 Oleksandriya,Oleksandriya,Aleksandrija,Alexandria,Oleksandriia,Oleksandrija,Kirovohrad,UA
 Ihren,Ihren,Igren',Igren’,Ihren,Ihren',Dnipropetrovsk,UA
 Odesa,Odesa,Adehsa,Ades,Juzhnaja stolica,Khadjibey,Odesa,UA
-Obukhiv,Obukhiv,Oboukhiv,Obuchiv,Obuchiw,Obuchow,Kyiv,UA
+Obukhiv,Obukhiv,Oboukhiv,Obuchiv,Obuchiw,Obuchow,Kyiv Oblast,UA
 Novyi Rozdil,Novyi Rozdil,Novi Rozdil,Novij Rozdil,Novyi Rozdil,Novyj Razdol,Lviv,UA
 Novovolynsk,Novovolynsk,Novovolins'k,Novovolinsk,Novovolyns'k,Novovolynsk,Volyn,UA
 Novoukrayinka,Novoukrayinka,Novo'oukrainka,Novo'oukraïnka,Novoukrainka,Новоукраинка,Kirovohrad,UA
 Samar,Samar,Novomoskovs'k,Novomoskovsk,Novoselicja,Nowomoskowsk,Dnipropetrovsk,UA
-Zvyahel,Zvyahel,Novograd Volynski,Novograd-Volins'kij,Novograd-Volynsk,Novograd-Volynskij,Zhytomyr,UA
-Novhorod-Siverskyi,Novhorod-Siverskyi,Neapolis Scytharum,Nougarad-Severski,Nouharad-Sievierski,Novgorod,Chernihiv,UA
+Zvyahel,Zvyahel,Novograd Volynski,Novograd-Volins'kij,Novograd-Volynsk,Novograd-Volynskij,Zhytomyr Oblast,UA
+Novhorod-Siverskyi,Novhorod-Siverskyi,Neapolis Scytharum,Nougarad-Severski,Nouharad-Sievierski,Novgorod,Chernihiv Oblast,UA
 Nova Kakhovka,Nova Kakhovka,Naujoji Kachovka,Nova Kachovka,Nova Kahovka,Nova Kajovka,Kherson,UA
 Nova Darnytsya,Nova Darnytsya,Nova Darnicja,Nova Darnytsia,Nova Darnytsya,Нова Дарниця,Kyiv City,UA
-Nizhyn,Nizhyn,Neshin,Nezhin,Nezhyn,Nezin,Chernihiv,UA
-Nyzhnyodniprovsk,Nyzhnyodniprovsk,Amur-Nizhne Dneprovsk,Nijne-Dneprovsk,Nishnedneprovsk,Nizhn'odniprovs'k,Dnipropetrovsk,UA
+Nizhyn,Nizhyn,Neshin,Nezhin,Nezhyn,Nezin,Chernihiv Oblast,UA
+Nyzhnodniprovsk,Nyzhnodniprovsk,Amur-Nizhne Dneprovsk,Nijne-Dneprovsk,Nishnedneprovsk,Nizhn'odniprovs'k,Dnipropetrovsk,UA
 Nikopol,Nikopol,Mikitin Rig,Mikitins'ka Sich,Mikopil',Mykopil,Dnipropetrovsk,UA
 Netishyn,Netishyn,Atomodar,Korchagins'k,Korchahinsk,Neteshin,Khmelnytskyi,UA
 Nadvirna,Nadvirna,Nadvirna,Nadvorna,Nadvornaja,Nadvornaya,Ivano-Frankivsk,UA
@@ -28593,27 +28728,26 @@ Mostyska,Mostyska,Mos'tsiska,Mosciska,Mostis'ka,Mostiska,Lviv,UA
 Otamanivka,Otamanivka,Molodogvardejsk,Molodogvardejskoe,Molodogvardeysk,Molodogvardeyskoye,Luhansk,UA
 Mohyliv-Podilskyy,Mohyliv-Podilskyy,Moghilau,Moghilău,Mogiliv-Podil's'kij,Mogiliv-Podilski,Vinnytsia,UA
 Myrhorod,Myrhorod,MXR,Mirgorod,Mirhorod,Mirhoroda,Poltava,UA
-Merefa,Merefa,Meref,Merefa,mei lie fa,merepa,Kharkivs'ka Oblast',UA
+Merefa,Merefa,Meref,Merefa,mei lie fa,merepa,Kharkiv,UA
 Melitopol,Melitopol,Kiz-Jar,Kyzyl-Yar,Melitopil',Melitopol,Zaporizhzhia,UA
-Masany,Masany,Masan',Masani,Masany,Masan’,Chernihiv,UA
+Masany,Masany,Masan',Masani,Masany,Masan’,Chernihiv Oblast,UA
 Mariupol,Mariupol,Hayeren,MPW,Marijupol,Marioepol,Donetsk,UA
 Marhanets,Marhanets,Komintern,Marganec,Marganec',Marhanec,Dnipropetrovsk,UA
-Malyn,Malyn,Malin,Malina,Malyn,Malynas,Zhytomyr,UA
+Malyn,Malyn,Malin,Malina,Malyn,Malynas,Zhytomyr Oblast,UA
 Makiyivka,Makiyivka,Dmitriyevsk,Makayevka,Makeevka,Makejevka,Donetsk,UA
-Liubotyn,Liubotyn,Ljubotin,Lyobotin,Lyubotin,Lyubotyn,Kharkivs'ka Oblast',UA
+Liubotyn,Liubotyn,Ljubotin,Lyobotin,Lyubotin,Lyubotyn,Kharkiv,UA
 Lviv,Lviv,Ilbav,Ilyvo,Ilyvó,L'viv,Lviv,UA
 Lutuhyne,Lutuhyne,Loutougino,Loutouhyne,Lutugine,Lutugino,Luhansk,UA
 Lutsk,Lutsk,Loetsk,Loutsk,Luc'k,Luceoria,Volyn,UA
 Luhansk,Luhansk,Loehansk,Louchansk,Louhansk,Lugan'sk,Luhansk,UA
 Lubny,Lubny,Loubny,Lubnai,Lubni,Lubnie,Poltava,UA
-Lozova,Lozova,Losowa,Losowaja,Lozova,Lozovaja,Kharkivs'ka Oblast',UA
+Lozova,Lozova,Losowa,Losowaja,Lozova,Lozovaja,Kharkiv,UA
 Lysychansk,Lysychansk,Lisicanjsk,Lisicansk,Lisichans'k,Lisichansk,Luhansk,UA
 Ladyzhyn,Ladyzhyn,Ladizhin,Ladizin,Ladižin,Ladyjyn,Vinnytsia,UA
 Kyiv,Kyiv,Chijv,Chiovia,Civ,Cív,Kyiv City,UA
-Kurakhovo,Kurakhovo,Kurakhovo,Kurakhovstroy,Novo-Ulakly,Petrovka,Donetsk,UA
-Kupyansk,Kupyansk,Koupiansk,Kupyans'k,Kup'jans'k,Kup'jansk,Kharkivs'ka Oblast',UA
+Kupyansk,Kupyansk,Koupiansk,Kupyans'k,Kup'jans'k,Kup'jansk,Kharkiv,UA
 Kryvyy Rih,Kryvyy Rih,KWG,Krivi Rih,Krivi Rog,Krivii Rih,Dnipropetrovsk,UA
-Kryukiv,Kryukiv,Kriukiv,Kriukivskyy Raion,Krjukiv,Krjukivs'kij Rajon,Poltava,UA
+Kryukiv,Kryukiv,Kriukiv,Kriukiv on the Dnieper,Kriukiv-na-Dnipri,Kriukiv-on-Dnieper,Poltava,UA
 Krolevets,Krolevets,Korolevets,Krolevec,Krolevec',Krolevets,Sumy,UA
 Kreminna,Kreminna,Kremenaya,Kremennaja,Kremennaya,Kremennoj,Luhansk,UA
 Kremenets,Kremenets,Kremenec,Kremenec',Kremenets,Kremenez,Ternopil,UA
@@ -28621,22 +28755,22 @@ Kremenchuk,Kremenchuk,KHU,Kermenchuk,Kirmənchek,Kramjanchug,Poltava,UA
 Khrustalnyi,Khrustalnyi,Hrusztalnij,Khrustal'nij,Khrustalnyi,Krasni Luc,Luhansk,UA
 Lyman,Lyman,Krasnii Liman,Krasnij Liman,Krasniy Liman,Krasnoi Loman,Donetsk,UA
 Yany Kapu,Yany Kapu,Bromzavod,Jani Kapu,Januy Kuapy,Jany Kapu,Crimea,UA
-Berestyn,Berestyn,Behrehstyn,Berestin,Berestina,Berestyn,Kharkivs'ka Oblast',UA
+Berestyn,Berestyn,Behrehstyn,Berestin,Berestina,Berestyn,Kharkiv,UA
 Sorokyne,Sorokyne,Krasnadon,Krasnodon,Krasnodona,Krassnodon,Luhansk,UA
 Pokrovsk,Pokrovsk,Grishino,Krasnoarmejsk,Krasnoarmeysk,Krasnoarmeyskoye,Donetsk,UA
 Krasyliv,Krasyliv,Krasiliv,Krasilov,Krasilow,Krasiłów,Khmelnytskyi,UA
 Kramatorsk,Kramatorsk,KRQ,Kramator,Kramator'sk,Kramators'k,Donetsk,UA
-Kivsharivka,Kivsharivka,Kiusharyuka,Kivcharivka,Kivsarivka,Kivsharivka,Kharkivs'ka Oblast',UA
+Kivsharivka,Kivsharivka,Kiusharyuka,Kivcharivka,Kivsarivka,Kivsharivka,Kharkiv,UA
 Kovel,Kovel,Kovel,Kovel',Kovelj,Kovel’,Volyn,UA
-Kotsiubynske,Kotsiubynske,Berkovets,Imeni Kotsyubinskogo,Kacjubynskeh,Kociubynske,Kyiv City,UA
+Kotsyubynske,Kotsyubynske,Berkovec',Berkovets,Imeni Kotsyubinskogo,Kacjubynskeh,Kyiv Oblast,UA
 Podilsk,Podilsk,Birzula,Kotovsk,Kotowsk,Podil's'k,Odesa,UA
-Kostopil,Kostopil,Kostopel,Kostopil,Kostopil',Kostopilj,Rivne,UA
+Kostopil,Kostopil,Kostopel,Kostopil,Kostopil',Kostopilj,Rivne Oblast,UA
 Korsun-Shevchenkivskyy,Korsun-Shevchenkivskyy,Corsunia,Korsun Szewczenkowski,Korsun',Korsun'-Shevchenkivs'kij,Cherkasy,UA
-Korostyshiv,Korostyshiv,Karastyshau,Karastyshyu,Korostishiv,Korostisiv,Zhytomyr,UA
-Korosten,Korosten,Iskorosten,Iskorosten',Izukorustѣn',Korosten,Zhytomyr,UA
+Korostyshiv,Korostyshiv,Karastyshau,Karastyshyu,Korostishiv,Korostisiv,Zhytomyr Oblast,UA
+Korosten,Korosten,Corosten,Corostenia,Iscorosten,Iskorosten,Zhytomyr Oblast,UA
 Kostyantynivka,Kostyantynivka,Konstantinovka,Konstantinowka,Kostantinovka,Kostiantynivka,Donetsk,UA
 Konotop,Konotop,Kanatop,Kanatyp,Konotop,Konotopa,Sumy,UA
-Slobozhanske,Slobozhanske,Komsomol's'ke,Komsomol'skoye,Komsomolskoe,Komsomol’skoye,Kharkivs'ka Oblast',UA
+Slobozhanske,Slobozhanske,Komsomol's'ke,Komsomol'skoye,Komsomolskoe,Komsomol’skoye,Kharkiv,UA
 Kolomyia,Kolomyia,Colomeea,Kolomea,Kolomeo,Kolomija,Ivano-Frankivsk,UA
 Khrestivka,Khrestivka,Khrestivka,Kirovs'ke,Kirovske,Kirovskoe,Donetsk,UA
 Holubivka,Holubivka,Golubivka,Golubovka,Holubivka,Kirovs'k,Luhansk,UA
@@ -28647,40 +28781,40 @@ Khmelnytskyi,Khmelnytskyi,Chmel'nyc'kyj,Chmelnyzkyj,Chmielnicius,Chmielnicki,Khm
 Khmilnyk,Khmilnyk,Chmielnik,Chmilnyk,Khmel'nik,Khmil'nik,Vinnytsia,UA
 Kherson,Kherson,Cherson,Chersona,Chersonas,Chersone,Kherson,UA
 Khartsyzk,Khartsyzk,Harcizk,Kharciz'k,Kharcyzsk,Khartsysk,Donetsk,UA
-Kharkiv,Kharkiv,Carcovia,Carcóvia,Charcovia,Charkiv,Kharkivs'ka Oblast',UA
+Kharkiv,Kharkiv,Carcovia,Carcóvia,Charcovia,Charkiv,Kharkiv,UA
 Khanzhonkove,Khanzhonkove,Khanshenkovo,Khanzhenkovo,Khanzhenskaya,Khanzhonkove,Donetsk,UA
 Kerch,Kerch,Bospor,KHC,Kerc,Kerc',Crimea,UA
-Koziatyn,Koziatyn,Kazatin,Kosjatyn,Koziatyn,Kozjatin,Vinnytsia,UA
+Kozyatyn,Kozyatyn,Kazatin,Kosjatyn,Koziatyn,Kozjatin,Vinnytsia,UA
 Kaniv,Kaniv,Kaneu,Kanev,Kaniow,Kaniv,Cherkasy,UA
 Kamyanets-Podilskyi,Kamyanets-Podilskyi,Camenecia,KCP,Kamjanec'-Podil's'kyj,Kam'janec'-Podil's'kij,Khmelnytskyi,UA
 Kalush,Kalush,Kalouch,Kalus,Kalusch,Kalush,Ivano-Frankivsk,UA
 Kalynivka,Kalynivka,Kalinivka,Kalinovka,Kalinowka,Kalinówka,Vinnytsia,UA
 Kakhovka,Kakhovka,Kachovka,Kachowka,Kahovka,Kajovka,Kherson,UA
-Izyum,Izyum,Isjum,Izioum,Izium,Izjum,Kharkivs'ka Oblast',UA
+Izyum,Izyum,Isjum,Izioum,Izium,Izjum,Kharkiv,UA
 Iziaslav,Iziaslav,Iziaslav,Izjaslav,Zaslav,Zaslavia,Khmelnytskyi,UA
-Izmayil,Izmayil,Hacidar,Ismail,Ismajil,Ismasil,Odesa,UA
+Izmayil,Izmayil,Antifila,Antiofilas,Hacidar,Ismail,Odesa,UA
 Ivano-Frankivsk,Ivano-Frankivsk,Frankivs'k,IFO,Ivano-Frankivs'k,Ivano-Frankivsk,Ivano-Frankivsk,UA
-Irpin,Irpin,Dachi Irpen',Dachi Irpen’,Dachi Irpin,Dachi Irpin',Kyiv,UA
+Irpin,Irpin,Dachi Irpen',Dachi Irpen’,Dachi Irpin,Dachi Irpin',Kyiv Oblast,UA
 Inhulets,Inhulets,Ingulec',Ingulets,Inhulets,Інгулець,Dnipropetrovsk,UA
 Ilovays’k,Ilovays'k,Ilovaisk,Ilovaiskaia,Ilovajs'k,Ilovajsk,Donetsk,UA
 Chornomors’k,Chornomors'k,CH,Chernomorsk,Chornomors'k,Chornomorsk,Odesa,UA
 Horodok,Horodok,Gorodok,Horodok,Городок,,Khmelnytskyi,UA
 Horlivka,Horlivka,Gorlauka,Gorlivka,Gorlovk,Gorlovka,Donetsk,UA
 Hlukhiv,Hlukhiv,Gluchoff,Gluchow,Glucovia,Gluhiv,Sumy,UA
-Hostomel,Hostomel,GML,Gostomel,Gostomel',Hostomel,Kyiv,UA
+Hostomel,Hostomel,GML,Gostomel,Gostomel',Hostomel,Kyiv Oblast,UA
 Horodok,Horodok,Gorodok,Gorodok-Yagellonskiy,Grodek,Grodek Jagiellonski,Lviv,UA
 Henichesk,Henichesk,Dzheniche,Eniche,Genich,Geniches'k,Kherson,UA
 Haysyn,Haysyn,Gajsin,Haissyn,Haisyn,Hajsin,Vinnytsia,UA
 Hadyach,Hadyach,Gadjach,Hadiach,Hadiatch,Hadjac,Poltava,UA
 Feodosiya,Feodosiya,Caffa,Feodosia,Feodosija,Feodosiya,Crimea,UA
-Fastiv,Fastiv,Fastiv,Fastiva,Fastiw,Fastov,Kyiv,UA
+Fastiv,Fastiv,Fastiv,Fastiva,Fastiw,Fastov,Kyiv Oblast,UA
 Enerhodar,Enerhodar,Ehnehrgadar,Ehnergodar,Enerchontar,Energodar,Zaporizhzhia,UA
 Dzhankoy,Dzhankoy,Cankoey,Canköy,Djankoi,Djankoï,Crimea,UA
 Toretsk,Toretsk,Dserschynsk,Dzerzhins'k,Dzerzhinsk,Dzerzhyns'k,Donetsk,UA
 Dunayivtsi,Dunayivtsi,Dounaivtsi,Dounaïvtsi,Dunaevcy,Dunaiivti,Khmelnytskyi,UA
-Dubno,Dubno,Doubno,Dubnas,Dubno,doubuno,Rivne,UA
+Dubno,Dubno,Doubno,Dubnas,Dubno,doubuno,Rivne Oblast,UA
 Drohobych,Drohobych,Drogobich,Drogobych,Drogobycz,Drohobic,Lviv,UA
-Donetsk,Donetsk,DOK,Daneck,Donec'k,Doneck,Donetsk,UA
+Donetsk,Donetsk,Aleksandrovka,DOK,Daneck,Dinec'k,Donetsk,UA
 Dolyna,Dolyna,Dalyna,Dolina,Dolyna,Dolîna,Ivano-Frankivsk,UA
 Dolynska,Dolynska,Dolins'ka,Dolinskaja,Dolynska,Долинская,Kirovohrad,UA
 Dokuchayevsk,Dokuchayevsk,Dokucajevsk,Dokuchaevs'k,Dokuchaevsk,Dokuchaievsk,Donetsk,UA
@@ -28689,47 +28823,47 @@ Dnipro,Dnipro,Caterinoslavia,Catherinoslav,DNK,Dnepr,Dnipropetrovsk,UA
 Kamyanske,Kamyanske,Dneprojerzinsk,Dnieprodzierzynsk,Dnieprodzierżyńsk,Dniprodzerzhins'k,Dnipropetrovsk,UA
 Dniprorudne,Dniprorudne,Dneprorudnoe,Dniprograd,Dniprohrad,Dniproroudne,Zaporizhzhia,UA
 Myrnohrad,Myrnohrad,Dimitrov,Dimitrova,Dimitrovo,Dymytrov,Donetsk,UA
-Derhachi,Derhachi,Dergachi,Dergaci,Dergacze,Dergatschi,Kharkivs'ka Oblast',UA
+Derhachi,Derhachi,Dergachi,Dergaci,Dergacze,Dergatschi,Kharkiv,UA
 Debaltseve,Debaltseve,Debal'ceve,Debal'cevo,Debal'tseve,Debal'tsevo,Donetsk,UA
-Chuhuyiv,Chuhuyiv,Chuguev,Chuguiu,Chuguiv,Chuguyev,Kharkivs'ka Oblast',UA
+Chuhuyiv,Chuhuyiv,Chuguev,Chuguiu,Chuguiv,Chuguyev,Kharkiv,UA
 Chortkiv,Chortkiv,Chortkiv,Chortkov,Ciortkiv,Cortkiv,Ternopil,UA
 Voznesenivka,Voznesenivka,Chervonopartizans'k,Chervonopartizansk,Chervonopartyzans'k,Chervonopartyzansk,Luhansk,UA
 Sheptytskyi,Sheptytskyi,Cervonohrad,Chervonograd,Chervonohrad,Czerwonogrod,Lviv,UA
 Chernivtsi,Chernivtsi,CWC,Cernauti,Cernivci,Cernivciai,Chernivtsi,UA
-Chernihiv,Chernihiv,CEJ,Cernigau,Cernigiv,Cernigivo,Chernihiv,UA
+Chernihiv,Chernihiv,CEJ,Cernigau,Cernigiv,Cernigivo,Chernihiv Oblast,UA
 Cherkasy,Cherkasy,CKC,Cerkasad,Cerkasai,Cerkasi,Cherkasy,UA
-Bucha,Bucha,Boetsja,Buca,Bucha,Butscha,Kyiv,UA
+Bucha,Bucha,Boetsja,Buca,Bucha,Butscha,Kyiv Oblast,UA
 Bryanka,Bryanka,Brianka,Brjanka,Bryanka,Bryanskiy,Luhansk,UA
-Brovary,Brovary,Bravary,Brovarai,Brovari,Brovary,Kyiv,UA
+Brovary,Brovary,Bravary,Brovarai,Brovari,Brovary,Kyiv Oblast,UA
 Brody,Brody,Brodai,Brodi,Brody,Brodî,Lviv,UA
-Boyarka,Boyarka,Boiarka,Bojarka,Boyarka,Boyarka-Budayevka,Kyiv,UA
+Boyarka,Boyarka,Boiarka,Bojarka,Boyarka,Boyarka-Budayevka,Kyiv Oblast,UA
 Bortnychi,Bortnychi,Bortnichi,Bortnitschi,Bortnychi,Бортничи,Kyiv City,UA
-Boryspil,Boryspil,Borispil',Borispilj,Borispilo,Borispol',Kyiv,UA
+Boryspil,Boryspil,Borispil',Borispilj,Borispilo,Borispol',Kyiv Oblast,UA
 Boryslav,Boryslav,Borislau,Borislav,Borislava,Boriszlav,Lviv,UA
 Bolhrad,Bolhrad,Balgrad,Bolgrad,Bolhrad,Bolhradas,Odesa,UA
-Bohuslav,Bohuslav,Boguslav,Boguslaw,Bohuslav,Bohuslaw,Kyiv,UA
-Bohuniya,Bohuniya,Bogunija,Boguniya,Boguns'kij,Boguns'kij rajon,Zhytomyr,UA
-Bohodukhiv,Bohodukhiv,Bagadukhiu,Bododukhov,Bogoduchow,Bogoduhiv,Kharkivs'ka Oblast',UA
+Bohuslav,Bohuslav,Boguslav,Boguslaw,Bohuslav,Bohuslaw,Kyiv Oblast,UA
+Bohuniya,Bohuniya,Bogunija,Boguniya,Boguns'kij,Boguns'kij rajon,Zhytomyr Oblast,UA
+Bohodukhiv,Bohodukhiv,Bagadukhiu,Bododukhov,Bogoduchow,Bogoduhiv,Kharkiv,UA
 Bilhorod-Dnistrovskyi,Bilhorod-Dnistrovskyi,Akkerman,Akkirmən,Akʻerman,Aqkermen,Odesa,UA
-Bila Tserkva,Bila Tserkva,Belaja Carkva,Belaja Cerkov',Belaja Zerkow,Belaya Tserkov',Kyiv,UA
+Bila Tserkva,Bila Tserkva,Belaja Carkva,Belaja Cerkov',Belaja Zerkow,Belaya Tserkov',Kyiv Oblast,UA
 Berezhany,Berezhany,Berejani,Berejany,Bereschany,Berezany,Ternopil,UA
-Berezan,Berezan,Beresan,Berezan,Berezan',Berezan’,Kyiv,UA
+Berezan,Berezan,Beresan,Berezan,Berezan',Berezan’,Kyiv Oblast,UA
 Berehove,Berehove,Behrehgaveh,Bereg,Beregove,Beregovo,Zakarpattia,UA
-Berdychiv,Berdychiv,Behrdychyu,Berdicev,Berdichen,Berdichev,Zhytomyr,UA
+Berdychiv,Berdychiv,Behrdychyu,Berdicev,Berdichen,Berdichev,Zhytomyr Oblast,UA
 Berdyansk,Berdyansk,Berdiansca,Berdiansk,Berdjans'k,Berdjansk,Zaporizhzhia,UA
 Bilopillia,Bilopillia,Belopol'e,Belopol'ye,Belopolje,Belopol’ye,Sumy,UA
 Bilohirsk,Bilohirsk,Belagorsk,Belogorsk,Bielogorsk,Biełogorsk,Crimea,UA
-Bilohorodka,Bilohorodka,Belgorodka,Belogorodka,Bilogorodka,Bilohorodka,Kyiv,UA
+Bilohorodka,Bilohorodka,Belgorodka,Belogorodka,Bilgorod-Kiivs'kij,Bilhorod-Kyivskyi,Kyiv Oblast,UA
 Bilychi,Bilychi,Belichi,Bilichi,Biliychi,Біличі,Kyiv City,UA
 Bar,Bar,Bar,Bar i Ukraina,Baras,ba er,Vinnytsia,UA
-Balta,Balta,Balta,Balta i Ukraina,Bałta,ba er ta,Odesa,UA
-Balakliya,Balakliya,Balakleja,Balakleya,Balakliia,Balaklija,Kharkivs'ka Oblast',UA
+Balta,Balta,Balta,Balta i Ukraina,Baltă,Barta,Odesa,UA
+Balakliya,Balakliya,Balakleja,Balakleya,Balakliia,Balaklija,Kharkiv,UA
 Balaklava,Balaklava,Balaclava,Balaklava,Balaklavo,Balaklawa,Sevastopol City,UA
-Bakhmach,Bakhmach,Bachmatsch,Bakhmach,Bakhmach Romenskiy,Бахмач,Chernihiv,UA
+Bakhmach,Bakhmach,Bachmatsch,Bakhmach,Bakhmach Romenskiy,Бахмач,Chernihiv Oblast,UA
 Bakhchysaray,Bakhchysaray,Bachashisarai,Bachischissarai,Bachtjisaraj,Bachtjysaraj,Crimea,UA
 Avdiyivka,Avdiyivka,Audzeeuka,Audziiuka,Avdeevka,Avdeyevka,Donetsk,UA
 Bakhmut,Bakhmut,Artemivs'k,Artemivsk,Artemovsk,Artemovskiy,Donetsk,UA
-Armyansk,Armyansk,Armiansk,Armjans'k,Armjansk,Armyansk,Crimea,UA
+Armyansk,Armyansk,Armeanskʻ,Armeanskʻi Pazar,Armiansk,Armjans'k,Crimea,UA
 Apostolove,Apostolove,Apostolove,Apostolovo,Apostolovė,Apostolowe,Dnipropetrovsk,UA
 Antratsyt,Antratsyt,Antracit,Antracita,Antracyt,Antracytas,Luhansk,UA
 Amvrosiivka,Amvrosiivka,Amvrosievka,Amvrosiivka,Amvrosiyevka,Amvrosiyivka,Donetsk,UA
@@ -28737,24 +28871,24 @@ Alushta,Alushta,Aloushta,Alshta,Aluschta,Alushta,Crimea,UA
 Alchevsk,Alchevsk,Alcevsk,Alchevs'k,Alchevsk,Alchevskoe,Luhansk,UA
 Okhtyrka,Okhtyrka,Achtyrka,Akhtirka,Akhtyrka,Ochtyrka,Sumy,UA
 Horishni Plavni,Horishni Plavni,Gorishni Plavni,Gorishnie Plavni,Horichni Plavni,Horischni Plawni,Poltava,UA
-Saltivka,Saltivka,Saltivka,Saltovka,Saltovskiy,Салтівка,Kharkivs'ka Oblast',UA
-Zhuravlivka,Zhuravlivka,Dal'nja Zhuravlivka,Dal'nya Zhuravlivka,Dal'nyaya Zhuravlevka,Dal’nya Zhuravlivka,Kharkivs'ka Oblast',UA
-Pivnichna Saltivka,Pivnichna Saltivka,Pivnichna Saltivka,Severnaya Saltovka,,,Kharkivs'ka Oblast',UA
-Slavutych,Slavutych,Slavoetytsj,Slavoutytch,Slavucich,Slavutic,Kyiv,UA
+Saltivka,Saltivka,Saltivka,Saltovka,Saltovskiy,Салтівка,Kharkiv,UA
+Zhuravlivka,Zhuravlivka,Dal'nja Zhuravlivka,Dal'nya Zhuravlivka,Dal'nyaya Zhuravlevka,Dal’nya Zhuravlivka,Kharkiv,UA
+Pivnichna Saltivka,Pivnichna Saltivka,Pivnichna Saltivka,Severnaya Saltovka,,,Kharkiv,UA
+Slavutych,Slavutych,Slavoetytsj,Slavoutytch,Slavucich,Slavutic,Kyiv Oblast,UA
 Pivdennoukrainsk,Pivdennoukrainsk,Juschnoukrajinsk,Juzhnoukrains'k,Juzhnoukrainsk,Juzhnoukrajinsk,Mykolaiv,UA
-Varash,Varash,Kuznecovs'k,Kuznecovsk,Kuznetsovs'k,Kuznetsovsk,Rivne,UA
-Svyatopetrivske,Svyatopetrivske,Petrivs'ke,Petrivske,Petrovskoe,Svjatopetrivs'ke,Kyiv,UA
+Varash,Varash,Kuznecovs'k,Kuznecovsk,Kuznetsovs'k,Kuznetsovsk,Rivne Oblast,UA
+Svyatopetrivske,Svyatopetrivske,Petrivs'ke,Petrivske,Petrovskoe,Svjatopetrivs'ke,Kyiv Oblast,UA
 Novoyavorivs'k,Novoyavorivs'k,Novoiavorivsk,Novojavorivs'k,Novojavorivsk,Novojavorovsk,Lviv,UA
 Obolon,Obolon,Obolon,Obolon District,Obolon Raion,Obolon Rayon,Kyiv City,UA
 Cheremushky,Cheremushky,Cheremushki,Cheremushky,Черемушки,,Odesa,UA
-Molodizhnyi,Molodizhnyi,Molodizhne,Molodizhnij,Molodizhnyi,Molodizhnyy,Poltava,UA
+Molodizhne,Molodizhne,Molodizhne,Molodizhnij,Molodizhnyi,Molodizhnyy,Poltava,UA
 Demiyivka,Demiyivka,Demievka,Demiivka,Demiyivka,Nizhn'olibids'ka slobidka,Kyiv City,UA
 Borshchahivka,Borshchahivka,Borshchagovka,Borshhagivka,Borshhagovka,Nikol'skaja Borshhagovka,Kyiv City,UA
 Reni,Reni,Rehni,Reni,Renis,Réni,Odesa,UA
 Avtozavodskyi,Avtozavodskyi,Avtozavods'kij,Avtozavods'kij rajon,Avtozavodskyi District,Avtozavodskyi Rayon,Poltava,UA
-Oleksiyivka,Oleksiyivka,Alekseevka,Alekseyevka,Oleksiivka,Oleksiyivka,Kharkivs'ka Oblast',UA
+Oleksiyivka,Oleksiyivka,Alekseevka,Alekseyevka,Oleksiivka,Oleksiyivka,Kharkiv,UA
 Knyahynyn,Knyahynyn,Kniahynyn,Knihynin,Knihynin Wies,Knihynin Wieś,Ivano-Frankivsk,UA
-Sofiivska Borschahivka,Sofiivska Borschahivka,Safieuskaja Barshchagouka,Sofievskaja Borshhagovka,Sofievskaya Borscʻagovka,Sofiivs'ka Borshhagivka,Kyiv,UA
+Sofiivska Borschahivka,Sofiivska Borschahivka,Safieuskaja Barshchagouka,Sofievskaja Borshhagovka,Sofievskaya Borscʻagovka,Sofiivs'ka Borshhagivka,Kyiv Oblast,UA
 Holosiyiv,Holosiyiv,Goloseev,Goloseevskij Rajon,Golosiiv,Golosiivs'kij Rajon,Kyiv City,UA
 Pechersk,Pechersk,Pechers'k,Pechers'kij Rajon,Pechersk,Pechersk District,Kyiv City,UA
 Svyatoshyn,Svyatoshyn,NNN,Svjatoshin,Svjatoshins'kij rajon,Svyatoshyn,Kyiv City,UA
@@ -28778,7 +28912,7 @@ Tekstylnyk,Tekstylnyk,Tekstil'nik,Tekstylnyk,Текстильник,,Donetsk,UA
 Podil,Podil,Podil,Поділ,,,Poltava,UA
 Kyivskyi,Kyivskyi,Kiivs'kij rajon,Kyivskyi district,Kyivskyi rayon,Київський район,Poltava,UA
 Shevchenko,Shevchenko,Shevchenkivs'kij rajon,Shevchenkivskyi district,Shevchenkivskyi rayon,Shevchenko district,Poltava,UA
-Rayon KTZ,Rayon KTZ,Rajon KhTZ,Rajon kharkivs'kogo traktornogo zavoda,Rayon KhTZ,Район ХТЗ,Kharkivs'ka Oblast',UA
+Rayon KTZ,Rayon KTZ,Rajon KhTZ,Rajon kharkivs'kogo traktornogo zavoda,Rayon KhTZ,Район ХТЗ,Kharkiv,UA
 Pravyi Bereh,Pravyi Bereh,Pravij Bereg,Pravyi Bereh,Pravyy Bereh,Правий Берег,Donetsk,UA
 Nyvky,Nyvky,Nivki,Nyvky,Нивки,,Kyiv City,UA
 Pozniaky,Pozniaky,Pozniaky,Poznjaki,Poznyaky,Позняки,Kyiv City,UA
@@ -28829,10 +28963,12 @@ Tsentralnyi,Tsentralnyi,Central'nij,Central'nij rajon,Molotovs'kij,Molotovs'kij 
 Kalmiuskyi,Kalmiuskyi,Illichivs'kij,Illichivs'kij rajon,Illichivskyi,Illichivskyi District,Donetsk,UA
 Livoberezhnyi,Livoberezhnyi,Livoberezhnij,Livoberezhnij rajon,Livoberezhnyi,Livoberezhnyi District,Donetsk,UA
 Prymorskyi,Prymorskyi,Portovs'kij,Portovs'kij rajon,Portovskyi,Portovskyi District,Donetsk,UA
-Desnyanskyi,Desnyanskyi,Desnianskyi,Desnianskyi District,Desnianskyi raion,Desnjans'kij,Chernihiv,UA
-Novozavodskyi,Novozavodskyi,Novozavods'kij,Novozavods'kij rajon,Novozavodskyi,Novozavodskyi District,Chernihiv,UA
-Korolyov,Korolyov,,,,,Zhytomyr,UA
+Desnyanskyi,Desnyanskyi,Desnianskyi,Desnianskyi District,Desnianskyi raion,Desnjans'kij,Chernihiv Oblast,UA
+Novozavodskyi,Novozavodskyi,Novozavods'kij,Novozavods'kij rajon,Novozavodskyi,Novozavodskyi District,Chernihiv Oblast,UA
+Hladkivka,Hladkivka,Gladkivka,Gladkovka,Hladkivka,Гладківка,Donetsk,UA
+Korolyov,Korolyov,,,,,Zhytomyr Oblast,UA
 Rakove,Rakove,Rakove,Ракове,,,Khmelnytskyi,UA
+Nyzhnya Telychka,Nyzhnya Telychka,Nizhnja Telichka,Nyzhnia Telychka,Nyzhnya Telychka,Нижня Теличка,Kyiv City,UA
 Yumbe,Yumbe,Yumbe,,,,Northern Region,UG
 Wobulenzi,Wobulenzi,Wobolenzi,Wobulenzi,Wobulenzil,,Central Region,UG
 Wakiso,Wakiso,Wakiso,,,,Central Region,UG
@@ -29952,6 +30088,7 @@ Canyon Lake,Canyon Lake,,,,,Texas,US
 Carrollton,Carrollton,Carrollton,Karolton,Karoltonas,Karrolton,Texas,US
 Cedar Hill,Cedar Hill,Cedar Hill,Cedarhill,Sidar Khil,Sidar-Gill,Texas,US
 Cedar Park,Cedar Park,Cedar Park,Cedarpark,Sidar Park,Sidar-Park,Texas,US
+Celina,Celina,Celina,Selajna,Selina,selina,Texas,US
 Channelview,Channelview,,,,,Texas,US
 Cibolo,Cibolo,Cibolo,Cibolo Valley,Fromme's Store,Sibolo,Texas,US
 Cinco Ranch,Cinco Ranch,Cinco Ranch,Sinko Ranch,Sinko-Ranch,synkw ranch,Texas,US
@@ -32744,6 +32881,7 @@ Xóm Cái Nước,Xom Cai Nuoc,Cai Nuoc,Xom Cai Nuoc,Xóm Cái Nước,,An Giang
 Cái Đôi Vàm,Cai GJoi Vam,Cai Doi Vam,Cái Đôi Vàm,Xom Cai Doi Vam,Xóm Cái Đôi Vàm,Ca Mau,VN
 Trảng Bom,Trang Bom,Trang Bom,Trảng Bom,Xa Trang Bom,Xã Trảng Bôm,Dong Nai,VN
 Xã Long Hải,Xa Long Hai,Ap Long Hai,Long Hai,Xa Long Hai,Xã Long Hải,Ho Chi Minh City (HCMC),VN
+Long Diền,Long Dien,Long Dien,Xa Long Dien,Xã Long Diền,,Ho Chi Minh City (HCMC),VN
 Vũng Tàu,Vung Tau,Cap-Saint-Jacques,Cape Saint James,Saint James,St. James,Ho Chi Minh City (HCMC),VN
 Vị Thanh,Vi Thanh,Duc Long,Vi Tanh,Vi Thanh,Vi Tkhan',Can Tho City,VN
 Vĩnh Yên,Vinh Yen,Vieh Yen,Vinh Yen,Vĩnh Yên,Yen,Phu Tho,VN
@@ -32774,6 +32912,7 @@ Thốt Nốt,Thot Not,Tho Not,Thot Not,Thốt Nốt,,Can Tho City,VN
 Thới Lai,Thoi Lai,Thoi Lai,Thới Lai,,,Can Tho City,VN
 Thới Bình,Thoi Binh,Thoi Binh,Thot Binh,Thới Bình,,Ca Mau,VN
 Thị Trấn Thất Khê,Thi Tran That Khe,That Ke,That Khe,Thi Tran That Khe,Thất Khê,Lang Son Province,VN
+Phú Lộc,Phu Loc,Huyen Thanh Tri,Huyện Thạnh Trị,Phu Loc,Phú Lộc,Can Tho City,VN
 Ho Chi Minh City,Ho Chi Minh City,Cathair Ho Chi Minh,Cidade de Ho Chi Minh,Ciudad Ho Chi Minh,Gia GJinh,Ho Chi Minh City (HCMC),VN
 Thanh Liệt,Thanh Liet,,,,,Hanoi,VN
 Thanh Hóa,Thanh Hoa,THD,Tan Khoa,Tan'һoa,Than Hoa,Thanh Hoa Province,VN
@@ -32847,6 +32986,7 @@ La Gi,La Gi,La Ghi,La Gi,Lag,Lagi,Lam Dong,VN
 Kỳ Anh,Ky Anh,Ky Anh,Kỳ Anh,,,Ha Tinh Province,VN
 Kon Tum,Kon Tum,Cong Tum,Công Tum,Kon Tum,Tinh Kontum,Quang Ngai,VN
 Kiến An,Kien An,,,,,Hai Phong,VN
+Kiến An,Kien An,Kien An,Kiến An,,,An Giang,VN
 Hương Trà,Huong Tra,Huong Tra,Hương Trà,,,Thua Thien Hue Province,VN
 Hương Thủy,Huong Thuy,Huong Thuy,Hương Thũy,Hương Thủy,,Thua Thien Hue Province,VN
 Hưng Yên,Hung Yen,Hong-Yen,Hung Yen,Hưng Yên,Khungjen,Hung Yen Province,VN
@@ -32917,6 +33057,7 @@ Cai Lậy,Cai Lay,Cai Lay,Cai Lậy,Khiem Ich,Khiêm Ích,Dong Thap,VN
 Buôn Trấp,Buon Trap,Ban Trap,Buon Trap,Buôn Trăp,Buôn Trấp,Dak Lak,VN
 Buôn Ma Thuột,Buon Ma Thuot,BMV,Ban Me Thaut,Ban Me Thnot,Ban Me Thot,Dak Lak,VN
 Buôn Hồ,Buon Ho,Ban Ho,Buon Ho,Buôn Hô,Buôn Hồ,Dak Lak,VN
+Hoàn Lão,Hoan Lao,Bo Trach,Bố Trạch,Hoan Lao,Hoàn Lão,Quang Tri,VN
 Bình Thủy,Binh Thuy,Binh Thuy,Bình Thủy,,,Can Tho City,VN
 Bỉm Sơn,Bim Son,Bien Son,Bim Son,Biên Sơn,Bỉm Sơn,Thanh Hoa Province,VN
 Biên Hòa,Bien Hoa,B'en Khoa,Ben Khoa,Bia Hoa,Bien Hoa,Dong Nai,VN
@@ -32936,6 +33077,7 @@ Bắc Giang,Bac Giang,Bac Giang,Bakziangas,Bakzjang,Bắc Giang,Bac Ninh,VN
 Bắc Kạn,Bac Kan,Bac Can,Bac Kan,Bak Kan,Bắc Cạn,Thai Nguyen,VN
 Ấp Phước Tĩnh,Ap Phuoc Tinh,Ap Phuoc Tinh,Phuoc Tinh,Ấp Phước Tĩnh,,Ho Chi Minh City (HCMC),VN
 Lai Vung,Lai Vung,Lai Vung,,,,Dong Thap,VN
+Ấp Long Thạnh,Ap Long Thanh,Ap Long Thanh,Long Thanh,Long Thạnh,Ấp Long Thạnh,An Giang,VN
 Ấp Hô Phòng,Ap Ho Phong,Ap Ho Phong,Ho Phong,Hô Phòng,Ấp Hô Phòng,Ca Mau,VN
 Ấp Bình Châu,Ap Binh Chau,Ap Binh Chau,Binh Chau,Ấp Bình Châu,,Ho Chi Minh City (HCMC),VN
 An Trạch,An Trach,An Trach,,,,Ca Mau,VN
@@ -32952,6 +33094,7 @@ Lai Châu,Lai Chau,Lai Chau,Lai Châu,Laj Chau,Muang Lay,Lai Chau Province,VN
 Thị Trấn Việt Quang,Thi Tran Viet Quang,Thi Tran Viet Quang,Thị Trấn Việt Quang,Viet Quang,Việt Quang,Tuyen Quang,VN
 Phu Quoc,Phu Quoc,Fukuok,Koh Trol,PQC,Phu Quoc,An Giang,VN
 Bình Minh,Binh Minh,Binh Minh,Bình Minh,Cai Von,Cái Vồn,Vinh Long,VN
+Bo,Bo,Bo,,,,Phu Tho,VN
 Thành Phố Bà Rịa,Thanh Pho Ba Ria,Ba Ria,Bà Rịa,Tanh Fo Ba Ria,Thanh Pho Ba Ria,Ho Chi Minh City (HCMC),VN
 Lương Bằng,Luong Bang,Luong Bang,Lương Bằng,,,Hung Yen Province,VN
 Sóc Sơn,Soc Son,Soc Son,Sóc Sơn,,,Hanoi,VN
@@ -32963,6 +33106,7 @@ Thanh Xuân,Thanh Xuan,Thanh Xuan,Thanh Xuân,,,Hanoi,VN
 Hoàn Kiếm,Hoan Kiem,Hoan Kiem,Hoàn Kiếm,,,Hanoi,VN
 Hai Bà Trưng,Hai Ba Trung,Hai BaTrung,Hai BàTrưng,,,Hanoi,VN
 Tây Mỗ,Tay Mo,Tay Mo,Tây Mỗ,,,Hanoi,VN
+Bản Na Hỷ,Ban Na Hy,Ban Na Hy,Bản Na Hỷ,Na Hy,Na Hỷ,Nghe An Province,VN
 Thái Hòa,Thai Hoa,Thai Hoa,Thái Hòa,,,Nghe An Province,VN
 Nghèn,Nghen,Dai Loc,GJai Loc,Nghen,Nghèn,Ha Tinh Province,VN
 Thanh Khê,Thanh Khe,Thanh Khe,Thanh Khê,,,Da Nang City,VN
@@ -32975,6 +33119,7 @@ A Yun Pa,A Yun Pa,A Yun Pa,Ayun Pa,Cheo Reo,Hau Bon,Gia Lai,VN
 Ea Drăng,Ea Drang,Ea Drang,Ea Drăng,,,Dak Lak,VN
 Quảng Phú,Quang Phu,Quang Phu,Quảng Phú,,,Dak Lak,VN
 Đinh Văn,GJinh Van,Din' Van,Dinh Van,Đinh Văn,Динь Ван,Lam Dong,VN
+Khánh Hải,Khanh Hai,Khanh Hai,Khánh Hải,,,Khanh Hoa,VN
 Phú Quý,Phu Quy,Phu Quy,Phú Quý,,,Lam Dong,VN
 Long Khánh,Long Khanh,Long Khanh,Long Khánh,,,Dong Nai,VN
 Hòa Thành,Hoa Thanh,Hoa Thanh,Hòa Thành,,,Tay Ninh,VN
