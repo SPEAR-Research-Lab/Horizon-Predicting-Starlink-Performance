@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch, nextTick } from 'vue'
-import maplibregl, { Map } from 'maplibre-gl'
+import maplibregl, { Map as MapLibreMap } from 'maplibre-gl'
 import Legend from './Legend.vue'
 import MapControls from './MapControls.vue'
 import TooltipCard from './TooltipCard.vue'
@@ -27,6 +27,18 @@ interface Controls {
   selectedDate: string
   selectedHour: number
   allowedDates: string[]
+}
+
+type DotGeoJSON = {
+  type: 'FeatureCollection'
+  features: Array<{
+    type: 'Feature'
+    geometry: {
+      type: 'Point'
+      coordinates: number[]
+    }
+    properties: Record<string, any>
+  }>
 }
 
 const props = defineProps<{ controls: Controls }>()
@@ -51,7 +63,7 @@ const tooltip = reactive({
   data: {} as Record<string, any>,
 })
 
-let map: Map | null = null
+let map: MapLibreMap | null = null
 let dotLayerAdded = false
 
 async function loadDotData() {
@@ -66,18 +78,18 @@ async function loadDotData() {
   })
 }
 
-function makeDotGeoJSON() {
+function makeDotGeoJSON(): DotGeoJSON {
   const features = dotData.value
     .filter((d) => d.Date === props.controls.selectedDate && Number(d.Hour) === Number(props.controls.selectedHour))
     .map((d, i) => ({
-      type: 'Feature',
+      type: 'Feature' as const,
       geometry: {
-        type: 'Point',
+        type: 'Point' as const,
         coordinates: [Number(d.lon || d.Longitude), Number(d.lat || d.Latitude)],
       },
       properties: { ...d, color: d.color || '#ccc', id: i },
     }))
-  return { type: 'FeatureCollection', features }
+  return { type: 'FeatureCollection' as const, features }
 }
 
 function updateDotsLayer() {

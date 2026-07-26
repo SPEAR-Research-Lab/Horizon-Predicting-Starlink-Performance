@@ -23,13 +23,25 @@ import MapControls from './MapControls.vue'
 import TooltipCard from './TooltipCard.vue'
 import { fetchGridPredictions } from './FetchData.vue'
 import { ref, reactive, watch, onMounted, nextTick } from 'vue'
-import maplibregl, { Map } from 'maplibre-gl'
+import maplibregl, { Map as MapLibreMap } from 'maplibre-gl'
 import * as h3 from 'h3-js'
 
 interface Controls {
   selectedDate: string
   selectedHour: number
   allowedDates: string[]
+}
+
+type GridGeoJSON = {
+  type: 'FeatureCollection'
+  features: Array<{
+    type: 'Feature'
+    geometry: {
+      type: 'Polygon'
+      coordinates: number[][][]
+    }
+    properties: Record<string, any>
+  }>
 }
 
 const props = defineProps<{ controls: Controls }>()
@@ -56,9 +68,12 @@ const predictionsByRes = ref<Record<number, Record<string, any[]>>>({})
 const currentResolution = ref(2)
 const loading = ref(false)
 
-let map: Map
+let map: MapLibreMap
 let mapLoaded = false
 let zoomDebounceTimer: ReturnType<typeof setTimeout> | null = null
+let renderFrame: number | null = null
+let lastRenderedKey = ''
+const geojsonCache = new globalThis.Map<string, GridGeoJSON>()
 
 function getResolutionForZoom(zoom: number): number {
   if (zoom < 4) return 2
@@ -96,9 +111,14 @@ function crossesAntimeridian(coords: [number, number][]): boolean {
   return false
 }
 
-function makeGeoJSON() {
+function makeGeoJSON(): GridGeoJSON {
   const resData = predictionsByRes.value[currentResolution.value]
   if (!resData) return { type: 'FeatureCollection', features: [] }
+
+  const cacheKey = `${currentResolution.value}:${props.controls.selectedDate}:${props.controls.selectedHour}`
+  const cached = geojsonCache.get(cacheKey)
+  if (cached) return cached
+
   const features = Object.keys(resData)
     .map((h3Index) => {
       const pred = getPrediction(resData, h3Index, props.controls.selectedDate, props.controls.selectedHour)
@@ -107,19 +127,37 @@ function makeGeoJSON() {
       if (crossesAntimeridian(boundary)) return null
 
       return {
-        type: 'Feature',
-        geometry: { type: 'Polygon', coordinates: [[...boundary, boundary[0]]] },
+        type: 'Feature' as const,
+        geometry: { type: 'Polygon' as const, coordinates: [[...boundary, boundary[0]]] },
         properties: { h3Index, ...pred, color: pred.color },
       }
     })
-    .filter(Boolean)
-  return { type: 'FeatureCollection', features }
+    .filter((feature): feature is NonNullable<typeof feature> => feature !== null)
+
+  const geojson: GridGeoJSON = { type: 'FeatureCollection', features }
+  geojsonCache.set(cacheKey, geojson)
+  return geojson
+}
+
+function scheduleUpdateLayer() {
+  if (!mapLoaded) return
+  if (renderFrame !== null) cancelAnimationFrame(renderFrame)
+  renderFrame = window.requestAnimationFrame(() => {
+    renderFrame = null
+    updateLayer()
+  })
 }
 
 function updateLayer() {
   if (!mapLoaded) return
+  const cacheKey = `${currentResolution.value}:${props.controls.selectedDate}:${props.controls.selectedHour}`
+  if (lastRenderedKey === cacheKey) return
+
   const source = map.getSource('prediction-grid') as maplibregl.GeoJSONSource
-  if (source) source.setData(makeGeoJSON())
+  if (source) {
+    source.setData(makeGeoJSON())
+    lastRenderedKey = cacheKey
+  }
 }
 
 onMounted(async () => {
@@ -181,15 +219,17 @@ onMounted(async () => {
         if (newRes !== currentResolution.value) {
           currentResolution.value = newRes
           await loadResolution(newRes)
-          updateLayer()
+          scheduleUpdateLayer()
         }
       }, 300)
     })
 
-    map.on('moveend', () => { updateLayer() })
+    map.on('moveend', () => { scheduleUpdateLayer() })
 
     updateLayer()
-    watch(() => [props.controls.selectedDate, props.controls.selectedHour], updateLayer)
+    watch(() => [props.controls.selectedDate, props.controls.selectedHour], () => {
+      scheduleUpdateLayer()
+    })
   })
 })
 </script>
