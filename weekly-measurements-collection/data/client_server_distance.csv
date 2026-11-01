@@ -4986,10 +4986,10 @@ Aurich,DE,Hamburg,DE,167.16416695986504
 Dakar,SN,Lagos,NG,2450.4646496995465
 Rabat,MA,Lisbon,PT,559.6954314548908
 Imler,US,New York,US,393.73158605349056
-Mount Pleasant,US,New York,US,1016.2830964774283
+Mount Pleasant,US,New York,US,1016.2830964774284
 Purranque,CL,Santiago,CL,859.5182347829079
 Atibaia,BR,Sao Paulo,BR,48.726805841085024
-Belo Horizonte,BR,Sao Paulo,BR,488.24728319993653
+Belo Horizonte,BR,Sao Paulo,BR,488.2472831999365
 Guarulhos,BR,Sao Paulo,BR,13.838370458064206
 Ipeúna,BR,Sao Paulo,BR,165.88590050991814
 Cariacica,BR,Sao Paulo,BR,737.8830153675157
@@ -5002,8 +5002,8 @@ Dungog,AU,Sydney,AU,170.18017556881009
 Lower Portland,AU,Sydney,AU,56.43671718141433
 Eighty Four,US,Toronto,CA,400.28722626533903
 Reynoldsville,US,Washington,US,396.1337008687527
-Shingle Springs,US,Kalispell,US,1186.7744334711563
-Omaha,US,Pineland,US,1126.7683903577617
+Shingle Springs,US,Kalispell,US,1186.7744334711565
+Omaha,US,Pineland,US,1126.7683903577615
 Indianapolis,US,Benzonia,US,538.103878941073
 Wichita,US,Pineland,US,778.5970071316827
 Topeka,US,Pineland,US,877.9480607582141
@@ -5011,31 +5011,31 @@ Columbus,US,Benzonia,US,575.2220752746969
 Louisville,US,Benzonia,US,717.9000383724897
 Winnipeg,CA,Overton,US,1963.9327430900948
 Little Rock,US,Pineland,US,414.2087732314283
-Louisville,US,Lakehurst,US,1001.3371581663669
+Louisville,US,Lakehurst,US,1001.3371581663667
 Huntsville,US,Lakehurst,US,1239.903238875294
 Santo Domingo,DO,Mason,US,2699.32840822643
 Cheyenne,US,Piedmont,US,1542.0299487556122
 Nassau,BS,Mason,US,1715.7486959531986
 San Jose,CR,Mason,US,3259.834879459553
 Bangui,CF,"Soissons, Aisne",ZA,5192.41042042262
-Charlotte Amalie,VI,Mason,US,2985.4347434718793
-Tegucigalpa,HN,Mason,US,2812.5351469750894
-Greenback,US,Lakehurst,US,992.5704064205089
+Charlotte Amalie,VI,Mason,US,2985.4347434718798
+Tegucigalpa,HN,Mason,US,2812.535146975089
+Greenback,US,Lakehurst,US,992.5704064205088
 Santa Cruz de la Sierra,BO,Paraíso das Águas,BR,1084.621756861236
 San Salvador,SV,Mason,US,2883.3531687824125
 Jucuapa,SV,Mason,US,2891.2084476078394
 Minneapolis,US,Overton,US,1416.3490176735531
-Pirai,BR,Paraíso das Águas,BR,1028.9842040452081
+Pirai,BR,Paraíso das Águas,BR,1028.984204045208
 El Paso,US,Kalispell,US,1935.8162789124992
 Puerto Penasco,MX,Kalispell,US,1877.4745224902213
 Clarksville,US,Benzonia,US,900.2936931043731
 Albion,JM,Mason,US,2493.484549035582
 Albuquerque,US,Piedmont,US,1427.1383721954223
-Patagonia,US,Kalispell,US,1876.0144950925358
+Patagonia,US,Kalispell,US,1876.014495092536
 Honolulu,US,Kalispell,US,4876.986860543253
 Ciudad Valles,MX,Mason,US,2379.972658216619
-Amarillo,US,Piedmont,US,1846.5168504616806
-Managua,NI,Mason,US,3022.1046569567166
+Amarillo,US,Piedmont,US,1846.5168504616809
+Managua,NI,Mason,US,3022.104656956717
 Niamey,NE,"Soissons, Aisne",ZA,3979.169779968377
 Madison,US,Overton,US,1295.9987479161116
 Porto Alegre,BR,Paraíso das Águas,BR,1232.8865913942418
@@ -5048,9 +5048,9 @@ Fort-de-France,MQ,Mason,US,3561.3414063756754
 Mogadishu,SO,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,6493.608615875415
 Chunga,ZM,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7290.446819661039
 Tempe,US,Kalispell,US,1658.7138869836144
-Des Moines,US,Pineland,US,1146.1495396928801
+Des Moines,US,Pineland,US,1146.14953969288
 Fargo,US,Overton,US,1627.605106988785
-Benjamin Constant,BR,Paraíso das Águas,BR,2458.8600355111193
+Benjamin Constant,BR,Paraíso das Águas,BR,2458.86003551112
 Toamasina,MG,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8597.208467733577
 Livingstone,ZM,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7462.492748195741
 Asuncion,PY,Paraíso das Águas,BR,842.7823404193484
@@ -5064,11 +5064,11 @@ Los Negros,BO,Paraíso das Águas,BR,1177.7713050520497
 Topeka,US,Piedmont,US,2312.6660191198307
 Wa,GH,"Soissons, Aisne",ZA,4392.507255595926
 Quito,EC,Paraíso das Águas,BR,3475.5978269362745
-Juazeiro,BR,Bataguassu,BR,1865.3601559447682
+Juazeiro,BR,Bataguassu,BR,1865.360155944768
 Betim,BR,Paraíso das Águas,BR,931.1044278150446
-Leon de los Aldama,MX,Heroica Caborca,MX,1491.9242533234121
+Leon de los Aldama,MX,Heroica Caborca,MX,1491.924253323412
 Hell-Ville,MG,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8089.98355131059
-Atlanta,US,Lakehurst,US,1136.1037015339841
+Atlanta,US,Lakehurst,US,1136.103701533984
 Charleston,US,Lakehurst,US,945.7480380252002
 Charlotte,US,Lakehurst,US,784.3426240753337
 Chicago,US,Benzonia,US,335.0692428232137
@@ -5077,17 +5077,52 @@ Detroit,US,Benzonia,US,347.17771284518017
 Fortaleza,BR,Bataguassu,BR,2493.1508342122106
 Guatemala City,GT,Mason,US,2805.4310500182096
 Kansas City,US,Pineland,US,875.3689362047842
-Kingston,JM,Mason,US,2478.9448942616077
+Kingston,JM,Mason,US,2478.944894261608
 Los Angeles,US,Kalispell,US,1602.4184017493635
 Mexico City,MX,Kalispell,US,3474.0848146701223
 Mexico City,MX,Heroica Caborca,MX,1810.066834993903
 Miami,US,Mason,US,1553.017884586024
 Milwaukee,US,Overton,US,1346.621989018959
-Milwaukee,US,Benzonia,US,229.13091741494353
+Milwaukee,US,Benzonia,US,229.13091741494355
 Nashville,US,Lakehurst,US,1173.0445183928016
 Oklahoma City,US,Pineland,US,572.2035636665471
 Phoenix,US,Kalispell,US,1636.8647751430155
 Port-au-Prince,HT,Mason,US,2579.3391221620445
 San Juan,PR,Mason,US,2913.56497839625
 Sao Paulo,BR,Paraíso das Águas,BR,830.1238861337808
-Toronto,CA,Overton,US,1864.4261292061647
+Toronto,CA,Overton,US,1864.426129206165
+Blairsville,US,Toronto,CA,1060.3063908512286
+North Myrtle Beach,US,New York,US,872.3183688922243
+Clearfield,US,Washington,US,2979.092877970915
+Imler,US,Washington,US,194.05951996494912
+Johnstown,US,Washington,US,227.16318194345044
+Ottawa,CA,Montreal,CA,167.08986173659676
+Rocky Comfort,US,Chicago,US,1078.60858835947
+Torshavn,FO,Dublin,IE,963.889695882514
+Winterport,US,Montreal,CA,383.73857223632695
+Bridgetown,BB,Mason,US,3787.844864596481
+Dangriga,BZ,Mason,US,2510.4267947994267
+Ellison Bay,US,Benzonia,US,104.12678144523805
+Freetown,SL,"Soissons, Aisne",ZA,4789.990151296049
+Gwanda,ZW,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7896.731847935278
+Huehuetenango,GT,Mason,US,2754.830959207318
+Kingstown,VC,Mason,US,3683.1705115976556
+Marigot,MF,Mason,US,3123.783169113593
+Miami,US,Lakehurst,US,1670.8691914208787
+Moneague,JM,Mason,US,2437.8068074425414
+Monrovia,US,Kalispell,US,1589.9042636472511
+Moramanga,MG,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,8604.130004172104
+Moyuta,GT,Mason,US,2862.812588212813
+Mufulira,ZM,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,6999.375596883281
+Nampula,MZ,"Javerlhac-et-la-Chapelle-Saint-Robert, Dordogne",ZA,7758.79855823732
+Pagosa Springs,US,Piedmont,US,1344.8573232031185
+Port Harcourt,NG,"Soissons, Aisne",ZA,4951.256152819378
+Porto Alegre,BR,Rio de Janeiro,BR,1123.0317480657811
+Red Lake,CA,Overton,US,2084.0307857115854
+Road Town,VG,Mason,US,2997.799997946361
+Roseau,DM,Mason,US,3478.0319441568013
+San Rafael del Yuma,DO,Mason,US,2766.092769348318
+Santa Tecla,SV,Mason,US,2886.9822081128364
+Temozon,MX,Mason,US,2090.296122285635
+Tilbury,CA,Benzonia,US,396.154204933489
+Tremembe,BR,Paraíso das Águas,BR,889.7297432659282
